@@ -13,6 +13,11 @@ public:
 
 private slots:
     void infoButtonClick();
+    void chooseMeasurementTable();
+    void chooseMeasuringSystemTable();
+    void chooseSampleTable();
+    void chooseEquipmentTable();
+    void openFileDialog();
 
 private:
     Ui::FFSDatabaseInterfaceClass ui;
