@@ -1,6 +1,7 @@
 #include "FFSDatabaseInterface.h"
 #include "AboutForm.h"
 #include <QFileDialog>
+#include "FFSDatabaseInterfaceFormController.h"
 
 FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent)
 {
@@ -41,12 +42,13 @@ void FFSDatabaseInterface::chooseEquipmentTable()
 
 void FFSDatabaseInterface::openFileDialog()
 {
-    QFileDialog::getOpenFileName();
+    QString filePath = QFileDialog::getOpenFileName();
+    FFSDatabaseInterfaceFormController::ManageFileImportRequest(filePath);
 }
 
 FFSDatabaseInterface::~FFSDatabaseInterface()
 {
- 
+    delete& ui;
 }
 
 

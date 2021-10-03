@@ -85,6 +85,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DbContext.cpp" />
+    <ClCompile Include="DbImporter.cpp" />
+    <ClCompile Include="FFSDatabaseInterfaceFormController.cpp" />
+    <ClCompile Include="FFSDatabaseInterfaceService.cpp" />
+    <ClCompile Include="RawDataParser.cpp" />
     <QtRcc Include="FFSDatabaseInterface.qrc" />
     <QtUic Include="AboutForm.ui" />
     <QtUic Include="FFSDatabaseInterface.ui" />
@@ -95,6 +100,13 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AboutForm.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DbContext.h" />
+    <ClInclude Include="DbImporter.h" />
+    <ClInclude Include="FFSDatabaseInterfaceFormController.h" />
+    <ClInclude Include="FFSDatabaseInterfaceService.h" />
+    <ClInclude Include="RawDataParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

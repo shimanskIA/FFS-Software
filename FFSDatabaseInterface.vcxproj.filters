@@ -1,57 +1,117 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Form Files">
-      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
-      <Extensions>ui</Extensions>
-    </Filter>
     <Filter Include="Translation Files">
       <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
       <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="View">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="View\Header Files">
+      <UniqueIdentifier>{6571d39e-973b-4bad-b53e-aded74c0327d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View\Form Files">
+      <UniqueIdentifier>{6312c95e-20b7-4149-b002-93d292365a10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View\Source Files">
+      <UniqueIdentifier>{93f898ce-e69a-49fe-abb0-31000983fdb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{ad29448e-2c1a-4f4c-8166-1428dcff8c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller\Header Files">
+      <UniqueIdentifier>{7c2a9e21-809d-4ff3-b2cf-2fb3dbc2eb4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller\Source FIles">
+      <UniqueIdentifier>{5f080766-12e3-4d76-9cc7-c5a398b339b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{a180fd36-24c7-4436-8d9e-d80c3e5d4d08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Header Files">
+      <UniqueIdentifier>{05c96778-f1a1-4f9c-a096-8d9c38f40d24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Source Files">
+      <UniqueIdentifier>{381bb627-04ec-442b-a44c-2bb2fccccd3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Entities">
+      <UniqueIdentifier>{0c50fa7d-893d-4979-a67c-067728eeeda4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Entities\Header Files">
+      <UniqueIdentifier>{99ca05a2-0e13-41c2-932e-60a36732b497}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Entities\Source Files">
+      <UniqueIdentifier>{87311034-5d39-41f9-be91-e9296e1538be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FFSDatabaseInterface.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtMoc Include="FFSDatabaseInterface.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="FFSDatabaseInterface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EntryPoint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AboutForm.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntryPoint.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FFSDatabaseInterface.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FFSDatabaseInterfaceFormController.cpp">
+      <Filter>Controller\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="DbContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FFSDatabaseInterfaceService.cpp">
+      <Filter>Model\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DbImporter.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RawDataParser.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
-      <Filter>Form Files</Filter>
+      <Filter>View\Form Files</Filter>
     </QtUic>
     <QtUic Include="AboutForm.ui">
-      <Filter>Form Files</Filter>
+      <Filter>View\Form Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AboutForm.h">
-      <Filter>Header Files</Filter>
+      <Filter>View\Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="FFSDatabaseInterface.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FFSDatabaseInterfaceFormController.h">
+      <Filter>Controller\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DbContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FFSDatabaseInterfaceService.h">
+      <Filter>Model\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DbImporter.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RawDataParser.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
