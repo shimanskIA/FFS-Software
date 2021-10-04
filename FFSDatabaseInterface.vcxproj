@@ -85,11 +85,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CharacteristicsContext.cpp" />
+    <ClCompile Include="CharacteristicTypeContext.cpp" />
     <ClCompile Include="DbContext.cpp" />
     <ClCompile Include="DbImporter.cpp" />
+    <ClCompile Include="EquipmentContext.cpp" />
+    <ClCompile Include="EquipmentHasMeasuringSystemContext.cpp" />
+    <ClCompile Include="EquipmentParameterContext.cpp" />
     <ClCompile Include="FFSDatabaseInterfaceFormController.cpp" />
     <ClCompile Include="FFSDatabaseInterfaceService.cpp" />
+    <ClCompile Include="JsonInteractionHelper.cpp" />
+    <ClCompile Include="MeasurementContext.cpp" />
+    <ClCompile Include="MeasurementParameterContext.cpp" />
+    <ClCompile Include="MeasuringSystemContext.cpp" />
     <ClCompile Include="RawDataParser.cpp" />
+    <ClCompile Include="SampleContext.cpp" />
     <QtRcc Include="FFSDatabaseInterface.qrc" />
     <QtUic Include="AboutForm.ui" />
     <QtUic Include="FFSDatabaseInterface.ui" />
@@ -102,11 +112,24 @@
     <QtMoc Include="AboutForm.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharacteristicsContext.h" />
+    <ClInclude Include="CharacteristicTypeContext.h" />
     <ClInclude Include="DbContext.h" />
     <ClInclude Include="DbImporter.h" />
+    <ClInclude Include="EquipmentContext.h" />
+    <ClInclude Include="EquipmentHasMeasuringSystemContext.h" />
+    <ClInclude Include="EquipmentParameterContext.h" />
     <ClInclude Include="FFSDatabaseInterfaceFormController.h" />
     <ClInclude Include="FFSDatabaseInterfaceService.h" />
+    <ClInclude Include="JsonInteractionHelper.h" />
+    <ClInclude Include="MeasurementContext.h" />
+    <ClInclude Include="MeasurementParameterContext.h" />
+    <ClInclude Include="MeasuringSystemContext.h" />
     <ClInclude Include="RawDataParser.h" />
+    <ClInclude Include="SampleContext.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tablesstate.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -49,6 +49,18 @@
     <Filter Include="Model\Entities\Source Files">
       <UniqueIdentifier>{87311034-5d39-41f9-be91-e9296e1538be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Model\Resource Files">
+      <UniqueIdentifier>{b4f43c69-a858-4c83-8639-bdb5a0d188c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Helpers">
+      <UniqueIdentifier>{33d799c7-552a-4098-bb5d-812f0bb2388a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Helpers\Header Files">
+      <UniqueIdentifier>{c9b715b5-db88-4729-9db1-7fa3f6a87f4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Helpers\Source Files">
+      <UniqueIdentifier>{c1a7b33b-2681-4009-af2c-d9091ad5620e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FFSDatabaseInterface.qrc">
@@ -78,6 +90,36 @@
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RawDataParser.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MeasurementContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MeasurementParameterContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonInteractionHelper.cpp">
+      <Filter>Model\Helpers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MeasuringSystemContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentParameterContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacteristicsContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacteristicTypeContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentHasMeasuringSystemContext.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,5 +155,40 @@
     <ClInclude Include="RawDataParser.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MeasurementContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeasurementParameterContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonInteractionHelper.h">
+      <Filter>Model\Helpers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeasuringSystemContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentParameterContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacteristicsContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacteristicTypeContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentHasMeasuringSystemContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tablesstate.json">
+      <Filter>Model\Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

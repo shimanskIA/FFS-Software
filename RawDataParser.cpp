@@ -1,5 +1,9 @@
 #include "RawDataParser.h"
 
+
+#include <QTextStream>
+#include <QFile>
+
 RawDataParser::RawDataParser(QString fileLink)
 {
 	this->fileLink = fileLink;
@@ -17,14 +21,18 @@ void RawDataParser::SetFileLink(QString fileLink)
 
 void RawDataParser::ParseRawDataFile(DbContext dbContext)
 {
-	QString parsingType = FindParsingType();
-	if (parsingType == "Carl Zeiss ConfoCor1")
+	QString header = ReadHeader();
+	if (header.contains("Carl Zeiss ConfoCor1"))
 	{
 		CZConfoCor1Parser(dbContext);
 	}
-	else if (parsingType == "Carl Zeiss ConfoCor2")
+	else if (header.contains("Carl Zeiss ConfoCor2"))
 	{
 		CZConfoCor2Parser(dbContext);
+	}
+	else
+	{
+		SomeOtherDeviceParser(dbContext);
 	}
 	
 }
@@ -39,7 +47,23 @@ void RawDataParser::CZConfoCor2Parser(DbContext dbContext)
 
 }
 
-QString RawDataParser::FindParsingType()
+void RawDataParser::SomeOtherDeviceParser(DbContext dbContext)
 {
-	return "sum string";
+
+}
+
+QString RawDataParser::ReadHeader()
+{
+	QFile file("C:\\colours.txt");
+
+	if (!file.open(QIODevice::ReadOnly)) 
+	{
+		qWarning("Cannot open file for reading"); 
+		return 1;
+	}
+
+	QTextStream in(&file);
+	QString header = in.readLine(); 
+	file.close();
+	return header;
 }

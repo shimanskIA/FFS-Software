@@ -2,60 +2,79 @@
 
 DbContext::DbContext()
 {
-
+	measurements = *(new QList<MeasurementContext>());
+	measurementParameters = *(new QList<MeasurementParameterContext>());
+	samples = *(new QList<SampleContext>());
+	measuringSystems = *(new QList<MeasuringSystemContext>());
+	equipments = *(new QList<EquipmentContext>());
+	equipmentParameters = *(new QList<EquipmentParameterContext>());
+	characteristics = *(new QList<CharacteristicsContext>());
+	characteristicTypes = *(new QList<CharacteristicTypeContext>());
+	bindings = *(new QList<EquipmentHasMeasuringSystemContext>());
 }
 
-void DbContext::SetMeasurementName(QString measurementName)
+DbContext::~DbContext()
 {
-	this->measurementName = measurementName;
+	delete& measurements;
+	delete& measurementParameters;
+	delete& samples;
+	delete& measuringSystems;
+	delete& equipments;
+	delete& equipmentParameters;
+	delete& characteristics;
+	delete& characteristicTypes;
+	delete& bindings;
 }
 
-void DbContext::SetMeasurementDate(QString measurementDate)
+void DbContext::AddNewMeasurement(MeasurementContext measurementContext)
 {
-	this->measurementDate = measurementDate;
+	measurements.append(measurementContext);
+	measurementContext.IncrementId();
 }
 
-void DbContext::SetMeasurementFileLink(QString measurementFileLink)
+void DbContext::AddNewMeasurementParameter(MeasurementParameterContext measurementParameterContext)
 {
-	this->measurementFileLink = measurementFileLink;
+	measurementParameters.append(measurementParameterContext);
+	measurementParameterContext.IncrementId();
 }
 
-void DbContext::SetNumberOfPoints(QString numberOfPoints)
+void DbContext::AddNewSample(SampleContext sampleContext)
 {
-	this->numberOfPoints = numberOfPoints.toInt();
+	samples.append(sampleContext);
+	sampleContext.IncrementId();
 }
 
-void DbContext::SetBinTime(QString binTime)
+void DbContext::AddNewMeasuringSystem(MeasuringSystemContext measuringSystemContext)
 {
-	this->binTime = binTime.toDouble();
+	measuringSystems.append(measuringSystemContext);
+	measuringSystemContext.IncrementId();
 }
 
-void DbContext::SetSampleName(QString sampleName)
+void DbContext::AddNewEquipment(EquipmentContext equipmentContext)
 {
-	this->sampleName = sampleName;
+	equipments.append(equipmentContext);
+	equipmentContext.IncrementId();
 }
 
-void DbContext::SetSampleDescription(QString sampleDescription)
+void DbContext::AddNewEquipmentParameter(EquipmentParameterContext equipmentParameterContext)
 {
-	this->sampleDescription = sampleDescription;
+	equipmentParameters.append(equipmentParameterContext);
+	equipmentParameterContext.IncrementId();
 }
 
-void DbContext::SetMeasurementParameters(QString parameterName, QString parameterValue)
+void DbContext::AddNewCharacteristicsSet(CharacteristicsContext characteristicsContext)
 {
-	this->measurementParameters.insert(parameterName, parameterValue.toInt());
+	characteristics.append(characteristicsContext);
+	characteristicsContext.IncrementId();
 }
 
-void DbContext::SetMeasuringSystemName(QString measuringSystemName)
+void DbContext::AddNewCharacteristicType(CharacteristicTypeContext characteristicTypeContext)
 {
-	this->measuringSystemName = measuringSystemName;
+	characteristicTypes.append(characteristicTypeContext);
+	characteristicTypeContext.IncrementId();
 }
 
-void DbContext::SetEquipment(QString equipmentName, QString equipmentDescription)
+void DbContext::AddNewBinding(EquipmentHasMeasuringSystemContext binding)
 {
-	this->equipment.insert(equipmentName, equipmentDescription);
-}
-
-void DbContext::SetEquipmentParameters(QString parameterName, QString parameterValue)
-{
-	this->equipmentParameters.insert(parameterName, parameterValue.toDouble());
+	bindings.append(binding);
 }

@@ -12,7 +12,8 @@ public:
 	void ParseRawDataFile(DbContext dbContext);
 	void CZConfoCor2Parser(DbContext dbContext);
 	void CZConfoCor1Parser(DbContext dbContext);
-	QString FindParsingType();
+	void SomeOtherDeviceParser(DbContext dbContext);
+	QString ReadHeader();
 
 private:
 	QString fileLink;

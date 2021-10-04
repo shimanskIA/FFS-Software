@@ -1,41 +1,41 @@
 #pragma once
 
-#include <QString>
-#include <QMap>
+#include "MeasurementContext.h"
+#include "MeasurementParameterContext.h"
+#include "SampleContext.h"
+#include "MeasuringSystemContext.h"
+#include "EquipmentContext.h"
+#include "EquipmentParameterContext.h"
+#include "CharacteristicsContext.h"
+#include "CharacteristicTypeContext.h"
+#include "EquipmentHasMeasuringSystemContext.h"
+
+#include <QList>
 
 class DbContext
 {
 
 public:
     DbContext();
-    void SetMeasurementName(QString measurementName);
-    void SetMeasurementDate(QString measurementDate);
-    void SetMeasurementFileLink(QString measurementFileLink);
-    void SetNumberOfPoints(QString measurementFileLink);
-    void SetBinTime(QString binTime);
-    void SetSampleName(QString sampleName);
-    void SetSampleDescription(QString sampleDescription);
-    void SetMeasurementParameters(QString parameterName, QString parameterValue);
-    void SetMeasuringSystemName(QString measuringSystemName);
-    void SetEquipment(QString equipmentName, QString equipmentDescription);
-    void SetEquipmentParameters(QString parameterName, QString parameterValue);
+    ~DbContext();
+    void AddNewMeasurement(MeasurementContext measurementContext);
+    void AddNewMeasurementParameter(MeasurementParameterContext measurementParameterContext);
+    void AddNewSample(SampleContext sampleContext);
+    void AddNewMeasuringSystem(MeasuringSystemContext measuringSystemContext);
+    void AddNewEquipment(EquipmentContext equipmentContext);
+    void AddNewEquipmentParameter(EquipmentParameterContext equipmentParameterContext);
+    void AddNewCharacteristicsSet(CharacteristicsContext characteristicsContext);
+    void AddNewCharacteristicType(CharacteristicTypeContext characteristicTypeContext);
+    void AddNewBinding(EquipmentHasMeasuringSystemContext binding);
 
 private:
-    QString measurementName;
-    QString measurementDate;
-    QString measurementFileLink;
-    int numberOfPoints;
-    double binTime;
-
-    QString sampleName;
-    QString sampleDescription;
-
-    QMap<QString, double> measurementParameters;
-
-    QString measuringSystemName;
-
-    QMap<QString, QString> equipment;
-
-    QMap<QString, double> equipmentParameters;
-
+    QList<MeasurementContext> measurements;
+    QList<MeasurementParameterContext> measurementParameters;
+    QList<SampleContext> samples;
+    QList<MeasuringSystemContext> measuringSystems;
+    QList<EquipmentContext> equipments;
+    QList<EquipmentParameterContext> equipmentParameters;
+    QList<CharacteristicsContext> characteristics;
+    QList<CharacteristicTypeContext> characteristicTypes;
+    QList<EquipmentHasMeasuringSystemContext> bindings;
 };
