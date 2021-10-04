@@ -44,7 +44,21 @@ void RawDataParser::CZConfoCor1Parser(DbContext dbContext)
 
 void RawDataParser::CZConfoCor2Parser(DbContext dbContext)
 {
+	QFile file(fileLink);
 
+	if (!file.open(QIODevice::ReadOnly)) 
+	{
+		qWarning("Cannot open file for reading"); 
+	}
+
+	QTextStream in(&file);
+
+	while (!in.atEnd()) 
+	{ 
+		QString line = in.readLine(); 
+	}
+
+	file.close();
 }
 
 void RawDataParser::SomeOtherDeviceParser(DbContext dbContext)
@@ -54,7 +68,7 @@ void RawDataParser::SomeOtherDeviceParser(DbContext dbContext)
 
 QString RawDataParser::ReadHeader()
 {
-	QFile file("C:\\colours.txt");
+	QFile file(fileLink);
 
 	if (!file.open(QIODevice::ReadOnly)) 
 	{
