@@ -9,8 +9,10 @@ public:
 	void SetName(QString name);
 	void SetDateTime(QString dateTime);
 	void SetFileLink(QString fileLink);
-	void SetNumberOfPoints(int numberOfPoints);
-	void SetBinTime(double binTime);
+	void SetNumberOfChannels(int numberOfChannels);
+	void SetRepeatCount(int repeatCount);
+	void SetKineticsCount(int kineticsCount);
+	void SetNumberPositions(int numberPositions);
 	void SetFKSample(int fk_sample);
 	void SetFKMeasuringSystem(int fk_measuring_system);
 	void IncrementId();
@@ -21,8 +23,10 @@ private:
 	QString name;
 	QString dateTime;
 	QString fileLink;
-	int numberOfPoints;
-	double binTime;
+	int numberOfChannels;
+	int repeatCount;
+	int numberPositions;
+	int kineticsCount;
 	int fk_sample;
 	int fk_measuring_system;
 

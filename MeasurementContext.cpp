@@ -21,14 +21,24 @@ void MeasurementContext::SetFileLink(QString fileLink)
 	this->fileLink = fileLink;
 }
 
-void MeasurementContext::SetNumberOfPoints(int numberOfPoints)
+void MeasurementContext::SetNumberOfChannels(int numberOfChannels)
 {
-	this->numberOfPoints = numberOfPoints;
+	this->numberOfChannels = numberOfChannels;
 }
 
-void MeasurementContext::SetBinTime(double binTime)
+void MeasurementContext::SetRepeatCount(int repeatCount)
 {
-	this->binTime = binTime;
+	this->repeatCount = repeatCount;
+}
+
+void MeasurementContext::SetKineticsCount(int kineticsCount)
+{
+	this->kineticsCount = kineticsCount;
+}
+
+void MeasurementContext::SetNumberPositions(int numberPositions)
+{
+	this->numberPositions = numberPositions;
 }
 
 void MeasurementContext::SetFKSample(int fk_sample)

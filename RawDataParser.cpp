@@ -7,11 +7,14 @@
 RawDataParser::RawDataParser(QString fileLink)
 {
 	this->fileLink = fileLink;
+	this->MPstartFlag = false;
+	this->EQstartFlag = false;
 }
 
 RawDataParser::RawDataParser()
 {
-
+	this->MPstartFlag = false;
+	this->EQstartFlag = false;
 }
 
 void RawDataParser::SetFileLink(QString fileLink)
@@ -52,10 +55,36 @@ void RawDataParser::CZConfoCor2Parser(DbContext dbContext)
 	}
 
 	QTextStream in(&file);
-
 	while (!in.atEnd()) 
 	{ 
 		QString line = in.readLine(); 
+		QStringList splittedLine;
+
+
+
+		/*if (EQstartFlag == true)
+		{
+
+		}
+		if (line.contains("BEGIN Lasers"))
+		{
+			MPstartFlag = false;
+			EQstartFlag = true;
+		}
+		if (MPstartFlag == true)
+		{
+			splittedLine = line.split('=');
+			measurementParameter = new MeasurementParameterContext();
+			measurementParameter->SetName(splittedLine[0].trimmed());
+			measurementParameter->SetValue(splittedLine[1].trimmed());
+			//measurementParameter->SetFKMeasurement();
+			measurementParameter->IncrementId();
+			dbContext.AddNewMeasurementParameter(*measurementParameter);
+		}
+		if (line.contains("BEGIN MeasureParameters"))
+		{
+			MPstartFlag = true;
+		}*/
 	}
 
 	file.close();

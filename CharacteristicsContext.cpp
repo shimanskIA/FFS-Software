@@ -22,6 +22,16 @@ void CharacteristicsContext::SetWeight(double weight)
 	this->weight = weight;
 }
 
+void CharacteristicsContext::SetBinTime(double binTime)
+{
+	this->binTime = binTime;
+}
+
+void CharacteristicsContext::SetNumberOfPoints(int numberOfPoints)
+{
+	this->numberOfPoints = numberOfPoints;
+}
+
 void CharacteristicsContext::SetFKMeasurement(int fk_measurement)
 {
 	this->fk_measurement = fk_measurement;

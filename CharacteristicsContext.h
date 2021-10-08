@@ -15,6 +15,8 @@ public:
 	void SetChannel(QString);
 	void SetPoint(Point point);
 	void SetWeight(double weight);
+	void SetBinTime(double binTime);
+	void SetNumberOfPoints(int numberOfPoints);
 	void SetFKMeasurement(int fk_measurement);
 	void SetFKCharacteristicType(int fk_characteristic_type);
 	void IncrementId();
@@ -26,6 +28,8 @@ private:
 	double x;
 	double y;
 	double weight;
+	double binTime;
+	int numberOfPoints;
 	int fk_measurement;
 	int fk_characteristic_type;
 

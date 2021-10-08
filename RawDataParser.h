@@ -17,4 +17,6 @@ public:
 
 private:
 	QString fileLink;
+	bool MPstartFlag;
+	bool EQstartFlag;
 };
