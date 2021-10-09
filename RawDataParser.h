@@ -8,6 +8,7 @@ class RawDataParser
 public:
 	RawDataParser(QString fileLink);
 	RawDataParser();
+	~RawDataParser();
 	void SetFileLink(QString fileLink);
 	void ParseRawDataFile(DbContext dbContext);
 	void CZConfoCor2Parser(DbContext dbContext);
@@ -17,6 +18,9 @@ public:
 
 private:
 	QString fileLink;
-	bool MPstartFlag;
-	bool EQstartFlag;
+	int dataSetNumber;
+	bool measurementReadFlag;
+	bool measureParametersReadFlag;
+
+	QString sampleTypes[7] = {"DNA", "RhGr", "Rh6G", "Cy5", "Cy4", "CFP", "YFP"};
 };

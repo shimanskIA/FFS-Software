@@ -9,7 +9,6 @@ class AboutForm : public QWidget
 
 public:
     AboutForm(QWidget* parent = Q_NULLPTR);
-    ~AboutForm();
 
 private:
     Ui::AboutForm ui;

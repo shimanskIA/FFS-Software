@@ -1,20 +1,26 @@
 #include "RawDataParser.h"
 
-
 #include <QTextStream>
 #include <QFile>
 
 RawDataParser::RawDataParser(QString fileLink)
 {
 	this->fileLink = fileLink;
-	this->MPstartFlag = false;
-	this->EQstartFlag = false;
+	this->dataSetNumber = 0;
+	this->measurementReadFlag = false;
+	this->measureParametersReadFlag = false;
 }
 
 RawDataParser::RawDataParser()
 {
-	this->MPstartFlag = false;
-	this->EQstartFlag = false;
+	this->dataSetNumber = 0;
+	this->measurementReadFlag = false;
+	this->measureParametersReadFlag = false;
+}
+
+RawDataParser::~RawDataParser()
+{
+
 }
 
 void RawDataParser::SetFileLink(QString fileLink)
@@ -55,36 +61,153 @@ void RawDataParser::CZConfoCor2Parser(DbContext dbContext)
 	}
 
 	QTextStream in(&file);
+
+	MeasurementContext* measurement = nullptr;
+	SampleContext* sample = nullptr;
+	MeasuringSystemContext* measuringSystem = new MeasuringSystemContext();
+
+	QStringList* samples = new QStringList();
+
 	while (!in.atEnd()) 
 	{ 
 		QString line = in.readLine(); 
-		QStringList splittedLine;
-
-
-
-		/*if (EQstartFlag == true)
+		if (line.contains("BEGIN FcsDataSet" + QString::number(dataSetNumber)))
 		{
-
+			if (sample != nullptr)
+			{
+				dbContext.AddNewSample(sample);
+			}
+			sample = new SampleContext();
+			if (measurement != nullptr)
+			{
+				dbContext.AddNewMeasurement(measurement);
+			}
+			measurement = new MeasurementContext();
+			measurement->SetFileLink(fileLink);
+			measurement->SetFKMeasuringSystem(measuringSystem->GetId());
+			measurement->SetFKSample(sample->GetId());
+			measurementReadFlag = true;
+			dataSetNumber++;
 		}
-		if (line.contains("BEGIN Lasers"))
+
+		else if (measurementReadFlag)
 		{
-			MPstartFlag = false;
-			EQstartFlag = true;
+			QStringList splittedLine;
+			if (line.contains("NumberChannels"))
+			{
+				splittedLine = line.split('=');
+				measurement->SetNumberOfChannels(splittedLine.last().trimmed().toInt());
+			}
+			else if (line.contains("RepeatCount"))
+			{
+				splittedLine = line.split('=');
+				measurement->SetRepeatCount(splittedLine.last().trimmed().toInt());
+			}
+			else if (line.contains("KineticsCount"))
+			{
+				splittedLine = line.split('=');
+				measurement->SetKineticsCount(splittedLine.last().trimmed().toInt());
+			}
+			else if (line.contains("NumberPositions"))
+			{
+				splittedLine = line.split('=');
+				measurement->SetNumberPositions(splittedLine.last().trimmed().toInt());
+				measurementReadFlag = false;
+			}
 		}
-		if (MPstartFlag == true)
+
+		else if (line.contains("BEGIN MeasureParameters"))
 		{
-			splittedLine = line.split('=');
-			measurementParameter = new MeasurementParameterContext();
-			measurementParameter->SetName(splittedLine[0].trimmed());
-			measurementParameter->SetValue(splittedLine[1].trimmed());
-			//measurementParameter->SetFKMeasurement();
-			measurementParameter->IncrementId();
-			dbContext.AddNewMeasurementParameter(*measurementParameter);
+			measureParametersReadFlag = true;
 		}
-		if (line.contains("BEGIN MeasureParameters"))
+
+		else if (measureParametersReadFlag)
 		{
-			MPstartFlag = true;
-		}*/
+			QStringList splittedLine = line.split('=');
+			QString parameterName = splittedLine.first().trimmed();
+			QString parameterValue = splittedLine.last().trimmed();
+			
+			if (parameterName.contains("MethodName"))
+			{
+				measurement->SetName(parameterValue);
+
+				for (int i = 0; i < sampleTypes->length(); i++)
+				{
+					if (parameterValue.contains(sampleTypes[i]))
+					{
+						samples->append(sampleTypes[i]);
+					}
+				}
+			}
+			else if (parameterName.contains("MeasureDate"))
+			{
+				measurement->SetDateTime(parameterValue);
+			}
+			else if (
+				parameterName.contains("MethodDate") || 
+				parameterName.contains("User") ||
+				parameterName.contains("MethodCategory") ||
+				parameterName.contains("Auto") ||
+				parameterName.contains("MethodStatus") ||
+				parameterName.contains("MeasureTask"))
+			{
+
+			}
+			else if (parameterName.contains("MeasureSampleComment"))
+			{
+				sample->SetDescription(parameterValue);
+
+				for (int i = 0; i < sampleTypes->length(); i++)
+				{
+					if (parameterValue.contains(sampleTypes[i]))
+					{
+						samples->append(sampleTypes[i]);
+					}
+				}
+			}
+			else if (line.contains("MethodComment"))
+			{
+
+				for (int i = 0; i < sampleTypes->length(); i++)
+				{
+					if (parameterValue.contains(sampleTypes[i]))
+					{
+						samples->append(sampleTypes[i]);
+					}
+				}
+			}
+			else
+			{
+				MeasurementParameterContext *measureParameter = new MeasurementParameterContext();
+				measureParameter->SetName(parameterName);
+				measureParameter->SetValue(parameterValue);
+				measureParameter->SetFKMeasurement(measurement->GetId());
+				dbContext.AddNewMeasurementParameter(measureParameter);
+				if (line.contains("SizePdHistogram"))
+				{
+					QString fullSampleName = "";
+					for (int i = 0; i < samples->length(); i++)
+					{
+						if (i == 0)
+						{
+							fullSampleName += samples->at(i);
+						}
+						else
+						{
+							fullSampleName += "/";
+							fullSampleName += samples->at(i);
+						}
+					}
+					sample->SetName(fullSampleName);
+					measureParametersReadFlag = false;
+				}
+			}
+		}
+
+		else if (line.contains("BEGIN Lasers"))
+		{
+			
+		}
 	}
 
 	file.close();

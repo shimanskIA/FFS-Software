@@ -3,6 +3,8 @@
 
 void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 {
-	DbImporter *dbImporter = new DbImporter(*(new DbContext()), *(new RawDataParser(fileLink)));
+	DbContext* dbContext = new DbContext();
+	RawDataParser* rawDataParser = new RawDataParser(fileLink);
+	DbImporter *dbImporter = new DbImporter(dbContext, rawDataParser);
 	dbImporter->ImportToDatabase();
 }

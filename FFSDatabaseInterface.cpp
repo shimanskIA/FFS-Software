@@ -11,7 +11,7 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.actionMeasuring_system, SIGNAL(triggered()), this, SLOT(chooseMeasuringSystemTable()));
     connect(ui.actionSample, SIGNAL(triggered()), this, SLOT(chooseSampleTable()));
     connect(ui.actionEquipment, SIGNAL(triggered()), this, SLOT(chooseEquipmentTable()));
-    connect(ui.actionExport, SIGNAL(triggered()), this, SLOT(openFileDialog()));
+    connect(ui.actionImport, SIGNAL(triggered()), this, SLOT(openFileDialog()));
 }
 
 void FFSDatabaseInterface::infoButtonClick()
@@ -44,11 +44,6 @@ void FFSDatabaseInterface::openFileDialog()
 {
     QString filePath = QFileDialog::getOpenFileName();
     FFSDatabaseInterfaceFormController::ManageFileImportRequest(filePath);
-}
-
-FFSDatabaseInterface::~FFSDatabaseInterface()
-{
-    delete& ui;
 }
 
 

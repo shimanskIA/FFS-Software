@@ -7,7 +7,7 @@ class DbImporter
 {
 
 public:
-    DbImporter(DbContext dbContext, RawDataParser rawDataParser);
+    DbImporter(DbContext* dbContext, RawDataParser* rawDataParser);
     ~DbImporter();
     void ImportToDatabase();
 

@@ -2,79 +2,88 @@
 
 DbContext::DbContext()
 {
-	measurements = *(new QList<MeasurementContext>());
-	measurementParameters = *(new QList<MeasurementParameterContext>());
-	samples = *(new QList<SampleContext>());
-	measuringSystems = *(new QList<MeasuringSystemContext>());
-	equipments = *(new QList<EquipmentContext>());
-	equipmentParameters = *(new QList<EquipmentParameterContext>());
-	characteristics = *(new QList<CharacteristicsContext>());
-	characteristicTypes = *(new QList<CharacteristicTypeContext>());
-	bindings = *(new QList<EquipmentHasMeasuringSystemContext>());
+	measurements = QList<MeasurementContext*>();
+	measurementParameters = QList<MeasurementParameterContext*>();
+	samples = QList<SampleContext*>();
+	measuringSystems = QList<MeasuringSystemContext*>();
+	equipments = QList<EquipmentContext*>();
+	equipmentParameters = QList<EquipmentParameterContext*>();
+	characteristics = QList<CharacteristicsContext*>();
+	characteristicTypes = QList<CharacteristicTypeContext*>();
+	bindings = QList<EquipmentHasMeasuringSystemContext*>();
 }
 
 DbContext::~DbContext()
 {
-	delete& measurements;
-	delete& measurementParameters;
-	delete& samples;
-	delete& measuringSystems;
-	delete& equipments;
-	delete& equipmentParameters;
-	delete& characteristics;
-	delete& characteristicTypes;
-	delete& bindings;
+	qDeleteAll(measurements);
+	measurements.clear();
+	qDeleteAll(measurementParameters);
+	measurementParameters.clear();
+	qDeleteAll(samples);
+	samples.clear();
+	qDeleteAll(measuringSystems);
+	measuringSystems.clear();
+	qDeleteAll(equipments);
+	equipments.clear();
+	qDeleteAll(equipmentParameters);
+	equipmentParameters.clear();
+	qDeleteAll(characteristics);
+	characteristics.clear();
+	qDeleteAll(characteristicTypes);
+	characteristicTypes.clear();
+	qDeleteAll(bindings);
+	bindings.clear();
 }
 
-void DbContext::AddNewMeasurement(MeasurementContext measurementContext)
+void DbContext::AddNewMeasurement(MeasurementContext* measurementContext)
 {
 	measurements.append(measurementContext);
-	measurementContext.IncrementId();
+	measurementContext->IncrementId();
 }
 
-void DbContext::AddNewMeasurementParameter(MeasurementParameterContext measurementParameterContext)
+void DbContext::AddNewMeasurementParameter(MeasurementParameterContext* measurementParameterContext)
 {
 	measurementParameters.append(measurementParameterContext);
-	measurementParameterContext.IncrementId();
+	measurementParameterContext->IncrementId();
 }
 
-void DbContext::AddNewSample(SampleContext sampleContext)
+void DbContext::AddNewSample(SampleContext* sampleContext)
 {
 	samples.append(sampleContext);
-	sampleContext.IncrementId();
+	sampleContext->IncrementId();
 }
 
-void DbContext::AddNewMeasuringSystem(MeasuringSystemContext measuringSystemContext)
+void DbContext::AddNewMeasuringSystem(MeasuringSystemContext* measuringSystemContext)
 {
 	measuringSystems.append(measuringSystemContext);
-	measuringSystemContext.IncrementId();
+	measuringSystemContext->IncrementId();
 }
 
-void DbContext::AddNewEquipment(EquipmentContext equipmentContext)
+void DbContext::AddNewEquipment(EquipmentContext* equipmentContext)
 {
 	equipments.append(equipmentContext);
-	equipmentContext.IncrementId();
+	equipmentContext->IncrementId();
 }
 
-void DbContext::AddNewEquipmentParameter(EquipmentParameterContext equipmentParameterContext)
+void DbContext::AddNewEquipmentParameter(EquipmentParameterContext* equipmentParameterContext)
 {
 	equipmentParameters.append(equipmentParameterContext);
-	equipmentParameterContext.IncrementId();
+	equipmentParameterContext->IncrementId();
 }
 
-void DbContext::AddNewCharacteristicsSet(CharacteristicsContext characteristicsContext)
+void DbContext::AddNewCharacteristicsSet(CharacteristicsContext* characteristicsContext)
 {
 	characteristics.append(characteristicsContext);
-	characteristicsContext.IncrementId();
+	characteristicsContext->IncrementId();
 }
 
-void DbContext::AddNewCharacteristicType(CharacteristicTypeContext characteristicTypeContext)
+void DbContext::AddNewCharacteristicType(CharacteristicTypeContext* characteristicTypeContext)
 {
 	characteristicTypes.append(characteristicTypeContext);
-	characteristicTypeContext.IncrementId();
+	characteristicTypeContext->IncrementId();
 }
 
-void DbContext::AddNewBinding(EquipmentHasMeasuringSystemContext binding)
+void DbContext::AddNewBinding(EquipmentHasMeasuringSystemContext* binding)
 {
 	bindings.append(binding);
 }

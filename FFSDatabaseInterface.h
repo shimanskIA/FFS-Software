@@ -9,7 +9,6 @@ class FFSDatabaseInterface : public QMainWindow
 
 public:
     FFSDatabaseInterface(QWidget *parent = Q_NULLPTR);
-    ~FFSDatabaseInterface();
 
 private slots:
     void infoButtonClick();

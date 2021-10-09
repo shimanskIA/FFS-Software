@@ -1,9 +1,9 @@
 #include "DbImporter.h"
 
-DbImporter::DbImporter(DbContext dbContext, RawDataParser rawDataParser)
+DbImporter::DbImporter(DbContext *dbContext, RawDataParser *rawDataParser)
 {
-	this->dbContext = dbContext;
-	this->rawDataParser = rawDataParser;
+	this->dbContext = *dbContext;
+	this->rawDataParser = *rawDataParser;
 }
 
 DbImporter::~DbImporter()

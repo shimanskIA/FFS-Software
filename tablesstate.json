@@ -1,10 +1,10 @@
 {
-  "measurement": 1,
-  "sample": 1,
-  "measurement_parameter": 1,
-  "measuring_system": 1,
-  "characteristics": 1,
-  "characteristic_type": 1,
-  "equipment": 1,
-  "equipment_parameter": 1
+    "characteristic_type": 1,
+    "characteristics": 1,
+    "equipment": 1,
+    "equipment_parameter": 1,
+    "measurement": 1,
+    "measurement_parameter": 1,
+    "measuring_system": 1,
+    "sample": 1
 }
