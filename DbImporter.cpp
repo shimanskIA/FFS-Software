@@ -8,8 +8,8 @@ DbImporter::DbImporter(DbContext *dbContext, RawDataParser *rawDataParser)
 
 DbImporter::~DbImporter()
 {
-	delete& dbContext;
-	delete& rawDataParser;
+	delete dbContext;
+	delete rawDataParser;
 }
 
 void DbImporter::ImportToDatabase()
