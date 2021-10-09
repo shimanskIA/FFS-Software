@@ -2,8 +2,8 @@
 
 DbImporter::DbImporter(DbContext *dbContext, RawDataParser *rawDataParser)
 {
-	this->dbContext = *dbContext;
-	this->rawDataParser = *rawDataParser;
+	this->dbContext = dbContext;
+	this->rawDataParser = rawDataParser;
 }
 
 DbImporter::~DbImporter()
@@ -14,5 +14,5 @@ DbImporter::~DbImporter()
 
 void DbImporter::ImportToDatabase()
 {
-	rawDataParser.ParseRawDataFile(dbContext);
+	rawDataParser->ParseRawDataFile(dbContext);
 }

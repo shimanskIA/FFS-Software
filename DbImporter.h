@@ -12,7 +12,7 @@ public:
     void ImportToDatabase();
 
 private:
-    DbContext dbContext;
-    RawDataParser rawDataParser;
+    DbContext* dbContext;
+    RawDataParser* rawDataParser;
 
 };

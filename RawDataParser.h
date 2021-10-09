@@ -10,10 +10,10 @@ public:
 	RawDataParser();
 	~RawDataParser();
 	void SetFileLink(QString fileLink);
-	void ParseRawDataFile(DbContext dbContext);
-	void CZConfoCor2Parser(DbContext dbContext);
-	void CZConfoCor1Parser(DbContext dbContext);
-	void SomeOtherDeviceParser(DbContext dbContext);
+	void ParseRawDataFile(DbContext* dbContext);
+	void CZConfoCor2Parser(DbContext* dbContext);
+	void CZConfoCor1Parser(DbContext* dbContext);
+	void SomeOtherDeviceParser(DbContext* dbContext);
 	QString ReadHeader();
 
 private:

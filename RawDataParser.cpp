@@ -28,7 +28,7 @@ void RawDataParser::SetFileLink(QString fileLink)
 	this->fileLink = fileLink;
 }
 
-void RawDataParser::ParseRawDataFile(DbContext dbContext)
+void RawDataParser::ParseRawDataFile(DbContext* dbContext)
 {
 	QString header = ReadHeader();
 	if (header.contains("Carl Zeiss ConfoCor1"))
@@ -46,12 +46,12 @@ void RawDataParser::ParseRawDataFile(DbContext dbContext)
 	
 }
 
-void RawDataParser::CZConfoCor1Parser(DbContext dbContext)
+void RawDataParser::CZConfoCor1Parser(DbContext* dbContext)
 {
 
 }
 
-void RawDataParser::CZConfoCor2Parser(DbContext dbContext)
+void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 {
 	QFile file(fileLink);
 
@@ -75,12 +75,12 @@ void RawDataParser::CZConfoCor2Parser(DbContext dbContext)
 		{
 			if (sample != nullptr)
 			{
-				dbContext.AddNewSample(sample);
+				dbContext->AddNewSample(sample);
 			}
 			sample = new SampleContext();
 			if (measurement != nullptr)
 			{
-				dbContext.AddNewMeasurement(measurement);
+				dbContext->AddNewMeasurement(measurement);
 			}
 			measurement = new MeasurementContext();
 			measurement->SetFileLink(fileLink);
@@ -182,7 +182,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext dbContext)
 				measureParameter->SetName(parameterName);
 				measureParameter->SetValue(parameterValue);
 				measureParameter->SetFKMeasurement(measurement->GetId());
-				dbContext.AddNewMeasurementParameter(measureParameter);
+				dbContext->AddNewMeasurementParameter(measureParameter);
 				if (line.contains("SizePdHistogram"))
 				{
 					QString fullSampleName = "";
@@ -213,7 +213,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext dbContext)
 	file.close();
 }
 
-void RawDataParser::SomeOtherDeviceParser(DbContext dbContext)
+void RawDataParser::SomeOtherDeviceParser(DbContext* dbContext)
 {
 
 }
