@@ -2,21 +2,16 @@
 
 #include <QString>
 
-struct Point
-{
-	double x;
-	double y;
-};
-
 class CharacteristicsContext
 {
 public:
 	CharacteristicsContext();
 	void SetChannel(QString);
-	void SetPoint(Point point);
 	void SetWeight(double weight);
 	void SetBinTime(double binTime);
 	void SetNumberOfPoints(int numberOfPoints);
+	void AddNewXCoordinate(QString x);
+	void AddNewYCoordinate(QString y);
 	void SetFKMeasurement(int fk_measurement);
 	void SetFKCharacteristicType(int fk_characteristic_type);
 	void IncrementId();
@@ -25,8 +20,8 @@ public:
 private:
 	int id;
 	QString channel;
-	double x;
-	double y;
+	QString x;
+	QString y;
 	double weight;
 	double binTime;
 	int numberOfPoints;

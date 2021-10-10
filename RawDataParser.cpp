@@ -7,6 +7,8 @@ RawDataParser::RawDataParser(QString fileLink)
 {
 	this->fileLink = fileLink;
 	this->dataSetNumber = 0;
+	this->correlationNumber = 0;
+	this->channelNumber = 0;
 	this->measurementReadFlag = false;
 	this->measureParametersReadFlag = false;
 	this->laserParametersReadFlag = false;
@@ -18,11 +20,15 @@ RawDataParser::RawDataParser(QString fileLink)
 	this->collimatorParametersReadFlag = false;
 	this->sampleCarrierReadFlag = false;
 	this->sampleDistributionReadFlag = false;
+	this->numberOfPointsReadFlag = false;
+	this->characteristicReadFlag = false;
 }
 
 RawDataParser::RawDataParser()
 {
 	this->dataSetNumber = 0;
+	this->correlationNumber = 0;
+	this->channelNumber = 0;
 	this->measurementReadFlag = false;
 	this->measureParametersReadFlag = false;
 	this->laserParametersReadFlag = false;
@@ -34,6 +40,8 @@ RawDataParser::RawDataParser()
 	this->collimatorParametersReadFlag = false;
 	this->sampleCarrierReadFlag = false;
 	this->sampleDistributionReadFlag = false;
+	this->numberOfPointsReadFlag = false;
+	this->characteristicReadFlag = false;
 }
 
 RawDataParser::~RawDataParser()
@@ -83,11 +91,21 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	MeasurementContext* measurement = nullptr;
 	SampleContext* sample = nullptr;
 	EquipmentContext* equipmentItem = nullptr;
+	CharacteristicsContext* characteristic = nullptr;
 	MeasuringSystemContext* measuringSystem = new MeasuringSystemContext();
+
+	QMap<QString, int> usedCharacteristicTypes;
 	
 	QString fullSampleName = "";
 	QString fullSampleDistribution = "";
 	QString measuringSystemIdentifier = "";
+	QString actualChannelName = "";
+
+	double firstTimeGap;
+	double secondTimeGap;
+
+	int numberOfIterations;
+	int actualIteration = 1;
 
 	while (!in.atEnd()) 
 	{ 
@@ -100,11 +118,14 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 				fullSampleName = "";
 				dbContext->AddNewSample(sample);
 			}
+
 			sample = new SampleContext();
+			
 			if (measurement != nullptr)
 			{
 				dbContext->AddNewMeasurement(measurement);
 			}
+
 			measurement = new MeasurementContext();
 			measurement->SetFileLink(fileLink);
 			measurement->SetFKMeasuringSystem(measuringSystem->GetId());
@@ -226,6 +247,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			if (line.contains("DetectorName"))
 			{
 				QString sampleName = line.split('=').last().trimmed();
+				
 				if (fullSampleName.isEmpty())
 				{
 					fullSampleName += sampleName;
@@ -310,12 +332,103 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 				CascadeEquipmentParametersRead(line, sampleCarrierReadFlag, "SamplePositionsUsage", equipmentItem, dbContext);
 			}
 		}
+
+		else if (line.contains("BEGIN Channel") && !line.contains("Channel "))
+		{
+			characteristic = new CharacteristicsContext();
+			actualChannelName = line.trimmed().split(' ').at(1);
+			channelNumber++;
+		}
+
+		else if (line.contains("BEGIN Correlation") && !line.contains("Correlation "))
+		{
+			characteristic = new CharacteristicsContext();
+			actualChannelName = line.trimmed().split(' ').at(1);
+			correlationNumber++;
+		}
+
+		else if (line.contains("ArrayUsage") || line.contains("ArrayUasge"))
+		{
+			QString actualCharacteristicType = line.split('=').first().trimmed();
+
+			if (line.contains("ArrayUsage"))
+			{
+				actualCharacteristicType = actualCharacteristicType.split("ArrayUsage").first().trimmed();
+			}
+			else
+			{
+				actualCharacteristicType = actualCharacteristicType.split("ArrayUasge").first().trimmed();
+			}
+
+			if (!usedCharacteristicTypes.contains(actualCharacteristicType))
+			{
+				CharacteristicTypeContext* characteristicType = new CharacteristicTypeContext();
+				characteristicType->SetName(actualCharacteristicType);
+				characteristicType->SetDescription("Write your description here.");
+				usedCharacteristicTypes.insert(actualCharacteristicType, characteristicType->GetId());
+				dbContext->AddNewCharacteristicType(characteristicType);
+			}
+
+			if (characteristic == nullptr)
+			{
+				characteristic = new CharacteristicsContext();
+			}
+			
+			numberOfPointsReadFlag = true;
+			characteristic->SetChannel(actualChannelName);
+			characteristic->SetFKCharacteristicType(usedCharacteristicTypes[actualCharacteristicType]);
+			characteristic->SetFKMeasurement(measurement->GetId());
+		}
+
+		else if(numberOfPointsReadFlag)
+		{
+			QString numberOfRowsAndColumns = line.split('=').last().trimmed();
+			int numberOfPoints = numberOfRowsAndColumns.split(' ').first().toInt();
+			numberOfPointsReadFlag = false;
+			characteristicReadFlag = true;
+			characteristic->SetNumberOfPoints(numberOfPoints);
+			numberOfIterations = numberOfPoints;
+		}
+
+		else if (characteristicReadFlag)
+		{
+			QStringList coordinates = GetCoordinates(line);
+			QString x = coordinates.first();
+			QString y = coordinates.last();
+			characteristic->AddNewXCoordinate(x);
+			characteristic->AddNewYCoordinate(y);
+
+			if (actualIteration == 1)
+			{
+				firstTimeGap = x.toDouble();
+				actualIteration++;
+			}
+			else if (actualIteration == 2)
+			{
+				secondTimeGap = x.toDouble();
+				actualIteration++;
+			}
+			else if (actualIteration == numberOfIterations)
+			{
+				characteristicReadFlag = false;
+				characteristic->SetBinTime(secondTimeGap - firstTimeGap);
+				dbContext->AddNewCharacteristicsSet(characteristic);
+				characteristic = nullptr;
+				actualIteration = 1;
+			}
+			else
+			{
+				actualIteration++;
+			}
+			
+		}
 	}
 
 	dbContext->AddNewMeasurement(measurement);
 	sample->SetName(fullSampleName);
 	dbContext->AddNewSample(sample);
-
+	measuringSystem->SetName(measuringSystemIdentifier);
+	dbContext->AddNewMeasuringSystem(measuringSystem);
 	file.close();
 }
 
@@ -356,6 +469,40 @@ void RawDataParser::Bind(MeasuringSystemContext* measuringSystem, EquipmentConte
 	binding->SetFKMeasuringSystem(measuringSystem->GetId());
 	binding->SetFKEquipment(equipmentItem->GetId());
 	dbContext->AddNewBinding(binding);
+}
+
+QStringList RawDataParser::GetCoordinates(QString line)
+{
+	bool xFlag = true;
+	QString x = "";
+	QString y = "";
+	QStringList coordinate;
+	
+	for (int i = 0; i < line.length(); i++)
+	{
+		if (line.at(i) != ' ')
+		{
+			if (xFlag)
+			{
+				x += line.at(i);
+			}
+			else
+			{
+				y += line.at(i);
+			}
+		}
+		else
+		{
+			if (!x.isEmpty())
+			{
+				xFlag = false;
+			}
+		}
+	}
+
+	coordinate.append(x);
+	coordinate.append(y);
+	return coordinate;
 }
 
 QString RawDataParser::ReadHeader()

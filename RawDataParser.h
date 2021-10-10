@@ -17,11 +17,14 @@ public:
 	void CascadeEquipmentParametersRead(QString line, bool& flag, QString endLine, EquipmentContext*& equipmentItem, DbContext* dbContext);
 	void CreateNewEquipmentItem(QString name, bool& flag, EquipmentContext*& equipmentItem);
 	void Bind(MeasuringSystemContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext);
+	QStringList GetCoordinates(QString line);
 	QString ReadHeader();
 
 private:
 	QString fileLink;
 	int dataSetNumber;
+	int channelNumber;
+	int correlationNumber;
 	bool measurementReadFlag;
 	bool measureParametersReadFlag;
 	bool laserParametersReadFlag;
@@ -33,6 +36,8 @@ private:
 	bool collimatorParametersReadFlag;
 	bool sampleCarrierReadFlag;
 	bool sampleDistributionReadFlag;
+	bool characteristicReadFlag;
+	bool numberOfPointsReadFlag;
 
 	QString sampleTypes[7] = {"DNA", "RhGr", "Rh6G", "Cy5", "Cy4", "CFP", "YFP"};
 };

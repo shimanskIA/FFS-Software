@@ -11,12 +11,6 @@ void CharacteristicsContext::SetChannel(QString channel)
 	this->channel = channel;
 }
 
-void CharacteristicsContext::SetPoint(Point point)
-{
-	this->x = point.x;
-	this->y = point.y;
-}
-
 void CharacteristicsContext::SetWeight(double weight)
 {
 	this->weight = weight;
@@ -30,6 +24,18 @@ void CharacteristicsContext::SetBinTime(double binTime)
 void CharacteristicsContext::SetNumberOfPoints(int numberOfPoints)
 {
 	this->numberOfPoints = numberOfPoints;
+}
+
+void CharacteristicsContext::AddNewXCoordinate(QString x)
+{
+	this->x += x;
+	this->x += " ";
+}
+
+void CharacteristicsContext::AddNewYCoordinate(QString y)
+{
+	this->y += y;
+	this->y += " ";
 }
 
 void CharacteristicsContext::SetFKMeasurement(int fk_measurement)
