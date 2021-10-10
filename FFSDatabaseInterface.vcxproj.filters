@@ -119,7 +119,7 @@
     <ClCompile Include="CharacteristicTypeContext.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EquipmentHasMeasuringSystemContext.cpp">
+    <ClCompile Include="BindingContext.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -182,7 +182,7 @@
     <ClInclude Include="CharacteristicTypeContext.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EquipmentHasMeasuringSystemContext.h">
+    <ClInclude Include="BindingContext.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

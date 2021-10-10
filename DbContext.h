@@ -8,7 +8,7 @@
 #include "EquipmentParameterContext.h"
 #include "CharacteristicsContext.h"
 #include "CharacteristicTypeContext.h"
-#include "EquipmentHasMeasuringSystemContext.h"
+#include "BindingContext.h"
 
 #include <QList>
 #include <QObject>
@@ -27,7 +27,7 @@ public:
     void AddNewEquipmentParameter(EquipmentParameterContext* equipmentParameterContext);
     void AddNewCharacteristicsSet(CharacteristicsContext* characteristicsContext);
     void AddNewCharacteristicType(CharacteristicTypeContext* characteristicTypeContext);
-    void AddNewBinding(EquipmentHasMeasuringSystemContext* binding);
+    void AddNewBinding(BindingContext* binding);
 
 private:
     QList<MeasurementContext*> measurements;
@@ -38,5 +38,5 @@ private:
     QList<EquipmentParameterContext*> equipmentParameters;
     QList<CharacteristicsContext*> characteristics;
     QList<CharacteristicTypeContext*> characteristicTypes;
-    QList<EquipmentHasMeasuringSystemContext*> bindings;
+    QList<BindingContext*> bindings;
 };

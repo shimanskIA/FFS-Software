@@ -90,7 +90,7 @@
     <ClCompile Include="DbContext.cpp" />
     <ClCompile Include="DbImporter.cpp" />
     <ClCompile Include="EquipmentContext.cpp" />
-    <ClCompile Include="EquipmentHasMeasuringSystemContext.cpp" />
+    <ClCompile Include="BindingContext.cpp" />
     <ClCompile Include="EquipmentParameterContext.cpp" />
     <ClCompile Include="FFSDatabaseInterfaceFormController.cpp" />
     <ClCompile Include="FFSDatabaseInterfaceService.cpp" />
@@ -117,7 +117,7 @@
     <ClInclude Include="DbContext.h" />
     <ClInclude Include="DbImporter.h" />
     <ClInclude Include="EquipmentContext.h" />
-    <ClInclude Include="EquipmentHasMeasuringSystemContext.h" />
+    <ClInclude Include="BindingContext.h" />
     <ClInclude Include="EquipmentParameterContext.h" />
     <ClInclude Include="FFSDatabaseInterfaceFormController.h" />
     <ClInclude Include="FFSDatabaseInterfaceService.h" />

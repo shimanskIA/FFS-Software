@@ -9,6 +9,15 @@ RawDataParser::RawDataParser(QString fileLink)
 	this->dataSetNumber = 0;
 	this->measurementReadFlag = false;
 	this->measureParametersReadFlag = false;
+	this->laserParametersReadFlag = false;
+	this->pinholeParametersReadFlag = false;
+	this->attenuatorPowerParametersReadFlag = false;
+	this->detectorParametersReadFlag = false;
+	this->attenuatorParametersReadFlag = false;
+	this->beamSplitterParametersReadFlag = false;
+	this->collimatorParametersReadFlag = false;
+	this->sampleCarrierReadFlag = false;
+	this->sampleDistributionReadFlag = false;
 }
 
 RawDataParser::RawDataParser()
@@ -16,6 +25,15 @@ RawDataParser::RawDataParser()
 	this->dataSetNumber = 0;
 	this->measurementReadFlag = false;
 	this->measureParametersReadFlag = false;
+	this->laserParametersReadFlag = false;
+	this->pinholeParametersReadFlag = false;
+	this->attenuatorPowerParametersReadFlag = false;
+	this->detectorParametersReadFlag = false;
+	this->attenuatorParametersReadFlag = false;
+	this->beamSplitterParametersReadFlag = false;
+	this->collimatorParametersReadFlag = false;
+	this->sampleCarrierReadFlag = false;
+	this->sampleDistributionReadFlag = false;
 }
 
 RawDataParser::~RawDataParser()
@@ -64,9 +82,12 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 	MeasurementContext* measurement = nullptr;
 	SampleContext* sample = nullptr;
+	EquipmentContext* equipmentItem = nullptr;
 	MeasuringSystemContext* measuringSystem = new MeasuringSystemContext();
-
-	QStringList* samples = new QStringList();
+	
+	QString fullSampleName = "";
+	QString fullSampleDistribution = "";
+	QString measuringSystemIdentifier = "";
 
 	while (!in.atEnd()) 
 	{ 
@@ -75,6 +96,8 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		{
 			if (sample != nullptr)
 			{
+				sample->SetName(fullSampleName);
+				fullSampleName = "";
 				dbContext->AddNewSample(sample);
 			}
 			sample = new SampleContext();
@@ -92,26 +115,21 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 		else if (measurementReadFlag)
 		{
-			QStringList splittedLine;
 			if (line.contains("NumberChannels"))
 			{
-				splittedLine = line.split('=');
-				measurement->SetNumberOfChannels(splittedLine.last().trimmed().toInt());
+				measurement->SetNumberOfChannels(line.split('=').last().trimmed().toInt());
 			}
 			else if (line.contains("RepeatCount"))
 			{
-				splittedLine = line.split('=');
-				measurement->SetRepeatCount(splittedLine.last().trimmed().toInt());
+				measurement->SetRepeatCount(line.split('=').last().trimmed().toInt());
 			}
 			else if (line.contains("KineticsCount"))
 			{
-				splittedLine = line.split('=');
-				measurement->SetKineticsCount(splittedLine.last().trimmed().toInt());
+				measurement->SetKineticsCount(line.split('=').last().trimmed().toInt());
 			}
 			else if (line.contains("NumberPositions"))
 			{
-				splittedLine = line.split('=');
-				measurement->SetNumberPositions(splittedLine.last().trimmed().toInt());
+				measurement->SetNumberPositions(line.split('=').last().trimmed().toInt());
 				measurementReadFlag = false;
 			}
 		}
@@ -123,21 +141,12 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 		else if (measureParametersReadFlag)
 		{
-			QStringList splittedLine = line.split('=');
-			QString parameterName = splittedLine.first().trimmed();
-			QString parameterValue = splittedLine.last().trimmed();
+			QString parameterName = line.split('=').first().trimmed();
+			QString parameterValue = line.split('=').last().trimmed();
 			
 			if (parameterName.contains("MethodName"))
 			{
 				measurement->SetName(parameterValue);
-
-				for (int i = 0; i < sampleTypes->length(); i++)
-				{
-					if (parameterValue.contains(sampleTypes[i]))
-					{
-						samples->append(sampleTypes[i]);
-					}
-				}
 			}
 			else if (parameterName.contains("MeasureDate"))
 			{
@@ -149,32 +158,14 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 				parameterName.contains("MethodCategory") ||
 				parameterName.contains("Auto") ||
 				parameterName.contains("MethodStatus") ||
-				parameterName.contains("MeasureTask"))
+				parameterName.contains("MeasureTask") ||
+				parameterName.contains("MethodComment"))
 			{
 
 			}
 			else if (parameterName.contains("MeasureSampleComment"))
 			{
 				sample->SetDescription(parameterValue);
-
-				for (int i = 0; i < sampleTypes->length(); i++)
-				{
-					if (parameterValue.contains(sampleTypes[i]))
-					{
-						samples->append(sampleTypes[i]);
-					}
-				}
-			}
-			else if (line.contains("MethodComment"))
-			{
-
-				for (int i = 0; i < sampleTypes->length(); i++)
-				{
-					if (parameterValue.contains(sampleTypes[i]))
-					{
-						samples->append(sampleTypes[i]);
-					}
-				}
 			}
 			else
 			{
@@ -183,32 +174,147 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 				measureParameter->SetValue(parameterValue);
 				measureParameter->SetFKMeasurement(measurement->GetId());
 				dbContext->AddNewMeasurementParameter(measureParameter);
+
 				if (line.contains("SizePdHistogram"))
 				{
-					QString fullSampleName = "";
-					for (int i = 0; i < samples->length(); i++)
-					{
-						if (i == 0)
-						{
-							fullSampleName += samples->at(i);
-						}
-						else
-						{
-							fullSampleName += "/";
-							fullSampleName += samples->at(i);
-						}
-					}
-					sample->SetName(fullSampleName);
 					measureParametersReadFlag = false;
 				}
 			}
 		}
 
-		else if (line.contains("BEGIN Lasers"))
+		else if (line.contains("BEGIN Laser") && !line.contains("Lasers"))
 		{
+			CreateNewEquipmentItem("Laser", laserParametersReadFlag, equipmentItem);
+			Bind(measuringSystem, equipmentItem, dbContext);
+		}
+
+		else if (laserParametersReadFlag)
+		{
+			CascadeEquipmentParametersRead(line, laserParametersReadFlag, "LaserInUse", equipmentItem, dbContext);
+		}
+
+		else if (line.contains("BEGIN PinholeDiameter") && !line.contains("PinholeDiameters"))
+		{
+			CreateNewEquipmentItem("PinholeDiameter", pinholeParametersReadFlag, equipmentItem);
+			Bind(measuringSystem, equipmentItem, dbContext);
+		}
+
+		else if (pinholeParametersReadFlag)
+		{
+			CascadeEquipmentParametersRead(line, pinholeParametersReadFlag, "DetectorPinholeDiameter", equipmentItem, dbContext);
+		}
+
+		else if (line.contains("BEGIN AttenuatorPower") && !line.contains("AttenuatorPowers"))
+		{
+			CreateNewEquipmentItem("AttenuatorPower", attenuatorPowerParametersReadFlag, equipmentItem);
+			Bind(measuringSystem, equipmentItem, dbContext);
+		}
+
+		else if (attenuatorPowerParametersReadFlag)
+		{
+			CascadeEquipmentParametersRead(line, attenuatorPowerParametersReadFlag, "AttenuatorInUse", equipmentItem, dbContext);
+		}
+
+		else if (line.contains("BEGIN Detector") && !line.contains("Detectors"))
+		{
+			CreateNewEquipmentItem("Detector", detectorParametersReadFlag, equipmentItem);
+			Bind(measuringSystem, equipmentItem, dbContext);
+		}
+
+		else if (detectorParametersReadFlag)
+		{
+			if (line.contains("DetectorName"))
+			{
+				QString sampleName = line.split('=').last().trimmed();
+				if (fullSampleName.isEmpty())
+				{
+					fullSampleName += sampleName;
+				}
+				else
+				{
+					fullSampleName += "/";
+					fullSampleName += sampleName;
+				}
+			}
+			CascadeEquipmentParametersRead(line, detectorParametersReadFlag, "DetectorFilterName", equipmentItem, dbContext);
+		}
+
+		else if (line.contains("BEGIN Attenuator ") && !line.contains("Attenuators"))
+		{
+			CreateNewEquipmentItem("Attenuator", attenuatorParametersReadFlag, equipmentItem);
+			Bind(measuringSystem, equipmentItem, dbContext);
+		}
+
+		else if (attenuatorParametersReadFlag)
+		{
+			CascadeEquipmentParametersRead(line, attenuatorParametersReadFlag, "AttenuatorInUse", equipmentItem, dbContext);
+		}
+
+		else if (line.contains("BEGIN BeamSplitter") && !line.contains("BeamSplitters"))
+		{
+			CreateNewEquipmentItem("BeamSplitter", beamSplitterParametersReadFlag, equipmentItem);
+			Bind(measuringSystem, equipmentItem, dbContext);
+		}
+
+		else if (beamSplitterParametersReadFlag)
+		{
+			CascadeEquipmentParametersRead(line, beamSplitterParametersReadFlag, "BeamSplitterFilterName", equipmentItem, dbContext);
+		}
+
+		else if (line.contains("BEGIN Collimator") && !line.contains("Collimators"))
+		{
+			CreateNewEquipmentItem("Collimator", collimatorParametersReadFlag, equipmentItem);
+			Bind(measuringSystem, equipmentItem, dbContext);
+		}
+
+		else if (collimatorParametersReadFlag)
+		{
+			CascadeEquipmentParametersRead(line, collimatorParametersReadFlag, "CollimatorPosition", equipmentItem, dbContext);
+		}
+
+		else if (line.contains("BEGIN SampleCarrier"))
+		{
+			CreateNewEquipmentItem("SampleCarrier", sampleCarrierReadFlag, equipmentItem);
+			Bind(measuringSystem, equipmentItem, dbContext);
+		}
+
+		else if (sampleCarrierReadFlag)
+		{
+			if (line.contains("SampleDistribution"))
+			{
+				QString sampleDistributionFirstElement = line.split('=').last().trimmed();
+				fullSampleDistribution += sampleDistributionFirstElement;
+				sampleDistributionReadFlag = true;
+			}
+			else if(sampleDistributionReadFlag)
+			{
+				if (line.contains("SamplePositions") && !line.contains("Usage"))
+				{
+					sampleDistributionReadFlag = false;
+					EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext();
+					equipmentParameter->SetName("SampleDistribution");
+					equipmentParameter->SetValue(fullSampleDistribution);
+					equipmentParameter->SetFKEquipment(equipmentItem->GetId());
+					dbContext->AddNewEquipmentParameter(equipmentParameter);
+				}
+				else
+				{
+					QString sampleDistributionElement = line.trimmed();
+					fullSampleDistribution += " ";
+					fullSampleDistribution += sampleDistributionElement;
+				}
+			}
 			
+			if (!sampleDistributionReadFlag)
+			{
+				CascadeEquipmentParametersRead(line, sampleCarrierReadFlag, "SamplePositionsUsage", equipmentItem, dbContext);
+			}
 		}
 	}
+
+	dbContext->AddNewMeasurement(measurement);
+	sample->SetName(fullSampleName);
+	dbContext->AddNewSample(sample);
 
 	file.close();
 }
@@ -216,6 +322,40 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 void RawDataParser::SomeOtherDeviceParser(DbContext* dbContext)
 {
 
+}
+
+void RawDataParser::CascadeEquipmentParametersRead(QString line, bool& flag, QString endLine, EquipmentContext*& equipmentItem, DbContext* dbContext)
+{
+	QString parameterName = line.split('=').first().trimmed();
+	QString parameterValue = line.split('=').last().trimmed();
+	EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext();
+	equipmentParameter->SetName(parameterName);
+	equipmentParameter->SetValue(parameterValue);
+	equipmentParameter->SetFKEquipment(equipmentItem->GetId());
+	dbContext->AddNewEquipmentParameter(equipmentParameter);
+
+	if (line.contains(endLine))
+	{
+		dbContext->AddNewEquipment(equipmentItem);
+		flag = false;
+	}
+}
+
+void RawDataParser::CreateNewEquipmentItem(QString name, bool& flag, EquipmentContext*& equipmentItem)
+{
+	QString description = "Write your description here.";
+	equipmentItem = new EquipmentContext();
+	equipmentItem->SetName(name);
+	equipmentItem->SetDescription(description);
+	flag = true;
+}
+
+void RawDataParser::Bind(MeasuringSystemContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext)
+{
+	BindingContext* binding = new BindingContext();
+	binding->SetFKMeasuringSystem(measuringSystem->GetId());
+	binding->SetFKEquipment(equipmentItem->GetId());
+	dbContext->AddNewBinding(binding);
 }
 
 QString RawDataParser::ReadHeader()

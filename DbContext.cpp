@@ -10,7 +10,7 @@ DbContext::DbContext()
 	equipmentParameters = QList<EquipmentParameterContext*>();
 	characteristics = QList<CharacteristicsContext*>();
 	characteristicTypes = QList<CharacteristicTypeContext*>();
-	bindings = QList<EquipmentHasMeasuringSystemContext*>();
+	bindings = QList<BindingContext*>();
 }
 
 DbContext::~DbContext()
@@ -83,7 +83,7 @@ void DbContext::AddNewCharacteristicType(CharacteristicTypeContext* characterist
 	characteristicTypeContext->IncrementId();
 }
 
-void DbContext::AddNewBinding(EquipmentHasMeasuringSystemContext* binding)
+void DbContext::AddNewBinding(BindingContext* binding)
 {
 	bindings.append(binding);
 }

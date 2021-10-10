@@ -1,11 +1,9 @@
 #pragma once
 
-
-
-class EquipmentHasMeasuringSystemContext
+class BindingContext
 {
 public:
-	EquipmentHasMeasuringSystemContext();
+	BindingContext();
 	void SetFKEquipment(int fk_equipment);
 	void SetFKMeasuringSystem(int fk_measuring_system);
 
