@@ -1,9 +1,9 @@
 #include "SampleContext.h"
-#include "JsonInteractionHelper.h"
+#include "TextFileInteractionHelper.h"
 
 SampleContext::SampleContext()
 {
-	this->id = JsonInteractionHelper::ReadItemFromJsonFile("sample", configFilePath);
+	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
 }
 
 void SampleContext::SetName(QString name)
@@ -18,7 +18,7 @@ void SampleContext::SetDescription(QString description)
 
 void SampleContext::IncrementId()
 {
-	JsonInteractionHelper::EditJsonFile("sample", id + 1, configFilePath);
+	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
 }
 
 int SampleContext::GetId()

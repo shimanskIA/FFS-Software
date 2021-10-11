@@ -1,9 +1,9 @@
 #include "EquipmentContext.h"
-#include "JsonInteractionHelper.h"
+#include "TextFileInteractionHelper.h"
 
 EquipmentContext::EquipmentContext()
 {
-	this->id = JsonInteractionHelper::ReadItemFromJsonFile("equipment", configFilePath);
+	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
 }
 
 void EquipmentContext::SetName(QString name)
@@ -18,7 +18,7 @@ void EquipmentContext::SetDescription(QString description)
 
 void EquipmentContext::IncrementId()
 {
-	JsonInteractionHelper::EditJsonFile("equipment", id + 1, configFilePath);
+	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
 }
 
 int EquipmentContext::GetId()

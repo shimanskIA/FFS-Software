@@ -1,9 +1,9 @@
 #include "MeasuringSystemContext.h"
-#include "JsonInteractionHelper.h"
+#include "TextFileInteractionHelper.h"
 
 MeasuringSystemContext::MeasuringSystemContext()
 {
-	this->id = JsonInteractionHelper::ReadItemFromJsonFile("measuring_system", configFilePath);
+	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
 }
 
 void MeasuringSystemContext::SetName(QString name)
@@ -13,7 +13,7 @@ void MeasuringSystemContext::SetName(QString name)
 
 void MeasuringSystemContext::IncrementId()
 {
-	JsonInteractionHelper::EditJsonFile("measuring_system", id + 1, configFilePath);
+	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
 }
 
 int MeasuringSystemContext::GetId()

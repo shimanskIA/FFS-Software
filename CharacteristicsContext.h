@@ -28,5 +28,5 @@ private:
 	int fk_measurement;
 	int fk_characteristic_type;
 
-	QString configFilePath = "tablesstate.json";
+	QString stateFilePath = "characteristicstate.txt";
 };

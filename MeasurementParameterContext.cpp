@@ -1,9 +1,9 @@
 #include "MeasurementParameterContext.h"
-#include "JsonInteractionHelper.h"
+#include "TextFileInteractionHelper.h"
 
 MeasurementParameterContext::MeasurementParameterContext()
 {
-	this->id = JsonInteractionHelper::ReadItemFromJsonFile("measurement_parameter", configFilePath);
+	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
 }
 
 void MeasurementParameterContext::SetName(QString name)
@@ -23,7 +23,7 @@ void MeasurementParameterContext::SetFKMeasurement(int fk_measurement)
 
 void MeasurementParameterContext::IncrementId()
 {
-	JsonInteractionHelper::EditJsonFile("measurement_parameter", id + 1, configFilePath);
+	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
 }
 
 int MeasurementParameterContext::GetId()

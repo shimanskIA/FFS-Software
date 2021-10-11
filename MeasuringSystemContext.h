@@ -14,5 +14,5 @@ private:
 	int id;
 	QString name;
 
-	QString configFilePath = "tablesstate.json";
+	QString stateFilePath = "measuringsystemstate.txt";
 };

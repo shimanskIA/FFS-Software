@@ -16,5 +16,5 @@ private:
 	QString name;
 	QString description;
 
-	QString configFilePath = "tablesstate.json";
+	QString stateFilePath = "equipmentstate.txt";
 };

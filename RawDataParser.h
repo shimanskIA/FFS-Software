@@ -38,6 +38,4 @@ private:
 	bool sampleDistributionReadFlag;
 	bool characteristicReadFlag;
 	bool numberOfPointsReadFlag;
-
-	QString sampleTypes[7] = {"DNA", "RhGr", "Rh6G", "Cy5", "Cy4", "CFP", "YFP"};
 };

@@ -18,5 +18,5 @@ private:
 	QString value;
 	int fk_equipment;
 
-	QString configFilePath = "tablesstate.json";
+	QString stateFilePath = "equipmentparameterstate.txt";
 };

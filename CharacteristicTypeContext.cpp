@@ -1,9 +1,9 @@
 #include "CharacteristicTypeContext.h"
-#include "JsonInteractionHelper.h"
+#include "TextFileInteractionHelper.h"
 
 CharacteristicTypeContext::CharacteristicTypeContext()
 {
-	this->id = JsonInteractionHelper::ReadItemFromJsonFile("characteristic_type", configFilePath);
+	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
 }
 
 void CharacteristicTypeContext::SetName(QString name)
@@ -18,7 +18,7 @@ void CharacteristicTypeContext::SetDescription(QString description)
 
 void CharacteristicTypeContext::IncrementId()
 {
-	JsonInteractionHelper::EditJsonFile("characteristic_type", id + 1, configFilePath);
+	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
 }
 
 int CharacteristicTypeContext::GetId()

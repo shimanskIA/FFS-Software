@@ -30,6 +30,6 @@ private:
 	int fk_sample;
 	int fk_measuring_system;
 
-	QString configFilePath = "tablesstate.json";
+	QString stateFilePath = "measurementstate.txt";
 
 };

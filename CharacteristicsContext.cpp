@@ -1,9 +1,9 @@
 #include "CharacteristicsContext.h"
-#include "JsonInteractionHelper.h"
+#include "TextFileInteractionHelper.h"
 
 CharacteristicsContext::CharacteristicsContext()
 {
-	this->id = JsonInteractionHelper::ReadItemFromJsonFile("characteristics", configFilePath);
+	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
 }
 
 void CharacteristicsContext::SetChannel(QString channel)
@@ -50,7 +50,7 @@ void CharacteristicsContext::SetFKCharacteristicType(int fk_characteristic_type)
 
 void CharacteristicsContext::IncrementId()
 {
-	JsonInteractionHelper::EditJsonFile("characteristics", id + 1, configFilePath);
+	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
 }
 
 int CharacteristicsContext::GetId()
