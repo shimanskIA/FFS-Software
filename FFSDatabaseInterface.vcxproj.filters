@@ -101,9 +101,6 @@
     <ClCompile Include="SampleContext.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MeasuringSystemContext.cpp">
-      <Filter>Model\Entities\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EquipmentContext.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
@@ -164,9 +161,6 @@
     <ClInclude Include="SampleContext.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MeasuringSystemContext.h">
-      <Filter>Model\Entities\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EquipmentContext.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
@@ -188,9 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="measurementstate.txt">
-      <Filter>Model\Resource Files</Filter>
-    </Text>
-    <Text Include="measuringsystemstate.txt">
       <Filter>Model\Resource Files</Filter>
     </Text>
     <Text Include="measurementparameterstate.txt">

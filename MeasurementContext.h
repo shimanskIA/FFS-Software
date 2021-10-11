@@ -28,7 +28,6 @@ private:
 	int numberPositions;
 	int kineticsCount;
 	int fk_sample;
-	int fk_measuring_system;
 
 	QString stateFilePath = "measurementstate.txt";
 

@@ -5,7 +5,6 @@ DbContext::DbContext()
 	measurements = QList<MeasurementContext*>();
 	measurementParameters = QList<MeasurementParameterContext*>();
 	samples = QList<SampleContext*>();
-	measuringSystems = QList<MeasuringSystemContext*>();
 	equipments = QList<EquipmentContext*>();
 	equipmentParameters = QList<EquipmentParameterContext*>();
 	characteristics = QList<CharacteristicsContext*>();
@@ -21,8 +20,6 @@ DbContext::~DbContext()
 	measurementParameters.clear();
 	qDeleteAll(samples);
 	samples.clear();
-	qDeleteAll(measuringSystems);
-	measuringSystems.clear();
 	qDeleteAll(equipments);
 	equipments.clear();
 	qDeleteAll(equipmentParameters);
@@ -51,12 +48,6 @@ void DbContext::AddNewSample(SampleContext* sampleContext)
 {
 	samples.append(sampleContext);
 	sampleContext->IncrementId();
-}
-
-void DbContext::AddNewMeasuringSystem(MeasuringSystemContext* measuringSystemContext)
-{
-	measuringSystems.append(measuringSystemContext);
-	measuringSystemContext->IncrementId();
 }
 
 void DbContext::AddNewEquipment(EquipmentContext* equipmentContext)

@@ -16,7 +16,7 @@ public:
 	void SomeOtherDeviceParser(DbContext* dbContext);
 	void CascadeEquipmentParametersRead(QString line, bool& flag, QString endLine, EquipmentContext*& equipmentItem, DbContext* dbContext);
 	void CreateNewEquipmentItem(QString name, bool& flag, EquipmentContext*& equipmentItem);
-	void Bind(MeasuringSystemContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext);
+	void Bind(MeasurementContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext);
 	QStringList GetCoordinates(QString line);
 	QString ReadHeader();
 

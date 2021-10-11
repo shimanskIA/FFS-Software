@@ -5,9 +5,9 @@ class BindingContext
 public:
 	BindingContext();
 	void SetFKEquipment(int fk_equipment);
-	void SetFKMeasuringSystem(int fk_measuring_system);
+	void SetFKMeasurement(int fk_measurement);
 
 private:
 	int fk_equipment;
-	int fk_measuring_system;
+	int fk_measurement;
 };

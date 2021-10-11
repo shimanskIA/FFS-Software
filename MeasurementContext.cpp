@@ -46,11 +46,6 @@ void MeasurementContext::SetFKSample(int fk_sample)
 	this->fk_sample = fk_sample;
 }
 
-void MeasurementContext::SetFKMeasuringSystem(int fk_measuring_system)
-{
-	this->fk_measuring_system = fk_measuring_system;
-}
-
 void MeasurementContext::IncrementId()
 {
 	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);

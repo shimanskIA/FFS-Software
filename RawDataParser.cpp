@@ -92,13 +92,11 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	SampleContext* sample = nullptr;
 	EquipmentContext* equipmentItem = nullptr;
 	CharacteristicsContext* characteristic = nullptr;
-	MeasuringSystemContext* measuringSystem = new MeasuringSystemContext();
 
 	QMap<QString, int> usedCharacteristicTypes;
 	
 	QString fullSampleName = "";
 	QString fullSampleDistribution = "";
-	QString measuringSystemIdentifier = "";
 	QString actualChannelName = "";
 
 	double firstTimeGap;
@@ -128,7 +126,6 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 			measurement = new MeasurementContext();
 			measurement->SetFileLink(fileLink);
-			measurement->SetFKMeasuringSystem(measuringSystem->GetId());
 			measurement->SetFKSample(sample->GetId());
 			measurementReadFlag = true;
 			dataSetNumber++;
@@ -206,7 +203,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		else if (line.contains("BEGIN Laser") && !line.contains("Lasers"))
 		{
 			CreateNewEquipmentItem("Laser", laserParametersReadFlag, equipmentItem);
-			Bind(measuringSystem, equipmentItem, dbContext);
+			Bind(measurement, equipmentItem, dbContext);
 		}
 
 		else if (laserParametersReadFlag)
@@ -217,7 +214,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		else if (line.contains("BEGIN PinholeDiameter") && !line.contains("PinholeDiameters"))
 		{
 			CreateNewEquipmentItem("PinholeDiameter", pinholeParametersReadFlag, equipmentItem);
-			Bind(measuringSystem, equipmentItem, dbContext);
+			Bind(measurement, equipmentItem, dbContext);
 		}
 
 		else if (pinholeParametersReadFlag)
@@ -228,7 +225,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		else if (line.contains("BEGIN AttenuatorPower") && !line.contains("AttenuatorPowers"))
 		{
 			CreateNewEquipmentItem("AttenuatorPower", attenuatorPowerParametersReadFlag, equipmentItem);
-			Bind(measuringSystem, equipmentItem, dbContext);
+			Bind(measurement, equipmentItem, dbContext);
 		}
 
 		else if (attenuatorPowerParametersReadFlag)
@@ -239,7 +236,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		else if (line.contains("BEGIN Detector") && !line.contains("Detectors"))
 		{
 			CreateNewEquipmentItem("Detector", detectorParametersReadFlag, equipmentItem);
-			Bind(measuringSystem, equipmentItem, dbContext);
+			Bind(measurement, equipmentItem, dbContext);
 		}
 
 		else if (detectorParametersReadFlag)
@@ -264,7 +261,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		else if (line.contains("BEGIN Attenuator ") && !line.contains("Attenuators"))
 		{
 			CreateNewEquipmentItem("Attenuator", attenuatorParametersReadFlag, equipmentItem);
-			Bind(measuringSystem, equipmentItem, dbContext);
+			Bind(measurement, equipmentItem, dbContext);
 		}
 
 		else if (attenuatorParametersReadFlag)
@@ -275,7 +272,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		else if (line.contains("BEGIN BeamSplitter") && !line.contains("BeamSplitters"))
 		{
 			CreateNewEquipmentItem("BeamSplitter", beamSplitterParametersReadFlag, equipmentItem);
-			Bind(measuringSystem, equipmentItem, dbContext);
+			Bind(measurement, equipmentItem, dbContext);
 		}
 
 		else if (beamSplitterParametersReadFlag)
@@ -286,7 +283,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		else if (line.contains("BEGIN Collimator") && !line.contains("Collimators"))
 		{
 			CreateNewEquipmentItem("Collimator", collimatorParametersReadFlag, equipmentItem);
-			Bind(measuringSystem, equipmentItem, dbContext);
+			Bind(measurement, equipmentItem, dbContext);
 		}
 
 		else if (collimatorParametersReadFlag)
@@ -297,7 +294,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		else if (line.contains("BEGIN SampleCarrier"))
 		{
 			CreateNewEquipmentItem("SampleCarrier", sampleCarrierReadFlag, equipmentItem);
-			Bind(measuringSystem, equipmentItem, dbContext);
+			Bind(measurement, equipmentItem, dbContext);
 		}
 
 		else if (sampleCarrierReadFlag)
@@ -427,8 +424,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	dbContext->AddNewMeasurement(measurement);
 	sample->SetName(fullSampleName);
 	dbContext->AddNewSample(sample);
-	measuringSystem->SetName(measuringSystemIdentifier);
-	dbContext->AddNewMeasuringSystem(measuringSystem);
+
 	file.close();
 }
 
@@ -463,10 +459,10 @@ void RawDataParser::CreateNewEquipmentItem(QString name, bool& flag, EquipmentCo
 	flag = true;
 }
 
-void RawDataParser::Bind(MeasuringSystemContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext)
+void RawDataParser::Bind(MeasurementContext* measurement, EquipmentContext*& equipmentItem, DbContext* dbContext)
 {
 	BindingContext* binding = new BindingContext();
-	binding->SetFKMeasuringSystem(measuringSystem->GetId());
+	binding->SetFKMeasurement(measurement->GetId());
 	binding->SetFKEquipment(equipmentItem->GetId());
 	dbContext->AddNewBinding(binding);
 }
