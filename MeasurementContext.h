@@ -14,7 +14,6 @@ public:
 	void SetKineticsCount(int kineticsCount);
 	void SetNumberPositions(int numberPositions);
 	void SetFKSample(int fk_sample);
-	void SetFKMeasuringSystem(int fk_measuring_system);
 	void IncrementId();
 	int GetId();
 

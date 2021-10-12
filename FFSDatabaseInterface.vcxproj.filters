@@ -119,6 +119,9 @@
     <ClCompile Include="TextFileInteractionHelper.cpp">
       <Filter>Model\Helpers\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DbConnection.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="TextFileInteractionHelper.h">
       <Filter>Model\Helpers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DbConnection.h">
+      <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

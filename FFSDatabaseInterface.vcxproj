@@ -32,7 +32,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>5.15.0_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;sql;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="CharacteristicsContext.cpp" />
     <ClCompile Include="CharacteristicTypeContext.cpp" />
+    <ClCompile Include="DbConnection.cpp" />
     <ClCompile Include="DbContext.cpp" />
     <ClCompile Include="DbImporter.cpp" />
     <ClCompile Include="EquipmentContext.cpp" />
@@ -113,6 +114,7 @@
   <ItemGroup>
     <ClInclude Include="CharacteristicsContext.h" />
     <ClInclude Include="CharacteristicTypeContext.h" />
+    <ClInclude Include="DbConnection.h" />
     <ClInclude Include="DbContext.h" />
     <ClInclude Include="DbImporter.h" />
     <ClInclude Include="EquipmentContext.h" />
