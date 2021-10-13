@@ -10,6 +10,7 @@ class DbConnection
 public:
 	static DbConnection& GetDbConnectionInstance();
 	void AddToDatabase(DbContext* dbContext);
+	void ReadFromDataBase();
 
 private:
 	DbConnection();
