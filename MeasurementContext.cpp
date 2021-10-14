@@ -1,9 +1,9 @@
 #include "MeasurementContext.h"
 #include "TextFileInteractionHelper.h"
 
-MeasurementContext::MeasurementContext()
+MeasurementContext::MeasurementContext(QString stateFilePath) : TableContext(stateFilePath)
 {
-	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
+
 }
 
 void MeasurementContext::SetName(QString name)
@@ -44,14 +44,4 @@ void MeasurementContext::SetNumberPositions(int numberPositions)
 void MeasurementContext::SetFKSample(SampleContext* fk_sample)
 {
 	this->fk_sample = fk_sample;
-}
-
-void MeasurementContext::IncrementId()
-{
-	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
-}
-
-int MeasurementContext::GetId()
-{
-	return this->id;
 }

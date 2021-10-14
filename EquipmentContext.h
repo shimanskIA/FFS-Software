@@ -2,19 +2,16 @@
 
 #include <QString>
 
-class EquipmentContext
+#include "TableContext.h"
+
+class EquipmentContext : public TableContext
 {
 public:
-	EquipmentContext();
+	EquipmentContext(QString stateFilePath);
 	void SetName(QString name);
 	void SetDescription(QString description);
-	void IncrementId();
-	int GetId();
 
 private:
-	int id;
 	QString name;
 	QString description;
-
-	QString stateFilePath = "equipmentstate.txt";
 };

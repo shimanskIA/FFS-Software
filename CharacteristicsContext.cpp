@@ -1,9 +1,9 @@
 #include "CharacteristicsContext.h"
 #include "TextFileInteractionHelper.h"
 
-CharacteristicsContext::CharacteristicsContext()
+CharacteristicsContext::CharacteristicsContext(QString stateFilePath) : TableContext(stateFilePath)
 {
-	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
+
 }
 
 void CharacteristicsContext::SetChannel(QString channel)
@@ -48,13 +48,4 @@ void CharacteristicsContext::SetFKCharacteristicType(CharacteristicTypeContext* 
 	this->fk_characteristic_type = fk_characteristic_type;
 }
 
-void CharacteristicsContext::IncrementId()
-{
-	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
-}
-
-int CharacteristicsContext::GetId()
-{
-	return this->id;
-}
 

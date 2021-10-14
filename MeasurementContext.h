@@ -3,11 +3,12 @@
 #include <QString>
 
 #include "SampleContext.h"
+#include "TableContext.h"
 
-class MeasurementContext
+class MeasurementContext : public TableContext
 {
 public:
-	MeasurementContext();
+	MeasurementContext(QString stateFilePath);
 	void SetName(QString name);
 	void SetDateTime(QString dateTime);
 	void SetFileLink(QString fileLink);
@@ -16,11 +17,8 @@ public:
 	void SetKineticsCount(int kineticsCount);
 	void SetNumberPositions(int numberPositions);
 	void SetFKSample(SampleContext* fk_sample);
-	void IncrementId();
-	int GetId();
 
 private:
-	int id;
 	QString name;
 	QString dateTime;
 	QString fileLink;
@@ -29,7 +27,4 @@ private:
 	int numberPositions;
 	int kineticsCount;
 	SampleContext* fk_sample;
-
-	QString stateFilePath = "measurementstate.txt";
-
 };

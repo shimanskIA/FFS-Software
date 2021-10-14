@@ -117,14 +117,14 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 				dbContext->AddNewSample(sample);
 			}
 
-			sample = new SampleContext();
+			sample = new SampleContext(sampleStatePath);
 			
 			if (measurement != nullptr)
 			{
 				dbContext->AddNewMeasurement(measurement);
 			}
 
-			measurement = new MeasurementContext();
+			measurement = new MeasurementContext(measurementStatePath);
 			measurement->SetFileLink(fileLink);
 			measurement->SetFKSample(sample);
 			measurementReadFlag = true;
@@ -187,7 +187,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			}
 			else
 			{
-				MeasurementParameterContext *measureParameter = new MeasurementParameterContext();
+				MeasurementParameterContext *measureParameter = new MeasurementParameterContext(measurementParametersStatePath);
 				measureParameter->SetName(parameterName);
 				measureParameter->SetValue(parameterValue);
 				measureParameter->SetFKMeasurement(measurement);
@@ -310,7 +310,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 				if (line.contains("SamplePositions") && !line.contains("Usage"))
 				{
 					sampleDistributionReadFlag = false;
-					EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext();
+					EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext(equipmentParameterStatePath);
 					equipmentParameter->SetName("SampleDistribution");
 					equipmentParameter->SetValue(fullSampleDistribution);
 					equipmentParameter->SetFKEquipment(equipmentItem);
@@ -332,14 +332,14 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 		else if (line.contains("BEGIN Channel") && !line.contains("Channel "))
 		{
-			characteristic = new CharacteristicsContext();
+			characteristic = new CharacteristicsContext(characteristicStatePath);
 			actualChannelName = line.trimmed().split(' ').at(1);
 			channelNumber++;
 		}
 
 		else if (line.contains("BEGIN Correlation") && !line.contains("Correlation "))
 		{
-			characteristic = new CharacteristicsContext();
+			characteristic = new CharacteristicsContext(characteristicStatePath);
 			actualChannelName = line.trimmed().split(' ').at(1);
 			correlationNumber++;
 		}
@@ -359,7 +359,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 			if (!usedCharacteristicTypes.contains(actualCharacteristicType))
 			{
-				CharacteristicTypeContext* characteristicType = new CharacteristicTypeContext();
+				CharacteristicTypeContext* characteristicType = new CharacteristicTypeContext(characteristicTypeStatePath);
 				characteristicType->SetName(actualCharacteristicType);
 				characteristicType->SetDescription("Write your description here.");
 				usedCharacteristicTypes.insert(actualCharacteristicType, characteristicType);
@@ -368,7 +368,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 			if (characteristic == nullptr)
 			{
-				characteristic = new CharacteristicsContext();
+				characteristic = new CharacteristicsContext(characteristicStatePath);
 			}
 			
 			numberOfPointsReadFlag = true;
@@ -437,7 +437,7 @@ void RawDataParser::CascadeEquipmentParametersRead(QString line, bool& flag, QSt
 {
 	QString parameterName = line.split('=').first().trimmed();
 	QString parameterValue = line.split('=').last().trimmed();
-	EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext();
+	EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext(equipmentParameterStatePath);
 	equipmentParameter->SetName(parameterName);
 	equipmentParameter->SetValue(parameterValue);
 	equipmentParameter->SetFKEquipment(equipmentItem);
@@ -453,7 +453,7 @@ void RawDataParser::CascadeEquipmentParametersRead(QString line, bool& flag, QSt
 void RawDataParser::CreateNewEquipmentItem(QString name, bool& flag, EquipmentContext*& equipmentItem)
 {
 	QString description = "Write your description here.";
-	equipmentItem = new EquipmentContext();
+	equipmentItem = new EquipmentContext(equipmentStatePath);
 	equipmentItem->SetName(name);
 	equipmentItem->SetDescription(description);
 	flag = true;

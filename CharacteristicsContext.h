@@ -4,11 +4,12 @@
 
 #include "MeasurementContext.h";
 #include "CharacteristicTypeContext.h";
+#include "TableContext.h"
 
-class CharacteristicsContext
+class CharacteristicsContext : public TableContext
 {
 public:
-	CharacteristicsContext();
+	CharacteristicsContext(QString stateFilePath);
 	void SetChannel(QString);
 	void SetWeight(double weight);
 	void SetBinTime(double binTime);
@@ -17,11 +18,8 @@ public:
 	void AddNewYCoordinate(QString y);
 	void SetFKMeasurement(MeasurementContext* fk_measurement);
 	void SetFKCharacteristicType(CharacteristicTypeContext* fk_characteristic_type);
-	void IncrementId();
-	int GetId();
 
 private:
-	int id;
 	QString channel;
 	QString x;
 	QString y;
@@ -30,6 +28,4 @@ private:
 	int numberOfPoints;
 	MeasurementContext* fk_measurement;
 	CharacteristicTypeContext* fk_characteristic_type;
-
-	QString stateFilePath = "characteristicstate.txt";
 };

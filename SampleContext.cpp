@@ -1,15 +1,9 @@
 #include "SampleContext.h"
 #include "TextFileInteractionHelper.h"
 
-SampleContext::SampleContext()
+SampleContext::SampleContext(QString stateFilePath) : TableContext(stateFilePath)
 {
-	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
-}
 
-void SampleContext::SetId(int id)
-{
-	TextFileInteractionHelper::DeleteIdFromTextFile(this->GetId(), stateFilePath);
-	this->id = id;
 }
 
 void SampleContext::SetName(QString name)
@@ -22,15 +16,6 @@ void SampleContext::SetDescription(QString description)
 	this->description = description;
 }
 
-void SampleContext::IncrementId()
-{
-	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
-}
-
-int SampleContext::GetId()
-{
-	return this->id;
-}
 
 QString SampleContext::GetName()
 {

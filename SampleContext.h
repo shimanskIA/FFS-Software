@@ -1,24 +1,19 @@
 #pragma once
 
+#include "TableContext.h"
+
 #include <QString>
 
-class SampleContext
+class SampleContext : public TableContext
 {
 public:
-	SampleContext();
-	void SetId(int id);
+	SampleContext(QString stateFilePath);
 	void SetName(QString name);
 	void SetDescription(QString description);
-	void IncrementId();
-	int GetId();
 	QString GetName();
 	QString GetDescription();
 
 private:
-	int id;
 	QString name;
 	QString description;
-
-	QString stateFilePath = "samplestate.txt";
-
 };

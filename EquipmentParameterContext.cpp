@@ -1,19 +1,9 @@
 #include "EquipmentParameterContext.h"
 #include "TextFileInteractionHelper.h"
 
-EquipmentParameterContext::EquipmentParameterContext()
+EquipmentParameterContext::EquipmentParameterContext(QString stateFilePath) : ParameterTableContext(stateFilePath)
 {
-	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
-}
 
-void EquipmentParameterContext::SetName(QString name)
-{
-	this->name = name;
-}
-
-void EquipmentParameterContext::SetValue(QString value)
-{
-	this->value = value;
 }
 
 void EquipmentParameterContext::SetFKEquipment(EquipmentContext* fk_equipment)
@@ -21,12 +11,3 @@ void EquipmentParameterContext::SetFKEquipment(EquipmentContext* fk_equipment)
 	this->fk_equipment = fk_equipment;
 }
 
-void EquipmentParameterContext::IncrementId()
-{
-	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
-}
-
-int EquipmentParameterContext::GetId()
-{
-	return this->id;
-}

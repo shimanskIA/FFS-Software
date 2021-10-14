@@ -97,8 +97,10 @@
     <ClCompile Include="FFSDatabaseInterfaceService.cpp" />
     <ClCompile Include="MeasurementContext.cpp" />
     <ClCompile Include="MeasurementParameterContext.cpp" />
+    <ClCompile Include="ParameterTableContext.cpp" />
     <ClCompile Include="RawDataParser.cpp" />
     <ClCompile Include="SampleContext.cpp" />
+    <ClCompile Include="TableContext.cpp" />
     <ClCompile Include="TextFileInteractionHelper.cpp" />
     <QtRcc Include="FFSDatabaseInterface.qrc" />
     <QtUic Include="AboutForm.ui" />
@@ -124,8 +126,10 @@
     <ClInclude Include="FFSDatabaseInterfaceService.h" />
     <ClInclude Include="MeasurementContext.h" />
     <ClInclude Include="MeasurementParameterContext.h" />
+    <ClInclude Include="ParameterTableContext.h" />
     <ClInclude Include="RawDataParser.h" />
     <ClInclude Include="SampleContext.h" />
+    <ClInclude Include="TableContext.h" />
     <ClInclude Include="TextFileInteractionHelper.h" />
   </ItemGroup>
   <ItemGroup>

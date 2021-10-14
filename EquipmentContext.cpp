@@ -1,9 +1,9 @@
 #include "EquipmentContext.h"
 #include "TextFileInteractionHelper.h"
 
-EquipmentContext::EquipmentContext()
+EquipmentContext::EquipmentContext(QString stateFilePath) : TableContext(stateFilePath)
 {
-	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
+
 }
 
 void EquipmentContext::SetName(QString name)
@@ -14,14 +14,4 @@ void EquipmentContext::SetName(QString name)
 void EquipmentContext::SetDescription(QString description)
 {
 	this->description = description;
-}
-
-void EquipmentContext::IncrementId()
-{
-	TextFileInteractionHelper::WriteIdToTextFile(id, stateFilePath);
-}
-
-int EquipmentContext::GetId()
-{
-	return this->id;
 }

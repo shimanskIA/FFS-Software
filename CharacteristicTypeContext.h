@@ -1,24 +1,19 @@
 #pragma once
 
+#include "TableContext.h"
+
 #include <QString>
 
-class CharacteristicTypeContext
+class CharacteristicTypeContext : public TableContext
 {
 public:
-	CharacteristicTypeContext();
-	void SetId(int id);
+	CharacteristicTypeContext(QString stateFilePath);
 	void SetName(QString name);
 	void SetDescription(QString description);
-	void IncrementId();
-	int GetId();
 	QString GetName();
 	QString GetDescription();
 
 private:
-	int id;
 	QString name;
 	QString description;
-
-	QString stateFilePath = "characteristictypestate.txt";
-
 };

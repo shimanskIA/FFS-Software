@@ -3,23 +3,15 @@
 #include <QString>
 
 #include "EquipmentContext.h";
+#include "ParameterTableContext.h"
 
-class EquipmentParameterContext
+class EquipmentParameterContext : public ParameterTableContext
 {
 public:
-	EquipmentParameterContext();
-	
-	void SetName(QString name);
-	void SetValue(QString value);
+	EquipmentParameterContext(QString stateFilePath);
 	void SetFKEquipment(EquipmentContext* fk_equipment);
-	void IncrementId();
-	int GetId();
 
 private:
-	int id;
-	QString name;
-	QString value;
 	EquipmentContext* fk_equipment;
 
-	QString stateFilePath = "equipmentparameterstate.txt";
 };

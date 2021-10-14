@@ -122,6 +122,12 @@
     <ClCompile Include="DbConnection.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TableContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParameterTableContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -183,6 +189,12 @@
       <Filter>Model\Helpers\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DbConnection.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TableContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterTableContext.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

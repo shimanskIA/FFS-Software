@@ -38,4 +38,12 @@ private:
 	bool sampleDistributionReadFlag;
 	bool characteristicReadFlag;
 	bool numberOfPointsReadFlag;
+
+	QString sampleStatePath = "samplestate.txt";
+	QString measurementStatePath = "measurementstate.txt";
+	QString equipmentStatePath = "equipmentstate.txt";
+	QString measurementParametersStatePath = "measurementparameterstate.txt";
+	QString equipmentParameterStatePath = "equipmentparameterstate.txt";
+	QString characteristicStatePath = "characteristicstate.txt";
+	QString characteristicTypeStatePath = "characteristictypestate.txt";
 };
