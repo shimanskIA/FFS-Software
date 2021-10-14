@@ -2,13 +2,15 @@
 
 #include <QString>
 
+#include "MeasurementContext.h";
+
 class MeasurementParameterContext
 {
 public:
 	MeasurementParameterContext();
 	void SetName(QString name);
 	void SetValue(QString value);
-	void SetFKMeasurement(int fk_measurement);
+	void SetFKMeasurement(MeasurementContext* fk_measurement);
 	void IncrementId();
 	int GetId();
 
@@ -16,7 +18,7 @@ private:
 	int id;
 	QString name;
 	QString value;
-	int fk_measurement;
+	MeasurementContext* fk_measurement;
 
 	QString stateFilePath = "measurementparameterstate.txt";
 

@@ -2,6 +2,9 @@
 
 #include <QString>
 
+#include "MeasurementContext.h";
+#include "CharacteristicTypeContext.h";
+
 class CharacteristicsContext
 {
 public:
@@ -12,8 +15,8 @@ public:
 	void SetNumberOfPoints(int numberOfPoints);
 	void AddNewXCoordinate(QString x);
 	void AddNewYCoordinate(QString y);
-	void SetFKMeasurement(int fk_measurement);
-	void SetFKCharacteristicType(int fk_characteristic_type);
+	void SetFKMeasurement(MeasurementContext* fk_measurement);
+	void SetFKCharacteristicType(CharacteristicTypeContext* fk_characteristic_type);
 	void IncrementId();
 	int GetId();
 
@@ -25,8 +28,8 @@ private:
 	double weight;
 	double binTime;
 	int numberOfPoints;
-	int fk_measurement;
-	int fk_characteristic_type;
+	MeasurementContext* fk_measurement;
+	CharacteristicTypeContext* fk_characteristic_type;
 
 	QString stateFilePath = "characteristicstate.txt";
 };

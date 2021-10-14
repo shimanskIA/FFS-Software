@@ -38,12 +38,12 @@ void CharacteristicsContext::AddNewYCoordinate(QString y)
 	this->y += " ";
 }
 
-void CharacteristicsContext::SetFKMeasurement(int fk_measurement)
+void CharacteristicsContext::SetFKMeasurement(MeasurementContext* fk_measurement)
 {
 	this->fk_measurement = fk_measurement;
 }
 
-void CharacteristicsContext::SetFKCharacteristicType(int fk_characteristic_type)
+void CharacteristicsContext::SetFKCharacteristicType(CharacteristicTypeContext* fk_characteristic_type)
 {
 	this->fk_characteristic_type = fk_characteristic_type;
 }

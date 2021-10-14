@@ -93,7 +93,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	EquipmentContext* equipmentItem = nullptr;
 	CharacteristicsContext* characteristic = nullptr;
 
-	QMap<QString, int> usedCharacteristicTypes;
+	QMap<QString, CharacteristicTypeContext*> usedCharacteristicTypes;
 	
 	QString fullSampleName = "";
 	QString fullSampleDistribution = "";
@@ -126,7 +126,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 			measurement = new MeasurementContext();
 			measurement->SetFileLink(fileLink);
-			measurement->SetFKSample(sample->GetId());
+			measurement->SetFKSample(sample);
 			measurementReadFlag = true;
 			dataSetNumber++;
 		}
@@ -190,7 +190,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 				MeasurementParameterContext *measureParameter = new MeasurementParameterContext();
 				measureParameter->SetName(parameterName);
 				measureParameter->SetValue(parameterValue);
-				measureParameter->SetFKMeasurement(measurement->GetId());
+				measureParameter->SetFKMeasurement(measurement);
 				dbContext->AddNewMeasurementParameter(measureParameter);
 
 				if (line.contains("SizePdHistogram"))
@@ -313,7 +313,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 					EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext();
 					equipmentParameter->SetName("SampleDistribution");
 					equipmentParameter->SetValue(fullSampleDistribution);
-					equipmentParameter->SetFKEquipment(equipmentItem->GetId());
+					equipmentParameter->SetFKEquipment(equipmentItem);
 					dbContext->AddNewEquipmentParameter(equipmentParameter);
 				}
 				else
@@ -362,7 +362,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 				CharacteristicTypeContext* characteristicType = new CharacteristicTypeContext();
 				characteristicType->SetName(actualCharacteristicType);
 				characteristicType->SetDescription("Write your description here.");
-				usedCharacteristicTypes.insert(actualCharacteristicType, characteristicType->GetId());
+				usedCharacteristicTypes.insert(actualCharacteristicType, characteristicType);
 				dbContext->AddNewCharacteristicType(characteristicType);
 			}
 
@@ -374,7 +374,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			numberOfPointsReadFlag = true;
 			characteristic->SetChannel(actualChannelName);
 			characteristic->SetFKCharacteristicType(usedCharacteristicTypes[actualCharacteristicType]);
-			characteristic->SetFKMeasurement(measurement->GetId());
+			characteristic->SetFKMeasurement(measurement);
 		}
 
 		else if(numberOfPointsReadFlag)
@@ -440,7 +440,7 @@ void RawDataParser::CascadeEquipmentParametersRead(QString line, bool& flag, QSt
 	EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext();
 	equipmentParameter->SetName(parameterName);
 	equipmentParameter->SetValue(parameterValue);
-	equipmentParameter->SetFKEquipment(equipmentItem->GetId());
+	equipmentParameter->SetFKEquipment(equipmentItem);
 	dbContext->AddNewEquipmentParameter(equipmentParameter);
 
 	if (line.contains(endLine))
@@ -462,8 +462,8 @@ void RawDataParser::CreateNewEquipmentItem(QString name, bool& flag, EquipmentCo
 void RawDataParser::Bind(MeasurementContext* measurement, EquipmentContext*& equipmentItem, DbContext* dbContext)
 {
 	BindingContext* binding = new BindingContext();
-	binding->SetFKMeasurement(measurement->GetId());
-	binding->SetFKEquipment(equipmentItem->GetId());
+	binding->SetFKMeasurement(measurement);
+	binding->SetFKEquipment(equipmentItem);
 	dbContext->AddNewBinding(binding);
 }
 

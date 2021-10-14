@@ -41,7 +41,7 @@ void MeasurementContext::SetNumberPositions(int numberPositions)
 	this->numberPositions = numberPositions;
 }
 
-void MeasurementContext::SetFKSample(int fk_sample)
+void MeasurementContext::SetFKSample(SampleContext* fk_sample)
 {
 	this->fk_sample = fk_sample;
 }

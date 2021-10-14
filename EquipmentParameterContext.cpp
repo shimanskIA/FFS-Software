@@ -16,7 +16,7 @@ void EquipmentParameterContext::SetValue(QString value)
 	this->value = value;
 }
 
-void EquipmentParameterContext::SetFKEquipment(int fk_equipment)
+void EquipmentParameterContext::SetFKEquipment(EquipmentContext* fk_equipment)
 {
 	this->fk_equipment = fk_equipment;
 }

@@ -16,7 +16,7 @@ void MeasurementParameterContext::SetValue(QString value)
 	this->value = value;
 }
 
-void MeasurementParameterContext::SetFKMeasurement(int fk_measurement)
+void MeasurementParameterContext::SetFKMeasurement(MeasurementContext* fk_measurement)
 {
 	this->fk_measurement = fk_measurement;
 }

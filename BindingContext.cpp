@@ -5,12 +5,12 @@ BindingContext::BindingContext()
 
 }
 
-void BindingContext::SetFKEquipment(int fk_equipment)
+void BindingContext::SetFKEquipment(EquipmentContext* fk_equipment)
 {
 	this->fk_equipment = fk_equipment;
 }
 
-void BindingContext::SetFKMeasurement(int fk_measurement)
+void BindingContext::SetFKMeasurement(MeasurementContext* fk_measurement)
 {
 	this->fk_measurement = fk_measurement;
 }

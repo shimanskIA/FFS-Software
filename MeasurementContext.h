@@ -2,6 +2,8 @@
 
 #include <QString>
 
+#include "SampleContext.h"
+
 class MeasurementContext
 {
 public:
@@ -13,7 +15,7 @@ public:
 	void SetRepeatCount(int repeatCount);
 	void SetKineticsCount(int kineticsCount);
 	void SetNumberPositions(int numberPositions);
-	void SetFKSample(int fk_sample);
+	void SetFKSample(SampleContext* fk_sample);
 	void IncrementId();
 	int GetId();
 
@@ -26,7 +28,7 @@ private:
 	int repeatCount;
 	int numberPositions;
 	int kineticsCount;
-	int fk_sample;
+	SampleContext* fk_sample;
 
 	QString stateFilePath = "measurementstate.txt";
 
