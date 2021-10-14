@@ -78,3 +78,8 @@ void DbContext::AddNewBinding(BindingContext* binding)
 {
 	bindings.append(binding);
 }
+
+QList<SampleContext*> DbContext::GetSamples()
+{
+	return this->samples;
+}

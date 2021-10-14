@@ -16,5 +16,5 @@ DbImporter::~DbImporter()
 void DbImporter::ImportToDatabase()
 {
 	rawDataParser->ParseRawDataFile(dbContext);
-	DbConnection::GetDbConnectionInstance().ReadFromDataBase();
+	DbConnection::GetDbConnectionInstance().AddToDatabase(dbContext);
 }
