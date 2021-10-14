@@ -8,6 +8,7 @@ class EquipmentParameterContext
 {
 public:
 	EquipmentParameterContext();
+	
 	void SetName(QString name);
 	void SetValue(QString value);
 	void SetFKEquipment(EquipmentContext* fk_equipment);

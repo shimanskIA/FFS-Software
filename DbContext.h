@@ -28,6 +28,7 @@ public:
     void AddNewBinding(BindingContext* binding);
 
     QList<SampleContext*> GetSamples();
+    QList<CharacteristicTypeContext*> GetCharacteristicTypes();
 
 private:
     QList<MeasurementContext*> measurements;

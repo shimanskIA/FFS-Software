@@ -83,3 +83,8 @@ QList<SampleContext*> DbContext::GetSamples()
 {
 	return this->samples;
 }
+
+QList<CharacteristicTypeContext*> DbContext::GetCharacteristicTypes()
+{
+	return this->characteristicTypes;
+}

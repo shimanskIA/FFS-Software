@@ -6,6 +6,12 @@ CharacteristicTypeContext::CharacteristicTypeContext()
 	this->id = TextFileInteractionHelper::ReadIdFromTextFile(stateFilePath);
 }
 
+void CharacteristicTypeContext::SetId(int id)
+{
+	TextFileInteractionHelper::DeleteIdFromTextFile(this->GetId(), stateFilePath);
+	this->id = id;
+}
+
 void CharacteristicTypeContext::SetName(QString name)
 {
 	this->name = name;
@@ -24,4 +30,14 @@ void CharacteristicTypeContext::IncrementId()
 int CharacteristicTypeContext::GetId()
 {
 	return this->id;
+}
+
+QString CharacteristicTypeContext::GetName()
+{
+	return this->name;
+}
+
+QString CharacteristicTypeContext::GetDescription()
+{
+	return this->description;
 }
