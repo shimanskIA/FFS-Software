@@ -48,4 +48,44 @@ void CharacteristicsContext::SetFKCharacteristicType(CharacteristicTypeContext* 
 	this->fk_characteristic_type = fk_characteristic_type;
 }
 
+QString CharacteristicsContext::GetChannel()
+{
+	return this->channel;
+}
+
+int CharacteristicsContext::GetNumberOfPoints()
+{
+	return this->numberOfPoints;
+}
+
+QString CharacteristicsContext::GetX()
+{
+	return this->x;
+}
+
+QString CharacteristicsContext::GetY()
+{
+	return this->y;
+}
+
+double CharacteristicsContext::GetWeight()
+{
+	return this->weight;
+}
+
+double CharacteristicsContext::GetBinTime()
+{
+	return this->binTime;
+}
+
+int CharacteristicsContext::GetFKMeasurement()
+{
+	return this->fk_measurement->GetId();
+}
+
+int CharacteristicsContext::GetFKCharacteristicType()
+{
+	return this->fk_characteristic_type->GetId();
+}
+
 

@@ -11,6 +11,8 @@ public:
 	MeasurementParameterContext(QString stateFilePath);
 	void SetFKMeasurement(MeasurementContext* fk_measurement);
 
+	int GetFKMeasurement();
+
 private:
-	MeasurementContext* fk_measurement;
+	MeasurementContext* fk_measurement = nullptr;
 };

@@ -88,3 +88,18 @@ QList<CharacteristicTypeContext*> DbContext::GetCharacteristicTypes()
 {
 	return this->characteristicTypes;
 }
+
+QList<MeasurementContext*> DbContext::GetMeasurements()
+{
+	return this->measurements;
+}
+
+QList<MeasurementParameterContext*> DbContext::GetMeasurementParameters()
+{
+	return this->measurementParameters;
+}
+
+QList<CharacteristicsContext*> DbContext::GetCharacteristics()
+{
+	return this->characteristics;
+}

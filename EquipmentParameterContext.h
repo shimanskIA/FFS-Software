@@ -12,6 +12,6 @@ public:
 	void SetFKEquipment(EquipmentContext* fk_equipment);
 
 private:
-	EquipmentContext* fk_equipment;
+	EquipmentContext* fk_equipment = nullptr;
 
 };

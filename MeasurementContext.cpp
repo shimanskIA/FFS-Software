@@ -45,3 +45,43 @@ void MeasurementContext::SetFKSample(SampleContext* fk_sample)
 {
 	this->fk_sample = fk_sample;
 }
+
+QString MeasurementContext::GetName()
+{
+	return this->name;
+}
+
+QString MeasurementContext::GetDateTime() 
+{
+	return this->dateTime;
+}
+
+QString MeasurementContext::GetFileLink()
+{
+	return this->fileLink;
+}
+
+int MeasurementContext::GetNumberOfChannels()
+{
+	return this->numberOfChannels;
+}
+
+int MeasurementContext::GetNumberPositions()
+{
+	return this->numberPositions;
+}
+
+int MeasurementContext::GetKineticsCount()
+{
+	return this->kineticsCount;
+}
+
+int MeasurementContext::GetRepeatCount()
+{
+	return this->repeatCount;
+}
+
+int MeasurementContext::GetFKSample()
+{
+	return this->fk_sample->GetId();
+}

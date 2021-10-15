@@ -11,6 +11,6 @@ public:
 	void SetFKMeasurement(MeasurementContext* fk_measurement);
 
 private:
-	EquipmentContext* fk_equipment;
-	MeasurementContext* fk_measurement;
+	EquipmentContext* fk_equipment = nullptr;
+	MeasurementContext* fk_measurement = nullptr;
 };

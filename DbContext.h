@@ -29,6 +29,9 @@ public:
 
     QList<SampleContext*> GetSamples();
     QList<CharacteristicTypeContext*> GetCharacteristicTypes();
+    QList<MeasurementContext*> GetMeasurements();
+    QList<MeasurementParameterContext*> GetMeasurementParameters();
+    QList<CharacteristicsContext*> GetCharacteristics();
 
 private:
     QList<MeasurementContext*> measurements;

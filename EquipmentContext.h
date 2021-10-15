@@ -12,6 +12,6 @@ public:
 	void SetDescription(QString description);
 
 private:
-	QString name;
-	QString description;
+	QString name = "";
+	QString description = "";
 };

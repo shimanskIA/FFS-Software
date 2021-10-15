@@ -12,6 +12,6 @@ public:
 
 protected:
 	TableContext(QString stateFilePath);
-	int id;
-	QString stateFilePath;
+	int id = 0;
+	QString stateFilePath = "";
 };

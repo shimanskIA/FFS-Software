@@ -10,3 +10,8 @@ void MeasurementParameterContext::SetFKMeasurement(MeasurementContext* fk_measur
 {
 	this->fk_measurement = fk_measurement;
 }
+
+int MeasurementParameterContext::GetFKMeasurement()
+{
+	return this->fk_measurement->GetId();
+}
