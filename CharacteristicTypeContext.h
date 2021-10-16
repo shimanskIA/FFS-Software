@@ -8,6 +8,7 @@ class CharacteristicTypeContext : public TableContext
 {
 public:
 	CharacteristicTypeContext(QString stateFilePath);
+	CharacteristicTypeContext(int id);
 	void SetName(QString name);
 	void SetDescription(QString description);
 

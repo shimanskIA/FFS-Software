@@ -2,21 +2,23 @@
 
 #include <QString>
 
-#include "MeasurementContext.h";
-#include "CharacteristicTypeContext.h";
+#include "CharacteristicTypeContext.h"
 #include "TableContext.h"
 
 class CharacteristicsContext : public TableContext
 {
 public:
 	CharacteristicsContext(QString stateFilePath);
+	CharacteristicsContext();
 	void SetChannel(QString);
 	void SetWeight(double weight);
 	void SetBinTime(double binTime);
+	void SetX(QString x);
+	void SetY(QString y);
 	void SetNumberOfPoints(int numberOfPoints);
 	void AddNewXCoordinate(QString x);
 	void AddNewYCoordinate(QString y);
-	void SetFKMeasurement(MeasurementContext* fk_measurement);
+	void SetFKMeasurement(int fk_measurement);
 	void SetFKCharacteristicType(CharacteristicTypeContext* fk_characteristic_type);
 
 	QString GetChannel();
@@ -35,6 +37,6 @@ private:
 	double weight = 0.0;
 	double binTime = 0.0;
 	int numberOfPoints = 0;
-	MeasurementContext* fk_measurement = nullptr;
+	int fk_measurement = 0;
 	CharacteristicTypeContext* fk_characteristic_type = nullptr;
 };

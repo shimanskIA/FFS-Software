@@ -2,16 +2,17 @@
 
 #include <QString>
 
-#include "EquipmentContext.h";
 #include "ParameterTableContext.h"
 
 class EquipmentParameterContext : public ParameterTableContext
 {
 public:
 	EquipmentParameterContext(QString stateFilePath);
-	void SetFKEquipment(EquipmentContext* fk_equipment);
+	EquipmentParameterContext();
+	void SetFKEquipment(int fk_equipment);
+
+	int GetFKEquipment();
 
 private:
-	EquipmentContext* fk_equipment = nullptr;
-
+	int fk_equipment = 0;
 };

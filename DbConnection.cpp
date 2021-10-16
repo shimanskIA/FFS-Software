@@ -46,7 +46,11 @@ void DbConnection::AddToDatabase(DbContext* dbContext)
 {
 	AddSamples(dbContext->GetSamples());
 	AddCharacteristicTypes(dbContext->GetCharacteristicTypes());
+
 	AddMeasurements(dbContext->GetMeasurements(), dbContext);
+	AddEquipment(dbContext->GetEquipments(), dbContext);
+
+	AddBindings(dbContext->GetBindings());
 }
 
 void DbConnection::AddSamples(QList<SampleContext*> samples)
@@ -130,8 +134,8 @@ void DbConnection::AddMeasurements(QList<MeasurementContext*> measurements, DbCo
 				.arg(number_of_channels)
 				.arg(number_positions)
 				.arg(fk_sample), "characteristic_types");
-			AddMeasurementParameters(dbContext->GetMeasurementParameters());
-			AddCharacteristics(dbContext->GetCharacteristics());
+			AddMeasurementParameters(measurement->GetMeasurementParameters());
+			AddCharacteristics(measurement->GetCharacteristics());
 		}
 		else
 		{
@@ -147,73 +151,60 @@ void DbConnection::AddMeasurements(QList<MeasurementContext*> measurements, DbCo
 				QSqlQuery parametersQuery = ReadFromDatabase(sqlParametersReadRequest.arg(id));
 				QSqlQuery characteristicsQuery = ReadFromDatabase(sqlCharacteristicsReadRequest.arg(id));
 
-				QList<MeasurementParameterContext*> measurementParameters = dbContext->GetMeasurementParameters();
-				QList<CharacteristicsContext*> characteristics = dbContext->GetCharacteristics();
 				QList<int> equalParametersIds;
 				QList<int> equalCharacteristicsIds;
 
 				while (parametersQuery.next())
 				{
-					QString parameterName = parametersQuery.value(1).toString().trimmed();
-					QString parameterValue = parametersQuery.value(2).toString().trimmed();
+					MeasurementParameterContext* measurementParameter = new MeasurementParameterContext();
+					measurementParameter->SetName(parametersQuery.value(1).toString().trimmed());
+					measurementParameter->SetValue(parametersQuery.value(2).toString().trimmed());
 
-					foreach(MeasurementParameterContext * measurementParameter, measurementParameters)
+					if (measurement->ContainsMeasurementParameter(measurementParameter))
 					{
-						if (parameterName == measurementParameter->GetName() && parameterValue == measurementParameter->GetValue())
-						{
-							int parameterId = parametersQuery.value(0).toInt();
-							equalParametersIds.append(parameterId);
-							break;
-						}
+						int parameterId = parametersQuery.value(0).toInt();
+						equalParametersIds.append(parameterId);
 					}
 				}
 
-				if (equalParametersIds.length() < measurementParameters.length())
+				if (equalParametersIds.length() < measurement->GetAmountOfMeasurementParameters())
 				{
 					continue;
 				}
 
 				while (characteristicsQuery.next())
 				{
-					QString channel = characteristicsQuery.value(1).toString().trimmed();
-					int numberOfPoints = characteristicsQuery.value(2).toInt();
-					double binTime = characteristicsQuery.value(3).toDouble();
-					QString x = characteristicsQuery.value(4).toString().trimmed();
-					QString y = characteristicsQuery.value(5).toString().trimmed();
-					double weight = characteristicsQuery.value(6).toDouble();
-					int fk_characteristic_type = characteristicsQuery.value(8).toInt();
+					CharacteristicsContext* characteristic = new CharacteristicsContext();
+					characteristic->SetChannel(characteristicsQuery.value(1).toString().trimmed());
+					characteristic->SetNumberOfPoints(characteristicsQuery.value(2).toInt());
+					characteristic->SetBinTime(characteristicsQuery.value(3).toDouble());
+					characteristic->SetX(characteristicsQuery.value(4).toString().trimmed());
+					characteristic->SetY(characteristicsQuery.value(5).toString().trimmed());
+					characteristic->SetWeight(characteristicsQuery.value(6).toDouble());
+					characteristic->SetFKCharacteristicType(new CharacteristicTypeContext(characteristicsQuery.value(8).toInt()));
 
-					foreach(CharacteristicsContext * characteristic, characteristics)
+					if (measurement->ContainsCharacteristic(characteristic))
 					{
-						if (channel == characteristic->GetChannel() && 
-							numberOfPoints == characteristic->GetNumberOfPoints() &&
-							qFabs(binTime - characteristic->GetBinTime()) < 1e-05 &&
-							x == characteristic->GetX().trimmed() &&
-							y == characteristic->GetY().trimmed() &&
-							qFabs(weight - characteristic->GetWeight()) < 1e-05 &&
-							fk_characteristic_type == characteristic->GetFKCharacteristicType())
-						{
-							int characteristicId = characteristicsQuery.value(0).toInt();
-							equalCharacteristicsIds.append(characteristicId);
-							break;
-						}
+						int characteristicId = characteristicsQuery.value(0).toInt();
+						equalCharacteristicsIds.append(characteristicId);
 					}
+
 				}
 
-				if (equalCharacteristicsIds.length() == characteristics.length())
+				if (equalCharacteristicsIds.length() == measurement->GetAmountOfCharacteristics())
 				{
 					hasEqual = true;
 					twinId = id;
 					QList<int>::iterator itParameters = equalParametersIds.begin();
 					QList<int>::iterator itCharacteristics = equalParametersIds.begin();
 
-					foreach(MeasurementParameterContext * measurementParameter, measurementParameters)
+					foreach(MeasurementParameterContext * measurementParameter, measurement->GetMeasurementParameters())
 					{
 						measurementParameter->SetId(*itParameters);
 						itParameters++;
 					}
 
-					foreach(CharacteristicsContext* characteristic, characteristics)
+					foreach(CharacteristicsContext* characteristic, measurement->GetCharacteristics())
 					{
 						characteristic->SetId(*itCharacteristics);
 						itCharacteristics++;
@@ -241,8 +232,82 @@ void DbConnection::AddMeasurements(QList<MeasurementContext*> measurements, DbCo
 					.arg(number_of_channels)
 					.arg(number_positions)
 					.arg(fk_sample), "characteristic_types");
-				AddMeasurementParameters(dbContext->GetMeasurementParameters());
-				AddCharacteristics(dbContext->GetCharacteristics());
+				AddMeasurementParameters(measurement->GetMeasurementParameters());
+				AddCharacteristics(measurement->GetCharacteristics());
+			}
+		}
+	}
+}
+
+void DbConnection::AddEquipment(QList<EquipmentContext*> equipments, DbContext* dbContext)
+{
+	foreach(EquipmentContext * equipment, equipments)
+	{
+		QString sqlReadRequest = "SELECT * FROM equipments WHERE name = '%1' AND description = '%2'";
+		QString name = equipment->GetName();
+		QString description = equipment->GetDescription();
+		QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
+
+		if (!query.next())
+		{
+			int id = equipment->GetId();
+			QString sqlWriteRequest = "INSERT INTO equipments(id, name, description) VALUES (%1, '%2', '%3')";
+			WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "equipments");
+			AddEquipmentParameters(equipment->GetEquipmentParameters());
+		}
+		else
+		{
+			bool hasEqual = false;
+			int twinId = 0;
+			query.previous();
+
+			while (query.next())
+			{
+				int id = query.value(0).toInt();
+				QString sqlParametersReadRequest = "SELECT * FROM equipment_parameters WHERE fk_equipment = %1";
+				QSqlQuery parametersQuery = ReadFromDatabase(sqlParametersReadRequest.arg(id));
+
+				QList<int> equalParametersIds;
+
+				while (parametersQuery.next())
+				{
+					EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext();
+					equipmentParameter->SetName(parametersQuery.value(1).toString().trimmed());
+					equipmentParameter->SetValue(parametersQuery.value(2).toString().trimmed());
+
+					if (equipment->ContainsEquipmentParameter(equipmentParameter))
+					{
+						int parameterId = parametersQuery.value(0).toInt();
+						equalParametersIds.append(parameterId);
+					}
+				}
+
+				if (equalParametersIds.length() == equipment->GetAmountOfEquipmentParameters())
+				{
+					hasEqual = true;
+					twinId = id;
+					QList<int>::iterator itParameters = equalParametersIds.begin();
+
+					foreach(EquipmentParameterContext * equipmentParameter, equipment->GetEquipmentParameters())
+					{
+						equipmentParameter->SetId(*itParameters);
+						itParameters++;
+					}
+
+					break;
+				}
+			}
+
+			if (hasEqual)
+			{
+				equipment->SetId(twinId);
+			}
+			else
+			{
+				int id = equipment->GetId();
+				QString sqlWriteRequest = "INSERT INTO equipments(id, name, description) VALUES (%1, '%2', '%3')";
+				WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "equipments");
+				AddEquipmentParameters(equipment->GetEquipmentParameters());
 			}
 		}
 	}
@@ -258,6 +323,19 @@ void DbConnection::AddMeasurementParameters(QList<MeasurementParameterContext*> 
 		QString value = measurementParameter->GetValue();
 		int fk_measurement = measurementParameter->GetFKMeasurement();
 		WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(value).arg(fk_measurement), "measurement_parameters");
+	}
+}
+
+void DbConnection::AddEquipmentParameters(QList<EquipmentParameterContext*> equipmentParameters)
+{
+	foreach(EquipmentParameterContext * equipmentParameter, equipmentParameters)
+	{
+		QString sqlWriteRequest = "INSERT INTO equipment_parameters(id, name, value, fk_equipment) VALUES (%1, '%2', '%3', %4)";
+		int id = equipmentParameter->GetId();
+		QString name = equipmentParameter->GetName();
+		QString value = equipmentParameter->GetValue();
+		int fk_equipment = equipmentParameter->GetFKEquipment();
+		WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(value).arg(fk_equipment), "equipment_parameters");
 	}
 }
 
@@ -287,3 +365,19 @@ void DbConnection::AddCharacteristics(QList<CharacteristicsContext*> characteris
 	}
 }
 
+void DbConnection::AddBindings(QList<BindingContext*> bindings)
+{
+	foreach(BindingContext * binding, bindings)
+	{
+		QString sqlReadRequest = "SELECT * FROM bindings WHERE fk_measurement = %1 AND fk_equipment = %2";
+		int fk_equipment = binding->GetFKEquipment();
+		int fk_measurement = binding->GetFKMeasurement();
+		QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(fk_measurement).arg(fk_equipment));
+
+		if (!query.next())
+		{
+			QString sqlWriteRequest = "INSERT INTO bindings(fk_measurement, fk_equipment) VALUES (%1, %2)";
+			WriteToDatabase(sqlWriteRequest.arg(fk_measurement).arg(fk_equipment), "bindings");
+		}
+	}
+}

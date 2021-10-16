@@ -6,6 +6,11 @@ CharacteristicsContext::CharacteristicsContext(QString stateFilePath) : TableCon
 
 }
 
+CharacteristicsContext::CharacteristicsContext() : TableContext()
+{
+
+}
+
 void CharacteristicsContext::SetChannel(QString channel)
 {
 	this->channel = channel;
@@ -19,6 +24,16 @@ void CharacteristicsContext::SetWeight(double weight)
 void CharacteristicsContext::SetBinTime(double binTime)
 {
 	this->binTime = binTime;
+}
+
+void CharacteristicsContext::SetX(QString x)
+{
+	this->x = x;
+}
+
+void CharacteristicsContext::SetY(QString y)
+{
+	this->y = y;
 }
 
 void CharacteristicsContext::SetNumberOfPoints(int numberOfPoints)
@@ -38,7 +53,7 @@ void CharacteristicsContext::AddNewYCoordinate(QString y)
 	this->y += " ";
 }
 
-void CharacteristicsContext::SetFKMeasurement(MeasurementContext* fk_measurement)
+void CharacteristicsContext::SetFKMeasurement(int fk_measurement)
 {
 	this->fk_measurement = fk_measurement;
 }
@@ -80,7 +95,7 @@ double CharacteristicsContext::GetBinTime()
 
 int CharacteristicsContext::GetFKMeasurement()
 {
-	return this->fk_measurement->GetId();
+	return fk_measurement;
 }
 
 int CharacteristicsContext::GetFKCharacteristicType()

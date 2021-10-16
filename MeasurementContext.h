@@ -1,14 +1,19 @@
 #pragma once
 
-#include <QString>
-
 #include "SampleContext.h"
 #include "TableContext.h"
+#include "MeasurementParameterContext.h"
+#include "CharacteristicsContext.h"
+
+#include <QString>
+#include <QList>
 
 class MeasurementContext : public TableContext
 {
 public:
 	MeasurementContext(QString stateFilePath);
+	~MeasurementContext();
+	void SetId(int id) override;
 	void SetName(QString name);
 	void SetDateTime(QString dateTime);
 	void SetFileLink(QString fileLink);
@@ -17,6 +22,11 @@ public:
 	void SetKineticsCount(int kineticsCount);
 	void SetNumberPositions(int numberPositions);
 	void SetFKSample(SampleContext* fk_sample);
+	void ChangeMeasurementParametersFK(int new_fk);
+	void ChangeCharacteristicsFK(int new_fk);
+
+	void AddNewMeasurementParameter(MeasurementParameterContext* measurementParameter);
+	void AddNewCharacteristicsSet(CharacteristicsContext* characteristic);
 
 	QString GetName();
 	QString GetDateTime();
@@ -27,6 +37,15 @@ public:
 	int GetNumberPositions();
 	int GetFKSample();
 
+	QList<MeasurementParameterContext*> GetMeasurementParameters();
+	QList<CharacteristicsContext*> GetCharacteristics();
+
+	int GetAmountOfMeasurementParameters();
+	int GetAmountOfCharacteristics();
+
+	bool ContainsMeasurementParameter(MeasurementParameterContext* measurementParameter);
+	bool ContainsCharacteristic(CharacteristicsContext* characteristic);
+
 private:
 	QString name = "";
 	QString dateTime = "";
@@ -36,4 +55,7 @@ private:
 	int numberPositions = 0;
 	int kineticsCount = 0;
 	SampleContext* fk_sample = nullptr;
+
+	QList<MeasurementParameterContext*> measurementParameters;
+	QList<CharacteristicsContext*> characteristics;
 };

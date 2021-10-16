@@ -14,3 +14,13 @@ void BindingContext::SetFKMeasurement(MeasurementContext* fk_measurement)
 {
 	this->fk_measurement = fk_measurement;
 }
+
+int BindingContext::GetFKEquipment()
+{
+	return this->fk_equipment->GetId();
+}
+
+int BindingContext::GetFKMeasurement()
+{
+	return this->fk_measurement->GetId();
+}

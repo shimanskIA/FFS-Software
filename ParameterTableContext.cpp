@@ -5,6 +5,11 @@ ParameterTableContext::ParameterTableContext(QString stateFilePath) : TableConte
 
 }
 
+ParameterTableContext::ParameterTableContext() : TableContext()
+{
+
+}
+
 QString ParameterTableContext::GetName()
 {
 	return this->name;

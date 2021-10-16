@@ -15,9 +15,14 @@ public:
 	void WriteToDatabase(QString sqlWriteRequest, QString tableName);
 	void AddSamples(QList<SampleContext*> samples);
 	void AddCharacteristicTypes(QList<CharacteristicTypeContext*> characteristic_types);
-	void AddMeasurements(QList<MeasurementContext*> measurements, DbContext* dbContext);
 	void AddMeasurementParameters(QList<MeasurementParameterContext*> measurementParameters);
+	void AddEquipmentParameters(QList<EquipmentParameterContext*> equipmentParameters);
 	void AddCharacteristics(QList<CharacteristicsContext*> characteristics);
+
+	void AddMeasurements(QList<MeasurementContext*> measurements, DbContext* dbContext);
+	void AddEquipment(QList<EquipmentContext*> equipments, DbContext* dbContext);
+
+	void AddBindings(QList<BindingContext*> bindings);
 
 private:
 	DbConnection();

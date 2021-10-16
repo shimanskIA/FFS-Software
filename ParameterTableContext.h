@@ -14,6 +14,7 @@ public:
 
 protected:
 	ParameterTableContext(QString stateFilePath);
+	ParameterTableContext();
 	QString name = "";
 	QString value = "";
 };

@@ -7,6 +7,11 @@ TableContext::TableContext(QString tableStatePath)
 	this->stateFilePath = tableStatePath;
 }
 
+TableContext::TableContext()
+{
+
+}
+
 void TableContext::SetId(int id)
 {
 	TextFileInteractionHelper::DeleteIdFromTextFile(this->GetId(), stateFilePath);

@@ -6,12 +6,17 @@ MeasurementParameterContext::MeasurementParameterContext(QString stateFilePath) 
 
 }
 
-void MeasurementParameterContext::SetFKMeasurement(MeasurementContext* fk_measurement)
+MeasurementParameterContext::MeasurementParameterContext() : ParameterTableContext()
+{
+
+}
+
+void MeasurementParameterContext::SetFKMeasurement(int fk_measurement)
 {
 	this->fk_measurement = fk_measurement;
 }
 
 int MeasurementParameterContext::GetFKMeasurement()
 {
-	return this->fk_measurement->GetId();
+	return fk_measurement;
 }

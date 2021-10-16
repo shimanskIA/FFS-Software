@@ -39,11 +39,11 @@ private:
 	bool characteristicReadFlag;
 	bool numberOfPointsReadFlag;
 
-	QString sampleStatePath = "samplestate.txt";
-	QString measurementStatePath = "measurementstate.txt";
-	QString equipmentStatePath = "equipmentstate.txt";
-	QString measurementParametersStatePath = "measurementparameterstate.txt";
-	QString equipmentParameterStatePath = "equipmentparameterstate.txt";
-	QString characteristicStatePath = "characteristicstate.txt";
-	QString characteristicTypeStatePath = "characteristictypestate.txt";
+	const QString sampleStatePath = "samplestate.txt";
+	const QString measurementStatePath = "measurementstate.txt";
+	const QString equipmentStatePath = "equipmentstate.txt";
+	const QString measurementParametersStatePath = "measurementparameterstate.txt";
+	const QString equipmentParameterStatePath = "equipmentparameterstate.txt";
+	const QString characteristicStatePath = "characteristicstate.txt";
+	const QString characteristicTypeStatePath = "characteristictypestate.txt";
 };

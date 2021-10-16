@@ -190,8 +190,8 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 				MeasurementParameterContext *measureParameter = new MeasurementParameterContext(measurementParametersStatePath);
 				measureParameter->SetName(parameterName);
 				measureParameter->SetValue(parameterValue);
-				measureParameter->SetFKMeasurement(measurement);
-				dbContext->AddNewMeasurementParameter(measureParameter);
+				measureParameter->SetFKMeasurement(measurement->GetId());
+				measurement->AddNewMeasurementParameter(measureParameter);
 
 				if (line.contains("SizePdHistogram"))
 				{
@@ -313,8 +313,8 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 					EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext(equipmentParameterStatePath);
 					equipmentParameter->SetName("SampleDistribution");
 					equipmentParameter->SetValue(fullSampleDistribution);
-					equipmentParameter->SetFKEquipment(equipmentItem);
-					dbContext->AddNewEquipmentParameter(equipmentParameter);
+					equipmentParameter->SetFKEquipment(equipmentItem->GetId());
+					equipmentItem->AddNewEquipmentParameter(equipmentParameter);
 				}
 				else
 				{
@@ -374,7 +374,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			numberOfPointsReadFlag = true;
 			characteristic->SetChannel(actualChannelName);
 			characteristic->SetFKCharacteristicType(usedCharacteristicTypes[actualCharacteristicType]);
-			characteristic->SetFKMeasurement(measurement);
+			characteristic->SetFKMeasurement(measurement->GetId());
 		}
 
 		else if(numberOfPointsReadFlag)
@@ -409,7 +409,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			{
 				characteristicReadFlag = false;
 				characteristic->SetBinTime(secondTimeGap - firstTimeGap);
-				dbContext->AddNewCharacteristicsSet(characteristic);
+				measurement->AddNewCharacteristicsSet(characteristic);
 				characteristic = nullptr;
 				actualIteration = 1;
 			}
@@ -440,8 +440,8 @@ void RawDataParser::CascadeEquipmentParametersRead(QString line, bool& flag, QSt
 	EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext(equipmentParameterStatePath);
 	equipmentParameter->SetName(parameterName);
 	equipmentParameter->SetValue(parameterValue);
-	equipmentParameter->SetFKEquipment(equipmentItem);
-	dbContext->AddNewEquipmentParameter(equipmentParameter);
+	equipmentParameter->SetFKEquipment(equipmentItem->GetId());
+	equipmentItem->AddNewEquipmentParameter(equipmentParameter);
 
 	if (line.contains(endLine))
 	{
