@@ -23,28 +23,28 @@ DbContext::~DbContext()
 	bindings.clear();
 }
 
-void DbContext::AddNewMeasurement(MeasurementContext* measurementContext)
+void DbContext::AddNewMeasurement(MeasurementContext* measurement)
 {
-	measurements.append(measurementContext);
-	measurementContext->IncrementId();
+	measurements.append(measurement);
+	measurement->IncrementId();
 }
 
-void DbContext::AddNewSample(SampleContext* sampleContext)
+void DbContext::AddNewSample(SampleContext* sample)
 {
-	samples.append(sampleContext);
-	sampleContext->IncrementId();
+	samples.append(sample);
+	sample->IncrementId();
 }
 
-void DbContext::AddNewEquipment(EquipmentContext* equipmentContext)
+void DbContext::AddNewEquipment(EquipmentContext* equipment)
 {
-	equipments.append(equipmentContext);
-	equipmentContext->IncrementId();
+	equipments.append(equipment);
+	equipment->IncrementId();
 }
 
-void DbContext::AddNewCharacteristicType(CharacteristicTypeContext* characteristicTypeContext)
+void DbContext::AddNewCharacteristicType(CharacteristicTypeContext* characteristicType)
 {
-	characteristicTypes.append(characteristicTypeContext);
-	characteristicTypeContext->IncrementId();
+	characteristicTypes.append(characteristicType);
+	characteristicType->IncrementId();
 }
 
 void DbContext::AddNewBinding(BindingContext* binding)

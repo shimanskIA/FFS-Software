@@ -15,10 +15,10 @@ class DbContext
 public:
     DbContext();
     ~DbContext();
-    void AddNewMeasurement(MeasurementContext* measurementContext);
-    void AddNewSample(SampleContext* sampleContext);
-    void AddNewEquipment(EquipmentContext* equipmentContext);
-    void AddNewCharacteristicType(CharacteristicTypeContext* characteristicTypeContext);
+    void AddNewMeasurement(MeasurementContext* measurement);
+    void AddNewSample(SampleContext* sample);
+    void AddNewEquipment(EquipmentContext* equipment);
+    void AddNewCharacteristicType(CharacteristicTypeContext* characteristicType);
     void AddNewBinding(BindingContext* binding);
 
     QList<SampleContext*> GetSamples();
