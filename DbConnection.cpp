@@ -403,9 +403,11 @@ QList<MeasurementContext*> DbConnection::ReadMeasurementsFromDatabase()
 		SampleContext* sample = new SampleContext(fk_sample);
 		QString sqlSampleReadRequest = "SELECT * FROM samples WHERE id = %1";
 		QSqlQuery sampleQuery = ReadFromDatabase(sqlSampleReadRequest.arg(fk_sample));
-		sampleQuery.first();
-		sample->SetName(sampleQuery.value(1).toString().trimmed());
-		measurement->SetFKSample(sample);
+		if (sampleQuery.next())
+		{
+			sample->SetName(sampleQuery.value(1).toString().trimmed());
+			measurement->SetFKSample(sample);
+		}
 
 		measurements.append(measurement);
 	}
