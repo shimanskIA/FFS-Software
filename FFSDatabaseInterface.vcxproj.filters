@@ -71,9 +71,6 @@
     <ClCompile Include="AboutForm.cpp">
       <Filter>View\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EntryPoint.cpp">
-      <Filter>View\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FFSDatabaseInterface.cpp">
       <Filter>View\Source Files</Filter>
     </ClCompile>
@@ -126,6 +123,10 @@
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ParameterTableContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="TableWriter.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -195,6 +196,9 @@
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ParameterTableContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TableWriter.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

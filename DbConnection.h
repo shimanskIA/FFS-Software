@@ -24,6 +24,10 @@ public:
 
 	void AddBindings(QList<BindingContext*> bindings);
 
+	QList<MeasurementContext*> ReadMeasurementsFromDatabase();
+	QList<SampleContext*> ReadSamplesFromDatabase();
+	QList<EquipmentContext*> ReadEquipmentsFromDatabase();
+
 private:
 	DbConnection();
 	DbConnection(const DbConnection&) {}

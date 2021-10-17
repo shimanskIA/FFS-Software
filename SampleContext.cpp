@@ -6,6 +6,16 @@ SampleContext::SampleContext(QString stateFilePath) : TableContext(stateFilePath
 
 }
 
+SampleContext::SampleContext(int id) : TableContext(id)
+{
+
+}
+
+SampleContext::SampleContext() : TableContext()
+{
+
+}
+
 void SampleContext::SetName(QString name)
 {
 	this->name = name;

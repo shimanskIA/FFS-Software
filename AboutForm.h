@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QWidget>
+
 #include "ui_AboutForm.h"
 
 class AboutForm : public QWidget
@@ -12,5 +13,4 @@ public:
 
 private:
     Ui::AboutForm ui;
-
 };

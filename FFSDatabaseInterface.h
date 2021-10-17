@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QtSql>
+
 #include "ui_FFSDatabaseInterface.h"
 
 class FFSDatabaseInterface : public QMainWindow
@@ -13,7 +15,6 @@ public:
 private slots:
     void infoButtonClick();
     void chooseMeasurementTable();
-    void chooseMeasuringSystemTable();
     void chooseSampleTable();
     void chooseEquipmentTable();
     void openFileDialog();

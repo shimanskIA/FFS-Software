@@ -381,3 +381,34 @@ void DbConnection::AddBindings(QList<BindingContext*> bindings)
 		}
 	}
 }
+
+QList<MeasurementContext*> DbConnection::ReadMeasurementsFromDatabase()
+{
+	QString sqlReadRequest = "SELECT * FROM measurements";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest);
+	QList<MeasurementContext*> measurements;
+
+	while (query.next())
+	{
+		MeasurementContext* measurement = new MeasurementContext();
+		measurement->SetName(query.value(1).toString().trimmed());
+		measurement->SetDateTime(query.value(2).toString().trimmed());
+		measurement->SetFileLink(query.value(3).toString().trimmed());
+		measurement->SetRepeatCount(query.value(4).toInt());
+		measurement->SetKineticsCount(query.value(5).toInt());
+		measurement->SetNumberOfChannels(query.value(6).toInt());
+		measurement->SetNumberPositions(query.value(7).toInt());
+
+		int fk_sample = query.value(8).toInt();
+		SampleContext* sample = new SampleContext(fk_sample);
+		QString sqlSampleReadRequest = "SELECT * FROM samples WHERE id = %1";
+		QSqlQuery sampleQuery = ReadFromDatabase(sqlSampleReadRequest.arg(fk_sample));
+		sampleQuery.first();
+		sample->SetName(sampleQuery.value(1).toString().trimmed());
+		measurement->SetFKSample(sample);
+
+		measurements.append(measurement);
+	}
+
+	return measurements;
+}

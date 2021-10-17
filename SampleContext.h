@@ -8,6 +8,8 @@ class SampleContext : public TableContext
 {
 public:
 	SampleContext(QString stateFilePath);
+	SampleContext(int id);
+	SampleContext();
 	void SetName(QString name);
 	void SetDescription(QString description);
 

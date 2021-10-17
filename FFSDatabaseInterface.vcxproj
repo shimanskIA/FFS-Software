@@ -101,6 +101,7 @@
     <ClCompile Include="RawDataParser.cpp" />
     <ClCompile Include="SampleContext.cpp" />
     <ClCompile Include="TableContext.cpp" />
+    <ClCompile Include="TableWriter.cpp" />
     <ClCompile Include="TextFileInteractionHelper.cpp" />
     <QtRcc Include="FFSDatabaseInterface.qrc" />
     <QtUic Include="AboutForm.ui" />
@@ -130,6 +131,7 @@
     <ClInclude Include="RawDataParser.h" />
     <ClInclude Include="SampleContext.h" />
     <ClInclude Include="TableContext.h" />
+    <ClInclude Include="TableWriter.h" />
     <ClInclude Include="TextFileInteractionHelper.h" />
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,11 @@ MeasurementContext::MeasurementContext(QString stateFilePath) : TableContext(sta
 	characteristics = QList<CharacteristicsContext*>();
 }
 
+MeasurementContext::MeasurementContext() : TableContext()
+{
+
+}
+
 MeasurementContext::~MeasurementContext()
 {
 	qDeleteAll(measurementParameters);
@@ -79,6 +84,7 @@ void MeasurementContext::ChangeCharacteristicsFK(int new_fk)
 	}
 }
 
+
 void MeasurementContext::AddNewMeasurementParameter(MeasurementParameterContext* measurementParameter)
 {
 	measurementParameters.append(measurementParameter);
@@ -129,6 +135,11 @@ int MeasurementContext::GetRepeatCount()
 int MeasurementContext::GetFKSample()
 {
 	return this->fk_sample->GetId();
+}
+
+QString MeasurementContext::GetSampleName()
+{
+	return this->fk_sample->GetName();
 }
 
 QList<MeasurementParameterContext*> MeasurementContext::GetMeasurementParameters()

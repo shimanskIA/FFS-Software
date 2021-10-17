@@ -6,9 +6,9 @@ CharacteristicTypeContext::CharacteristicTypeContext(QString stateFilePath) : Ta
 
 }
 
-CharacteristicTypeContext::CharacteristicTypeContext(int id) : TableContext()
+CharacteristicTypeContext::CharacteristicTypeContext(int id) : TableContext(id)
 {
-	this->id = id;
+
 }
 
 

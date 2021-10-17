@@ -12,6 +12,7 @@ class MeasurementContext : public TableContext
 {
 public:
 	MeasurementContext(QString stateFilePath);
+	MeasurementContext();
 	~MeasurementContext();
 	void SetId(int id) override;
 	void SetName(QString name);
@@ -31,6 +32,7 @@ public:
 	QString GetName();
 	QString GetDateTime();
 	QString GetFileLink();
+	QString GetSampleName();
 	int GetNumberOfChannels();
 	int GetRepeatCount();
 	int GetKineticsCount();
@@ -55,6 +57,8 @@ private:
 	int numberPositions = 0;
 	int kineticsCount = 0;
 	SampleContext* fk_sample = nullptr;
+
+	QString sampleName;
 
 	QList<MeasurementParameterContext*> measurementParameters;
 	QList<CharacteristicsContext*> characteristics;

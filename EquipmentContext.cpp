@@ -6,6 +6,11 @@ EquipmentContext::EquipmentContext(QString stateFilePath) : TableContext(stateFi
 	equipmentParameters = QList<EquipmentParameterContext*>();
 }
 
+EquipmentContext::EquipmentContext() : TableContext()
+{
+
+}
+
 EquipmentContext::~EquipmentContext()
 {
 	qDeleteAll(equipmentParameters);

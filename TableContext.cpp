@@ -7,6 +7,11 @@ TableContext::TableContext(QString tableStatePath)
 	this->stateFilePath = tableStatePath;
 }
 
+TableContext::TableContext(int id)
+{
+	this->id = id;
+}
+
 TableContext::TableContext()
 {
 
