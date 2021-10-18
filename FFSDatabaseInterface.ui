@@ -6,14 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>607</width>
-    <height>501</height>
+    <width>1101</width>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>FFSProcessor</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <widget class="QTextBrowser" name="tableName">
     <property name="geometry">
      <rect>
@@ -64,33 +70,12 @@ p, li { white-space: pre-wrap; }
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QTableView" name="majorTableView">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>591</width>
-      <height>131</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-   </widget>
    <widget class="Line" name="line_3">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>180</y>
-      <width>591</width>
+      <y>250</y>
+      <width>1081</width>
       <height>16</height>
      </rect>
     </property>
@@ -102,9 +87,9 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>260</y>
-      <width>591</width>
-      <height>181</height>
+      <y>310</y>
+      <width>1081</width>
+      <height>231</height>
      </rect>
     </property>
    </widget>
@@ -112,8 +97,8 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>440</y>
-      <width>591</width>
+      <y>540</y>
+      <width>1081</width>
       <height>16</height>
      </rect>
     </property>
@@ -121,15 +106,33 @@ p, li { white-space: pre-wrap; }
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="tableSelector">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>230</y>
+      <y>280</y>
       <width>201</width>
       <height>22</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QTableView" name="majorTableView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>1081</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -137,7 +140,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>607</width>
+     <width>1101</width>
      <height>26</height>
     </rect>
    </property>

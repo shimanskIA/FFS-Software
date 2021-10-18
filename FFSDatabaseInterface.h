@@ -19,6 +19,8 @@ private slots:
     void chooseEquipmentTable();
     void openFileDialog();
 
+    void SetTableSettings(QTableView* table);
+
 private:
     Ui::FFSDatabaseInterfaceClass ui;
 };

@@ -15,15 +15,17 @@ void FFSDatabaseInterfaceService::ShowMeasurementTableRequestReceiver(Ui::FFSDat
 {
 	TableWriter* tableWriter = new TableWriter();
 	tableWriter->FillMeasurementsTable(ui);
-	tableWriter->SetTableSettings(ui);
+	ui.majorTableView->resizeColumnsToContents();
 }
 
 void FFSDatabaseInterfaceService::ShowSampleTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
 {
-
+	TableWriter* tableWriter = new TableWriter();
+	tableWriter->FillSamplesTable(ui);
 }
 
 void FFSDatabaseInterfaceService::ShowEquipmentTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
 {
-
+	TableWriter* tableWriter = new TableWriter();
+	tableWriter->FillEquipmentsTable(ui);
 }

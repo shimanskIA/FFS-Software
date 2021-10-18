@@ -15,8 +15,6 @@ public:
 	void FillSamplesTable(Ui::FFSDatabaseInterfaceClass ui);
 	void FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui);
 
-	void SetTableSettings(Ui::FFSDatabaseInterfaceClass ui);
-
 private:
 	const QStringList measurementColumnNames = {
 		"Id",
@@ -28,6 +26,14 @@ private:
 		"Number of channels",
 		"Number positions",
 		"Sample" };
-	const QStringList sampleColumnNames = {};
-	const QStringList equipmentColumnNames = {};
+
+	const QStringList sampleColumnNames = {
+		"Id",
+		"Name",
+		"Description" };
+
+	const QStringList equipmentColumnNames = {
+		"Id",
+		"Name",
+		"Description" };
 };

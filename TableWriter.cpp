@@ -11,12 +11,16 @@ TableWriter::TableWriter()
 void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui)
 {
 	QList<MeasurementContext*> measurements = DbConnection::GetDbConnectionInstance().ReadMeasurementsFromDatabase();
-	QStandardItemModel* tableModel = new QStandardItemModel(measurements.length(), 8);
+	QStandardItemModel* tableModel = new QStandardItemModel(measurements.length(), 9);
 	ui.majorTableView->setModel(tableModel);
 
-	for (int i = 0, j = 0; j < tableModel->columnCount(); i++, j++)
+	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
-		tableModel->setHeaderData(j, Qt::Horizontal, measurementColumnNames.at(j));
+		if (j < tableModel->columnCount())
+		{
+			tableModel->setHeaderData(j, Qt::Horizontal, measurementColumnNames.at(j));
+		}
+
 		if (i < tableModel->rowCount())
 		{
 			tableModel->setData(tableModel->index(i, 0), measurements.at(i)->GetId());
@@ -32,7 +36,46 @@ void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui)
 	}	
 }
 
-void TableWriter::SetTableSettings(Ui::FFSDatabaseInterfaceClass ui)
+void TableWriter::FillSamplesTable(Ui::FFSDatabaseInterfaceClass ui)
 {
-	ui.majorTableView->setColumnHidden(0, true);
+	QList<SampleContext*> samples = DbConnection::GetDbConnectionInstance().ReadSamplesFromDatabase();
+	QStandardItemModel* tableModel = new QStandardItemModel(samples.length(), 3);
+	ui.majorTableView->setModel(tableModel);
+
+	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	{
+		if (j < tableModel->columnCount())
+		{
+			tableModel->setHeaderData(j, Qt::Horizontal, sampleColumnNames.at(j));
+		}
+
+		if (i < tableModel->rowCount())
+		{
+			tableModel->setData(tableModel->index(i, 0), samples.at(i)->GetId());
+			tableModel->setData(tableModel->index(i, 1), samples.at(i)->GetName());
+			tableModel->setData(tableModel->index(i, 2), samples.at(i)->GetDescription());
+		}
+	}
+}
+
+void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui)
+{
+	QList<EquipmentContext*> equipments = DbConnection::GetDbConnectionInstance().ReadEquipmentsFromDatabase();
+	QStandardItemModel* tableModel = new QStandardItemModel(equipments.length(), 3);
+	ui.majorTableView->setModel(tableModel);
+
+	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	{
+		if (j < tableModel->columnCount())
+		{
+			tableModel->setHeaderData(j, Qt::Horizontal, equipmentColumnNames.at(j));
+		}
+
+		if (i < tableModel->rowCount())
+		{
+			tableModel->setData(tableModel->index(i, 0), equipments.at(i)->GetId());
+			tableModel->setData(tableModel->index(i, 1), equipments.at(i)->GetName());
+			tableModel->setData(tableModel->index(i, 2), equipments.at(i)->GetDescription());
+		}
+	}
 }

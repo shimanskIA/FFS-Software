@@ -415,3 +415,39 @@ QList<MeasurementContext*> DbConnection::ReadMeasurementsFromDatabase()
 
 	return measurements;
 }
+
+QList<SampleContext*> DbConnection::ReadSamplesFromDatabase()
+{
+	QString sqlReadRequest = "SELECT * FROM samples";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest);
+	QList<SampleContext*> samples;
+
+	while (query.next())
+	{
+		int id = query.value(0).toInt();
+		SampleContext* sample = new SampleContext(id);
+		sample->SetName(query.value(1).toString().trimmed());
+		sample->SetDescription(query.value(2).toString().trimmed());
+		samples.append(sample);
+	}
+
+	return samples;
+}
+
+QList<EquipmentContext*> DbConnection::ReadEquipmentsFromDatabase()
+{
+	QString sqlReadRequest = "SELECT * FROM equipments";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest);
+	QList<EquipmentContext*> equipments;
+
+	while (query.next())
+	{
+		int id = query.value(0).toInt();
+		EquipmentContext* equipment = new EquipmentContext(id);
+		equipment->SetName(query.value(1).toString().trimmed());
+		equipment->SetDescription(query.value(2).toString().trimmed());
+		equipments.append(equipment);
+	}
+
+	return equipments;
+}
