@@ -8,7 +8,7 @@ MeasurementContext::MeasurementContext(QString stateFilePath) : TableContext(sta
 	characteristics = QList<CharacteristicsContext*>();
 }
 
-MeasurementContext::MeasurementContext() : TableContext()
+MeasurementContext::MeasurementContext(int id) : TableContext(id)
 {
 
 }

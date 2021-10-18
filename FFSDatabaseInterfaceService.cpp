@@ -15,6 +15,7 @@ void FFSDatabaseInterfaceService::ShowMeasurementTableRequestReceiver(Ui::FFSDat
 {
 	TableWriter* tableWriter = new TableWriter();
 	tableWriter->FillMeasurementsTable(ui);
+	tableWriter->SetTableSettings(ui);
 }
 
 void FFSDatabaseInterfaceService::ShowSampleTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)

@@ -15,8 +15,11 @@ public:
 	void FillSamplesTable(Ui::FFSDatabaseInterfaceClass ui);
 	void FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui);
 
+	void SetTableSettings(Ui::FFSDatabaseInterfaceClass ui);
+
 private:
 	const QStringList measurementColumnNames = {
+		"Id",
 		"Name",
 		"Date",
 		"File",

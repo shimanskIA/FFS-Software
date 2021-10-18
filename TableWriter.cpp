@@ -19,14 +19,20 @@ void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui)
 		tableModel->setHeaderData(j, Qt::Horizontal, measurementColumnNames.at(j));
 		if (i < tableModel->rowCount())
 		{
-			tableModel->setData(tableModel->index(i, 0), measurements.at(i)->GetName());
-			tableModel->setData(tableModel->index(i, 1), measurements.at(i)->GetDateTime());
-			tableModel->setData(tableModel->index(i, 2), measurements.at(i)->GetFileLink());
-			tableModel->setData(tableModel->index(i, 3), measurements.at(i)->GetRepeatCount());
-			tableModel->setData(tableModel->index(i, 4), measurements.at(i)->GetKineticsCount());
-			tableModel->setData(tableModel->index(i, 5), measurements.at(i)->GetNumberOfChannels());
-			tableModel->setData(tableModel->index(i, 6), measurements.at(i)->GetNumberPositions());
-			tableModel->setData(tableModel->index(i, 7), measurements.at(i)->GetSampleName());
+			tableModel->setData(tableModel->index(i, 0), measurements.at(i)->GetId());
+			tableModel->setData(tableModel->index(i, 1), measurements.at(i)->GetName());
+			tableModel->setData(tableModel->index(i, 2), measurements.at(i)->GetDateTime());
+			tableModel->setData(tableModel->index(i, 3), measurements.at(i)->GetFileLink());
+			tableModel->setData(tableModel->index(i, 4), measurements.at(i)->GetRepeatCount());
+			tableModel->setData(tableModel->index(i, 5), measurements.at(i)->GetKineticsCount());
+			tableModel->setData(tableModel->index(i, 6), measurements.at(i)->GetNumberOfChannels());
+			tableModel->setData(tableModel->index(i, 7), measurements.at(i)->GetNumberPositions());
+			tableModel->setData(tableModel->index(i, 8), measurements.at(i)->GetSampleName());
 		}
 	}	
+}
+
+void TableWriter::SetTableSettings(Ui::FFSDatabaseInterfaceClass ui)
+{
+	ui.majorTableView->setColumnHidden(0, true);
 }

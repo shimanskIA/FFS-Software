@@ -12,6 +12,7 @@ class MeasurementContext : public TableContext
 {
 public:
 	MeasurementContext(QString stateFilePath);
+	MeasurementContext(int id);
 	MeasurementContext();
 	~MeasurementContext();
 	void SetId(int id) override;

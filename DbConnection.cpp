@@ -390,7 +390,8 @@ QList<MeasurementContext*> DbConnection::ReadMeasurementsFromDatabase()
 
 	while (query.next())
 	{
-		MeasurementContext* measurement = new MeasurementContext();
+		int id = query.value(0).toInt();
+		MeasurementContext* measurement = new MeasurementContext(id);
 		measurement->SetName(query.value(1).toString().trimmed());
 		measurement->SetDateTime(query.value(2).toString().trimmed());
 		measurement->SetFileLink(query.value(3).toString().trimmed());
