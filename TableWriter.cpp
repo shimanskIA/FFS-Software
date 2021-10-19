@@ -23,21 +23,7 @@ void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui)
 
 		if (i < tableModel->rowCount())
 		{
-			tableModel->setData(tableModel->index(i, 0), measurements.at(i)->GetId());
-			tableModel->setData(tableModel->index(i, 1), measurements.at(i)->GetName());
-			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 2), measurements.at(i)->GetDateTime());
-			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 3), measurements.at(i)->GetFileLink().split('/').last());
-			tableModel->itemFromIndex(tableModel->index(i, 3))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 4), measurements.at(i)->GetRepeatCount());
-			tableModel->itemFromIndex(tableModel->index(i, 4))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 5), measurements.at(i)->GetKineticsCount());
-			tableModel->itemFromIndex(tableModel->index(i, 5))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 6), measurements.at(i)->GetNumberOfChannels());
-			tableModel->itemFromIndex(tableModel->index(i, 6))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 7), measurements.at(i)->GetNumberPositions());
-			tableModel->itemFromIndex(tableModel->index(i, 7))->setTextAlignment(Qt::AlignBottom);
+			FillMeasurementRow(i, tableModel, measurements);
 			tableModel->setData(tableModel->index(i, 8), measurements.at(i)->GetSampleName());
 			tableModel->itemFromIndex(tableModel->index(i, 8))->setTextAlignment(Qt::AlignBottom);
 		}
@@ -98,9 +84,26 @@ void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui)
 	ui.majorTableView->setColumnHidden(0, true);
 }
 
-void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
+void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, int majorTableId)
 {
+	QList<MeasurementContext*> measurements = DbConnection::GetDbConnectionInstance().ReadMeasurementsFromDatabase(majorTableId);
+	QStandardItemModel* tableModel = new QStandardItemModel(measurements.length(), 8);
+	ui.minorTableView->setModel(tableModel);
 
+	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	{
+		if (j < tableModel->columnCount())
+		{
+			tableModel->setHeaderData(j, Qt::Horizontal, measurementColumnNames.at(j));
+		}
+
+		if (i < tableModel->rowCount())
+		{
+			FillMeasurementRow(i, tableModel, measurements);
+		}
+	}
+
+	ui.minorTableView->setColumnHidden(0, true);
 }
 
 void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
@@ -166,6 +169,25 @@ void TableWriter::FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, int
 	ui.minorTableView->setColumnHidden(0, true);
 }
 
+void TableWriter::FillMeasurementRow(int rowNumber, QStandardItemModel* tableModel, QList<MeasurementContext*> measurements)
+{
+	tableModel->setData(tableModel->index(rowNumber, 0), measurements.at(rowNumber)->GetId());
+	tableModel->setData(tableModel->index(rowNumber, 1), measurements.at(rowNumber)->GetName());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 1))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 2), measurements.at(rowNumber)->GetDateTime());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 2))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 3), measurements.at(rowNumber)->GetFileLink().split('/').last());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 3))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 4), measurements.at(rowNumber)->GetRepeatCount());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 4))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 5), measurements.at(rowNumber)->GetKineticsCount());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 5))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 6), measurements.at(rowNumber)->GetNumberOfChannels());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 6))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 7), measurements.at(rowNumber)->GetNumberPositions());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 7))->setTextAlignment(Qt::AlignBottom);
+}
+
 void TableWriter::RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
 {
 	if (minorTableName.contains("parameters"))
@@ -180,8 +202,12 @@ void TableWriter::RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTa
 	{
 		FillEquipmentsTable(ui, majorTableName, majorTableId);
 	}
-	else if (minorTableName == "measurements")
+	else if (minorTableName == "measurements" && majorTableName == "sample")
 	{
-		FillMeasurementsTable(ui, majorTableName, majorTableId);
+		FillMeasurementsTable(ui, majorTableId);
+	}
+	else
+	{
+
 	}
 }

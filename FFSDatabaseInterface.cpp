@@ -19,7 +19,7 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     ui.tableSelector->addItem("Measurement parameters");
     ui.tableSelector->addItem("Characteristics");
     ui.tableSelector->addItem("Equipments");
-    ui.tableName->setText((actualTable + ":").toUpper());
+    ui.tableName->setText((actualTable + "s:").toUpper());
     SetTableSettings(ui.majorTableView);
 }
 

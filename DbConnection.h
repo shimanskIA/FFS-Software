@@ -25,6 +25,7 @@ public:
 	void AddBindings(QList<BindingContext*> bindings);
 
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase();
+	QList<MeasurementContext*> ReadMeasurementsFromDatabase(int fk_sample);
 	QList<SampleContext*> ReadSamplesFromDatabase();
 	QList<EquipmentContext*> ReadEquipmentsFromDatabase();
 	QList<CharacteristicsContext*> ReadCharacteristicsFromDatabase(int fk_measurement);

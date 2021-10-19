@@ -2,9 +2,11 @@
 
 #include "ui_FFSDatabaseInterface.h"
 #include "FFSDatabaseInterface.h"
+#include "MeasurementContext.h"
 
 #include <QString>
 #include <QList>
+#include <QStandardItemModel>
 
 class TableWriter 
 {
@@ -12,13 +14,15 @@ public:
 	TableWriter();
 
 	void FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui);
-	void FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId);
+	void FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, int majorTableId);
 	void FillSamplesTable(Ui::FFSDatabaseInterfaceClass ui);
 	void FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui);
 	void FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId);
 
 	void FillParametersTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId);
 	void FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, int majorTableId);
+
+	void FillMeasurementRow(int rowNumber, QStandardItemModel* tableModel, QList<MeasurementContext*> measurements);
 
 	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId);
 

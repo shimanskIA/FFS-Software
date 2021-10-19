@@ -416,6 +416,29 @@ QList<MeasurementContext*> DbConnection::ReadMeasurementsFromDatabase()
 	return measurements;
 }
 
+QList<MeasurementContext*> DbConnection::ReadMeasurementsFromDatabase(int fk_sample)
+{
+	QString sqlReadRequest = "SELECT * FROM measurements WHERE fk_sample = %1";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(fk_sample));
+	QList<MeasurementContext*> measurements;
+
+	while (query.next())
+	{
+		int id = query.value(0).toInt();
+		MeasurementContext* measurement = new MeasurementContext(id);
+		measurement->SetName(query.value(1).toString().trimmed());
+		measurement->SetDateTime(query.value(2).toString().trimmed());
+		measurement->SetFileLink(query.value(3).toString().trimmed());
+		measurement->SetRepeatCount(query.value(4).toInt());
+		measurement->SetKineticsCount(query.value(5).toInt());
+		measurement->SetNumberOfChannels(query.value(6).toInt());
+		measurement->SetNumberPositions(query.value(7).toInt());
+		measurements.append(measurement);
+	}
+
+	return measurements;
+}
+
 QList<SampleContext*> DbConnection::ReadSamplesFromDatabase()
 {
 	QString sqlReadRequest = "SELECT * FROM samples";
