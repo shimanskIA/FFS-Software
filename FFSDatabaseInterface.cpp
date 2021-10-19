@@ -67,7 +67,7 @@ void FFSDatabaseInterface::SetTableSettings(QTableView* table)
     table->setColumnHidden(0, true);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
     table->setSelectionMode(QAbstractItemView::SingleSelection);
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table->setEditTriggers(QAbstractItemView::DoubleClicked);
     table->horizontalHeader()->setStretchLastSection(true);
     table->verticalHeader()->setDefaultSectionSize(20);
     table->verticalHeader()->sectionResizeMode(QHeaderView::Fixed);
