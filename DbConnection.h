@@ -27,6 +27,7 @@ public:
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase();
 	QList<SampleContext*> ReadSamplesFromDatabase();
 	QList<EquipmentContext*> ReadEquipmentsFromDatabase();
+	QList<CharacteristicsContext*> ReadCharacteristicsFromDatabase(int fk_measurement);
 
 private:
 	DbConnection();

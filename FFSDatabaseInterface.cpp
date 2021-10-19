@@ -13,10 +13,12 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.actionSample, SIGNAL(triggered()), this, SLOT(chooseSampleTable()));
     connect(ui.actionEquipment, SIGNAL(triggered()), this, SLOT(chooseEquipmentTable()));
     connect(ui.actionImport, SIGNAL(triggered()), this, SLOT(openFileDialog()));
+    connect(ui.majorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToSubtable()));
     FFSDatabaseInterfaceFormController::ManageShowMeasurementTableRequest(ui);
     ui.tableSelector->addItem("Measurement parameters");
     ui.tableSelector->addItem("Characteristics");
     ui.tableSelector->addItem("Equipments");
+    ui.tableName->setText((actualTable + ":").toUpper());
     SetTableSettings(ui.majorTableView);
 }
 
@@ -28,29 +30,44 @@ void FFSDatabaseInterface::infoButtonClick()
 
 void FFSDatabaseInterface::chooseMeasurementTable()
 {
-    ui.tableName->setText("MEASUREMENT:");
-    ui.tableSelector->clear();
-    ui.tableSelector->addItem("Measurement parameters");
-    ui.tableSelector->addItem("Characteristics");
-    ui.tableSelector->addItem("Equipments");
-    FFSDatabaseInterfaceFormController::ManageShowMeasurementTableRequest(ui);
+    QString tableName = "measurements";
+    if (actualTable != tableName)
+    {
+        ui.tableName->setText((tableName + ":").toUpper());
+        ui.tableSelector->clear();
+        ui.tableSelector->addItem("Measurement parameters");
+        ui.tableSelector->addItem("Characteristics");
+        ui.tableSelector->addItem("Equipments");
+        actualTable = tableName;
+        FFSDatabaseInterfaceFormController::ManageShowMeasurementTableRequest(ui);
+    }
 }
 
 void FFSDatabaseInterface::chooseSampleTable()
 {
-    ui.tableName->setText("SAMPLE:");
-    ui.tableSelector->clear();
-    ui.tableSelector->addItem("Measurements");
-    FFSDatabaseInterfaceFormController::ManageShowSampleTableRequest(ui);
+    QString tableName = "samples";
+    if (actualTable != tableName)
+    {
+        ui.tableName->setText((tableName + ":").toUpper());
+        ui.tableSelector->clear();
+        ui.tableSelector->addItem("Measurements");
+        actualTable = tableName;
+        FFSDatabaseInterfaceFormController::ManageShowSampleTableRequest(ui);
+    }
 }
 
 void FFSDatabaseInterface::chooseEquipmentTable()
 {
-    ui.tableName->setText("EQUIPMENT:");
-    ui.tableSelector->clear();
-    ui.tableSelector->addItem("Equipment parameters");
-    ui.tableSelector->addItem("Measurements");
-    FFSDatabaseInterfaceFormController::ManageShowEquipmentTableRequest(ui);
+    QString tableName = "equipments";
+    if (actualTable != tableName)
+    {
+        ui.tableName->setText((tableName + ":").toUpper());
+        ui.tableSelector->clear();
+        ui.tableSelector->addItem("Equipment parameters");
+        ui.tableSelector->addItem("Measurements");
+        actualTable = tableName;
+        FFSDatabaseInterfaceFormController::ManageShowEquipmentTableRequest(ui);
+    }
 }
 
 void FFSDatabaseInterface::openFileDialog()
@@ -60,6 +77,24 @@ void FFSDatabaseInterface::openFileDialog()
     {
         FFSDatabaseInterfaceFormController::ManageFileImportRequest(filePath);
     }
+}
+
+void FFSDatabaseInterface::loadDataToSubtable()
+{
+    int selectedRow = ui.majorTableView->currentIndex().row();
+    QModelIndex indexId = ui.majorTableView->model()->index(selectedRow, 0);
+    int selectedId = ui.majorTableView->model()->data(indexId).toInt();
+    if (selectedId != this->selectedId)
+    {
+        this->selectedId = selectedId;
+        FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(ui, actualTable, actualSubtable, selectedId);
+        if (firstLoad)
+        {
+            SetTableSettings(ui.minorTableView);
+            firstLoad = false;
+        }
+    }
+    
 }
 
 void FFSDatabaseInterface::SetTableSettings(QTableView* table)

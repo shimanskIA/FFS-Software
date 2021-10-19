@@ -25,3 +25,8 @@ void FFSDatabaseInterfaceFormController::ManageShowEquipmentTableRequest(Ui::FFS
 {
 	FFSDatabaseInterfaceService::ShowEquipmentTableRequestReceiver(ui);
 }
+
+void FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
+{
+	FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(ui, majorTableName, minorTableName, majorTableId);
+}

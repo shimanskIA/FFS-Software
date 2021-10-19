@@ -9,6 +9,7 @@ class CharacteristicsContext : public TableContext
 {
 public:
 	CharacteristicsContext(QString stateFilePath);
+	CharacteristicsContext(int id);
 	CharacteristicsContext();
 	void SetChannel(QString);
 	void SetWeight(double weight);
@@ -29,6 +30,7 @@ public:
 	double GetBinTime();
 	int GetFKCharacteristicType();
 	int GetFKMeasurement();
+	QString GetCharacteristicTypeName();
 
 private:
 	QString channel = "";

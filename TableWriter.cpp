@@ -91,3 +91,68 @@ void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui)
 		}
 	}
 }
+
+void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
+{
+
+}
+
+void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
+{
+
+}
+
+void TableWriter::FillParametersTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
+{
+
+}
+
+void TableWriter::FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
+{
+	QList<CharacteristicsContext*> characteristics = DbConnection::GetDbConnectionInstance().ReadCharacteristicsFromDatabase(majorTableId);
+	QStandardItemModel* tableModel = new QStandardItemModel(characteristics.length(), 6);
+	ui.minorTableView->setModel(tableModel);
+
+	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	{
+		if (j < tableModel->columnCount())
+		{
+			tableModel->setHeaderData(j, Qt::Horizontal, characteristicsColumnNames.at(j));
+		}
+
+		if (i < tableModel->rowCount())
+		{
+			tableModel->setData(tableModel->index(i, 0), characteristics.at(i)->GetId());
+			tableModel->setData(tableModel->index(i, 1), characteristics.at(i)->GetChannel());
+			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 2), characteristics.at(i)->GetNumberOfPoints());
+			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 3), QString::number(characteristics.at(i)->GetBinTime(), 'f', 3));
+			tableModel->itemFromIndex(tableModel->index(i, 3))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 4), QString::number(characteristics.at(i)->GetWeight(), 'f', 3));
+			tableModel->itemFromIndex(tableModel->index(i, 4))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 5), characteristics.at(i)->GetCharacteristicTypeName());
+			tableModel->itemFromIndex(tableModel->index(i, 5))->setTextAlignment(Qt::AlignBottom);
+		}
+	}
+}
+
+void TableWriter::RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
+{
+	if (minorTableName.contains("parameters"))
+	{
+		FillParametersTable(ui, majorTableName, minorTableName, majorTableId);
+	}
+	else if (minorTableName == "characteristics")
+	{
+		FillCharacteristicsTable(ui, majorTableName, majorTableId);
+	}
+	else if (minorTableName == "equipments")
+	{
+		FillEquipmentsTable(ui, majorTableName, majorTableId);
+	}
+	else if (minorTableName == "measurements")
+	{
+		FillMeasurementsTable(ui, majorTableName, majorTableId);
+	}
+}

@@ -29,3 +29,9 @@ void FFSDatabaseInterfaceService::ShowEquipmentTableRequestReceiver(Ui::FFSDatab
 	TableWriter* tableWriter = new TableWriter();
 	tableWriter->FillEquipmentsTable(ui);
 }
+
+void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
+{
+	TableWriter* tableWriter = new TableWriter();
+	tableWriter->RouteRequest(ui, majorTableName, minorTableName, majorTableId);
+}

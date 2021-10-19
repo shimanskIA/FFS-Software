@@ -6,6 +6,11 @@ CharacteristicsContext::CharacteristicsContext(QString stateFilePath) : TableCon
 
 }
 
+CharacteristicsContext::CharacteristicsContext(int id) : TableContext(id)
+{
+
+}
+
 CharacteristicsContext::CharacteristicsContext() : TableContext()
 {
 
@@ -101,6 +106,11 @@ int CharacteristicsContext::GetFKMeasurement()
 int CharacteristicsContext::GetFKCharacteristicType()
 {
 	return this->fk_characteristic_type->GetId();
+}
+
+QString CharacteristicsContext::GetCharacteristicTypeName()
+{
+	return this->fk_characteristic_type->GetName();
 }
 
 
