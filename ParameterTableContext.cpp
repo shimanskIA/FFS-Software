@@ -5,6 +5,11 @@ ParameterTableContext::ParameterTableContext(QString stateFilePath) : TableConte
 
 }
 
+ParameterTableContext::ParameterTableContext(int id) : TableContext(id)
+{
+
+}
+
 ParameterTableContext::ParameterTableContext() : TableContext()
 {
 

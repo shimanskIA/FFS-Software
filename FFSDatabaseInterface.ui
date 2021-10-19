@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>952</width>
+    <width>961</width>
     <height>601</height>
    </rect>
   </property>
@@ -75,7 +75,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>250</y>
-      <width>931</width>
+      <width>941</width>
       <height>16</height>
      </rect>
     </property>
@@ -88,7 +88,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>310</y>
-      <width>931</width>
+      <width>941</width>
       <height>231</height>
      </rect>
     </property>
@@ -109,7 +109,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>540</y>
-      <width>931</width>
+      <width>941</width>
       <height>16</height>
      </rect>
     </property>
@@ -132,7 +132,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>60</y>
-      <width>931</width>
+      <width>941</width>
       <height>192</height>
      </rect>
     </property>
@@ -154,7 +154,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>952</width>
+     <width>961</width>
      <height>26</height>
     </rect>
    </property>

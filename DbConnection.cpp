@@ -482,3 +482,22 @@ QList<CharacteristicsContext*> DbConnection::ReadCharacteristicsFromDatabase(int
 
 	return characteristics;
 }
+
+QList<ParameterTableContext*> DbConnection::ReadParametersFromDatabase(QString majorTableName, QString minorTableName, int fk)
+{
+	QString sqlReadRequest = "SELECT * FROM %1 WHERE fk_%2 = %3";
+
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(minorTableName).arg(majorTableName).arg(fk));
+	QList<ParameterTableContext*> parameters;
+
+	while (query.next())
+	{
+		int id = query.value(0).toInt();
+		ParameterTableContext* parameter = new ParameterTableContext(id);
+		parameter->SetName(query.value(1).toString().trimmed());
+		parameter->SetValue(query.value(2).toString().trimmed());
+		parameters.append(parameter);
+	}
+
+	return parameters;
+}

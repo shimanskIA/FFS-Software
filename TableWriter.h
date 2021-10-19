@@ -18,7 +18,7 @@ public:
 	void FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId);
 
 	void FillParametersTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId);
-	void FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId);
+	void FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, int majorTableId);
 
 	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId);
 

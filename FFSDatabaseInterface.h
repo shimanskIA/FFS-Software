@@ -19,6 +19,7 @@ private slots:
     void chooseEquipmentTable();
     void openFileDialog();
     void loadDataToSubtable();
+    void representTable();
 
     void SetTableSettings(QTableView* table);
 
@@ -26,8 +27,10 @@ private:
     Ui::FFSDatabaseInterfaceClass ui;
 
     int selectedId = 0;
-    QString actualTable = "measurements";
+    QString actualTable = "measurement";
     QString actualSubtable = "measurement_parameters";
 
     bool firstLoad = true;
+    bool isRowSelected = false;
+    bool isSubtableChanged = false;
 };

@@ -42,6 +42,8 @@ void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui)
 			tableModel->itemFromIndex(tableModel->index(i, 8))->setTextAlignment(Qt::AlignBottom);
 		}
 	}	
+
+	ui.majorTableView->setColumnHidden(0, true);
 }
 
 void TableWriter::FillSamplesTable(Ui::FFSDatabaseInterfaceClass ui)
@@ -66,6 +68,8 @@ void TableWriter::FillSamplesTable(Ui::FFSDatabaseInterfaceClass ui)
 			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
 		}
 	}
+
+	ui.majorTableView->setColumnHidden(0, true);
 }
 
 void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui)
@@ -90,6 +94,8 @@ void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui)
 			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
 		}
 	}
+
+	ui.majorTableView->setColumnHidden(0, true);
 }
 
 void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
@@ -104,10 +110,31 @@ void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString 
 
 void TableWriter::FillParametersTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
 {
+	QList<ParameterTableContext*> parameters = DbConnection::GetDbConnectionInstance().ReadParametersFromDatabase(majorTableName, minorTableName, majorTableId);
+	QStandardItemModel* tableModel = new QStandardItemModel(parameters.length(), 3);
+	ui.minorTableView->setModel(tableModel);
 
+	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	{
+		if (j < tableModel->columnCount())
+		{
+			tableModel->setHeaderData(j, Qt::Horizontal, parametersColumnNames.at(j));
+		}
+
+		if (i < tableModel->rowCount())
+		{
+			tableModel->setData(tableModel->index(i, 0), parameters.at(i)->GetId());
+			tableModel->setData(tableModel->index(i, 1), parameters.at(i)->GetName());
+			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 2), parameters.at(i)->GetValue());
+			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
+		}
+	}
+
+	ui.minorTableView->setColumnHidden(0, true);
 }
 
-void TableWriter::FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
+void TableWriter::FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, int majorTableId)
 {
 	QList<CharacteristicsContext*> characteristics = DbConnection::GetDbConnectionInstance().ReadCharacteristicsFromDatabase(majorTableId);
 	QStandardItemModel* tableModel = new QStandardItemModel(characteristics.length(), 6);
@@ -135,6 +162,8 @@ void TableWriter::FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, QSt
 			tableModel->itemFromIndex(tableModel->index(i, 5))->setTextAlignment(Qt::AlignBottom);
 		}
 	}
+
+	ui.minorTableView->setColumnHidden(0, true);
 }
 
 void TableWriter::RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
@@ -145,7 +174,7 @@ void TableWriter::RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTa
 	}
 	else if (minorTableName == "characteristics")
 	{
-		FillCharacteristicsTable(ui, majorTableName, majorTableId);
+		FillCharacteristicsTable(ui, majorTableId);
 	}
 	else if (minorTableName == "equipments")
 	{
