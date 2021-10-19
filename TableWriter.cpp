@@ -25,13 +25,21 @@ void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui)
 		{
 			tableModel->setData(tableModel->index(i, 0), measurements.at(i)->GetId());
 			tableModel->setData(tableModel->index(i, 1), measurements.at(i)->GetName());
+			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
 			tableModel->setData(tableModel->index(i, 2), measurements.at(i)->GetDateTime());
-			tableModel->setData(tableModel->index(i, 3), measurements.at(i)->GetFileLink());
+			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 3), measurements.at(i)->GetFileLink().split('/').last());
+			tableModel->itemFromIndex(tableModel->index(i, 3))->setTextAlignment(Qt::AlignBottom);
 			tableModel->setData(tableModel->index(i, 4), measurements.at(i)->GetRepeatCount());
+			tableModel->itemFromIndex(tableModel->index(i, 4))->setTextAlignment(Qt::AlignBottom);
 			tableModel->setData(tableModel->index(i, 5), measurements.at(i)->GetKineticsCount());
+			tableModel->itemFromIndex(tableModel->index(i, 5))->setTextAlignment(Qt::AlignBottom);
 			tableModel->setData(tableModel->index(i, 6), measurements.at(i)->GetNumberOfChannels());
+			tableModel->itemFromIndex(tableModel->index(i, 6))->setTextAlignment(Qt::AlignBottom);
 			tableModel->setData(tableModel->index(i, 7), measurements.at(i)->GetNumberPositions());
+			tableModel->itemFromIndex(tableModel->index(i, 7))->setTextAlignment(Qt::AlignBottom);
 			tableModel->setData(tableModel->index(i, 8), measurements.at(i)->GetSampleName());
+			tableModel->itemFromIndex(tableModel->index(i, 8))->setTextAlignment(Qt::AlignBottom);
 		}
 	}	
 }
@@ -53,7 +61,9 @@ void TableWriter::FillSamplesTable(Ui::FFSDatabaseInterfaceClass ui)
 		{
 			tableModel->setData(tableModel->index(i, 0), samples.at(i)->GetId());
 			tableModel->setData(tableModel->index(i, 1), samples.at(i)->GetName());
+			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
 			tableModel->setData(tableModel->index(i, 2), samples.at(i)->GetDescription());
+			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
 		}
 	}
 }
@@ -75,7 +85,9 @@ void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui)
 		{
 			tableModel->setData(tableModel->index(i, 0), equipments.at(i)->GetId());
 			tableModel->setData(tableModel->index(i, 1), equipments.at(i)->GetName());
+			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
 			tableModel->setData(tableModel->index(i, 2), equipments.at(i)->GetDescription());
+			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
 		}
 	}
 }

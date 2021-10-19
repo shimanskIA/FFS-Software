@@ -69,7 +69,7 @@ void FFSDatabaseInterface::SetTableSettings(QTableView* table)
     table->setSelectionMode(QAbstractItemView::SingleSelection);
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     table->horizontalHeader()->setStretchLastSection(true);
-    table->verticalHeader()->setDefaultSectionSize(5);
+    table->verticalHeader()->setDefaultSectionSize(20);
     table->verticalHeader()->sectionResizeMode(QHeaderView::Fixed);
     table->setStyleSheet(
         "QHeaderView::section { background-color: rgb(217, 217, 217)}"

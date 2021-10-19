@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1101</width>
+    <width>952</width>
     <height>601</height>
    </rect>
   </property>
@@ -75,7 +75,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>250</y>
-      <width>1081</width>
+      <width>931</width>
       <height>16</height>
      </rect>
     </property>
@@ -88,7 +88,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>310</y>
-      <width>1081</width>
+      <width>931</width>
       <height>231</height>
      </rect>
     </property>
@@ -98,7 +98,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>540</y>
-      <width>1081</width>
+      <width>931</width>
       <height>16</height>
      </rect>
     </property>
@@ -121,7 +121,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>60</y>
-      <width>1081</width>
+      <width>931</width>
       <height>192</height>
      </rect>
     </property>
@@ -133,6 +133,9 @@ p, li { white-space: pre-wrap; }
     <attribute name="horizontalHeaderHighlightSections">
      <bool>false</bool>
     </attribute>
+    <attribute name="verticalHeaderMinimumSectionSize">
+     <number>20</number>
+    </attribute>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -140,7 +143,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1101</width>
+     <width>952</width>
      <height>26</height>
     </rect>
    </property>
