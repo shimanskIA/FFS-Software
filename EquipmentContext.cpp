@@ -21,6 +21,7 @@ void EquipmentContext::SetId(int id)
 {
 	TableContext::SetId(id);
 	ChangeEquipmentParametersFK(id);
+	ChangeBindingFK(id);
 }
 
 void EquipmentContext::SetName(QString name)
@@ -33,12 +34,22 @@ void EquipmentContext::SetDescription(QString description)
 	this->description = description;
 }
 
+void EquipmentContext::SetBinding(BindingContext* binding)
+{
+	this->binding = binding;
+}
+
 void EquipmentContext::ChangeEquipmentParametersFK(int new_fk)
 {
 	foreach(EquipmentParameterContext * equipmentParameter, equipmentParameters)
 	{
 		equipmentParameter->SetFKEquipment(new_fk);
 	}
+}
+
+void EquipmentContext::ChangeBindingFK(int new_fk)
+{
+	binding->SetFKEquipment(new_fk);
 }
 
 void EquipmentContext::AddNewEquipmentParameter(EquipmentParameterContext* equipmentParameter)

@@ -6,42 +6,11 @@
 RawDataParser::RawDataParser(QString fileLink)
 {
 	this->fileLink = fileLink;
-	this->dataSetNumber = 0;
-	this->correlationNumber = 0;
-	this->channelNumber = 0;
-	this->measurementReadFlag = false;
-	this->measureParametersReadFlag = false;
-	this->laserParametersReadFlag = false;
-	this->pinholeParametersReadFlag = false;
-	this->attenuatorPowerParametersReadFlag = false;
-	this->detectorParametersReadFlag = false;
-	this->attenuatorParametersReadFlag = false;
-	this->beamSplitterParametersReadFlag = false;
-	this->collimatorParametersReadFlag = false;
-	this->sampleCarrierReadFlag = false;
-	this->sampleDistributionReadFlag = false;
-	this->numberOfPointsReadFlag = false;
-	this->characteristicReadFlag = false;
 }
 
 RawDataParser::RawDataParser()
 {
-	this->dataSetNumber = 0;
-	this->correlationNumber = 0;
-	this->channelNumber = 0;
-	this->measurementReadFlag = false;
-	this->measureParametersReadFlag = false;
-	this->laserParametersReadFlag = false;
-	this->pinholeParametersReadFlag = false;
-	this->attenuatorPowerParametersReadFlag = false;
-	this->detectorParametersReadFlag = false;
-	this->attenuatorParametersReadFlag = false;
-	this->beamSplitterParametersReadFlag = false;
-	this->collimatorParametersReadFlag = false;
-	this->sampleCarrierReadFlag = false;
-	this->sampleDistributionReadFlag = false;
-	this->numberOfPointsReadFlag = false;
-	this->characteristicReadFlag = false;
+
 }
 
 RawDataParser::~RawDataParser()
@@ -93,6 +62,9 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	EquipmentContext* equipmentItem = nullptr;
 	CharacteristicsContext* characteristic = nullptr;
 
+	MeasuringSystemContext* measuringSystem = new MeasuringSystemContext(measuringSystemStatePath);
+	measuringSystem->SetDescription("Write your description here.");
+
 	QMap<QString, CharacteristicTypeContext*> usedCharacteristicTypes;
 	
 	QString fullSampleName = "";
@@ -108,6 +80,7 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	while (!in.atEnd()) 
 	{ 
 		QString line = in.readLine(); 
+
 		if (line.contains("BEGIN FcsDataSet" + QString::number(dataSetNumber)))
 		{
 			if (sample != nullptr)
@@ -121,7 +94,9 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			
 			if (measurement != nullptr)
 			{
-				dbContext->AddNewMeasurement(measurement);
+				measurement->SetFKMeasuringSystem(measuringSystem->GetId());
+				measuringSystem->AddNewMeasurement(measurement);
+				firstDataSetReadFlag = false;
 			}
 
 			measurement = new MeasurementContext(measurementStatePath);
@@ -200,134 +175,85 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			}
 		}
 
-		else if (line.contains("BEGIN Laser") && !line.contains("Lasers"))
+		if (line.contains("BEGIN Laser") && !line.contains("Lasers") && firstDataSetReadFlag)
 		{
 			CreateNewEquipmentItem("Laser", laserParametersReadFlag, equipmentItem);
-			Bind(measurement, equipmentItem, dbContext);
+			Bind(measuringSystem, equipmentItem, dbContext);
 		}
 
 		else if (laserParametersReadFlag)
 		{
-			CascadeEquipmentParametersRead(line, laserParametersReadFlag, "LaserInUse", equipmentItem, dbContext);
+			CascadeEquipmentParametersRead(line, laserParametersReadFlag, "LaserPower", equipmentItem, dbContext);
 		}
 
-		else if (line.contains("BEGIN PinholeDiameter") && !line.contains("PinholeDiameters"))
+		else if (line.contains("BEGIN PinholeDiameter") && !line.contains("PinholeDiameters") && firstDataSetReadFlag)
 		{
 			CreateNewEquipmentItem("PinholeDiameter", pinholeParametersReadFlag, equipmentItem);
-			Bind(measurement, equipmentItem, dbContext);
+			Bind(measuringSystem, equipmentItem, dbContext);
 		}
 
 		else if (pinholeParametersReadFlag)
 		{
-			CascadeEquipmentParametersRead(line, pinholeParametersReadFlag, "DetectorPinholeDiameter", equipmentItem, dbContext);
+			CascadeEquipmentParametersRead(line, pinholeParametersReadFlag, "DetectorPinholeName", equipmentItem, dbContext);
 		}
 
-		else if (line.contains("BEGIN AttenuatorPower") && !line.contains("AttenuatorPowers"))
+		else if (line.contains("BEGIN AttenuatorPower") && !line.contains("AttenuatorPowers") && firstDataSetReadFlag)
 		{
 			CreateNewEquipmentItem("AttenuatorPower", attenuatorPowerParametersReadFlag, equipmentItem);
-			Bind(measurement, equipmentItem, dbContext);
+			Bind(measuringSystem, equipmentItem, dbContext);
 		}
 
 		else if (attenuatorPowerParametersReadFlag)
 		{
-			CascadeEquipmentParametersRead(line, attenuatorPowerParametersReadFlag, "AttenuatorInUse", equipmentItem, dbContext);
+			CascadeEquipmentParametersRead(line, attenuatorPowerParametersReadFlag, "AttenuatorWavelength", equipmentItem, dbContext);
 		}
 
-		else if (line.contains("BEGIN Detector") && !line.contains("Detectors"))
+		else if (line.contains("DetectorName"))
 		{
-			CreateNewEquipmentItem("Detector", detectorParametersReadFlag, equipmentItem);
-			Bind(measurement, equipmentItem, dbContext);
-		}
+			QString sampleName = line.split('=').last().trimmed();
 
-		else if (detectorParametersReadFlag)
-		{
-			if (line.contains("DetectorName"))
+			if (fullSampleName.isEmpty())
 			{
-				QString sampleName = line.split('=').last().trimmed();
-				
-				if (fullSampleName.isEmpty())
-				{
-					fullSampleName += sampleName;
-				}
-				else
-				{
-					fullSampleName += "/";
-					fullSampleName += sampleName;
-				}
+				fullSampleName += sampleName;
 			}
-			CascadeEquipmentParametersRead(line, detectorParametersReadFlag, "DetectorFilterName", equipmentItem, dbContext);
+			else
+			{
+				fullSampleName += "/";
+				fullSampleName += sampleName;
+			}
 		}
 
-		else if (line.contains("BEGIN Attenuator ") && !line.contains("Attenuators"))
+		else if (line.contains("BEGIN Attenuator ") && !line.contains("Attenuators") && firstDataSetReadFlag)
 		{
 			CreateNewEquipmentItem("Attenuator", attenuatorParametersReadFlag, equipmentItem);
-			Bind(measurement, equipmentItem, dbContext);
+			Bind(measuringSystem, equipmentItem, dbContext);
 		}
 
 		else if (attenuatorParametersReadFlag)
 		{
-			CascadeEquipmentParametersRead(line, attenuatorParametersReadFlag, "AttenuatorInUse", equipmentItem, dbContext);
+			CascadeEquipmentParametersRead(line, attenuatorParametersReadFlag, "AttenuatorWavelength", equipmentItem, dbContext);
 		}
 
-		else if (line.contains("BEGIN BeamSplitter") && !line.contains("BeamSplitters"))
+		else if (line.contains("BEGIN BeamSplitter") && !line.contains("BeamSplitters") && firstDataSetReadFlag)
 		{
 			CreateNewEquipmentItem("BeamSplitter", beamSplitterParametersReadFlag, equipmentItem);
-			Bind(measurement, equipmentItem, dbContext);
+			Bind(measuringSystem, equipmentItem, dbContext);
 		}
 
 		else if (beamSplitterParametersReadFlag)
 		{
-			CascadeEquipmentParametersRead(line, beamSplitterParametersReadFlag, "BeamSplitterFilterName", equipmentItem, dbContext);
+			CascadeEquipmentParametersRead(line, beamSplitterParametersReadFlag, "BeamSplitterFilterSet", equipmentItem, dbContext);
 		}
 
-		else if (line.contains("BEGIN Collimator") && !line.contains("Collimators"))
+		else if (line.contains("BEGIN Collimator") && !line.contains("Collimators") && firstDataSetReadFlag)
 		{
 			CreateNewEquipmentItem("Collimator", collimatorParametersReadFlag, equipmentItem);
-			Bind(measurement, equipmentItem, dbContext);
+			Bind(measuringSystem, equipmentItem, dbContext);
 		}
 
 		else if (collimatorParametersReadFlag)
 		{
-			CascadeEquipmentParametersRead(line, collimatorParametersReadFlag, "CollimatorPosition", equipmentItem, dbContext);
-		}
-
-		else if (line.contains("BEGIN SampleCarrier"))
-		{
-			CreateNewEquipmentItem("SampleCarrier", sampleCarrierReadFlag, equipmentItem);
-			Bind(measurement, equipmentItem, dbContext);
-		}
-
-		else if (sampleCarrierReadFlag)
-		{
-			if (line.contains("SampleDistribution"))
-			{
-				QString sampleDistributionFirstElement = line.split('=').last().trimmed();
-				fullSampleDistribution += sampleDistributionFirstElement;
-				sampleDistributionReadFlag = true;
-			}
-			else if(sampleDistributionReadFlag)
-			{
-				if (line.contains("SamplePositions") && !line.contains("Usage"))
-				{
-					sampleDistributionReadFlag = false;
-					EquipmentParameterContext* equipmentParameter = new EquipmentParameterContext(equipmentParameterStatePath);
-					equipmentParameter->SetName("SampleDistribution");
-					equipmentParameter->SetValue(fullSampleDistribution);
-					equipmentParameter->SetFKEquipment(equipmentItem->GetId());
-					equipmentItem->AddNewEquipmentParameter(equipmentParameter);
-				}
-				else
-				{
-					QString sampleDistributionElement = line.trimmed();
-					fullSampleDistribution += " ";
-					fullSampleDistribution += sampleDistributionElement;
-				}
-			}
-			
-			if (!sampleDistributionReadFlag)
-			{
-				CascadeEquipmentParametersRead(line, sampleCarrierReadFlag, "SamplePositionsUsage", equipmentItem, dbContext);
-			}
+			CascadeEquipmentParametersRead(line, collimatorParametersReadFlag, "CollimatorName", equipmentItem, dbContext);
 		}
 
 		else if (line.contains("BEGIN Channel") && !line.contains("Channel "))
@@ -417,13 +343,14 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			{
 				actualIteration++;
 			}
-			
 		}
 	}
 
-	dbContext->AddNewMeasurement(measurement);
+	measurement->SetFKMeasuringSystem(measuringSystem->GetId());
+	measuringSystem->AddNewMeasurement(measurement);
 	sample->SetName(fullSampleName);
 	dbContext->AddNewSample(sample);
+	dbContext->SetMeasuringSystem(measuringSystem);
 
 	file.close();
 }
@@ -459,12 +386,13 @@ void RawDataParser::CreateNewEquipmentItem(QString name, bool& flag, EquipmentCo
 	flag = true;
 }
 
-void RawDataParser::Bind(MeasurementContext* measurement, EquipmentContext*& equipmentItem, DbContext* dbContext)
+void RawDataParser::Bind(MeasuringSystemContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext)
 {
 	BindingContext* binding = new BindingContext();
-	binding->SetFKMeasurement(measurement);
-	binding->SetFKEquipment(equipmentItem);
-	dbContext->AddNewBinding(binding);
+	binding->SetFKMeasuringSystem(measuringSystem->GetId());
+	binding->SetFKEquipment(equipmentItem->GetId());
+	measuringSystem->AddNewBinding(binding);
+	equipmentItem->SetBinding(binding);
 }
 
 QStringList RawDataParser::GetCoordinates(QString line)

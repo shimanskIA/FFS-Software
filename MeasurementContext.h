@@ -8,12 +8,12 @@
 #include <QString>
 #include <QList>
 
+
 class MeasurementContext : public TableContext
 {
 public:
 	MeasurementContext(QString stateFilePath);
 	MeasurementContext(int id);
-	MeasurementContext();
 	~MeasurementContext();
 	void SetId(int id) override;
 	void SetName(QString name);
@@ -24,6 +24,7 @@ public:
 	void SetKineticsCount(int kineticsCount);
 	void SetNumberPositions(int numberPositions);
 	void SetFKSample(SampleContext* fk_sample);
+	void SetFKMeasuringSystem(int fk_measuring_system);
 	void ChangeMeasurementParametersFK(int new_fk);
 	void ChangeCharacteristicsFK(int new_fk);
 
@@ -39,6 +40,7 @@ public:
 	int GetKineticsCount();
 	int GetNumberPositions();
 	int GetFKSample();
+	int GetFKMeasuringSystem();
 
 	QList<MeasurementParameterContext*> GetMeasurementParameters();
 	QList<CharacteristicsContext*> GetCharacteristics();
@@ -58,6 +60,7 @@ private:
 	int numberPositions = 0;
 	int kineticsCount = 0;
 	SampleContext* fk_sample = nullptr;
+	int fk_measuring_system = 0;
 
 	QString sampleName;
 

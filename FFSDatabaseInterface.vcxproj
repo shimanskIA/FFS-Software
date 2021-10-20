@@ -97,6 +97,7 @@
     <ClCompile Include="FFSDatabaseInterfaceService.cpp" />
     <ClCompile Include="MeasurementContext.cpp" />
     <ClCompile Include="MeasurementParameterContext.cpp" />
+    <ClCompile Include="MeasuringSystemContext.cpp" />
     <ClCompile Include="ParameterTableContext.cpp" />
     <ClCompile Include="RawDataParser.cpp" />
     <ClCompile Include="SampleContext.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="FFSDatabaseInterfaceService.h" />
     <ClInclude Include="MeasurementContext.h" />
     <ClInclude Include="MeasurementParameterContext.h" />
+    <ClInclude Include="MeasuringSystemContext.h" />
     <ClInclude Include="ParameterTableContext.h" />
     <ClInclude Include="RawDataParser.h" />
     <ClInclude Include="SampleContext.h" />
@@ -141,6 +143,7 @@
     <Text Include="equipmentparameterstate.txt" />
     <Text Include="measurementstate.txt" />
     <Text Include="measurementparameterstate.txt" />
+    <Text Include="measuringsystemstate.txt" />
     <Text Include="samplestate.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

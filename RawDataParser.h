@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QString>
+
 #include "DbContext.h"
 
 class RawDataParser
@@ -16,28 +17,26 @@ public:
 	void SomeOtherDeviceParser(DbContext* dbContext);
 	void CascadeEquipmentParametersRead(QString line, bool& flag, QString endLine, EquipmentContext*& equipmentItem, DbContext* dbContext);
 	void CreateNewEquipmentItem(QString name, bool& flag, EquipmentContext*& equipmentItem);
-	void Bind(MeasurementContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext);
+	void Bind(MeasuringSystemContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext);
 	QStringList GetCoordinates(QString line);
 	QString ReadHeader();
 
 private:
 	QString fileLink;
-	int dataSetNumber;
-	int channelNumber;
-	int correlationNumber;
-	bool measurementReadFlag;
-	bool measureParametersReadFlag;
-	bool laserParametersReadFlag;
-	bool pinholeParametersReadFlag;
-	bool attenuatorPowerParametersReadFlag;
-	bool detectorParametersReadFlag;
-	bool attenuatorParametersReadFlag;
-	bool beamSplitterParametersReadFlag;
-	bool collimatorParametersReadFlag;
-	bool sampleCarrierReadFlag;
-	bool sampleDistributionReadFlag;
-	bool characteristicReadFlag;
-	bool numberOfPointsReadFlag;
+	int dataSetNumber = 0;
+	int channelNumber = 0;
+	int correlationNumber = 0;
+	bool measurementReadFlag = false;
+	bool measureParametersReadFlag = false;
+	bool laserParametersReadFlag = false;
+	bool pinholeParametersReadFlag = false;
+	bool attenuatorPowerParametersReadFlag = false;
+	bool attenuatorParametersReadFlag = false;
+	bool beamSplitterParametersReadFlag = false;
+	bool collimatorParametersReadFlag = false;
+	bool characteristicReadFlag = false;
+	bool numberOfPointsReadFlag = false;
+	bool firstDataSetReadFlag = true;
 
 	const QString sampleStatePath = "samplestate.txt";
 	const QString measurementStatePath = "measurementstate.txt";
@@ -46,4 +45,5 @@ private:
 	const QString equipmentParameterStatePath = "equipmentparameterstate.txt";
 	const QString characteristicStatePath = "characteristicstate.txt";
 	const QString characteristicTypeStatePath = "characteristictypestate.txt";
+	const QString measuringSystemStatePath = "measuringsystemstate.txt";
 };

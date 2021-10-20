@@ -14,5 +14,4 @@ public:
 private:
     DbContext* dbContext;
     RawDataParser* rawDataParser;
-
 };

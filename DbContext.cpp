@@ -2,31 +2,21 @@
 
 DbContext::DbContext()
 {
-	measurements = QList<MeasurementContext*>();
 	samples = QList<SampleContext*>();
 	equipments = QList<EquipmentContext*>();
 	characteristicTypes = QList<CharacteristicTypeContext*>();
-	bindings = QList<BindingContext*>();
+	measuringSystem = nullptr;
 }
 
 DbContext::~DbContext()
 {
-	qDeleteAll(measurements);
-	measurements.clear();
 	qDeleteAll(samples);
 	samples.clear();
 	qDeleteAll(equipments);
 	equipments.clear();
 	qDeleteAll(characteristicTypes);
 	characteristicTypes.clear();
-	qDeleteAll(bindings);
-	bindings.clear();
-}
-
-void DbContext::AddNewMeasurement(MeasurementContext* measurement)
-{
-	measurements.append(measurement);
-	measurement->IncrementId();
+	delete measuringSystem;
 }
 
 void DbContext::AddNewSample(SampleContext* sample)
@@ -47,9 +37,10 @@ void DbContext::AddNewCharacteristicType(CharacteristicTypeContext* characterist
 	characteristicType->IncrementId();
 }
 
-void DbContext::AddNewBinding(BindingContext* binding)
+void DbContext::SetMeasuringSystem(MeasuringSystemContext* measuringSystem)
 {
-	bindings.append(binding);
+	this->measuringSystem = measuringSystem;
+	measuringSystem->IncrementId();
 }
 
 QList<SampleContext*> DbContext::GetSamples()
@@ -62,17 +53,13 @@ QList<CharacteristicTypeContext*> DbContext::GetCharacteristicTypes()
 	return this->characteristicTypes;
 }
 
-QList<MeasurementContext*> DbContext::GetMeasurements()
-{
-	return this->measurements;
-}
 
 QList<EquipmentContext*> DbContext::GetEquipments()
 {
 	return this->equipments;
 }
 
-QList<BindingContext*> DbContext::GetBindings()
+MeasuringSystemContext* DbContext::GetMeasuringSystem()
 {
-	return this->bindings;
+	return this->measuringSystem;
 }

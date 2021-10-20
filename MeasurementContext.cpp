@@ -68,6 +68,11 @@ void MeasurementContext::SetFKSample(SampleContext* fk_sample)
 	this->fk_sample = fk_sample;
 }
 
+void MeasurementContext::SetFKMeasuringSystem(int fk_measuring_system)
+{
+	this->fk_measuring_system = fk_measuring_system;
+}
+
 void MeasurementContext::ChangeMeasurementParametersFK(int new_fk)
 {
 	foreach(MeasurementParameterContext * measurementParameter, measurementParameters)
@@ -135,6 +140,11 @@ int MeasurementContext::GetRepeatCount()
 int MeasurementContext::GetFKSample()
 {
 	return this->fk_sample->GetId();
+}
+
+int MeasurementContext::GetFKMeasuringSystem()
+{
+	return this->fk_measuring_system;
 }
 
 QString MeasurementContext::GetSampleName()

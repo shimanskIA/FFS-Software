@@ -5,6 +5,7 @@
 
 #include "TableContext.h"
 #include "EquipmentParameterContext.h"
+#include "BindingContext.h"
 
 class EquipmentContext : public TableContext
 {
@@ -15,7 +16,9 @@ public:
 	void SetId(int id) override;
 	void SetName(QString name);
 	void SetDescription(QString description);
+	void SetBinding(BindingContext* binding);
 	void ChangeEquipmentParametersFK(int new_fk);
+	void ChangeBindingFK(int new_fk);
 
 	void AddNewEquipmentParameter(EquipmentParameterContext* equipmentParameter);
 
@@ -33,4 +36,5 @@ private:
 	QString description = "";
 	
 	QList<EquipmentParameterContext*> equipmentParameters;
+	BindingContext* binding = nullptr;
 };

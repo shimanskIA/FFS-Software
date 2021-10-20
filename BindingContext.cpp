@@ -5,22 +5,22 @@ BindingContext::BindingContext()
 
 }
 
-void BindingContext::SetFKEquipment(EquipmentContext* fk_equipment)
+void BindingContext::SetFKEquipment(int fk_equipment)
 {
 	this->fk_equipment = fk_equipment;
 }
 
-void BindingContext::SetFKMeasurement(MeasurementContext* fk_measurement)
+void BindingContext::SetFKMeasuringSystem(int fk_measurement)
 {
-	this->fk_measurement = fk_measurement;
+	this->fk_measuring_system = fk_measurement;
 }
 
 int BindingContext::GetFKEquipment()
 {
-	return this->fk_equipment->GetId();
+	return this->fk_equipment;
 }
 
-int BindingContext::GetFKMeasurement()
+int BindingContext::GetFKMeasuringSystem()
 {
-	return this->fk_measurement->GetId();
+	return this->fk_measuring_system;
 }

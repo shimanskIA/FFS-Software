@@ -1,6 +1,5 @@
 #include "FFSDatabaseInterfaceService.h"
 #include "DbImporter.h"
-#include "DbConnection.h"
 #include "TableWriter.h"
 
 void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)

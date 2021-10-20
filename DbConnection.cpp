@@ -3,7 +3,7 @@
 DbConnection::DbConnection()
 {
 	database = QSqlDatabase::addDatabase("QODBC");
-	database.setDatabaseName("DRIVER={SQL SERVER};SERVER=ACER-A515\\SQLEXPRESS;DATABASE=ffsdbv3;UID=Ivan;PWD=;Trusted_Connection=Yes;");
+	database.setDatabaseName("DRIVER={SQL SERVER};SERVER=ACER-A515\\SQLEXPRESS;DATABASE=ffsdbv5;UID=Ivan;PWD=;Trusted_Connection=Yes;");
 	
 	if (!database.open())
 	{
@@ -23,11 +23,11 @@ DbConnection& DbConnection::GetDbConnectionInstance()
 	return *dbConnectionInstance;
 }
 
-void DbConnection::WriteToDatabase(QString sqlRequest, QString tableName)
+bool DbConnection::WriteToDatabase(QString sqlRequest, QString tableName)
 {
 	QString idSet = "SET IDENTITY_INSERT %1 ON";
 	QSqlQuery query(idSet.arg(tableName));
-	query.exec(sqlRequest);
+	return query.exec(sqlRequest);
 }
 
 QSqlQuery DbConnection::ReadFromDatabase(QString sqlRequest)
@@ -46,11 +46,8 @@ void DbConnection::AddToDatabase(DbContext* dbContext)
 {
 	AddSamples(dbContext->GetSamples());
 	AddCharacteristicTypes(dbContext->GetCharacteristicTypes());
-
-	AddMeasurements(dbContext->GetMeasurements(), dbContext);
-	AddEquipment(dbContext->GetEquipments(), dbContext);
-
-	AddBindings(dbContext->GetBindings());
+	AddEquipment(dbContext->GetEquipments());
+	AddMeasuringSystem(dbContext->GetMeasuringSystem());
 }
 
 void DbConnection::AddSamples(QList<SampleContext*> samples)
@@ -97,11 +94,11 @@ void DbConnection::AddCharacteristicTypes(QList<CharacteristicTypeContext*> char
 	}
 }
 
-void DbConnection::AddMeasurements(QList<MeasurementContext*> measurements, DbContext* dbContext)
+void DbConnection::AddMeasurements(QList<MeasurementContext*> measurements)
 {
 	foreach(MeasurementContext* measurement, measurements)
 	{
-		QString sqlReadRequest = "SELECT * FROM measurements WHERE name = '%1' AND date = '%2' AND file_link = '%3' AND repeat_count = %4 AND kinetics_count = %5 AND number_of_channels = %6 AND number_positions = %7 AND fk_sample = %8";
+		QString sqlReadRequest = "SELECT * FROM measurements WHERE name = '%1' AND date = '%2' AND file_link = '%3' AND repeat_count = %4 AND kinetics_count = %5 AND number_of_channels = %6 AND number_positions = %7 AND fk_sample = %8 AND fk_measuring_system = %9";
 		QString name = measurement->GetName();
 		QString date = measurement->GetDateTime();
 		QString file_link = measurement->GetFileLink();
@@ -110,6 +107,7 @@ void DbConnection::AddMeasurements(QList<MeasurementContext*> measurements, DbCo
 		int number_of_channels = measurement->GetKineticsCount();
 		int number_positions = measurement->GetNumberPositions();
 		int fk_sample = measurement->GetFKSample();
+		int fk_measuring_system = measurement->GetFKMeasuringSystem();
 		QSqlQuery query = ReadFromDatabase(sqlReadRequest
 			.arg(name)
 			.arg(date)
@@ -118,26 +116,10 @@ void DbConnection::AddMeasurements(QList<MeasurementContext*> measurements, DbCo
 			.arg(kinetics_count)
 			.arg(number_of_channels)
 			.arg(number_positions)
-			.arg(fk_sample));
+			.arg(fk_sample)
+			.arg(fk_measuring_system));
 
-		if (!query.next())
-		{
-			int id = measurement->GetId();
-			QString sqlWriteRequest = "INSERT INTO measurements(id, name, date, file_link, repeat_count, kinetics_count, number_of_channels, number_positions, fk_sample) VALUES (%1, '%2', '%3', '%4', %5, %6, %7, %8, %9)";
-			WriteToDatabase(sqlWriteRequest
-				.arg(id)
-				.arg(name)
-				.arg(date)
-				.arg(file_link)
-				.arg(repeat_count)
-				.arg(kinetics_count)
-				.arg(number_of_channels)
-				.arg(number_positions)
-				.arg(fk_sample), "characteristic_types");
-			AddMeasurementParameters(measurement->GetMeasurementParameters());
-			AddCharacteristics(measurement->GetCharacteristics());
-		}
-		else
+		if (query.next())
 		{
 			bool hasEqual = false;
 			int twinId = 0;
@@ -218,28 +200,83 @@ void DbConnection::AddMeasurements(QList<MeasurementContext*> measurements, DbCo
 			{
 				measurement->SetId(twinId);
 			}
-			else
-			{
-				int id = measurement->GetId();
-				QString sqlWriteRequest = "INSERT INTO measurements(id, name, date, file_link, repeat_count, kinetics_count, number_of_channels, number_positions, fk_sample) VALUES (%1, '%2', '%3', '%4', %5, %6, %7, %8, %9)";
-				WriteToDatabase(sqlWriteRequest
-					.arg(id)
-					.arg(name)
-					.arg(date)
-					.arg(file_link)
-					.arg(repeat_count)
-					.arg(kinetics_count)
-					.arg(number_of_channels)
-					.arg(number_positions)
-					.arg(fk_sample), "characteristic_types");
-				AddMeasurementParameters(measurement->GetMeasurementParameters());
-				AddCharacteristics(measurement->GetCharacteristics());
-			}
 		}
+
+		int id = measurement->GetId();
+		QString sqlWriteRequest = "INSERT INTO measurements(id, name, date, file_link, repeat_count, kinetics_count, number_of_channels, number_positions, fk_sample, fk_measuring_system) VALUES (%1, '%2', '%3', '%4', %5, %6, %7, %8, %9, %10)";
+		WriteToDatabase(sqlWriteRequest
+			.arg(id)
+			.arg(name)
+			.arg(date)
+			.arg(file_link)
+			.arg(repeat_count)
+			.arg(kinetics_count)
+			.arg(number_of_channels)
+			.arg(number_positions)
+			.arg(fk_sample)
+			.arg(fk_measuring_system), "measurements");
+		AddMeasurementParameters(measurement->GetMeasurementParameters());
+		AddCharacteristics(measurement->GetCharacteristics());
 	}
 }
 
-void DbConnection::AddEquipment(QList<EquipmentContext*> equipments, DbContext* dbContext)
+void DbConnection::AddMeasuringSystem(MeasuringSystemContext* measuringSystem)
+{
+	QString sqlReadRequest = "SELECT id FROM measuring_systems";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest);
+
+	if (!wasEquipmentAdded)
+	{
+		while (query.next())
+		{
+			QString sqlBindingsReadQuery = "SELECT fk_equipment FROM bindings WHERE fk_measuring_system = %1";
+			int id = query.value(0).toInt();
+			QSqlQuery bindingsQuery = ReadFromDatabase(sqlBindingsReadQuery.arg(id));
+			QList<int> equipmentIds;
+			bool areEqual = true;
+
+			while (bindingsQuery.next())
+			{
+				equipmentIds.append(bindingsQuery.value(0).toInt());
+			}
+
+			if (equipmentIds.length() == measuringSystem->GetAmountOfBindings())
+			{
+
+				foreach(int equipmentId, equipmentIds)
+				{
+					if (!measuringSystem->ContainsBindingWithThisEquipment(equipmentId))
+					{
+						areEqual = false;
+						break;
+					}
+				}
+			}
+			else
+			{
+				areEqual = false;
+			}
+
+			if (areEqual)
+			{
+				measuringSystem->SetId(id);
+				break;
+			}
+		}
+	}
+	
+	QString sqlWriteRequest = "INSERT INTO measuring_systems(id, name, description, main_contributor_name) VALUES (%1, '%2', '%3', '%4')";
+	int id = measuringSystem->GetId();
+	QString name = measuringSystem->GetName();
+	QString description = measuringSystem->GetDescription();
+	QString mainContributorName = measuringSystem->GetMainContributorName();
+	WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description).arg(mainContributorName), "measuring_systems");
+	AddBindings(measuringSystem->GetBindings());
+	AddMeasurements(measuringSystem->GetMeasurements());
+	wasEquipmentAdded = false;
+}
+
+void DbConnection::AddEquipment(QList<EquipmentContext*> equipments)
 {
 	foreach(EquipmentContext * equipment, equipments)
 	{
@@ -248,14 +285,7 @@ void DbConnection::AddEquipment(QList<EquipmentContext*> equipments, DbContext* 
 		QString description = equipment->GetDescription();
 		QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
 
-		if (!query.next())
-		{
-			int id = equipment->GetId();
-			QString sqlWriteRequest = "INSERT INTO equipments(id, name, description) VALUES (%1, '%2', '%3')";
-			WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "equipments");
-			AddEquipmentParameters(equipment->GetEquipmentParameters());
-		}
-		else
+		if (query.next())
 		{
 			bool hasEqual = false;
 			int twinId = 0;
@@ -302,14 +332,17 @@ void DbConnection::AddEquipment(QList<EquipmentContext*> equipments, DbContext* 
 			{
 				equipment->SetId(twinId);
 			}
-			else
-			{
-				int id = equipment->GetId();
-				QString sqlWriteRequest = "INSERT INTO equipments(id, name, description) VALUES (%1, '%2', '%3')";
-				WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "equipments");
-				AddEquipmentParameters(equipment->GetEquipmentParameters());
-			}
 		}
+
+		int id = equipment->GetId();
+		QString sqlWriteRequest = "INSERT INTO equipments(id, name, description) VALUES (%1, '%2', '%3')";
+		
+		if (WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "equipments"))
+		{
+			wasEquipmentAdded = true;
+		}
+
+		AddEquipmentParameters(equipment->GetEquipmentParameters());
 	}
 }
 
@@ -369,14 +402,14 @@ void DbConnection::AddBindings(QList<BindingContext*> bindings)
 {
 	foreach(BindingContext * binding, bindings)
 	{
-		QString sqlReadRequest = "SELECT * FROM bindings WHERE fk_measurement = %1 AND fk_equipment = %2";
+		QString sqlReadRequest = "SELECT * FROM bindings WHERE fk_measuring_system = %1 AND fk_equipment = %2";
 		int fk_equipment = binding->GetFKEquipment();
-		int fk_measurement = binding->GetFKMeasurement();
+		int fk_measurement = binding->GetFKMeasuringSystem();
 		QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(fk_measurement).arg(fk_equipment));
 
 		if (!query.next())
 		{
-			QString sqlWriteRequest = "INSERT INTO bindings(fk_measurement, fk_equipment) VALUES (%1, %2)";
+			QString sqlWriteRequest = "INSERT INTO bindings(fk_measuring_system, fk_equipment) VALUES (%1, %2)";
 			WriteToDatabase(sqlWriteRequest.arg(fk_measurement).arg(fk_equipment), "bindings");
 		}
 	}
@@ -504,6 +537,24 @@ QList<CharacteristicsContext*> DbConnection::ReadCharacteristicsFromDatabase(int
 	}
 
 	return characteristics;
+}
+
+QList<BindingContext*> DbConnection::ReadBindingsFromDatabase(int fk_measurement)
+{
+	/*QString sqlReadRequest = "SELECT * FROM bindings WHERE fk_measurement = %1";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(fk_measurement));
+	QList<BindingContext*> bindings;
+
+	while (query.next())
+	{
+		BindingContext* binding = new BindingContext();
+		//binding->SetFKMeasurement(new MeasurementContext(query.value(0).toInt()));
+		binding->SetFKEquipment(new EquipmentContext(query.value(1).toInt()));
+		bindings.append(binding);
+	}
+
+	return bindings;*/
+	return QList<BindingContext*>();
 }
 
 QList<ParameterTableContext*> DbConnection::ReadParametersFromDatabase(QString majorTableName, QString minorTableName, int fk)

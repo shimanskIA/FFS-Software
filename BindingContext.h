@@ -1,19 +1,16 @@
 #pragma once
 
-#include "EquipmentContext.h";
-#include "MeasurementContext.h";
-
 class BindingContext
 {
 public:
 	BindingContext();
-	void SetFKEquipment(EquipmentContext* fk_equipment);
-	void SetFKMeasurement(MeasurementContext* fk_measurement);
+	void SetFKEquipment(int fk_equipment);
+	void SetFKMeasuringSystem(int fk_measuring_system);
 
 	int GetFKEquipment();
-	int GetFKMeasurement();
+	int GetFKMeasuringSystem();
 
 private:
-	EquipmentContext* fk_equipment = nullptr;
-	MeasurementContext* fk_measurement = nullptr;
+	int fk_equipment = 0;
+	int fk_measuring_system = 0;
 };

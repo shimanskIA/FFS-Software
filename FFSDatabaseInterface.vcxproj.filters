@@ -129,6 +129,9 @@
     <ClCompile Include="TableWriter.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MeasuringSystemContext.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -201,6 +204,9 @@
     <ClInclude Include="TableWriter.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MeasuringSystemContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="measurementstate.txt">
@@ -222,6 +228,9 @@
       <Filter>Model\Resource Files</Filter>
     </Text>
     <Text Include="characteristictypestate.txt">
+      <Filter>Model\Resource Files</Filter>
+    </Text>
+    <Text Include="measuringsystemstate.txt">
       <Filter>Model\Resource Files</Filter>
     </Text>
   </ItemGroup>

@@ -2,9 +2,6 @@
 
 #include "ui_FFSDatabaseInterface.h"
 #include "FFSDatabaseInterface.h"
-#include "MeasurementContext.h"
-#include "SampleContext.h"
-#include "EquipmentContext.h"
 
 #include <QString>
 #include <QStandardItemModel>

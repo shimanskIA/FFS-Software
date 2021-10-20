@@ -108,7 +108,45 @@ void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, int ma
 
 void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
 {
+	QList<BindingContext*> bindings = DbConnection::GetDbConnectionInstance().ReadBindingsFromDatabase(majorTableId);
+	QList<EquipmentContext*> equipments;
 
+	foreach(BindingContext* binding, bindings)
+	{
+		QString sqlReadRequest = "SELECT * FROM equipments WHERE id = %1";
+		QSqlQuery query = DbConnection::GetDbConnectionInstance().ReadFromDatabase(sqlReadRequest.arg(binding->GetFKEquipment()));
+
+		if (query.next())
+		{
+			int id = query.value(0).toInt();
+			EquipmentContext* equipment = new EquipmentContext(id);
+			equipment->SetName(query.value(1).toString().trimmed());
+			equipment->SetDescription(query.value(2).toString().trimmed());
+			equipments.append(equipment);
+		}
+	}
+
+	QStandardItemModel* tableModel = new QStandardItemModel(equipments.length(), 3);
+	ui.minorTableView->setModel(tableModel);
+
+	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	{
+		if (j < tableModel->columnCount())
+		{
+			tableModel->setHeaderData(j, Qt::Horizontal, equipmentColumnNames.at(j));
+		}
+
+		if (i < tableModel->rowCount())
+		{
+			tableModel->setData(tableModel->index(i, 0), equipments.at(i)->GetId());
+			tableModel->setData(tableModel->index(i, 1), equipments.at(i)->GetName());
+			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 2), equipments.at(i)->GetDescription());
+			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
+		}
+	}
+
+	ui.minorTableView->setColumnHidden(0, true);
 }
 
 void TableWriter::FillParametersTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
