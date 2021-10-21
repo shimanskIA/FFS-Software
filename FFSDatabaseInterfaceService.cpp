@@ -28,6 +28,12 @@ void FFSDatabaseInterfaceService::ShowEquipmentTableRequestReceiver(Ui::FFSDatab
 	tableWriter->FillEquipmentsTable(ui);
 }
 
+void FFSDatabaseInterfaceService::ShowMeasuringSystemTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
+{
+	TableWriter* tableWriter = new TableWriter();
+	tableWriter->FillMeasuringSystemsTable(ui);
+}
+
 void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
 {
 	TableWriter* tableWriter = new TableWriter();

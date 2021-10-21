@@ -13,8 +13,10 @@ class TableWriter
 public:
 	TableWriter();
 
+	void FillMeasuringSystemsTable(Ui::FFSDatabaseInterfaceClass ui);
+	void FillMeasuringSystemsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId);
 	void FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui);
-	void FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, int majorTableId);
+	void FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId);
 	void FillSamplesTable(Ui::FFSDatabaseInterfaceClass ui);
 	void FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui);
 	void FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId);
@@ -61,4 +63,11 @@ private:
 		"Bin time",
 		"Weight",
 		"Type" };
+
+	const QStringList measuringSystemColumnNames =
+	{
+		"Id",
+		"Name",
+		"Description",
+		"Main contributor" };
 };

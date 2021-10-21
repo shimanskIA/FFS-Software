@@ -26,12 +26,13 @@ public:
 
 	void AddBindings(QList<BindingContext*> bindings);
 
+	QList<MeasuringSystemContext*> ReadMeasuringSystemsFromDatabase();
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase();
-	QList<MeasurementContext*> ReadMeasurementsFromDatabase(int fk_sample);
+	QList<MeasurementContext*> ReadMeasurementsFromDatabase(QString majortableName, int fk);
 	QList<SampleContext*> ReadSamplesFromDatabase();
 	QList<EquipmentContext*> ReadEquipmentsFromDatabase();
 	QList<CharacteristicsContext*> ReadCharacteristicsFromDatabase(int fk_measurement);
-	QList<BindingContext*> ReadBindingsFromDatabase(int fk_measurement);
+	QList<BindingContext*> ReadBindingsFromDatabase(QString majorTableName, int fk);
 	QList<ParameterTableContext*> ReadParametersFromDatabase(QString majorTableName, QString minorTableName, int fk);
 
 private:

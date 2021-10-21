@@ -9,17 +9,18 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
 {
     ui.setupUi(this);
     connect(ui.actionInfo, SIGNAL(triggered()), this, SLOT(infoButtonClick()));
-    connect(ui.actionMeasurment, SIGNAL(triggered()), this, SLOT(chooseMeasurementTable()));
+    connect(ui.actionMeasuringSystem, SIGNAL(triggered()), this, SLOT(chooseMeasuringSystemTable()));
     connect(ui.actionSample, SIGNAL(triggered()), this, SLOT(chooseSampleTable()));
     connect(ui.actionEquipment, SIGNAL(triggered()), this, SLOT(chooseEquipmentTable()));
     connect(ui.actionImport, SIGNAL(triggered()), this, SLOT(openFileDialog()));
     connect(ui.majorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToSubtable()));
     connect(ui.tableSelector, SIGNAL(activated(QString)), this, SLOT(representTable()));
-    FFSDatabaseInterfaceFormController::ManageShowMeasurementTableRequest(ui);
-    ui.tableSelector->addItem("Measurement parameters");
-    ui.tableSelector->addItem("Characteristics");
+    FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(ui);
+    ui.tableSelector->addItem("Measurements");
     ui.tableSelector->addItem("Equipments");
     ui.tableName->setText((actualTable + "s:").toUpper());
+    ui.minorSubtableView->setDisabled(true);
+    ui.minorTableSelector->setDisabled(true);
     SetTableSettings(ui.majorTableView);
 }
 
@@ -29,18 +30,36 @@ void FFSDatabaseInterface::infoButtonClick()
     aboutForm->show();
 }
 
+void FFSDatabaseInterface::chooseMeasuringSystemTable()
+{
+    QString tableName = "measuring system";
+    if (actualTable != tableName)
+    {
+        ui.minorTableView->setModel(nullptr);
+        ui.minorSubtableView->setModel(nullptr);
+        actualSubtable = "measurements";
+        ui.tableName->setText((tableName + "s:").toUpper());
+        ui.tableSelector->clear();
+        ui.tableSelector->addItem("Measurements");
+        ui.tableSelector->addItem("Equipments");
+        actualTable = tableName;
+        FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(ui);
+        isRowSelected = false;
+    }
+}
+
 void FFSDatabaseInterface::chooseMeasurementTable()
 {
     QString tableName = "measurement";
     if (actualTable != tableName)
     {
         ui.minorTableView->setModel(nullptr);
+        ui.minorSubtableView->setModel(nullptr);
         actualSubtable = "measurement_parameters";
         ui.tableName->setText((tableName + "s:").toUpper());
         ui.tableSelector->clear();
         ui.tableSelector->addItem("Measurement parameters");
         ui.tableSelector->addItem("Characteristics");
-        ui.tableSelector->addItem("Equipments");
         actualTable = tableName;
         FFSDatabaseInterfaceFormController::ManageShowMeasurementTableRequest(ui);
         isRowSelected = false;
@@ -53,10 +72,13 @@ void FFSDatabaseInterface::chooseSampleTable()
     if (actualTable != tableName)
     {
         ui.minorTableView->setModel(nullptr);
+        ui.minorSubtableView->setModel(nullptr);
         actualSubtable = "measurements";
         ui.tableName->setText((tableName + "s:").toUpper());
         ui.tableSelector->clear();
         ui.tableSelector->addItem("Measurements");
+        ui.minorSubtableView->setDisabled(true);
+        ui.minorTableSelector->setDisabled(true);
         actualTable = tableName;
         FFSDatabaseInterfaceFormController::ManageShowSampleTableRequest(ui);
         isRowSelected = false;
@@ -69,11 +91,14 @@ void FFSDatabaseInterface::chooseEquipmentTable()
     if (actualTable != tableName)
     {
         ui.minorTableView->setModel(nullptr);
+        ui.minorSubtableView->setModel(nullptr);
         actualSubtable = "equipment_parameters";
         ui.tableName->setText((tableName + "s:").toUpper());
         ui.tableSelector->clear();
         ui.tableSelector->addItem("Equipment parameters");
-        ui.tableSelector->addItem("Measurements");
+        ui.tableSelector->addItem("Measuring systems");
+        ui.minorSubtableView->setDisabled(true);
+        ui.minorTableSelector->setDisabled(true);
         actualTable = tableName;
         FFSDatabaseInterfaceFormController::ManageShowEquipmentTableRequest(ui);
         isRowSelected = false;
@@ -98,7 +123,8 @@ void FFSDatabaseInterface::loadDataToSubtable()
     {
         this->selectedId = selectedId;
         isSubtableChanged = false;
-        FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(ui, actualTable, actualSubtable, selectedId);
+        QString transformedTable = actualTable;
+        FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(ui, transformedTable.replace(' ', '_'), actualSubtable, selectedId);
         isRowSelected = true;
         if (firstLoad)
         {
@@ -106,7 +132,6 @@ void FFSDatabaseInterface::loadDataToSubtable()
             firstLoad = false;
         }
     }
-    
 }
 
 void FFSDatabaseInterface::representTable()

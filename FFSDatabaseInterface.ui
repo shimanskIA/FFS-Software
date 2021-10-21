@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>961</width>
-    <height>601</height>
+    <height>881</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -148,6 +148,39 @@ p, li { white-space: pre-wrap; }
      <number>20</number>
     </attribute>
    </widget>
+   <widget class="QTableView" name="minorSubtableView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>600</y>
+      <width>941</width>
+      <height>221</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="Line" name="line_5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>820</y>
+      <width>941</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="minorTableSelector">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>570</y>
+      <width>201</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -175,7 +208,7 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>Tables</string>
     </property>
-    <addaction name="actionMeasurment"/>
+    <addaction name="actionMeasuringSystem"/>
     <addaction name="actionSample"/>
     <addaction name="actionEquipment"/>
    </widget>
@@ -199,9 +232,9 @@ p, li { white-space: pre-wrap; }
     <string>Info</string>
    </property>
   </action>
-  <action name="actionMeasurment">
+  <action name="actionMeasuringSystem">
    <property name="text">
-    <string>Measurement</string>
+    <string>Measuring system</string>
    </property>
   </action>
   <action name="actionMeasuring_system">

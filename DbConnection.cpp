@@ -415,6 +415,26 @@ void DbConnection::AddBindings(QList<BindingContext*> bindings)
 	}
 }
 
+QList<MeasuringSystemContext*> DbConnection::ReadMeasuringSystemsFromDatabase()
+{
+	QString sqlReadRequest = "SELECT * FROM measuring_systems";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest);
+	QList<MeasuringSystemContext*> measuringSystems;
+
+	while (query.next())
+	{
+		int id = query.value(0).toInt();
+		MeasuringSystemContext* measuringSystem = new MeasuringSystemContext(id);
+		measuringSystem->SetName(query.value(1).toString().trimmed());
+		measuringSystem->SetDescription(query.value(2).toString().trimmed());
+		measuringSystem->SetMainContributorName(query.value(3).toString().trimmed());
+		measuringSystems.append(measuringSystem);
+	}
+
+	return measuringSystems;
+
+}
+
 QList<MeasurementContext*> DbConnection::ReadMeasurementsFromDatabase()
 {
 	QString sqlReadRequest = "SELECT * FROM measurements";
@@ -449,10 +469,10 @@ QList<MeasurementContext*> DbConnection::ReadMeasurementsFromDatabase()
 	return measurements;
 }
 
-QList<MeasurementContext*> DbConnection::ReadMeasurementsFromDatabase(int fk_sample)
+QList<MeasurementContext*> DbConnection::ReadMeasurementsFromDatabase(QString majorTableName, int fk)
 {
-	QString sqlReadRequest = "SELECT * FROM measurements WHERE fk_sample = %1";
-	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(fk_sample));
+	QString sqlReadRequest = "SELECT * FROM measurements WHERE fk_%1 = %2";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(majorTableName).arg(fk));
 	QList<MeasurementContext*> measurements;
 
 	while (query.next())
@@ -539,22 +559,21 @@ QList<CharacteristicsContext*> DbConnection::ReadCharacteristicsFromDatabase(int
 	return characteristics;
 }
 
-QList<BindingContext*> DbConnection::ReadBindingsFromDatabase(int fk_measurement)
+QList<BindingContext*> DbConnection::ReadBindingsFromDatabase(QString majorTableName, int fk)
 {
-	/*QString sqlReadRequest = "SELECT * FROM bindings WHERE fk_measurement = %1";
-	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(fk_measurement));
+	QString sqlReadRequest = "SELECT * FROM bindings WHERE fk_%1 = %2";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(majorTableName).arg(fk));
 	QList<BindingContext*> bindings;
 
 	while (query.next())
 	{
 		BindingContext* binding = new BindingContext();
-		//binding->SetFKMeasurement(new MeasurementContext(query.value(0).toInt()));
-		binding->SetFKEquipment(new EquipmentContext(query.value(1).toInt()));
+		binding->SetFKMeasuringSystem(query.value(0).toInt());
+		binding->SetFKEquipment(query.value(1).toInt());
 		bindings.append(binding);
 	}
 
-	return bindings;*/
-	return QList<BindingContext*>();
+	return bindings;
 }
 
 QList<ParameterTableContext*> DbConnection::ReadParametersFromDatabase(QString majorTableName, QString minorTableName, int fk)

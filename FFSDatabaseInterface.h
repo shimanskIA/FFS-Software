@@ -17,6 +17,7 @@ private slots:
     void chooseMeasurementTable();
     void chooseSampleTable();
     void chooseEquipmentTable();
+    void chooseMeasuringSystemTable();
     void openFileDialog();
     void loadDataToSubtable();
     void representTable();
@@ -27,8 +28,8 @@ private:
     Ui::FFSDatabaseInterfaceClass ui;
 
     int selectedId = 0;
-    QString actualTable = "measurement";
-    QString actualSubtable = "measurement_parameters";
+    QString actualTable = "measuring system";
+    QString actualSubtable = "measurements";
 
     bool firstLoad = true;
     bool isRowSelected = false;

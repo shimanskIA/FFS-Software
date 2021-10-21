@@ -11,6 +11,7 @@ class MeasuringSystemContext : public TableContext
 {
 public:
 	MeasuringSystemContext(QString fileLink);
+	MeasuringSystemContext(int id);
 	~MeasuringSystemContext();
 
 	void SetId(int id) override;

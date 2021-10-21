@@ -6,6 +6,11 @@ MeasuringSystemContext::MeasuringSystemContext(QString fileLink) : TableContext(
 	measurements = QList<MeasurementContext*>();
 }
 
+MeasuringSystemContext::MeasuringSystemContext(int id) : TableContext(id)
+{
+
+}
+
 MeasuringSystemContext::~MeasuringSystemContext()
 {
 	qDeleteAll(bindings);
