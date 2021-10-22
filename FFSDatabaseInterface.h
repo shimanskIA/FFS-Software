@@ -12,6 +12,33 @@ class FFSDatabaseInterface : public QMainWindow
 public:
     FFSDatabaseInterface(QWidget *parent = Q_NULLPTR);
 
+    Ui::FFSDatabaseInterfaceClass GetUI();
+    QString GetActualTable();
+    QString GetActualSubtable();
+    QString GetActualMinorSubtable();
+    bool GetIsRowSelected();
+    bool GetIsSubRowSelected();
+    bool GetFirstLoad();
+    bool GetMinorFirstLoad();
+    bool GetIsSubtableChanged();
+    bool GetIsMinorSubtableChanged();
+    int GetSelectedId();
+    int GetMinorSelectedId();
+
+    void SetActualTable(QString actualTable);
+    void SetActualSubtable(QString actualSubtable);
+    void SetActualMinorSubtable(QString actualMinorSubtable);
+    void SetIsRowSelected(bool isRowSelected);
+    void SetIsSubRowSelected(bool isSubRowSelected);
+    void SetFirstLoad(bool firstLoad);
+    void SetMinorFirstLoad(bool minorFirstLoad);
+    void SetIsSubtableChanged(bool isSubtableChanged);
+    void SetIsMinorSubtableChanged(bool isMinorSubtableChanged);
+    void SetSelectedId(int selectedId);
+    void SetMinorSelectedId(int minorSelectedId);
+
+    void SetTableSettings(QTableView* table);
+
 private slots:
     void infoButtonClick();
     void chooseMeasurementTable();
@@ -41,6 +68,4 @@ private:
     bool isSubRowSelected = false;
     bool isSubtableChanged = false;
     bool isMinorSubtableChanged = false;
-
-    void SetTableSettings(QTableView* table);
 };

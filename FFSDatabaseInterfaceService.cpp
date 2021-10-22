@@ -10,40 +10,41 @@ void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 	dbImporter->ImportToDatabase();
 }
 
-void FFSDatabaseInterfaceService::ShowMeasurementTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
+void FFSDatabaseInterfaceService::ShowMeasurementTableRequestReceiver(QTableView* tableView)
 {
 	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillMeasurementsTable(ui);
+	tableWriter->FillMeasurementsTable(tableView);
 }
 
-void FFSDatabaseInterfaceService::ShowSampleTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
+void FFSDatabaseInterfaceService::ShowSampleTableRequestReceiver(QTableView* tableView)
 {
 	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillSamplesTable(ui);
+	tableWriter->FillSamplesTable(tableView);
 }
 
-void FFSDatabaseInterfaceService::ShowEquipmentTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
+void FFSDatabaseInterfaceService::ShowEquipmentTableRequestReceiver(QTableView* tableView)
 {
 	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillEquipmentsTable(ui);
+	tableWriter->FillEquipmentsTable(tableView);
 }
 
-void FFSDatabaseInterfaceService::ShowMeasuringSystemTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
+void FFSDatabaseInterfaceService::ShowMeasuringSystemTableRequestReceiver(QTableView* tableView)
 {
 	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillMeasuringSystemsTable(ui);
+	tableWriter->FillMeasuringSystemsTable(tableView);
 }
 
-void FFSDatabaseInterfaceService::ShowCharacteristicTypesTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
+void FFSDatabaseInterfaceService::ShowCharacteristicTypesTableRequestReceiver(QTableView* tableView)
 {
 	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillCharacteristicTypesTable(ui);
+	tableWriter->FillCharacteristicTypesTable(tableView);
 }
 
-void FFSDatabaseInterfaceService::ShowCharacteristicsTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
+void FFSDatabaseInterfaceService::ShowCharacteristicsTableRequestReceiver(QTableView* tableView)
 {
 	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillCharacteristicsTable(ui);
+	QString sqlReadRequest = "SELECT * FROM characteristics";
+	tableWriter->FillCharacteristicsTable(tableView, sqlReadRequest);
 }
 
 void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)

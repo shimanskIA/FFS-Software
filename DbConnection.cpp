@@ -528,41 +528,9 @@ QList<EquipmentContext*> DbConnection::ReadEquipmentsFromDatabase()
 	return equipments;
 }
 
-QList<CharacteristicsContext*> DbConnection::ReadCharacteristicsFromDatabase()
+QList<CharacteristicsContext*> DbConnection::ReadCharacteristicsFromDatabase(QString sqlReadRequest)
 {
-	QString sqlReadRequest = "SELECT * FROM characteristics";
 	QSqlQuery query = ReadFromDatabase(sqlReadRequest);
-	QList<CharacteristicsContext*> characteristics;
-
-	while (query.next())
-	{
-		int id = query.value(0).toInt();
-		CharacteristicsContext* characteristic = new CharacteristicsContext(id);
-		characteristic->SetChannel(query.value(1).toString().trimmed());
-		characteristic->SetNumberOfPoints(query.value(2).toInt());
-		characteristic->SetBinTime(query.value(3).toDouble());
-		characteristic->SetWeight(query.value(6).toDouble());
-
-		int fk_characteristic_type = query.value(8).toInt();
-		CharacteristicTypeContext* characteristicType = new CharacteristicTypeContext(fk_characteristic_type);
-		QString sqlSampleReadRequest = "SELECT * FROM characteristic_types WHERE id = %1";
-		QSqlQuery characteristicTypeQuery = ReadFromDatabase(sqlSampleReadRequest.arg(fk_characteristic_type));
-		if (characteristicTypeQuery.next())
-		{
-			characteristicType->SetName(characteristicTypeQuery.value(1).toString().trimmed());
-			characteristic->SetFKCharacteristicType(characteristicType);
-		}
-
-		characteristics.append(characteristic);
-	}
-
-	return characteristics;
-}
-
-QList<CharacteristicsContext*> DbConnection::ReadCharacteristicsFromDatabase(QString majorTableName, int fk)
-{
-	QString sqlReadRequest = "SELECT * FROM characteristics WHERE fk_%1 = %2";
-	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(majorTableName).arg(fk));
 	QList<CharacteristicsContext*> characteristics;
 
 	while (query.next())
