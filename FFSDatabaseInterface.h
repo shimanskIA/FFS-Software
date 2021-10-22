@@ -18,13 +18,13 @@ private slots:
     void chooseSampleTable();
     void chooseEquipmentTable();
     void chooseMeasuringSystemTable();
+    void chooseCharacteristicTypeTable();
+    void chooseCharacteristicTable();
     void openFileDialog();
     void loadDataToSubtable();
     void loadDataToMinorSubtable();
     void representMinorTable();
     void representTable();
-
-    void SetTableSettings(QTableView* table);
 
 private:
     Ui::FFSDatabaseInterfaceClass ui;
@@ -41,4 +41,6 @@ private:
     bool isSubRowSelected = false;
     bool isSubtableChanged = false;
     bool isMinorSubtableChanged = false;
+
+    void SetTableSettings(QTableView* table);
 };

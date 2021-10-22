@@ -12,6 +12,9 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.actionMeasuringSystem, SIGNAL(triggered()), this, SLOT(chooseMeasuringSystemTable()));
     connect(ui.actionSample, SIGNAL(triggered()), this, SLOT(chooseSampleTable()));
     connect(ui.actionEquipment, SIGNAL(triggered()), this, SLOT(chooseEquipmentTable()));
+    connect(ui.actionMeasurement, SIGNAL(triggered()), this, SLOT(chooseMeasurementTable()));
+    connect(ui.actionCharacteristicType, SIGNAL(triggered()), this, SLOT(chooseCharacteristicTypeTable()));
+    connect(ui.actionCharacteristic, SIGNAL(triggered()), this, SLOT(chooseCharacteristicTable()));
     connect(ui.actionImport, SIGNAL(triggered()), this, SLOT(openFileDialog()));
     connect(ui.majorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToSubtable()));
     connect(ui.minorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToMinorSubtable()));
@@ -39,6 +42,8 @@ void FFSDatabaseInterface::chooseMeasuringSystemTable()
     {
         ui.minorTableView->setModel(nullptr);
         ui.minorSubtableView->setModel(nullptr);
+        ui.tableSelector->setDisabled(false);
+        ui.minorTableView->setDisabled(false);
         actualSubtable = "measurements";
         ui.tableName->setText((tableName + "s:").toUpper());
         ui.minorTableSelector->clear();
@@ -58,12 +63,16 @@ void FFSDatabaseInterface::chooseMeasurementTable()
     {
         ui.minorTableView->setModel(nullptr);
         ui.minorSubtableView->setModel(nullptr);
+        ui.tableSelector->setDisabled(false);
+        ui.minorTableView->setDisabled(false);
         actualSubtable = "measurement_parameters";
         ui.tableName->setText((tableName + "s:").toUpper());
         ui.minorTableSelector->clear();
         ui.tableSelector->clear();
         ui.tableSelector->addItem("Measurement parameters");
         ui.tableSelector->addItem("Characteristics");
+        ui.minorSubtableView->setDisabled(true);
+        ui.minorTableSelector->setDisabled(true);
         actualTable = tableName;
         FFSDatabaseInterfaceFormController::ManageShowMeasurementTableRequest(ui);
         isRowSelected = false;
@@ -77,6 +86,8 @@ void FFSDatabaseInterface::chooseSampleTable()
     {
         ui.minorTableView->setModel(nullptr);
         ui.minorSubtableView->setModel(nullptr);
+        ui.tableSelector->setDisabled(false);
+        ui.minorTableView->setDisabled(false);
         actualSubtable = "measurements";
         ui.tableName->setText((tableName + "s:").toUpper());
         ui.minorTableSelector->clear();
@@ -97,6 +108,8 @@ void FFSDatabaseInterface::chooseEquipmentTable()
     {
         ui.minorTableView->setModel(nullptr);
         ui.minorSubtableView->setModel(nullptr);
+        ui.tableSelector->setDisabled(false);
+        ui.minorTableView->setDisabled(false);
         actualSubtable = "equipment_parameters";
         ui.tableName->setText((tableName + "s:").toUpper());
         ui.minorTableSelector->clear();
@@ -107,6 +120,48 @@ void FFSDatabaseInterface::chooseEquipmentTable()
         ui.minorTableSelector->setDisabled(true);
         actualTable = tableName;
         FFSDatabaseInterfaceFormController::ManageShowEquipmentTableRequest(ui);
+        isRowSelected = false;
+    }
+}
+
+void FFSDatabaseInterface::chooseCharacteristicTypeTable()
+{
+    QString tableName = "characteristic type";
+    if (actualTable != tableName)
+    {
+        ui.minorTableView->setModel(nullptr);
+        ui.minorSubtableView->setModel(nullptr);
+        ui.tableSelector->setDisabled(false);
+        ui.minorTableView->setDisabled(false);
+        actualSubtable = "characteristics";
+        ui.tableName->setText((tableName + "s:").toUpper());
+        ui.minorTableSelector->clear();
+        ui.tableSelector->clear();
+        ui.tableSelector->addItem("Characteristics");
+        ui.minorSubtableView->setDisabled(true);
+        ui.minorTableSelector->setDisabled(true);
+        actualTable = tableName;
+        FFSDatabaseInterfaceFormController::ManageShowCharacteristicTypesTableRequest(ui);
+        isRowSelected = false;
+    }
+}
+
+void FFSDatabaseInterface::chooseCharacteristicTable()
+{
+    QString tableName = "characteristic";
+    if (actualTable != tableName)
+    {
+        ui.minorTableView->setModel(nullptr);
+        ui.minorSubtableView->setModel(nullptr);
+        ui.tableName->setText((tableName + "s:").toUpper());
+        ui.minorTableSelector->clear();
+        ui.tableSelector->clear();
+        ui.minorSubtableView->setDisabled(true);
+        ui.minorTableSelector->setDisabled(true);
+        ui.tableSelector->setDisabled(true);
+        ui.minorTableView->setDisabled(true);
+        actualTable = tableName;
+        FFSDatabaseInterfaceFormController::ManageShowCharacteristicsTableRequest(ui);
         isRowSelected = false;
     }
 }

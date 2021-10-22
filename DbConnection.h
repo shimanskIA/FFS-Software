@@ -31,7 +31,9 @@ public:
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase(QString majortableName, int fk);
 	QList<SampleContext*> ReadSamplesFromDatabase();
 	QList<EquipmentContext*> ReadEquipmentsFromDatabase();
-	QList<CharacteristicsContext*> ReadCharacteristicsFromDatabase(int fk_measurement);
+	QList<CharacteristicsContext*> ReadCharacteristicsFromDatabase();
+	QList<CharacteristicsContext*> ReadCharacteristicsFromDatabase(QString majorTableName, int fk);
+	QList<CharacteristicTypeContext*> ReadCharacteristicTypesFromDatabase();
 	QList<BindingContext*> ReadBindingsFromDatabase(QString majorTableName, int fk);
 	QList<ParameterTableContext*> ReadParametersFromDatabase(QString majorTableName, QString minorTableName, int fk);
 

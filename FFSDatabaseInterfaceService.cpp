@@ -34,6 +34,18 @@ void FFSDatabaseInterfaceService::ShowMeasuringSystemTableRequestReceiver(Ui::FF
 	tableWriter->FillMeasuringSystemsTable(ui);
 }
 
+void FFSDatabaseInterfaceService::ShowCharacteristicTypesTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
+{
+	TableWriter* tableWriter = new TableWriter();
+	tableWriter->FillCharacteristicTypesTable(ui);
+}
+
+void FFSDatabaseInterfaceService::ShowCharacteristicsTableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui)
+{
+	TableWriter* tableWriter = new TableWriter();
+	tableWriter->FillCharacteristicsTable(ui);
+}
+
 void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
 {
 	TableWriter* tableWriter = new TableWriter();

@@ -222,6 +222,9 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionMeasuringSystem"/>
     <addaction name="actionSample"/>
     <addaction name="actionEquipment"/>
+    <addaction name="actionMeasurement"/>
+    <addaction name="actionCharacteristicType"/>
+    <addaction name="actionCharacteristic"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTables"/>
@@ -261,6 +264,21 @@ p, li { white-space: pre-wrap; }
   <action name="actionEquipment">
    <property name="text">
     <string>Equipment</string>
+   </property>
+  </action>
+  <action name="actionMeasurement">
+   <property name="text">
+    <string>Measurement</string>
+   </property>
+  </action>
+  <action name="actionCharacteristicType">
+   <property name="text">
+    <string>Characteristic type</string>
+   </property>
+  </action>
+  <action name="actionCharacteristic">
+   <property name="text">
+    <string>Characteristic</string>
    </property>
   </action>
  </widget>

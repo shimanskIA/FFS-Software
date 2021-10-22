@@ -243,9 +243,41 @@ void TableWriter::FillParametersTable(QTableView* tableView, QString majorTableN
 	tableView->setColumnHidden(0, true);
 }
 
-void TableWriter::FillCharacteristicsTable(QTableView* tableView, int majorTableId)
+void TableWriter::FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui)
 {
-	QList<CharacteristicsContext*> characteristics = DbConnection::GetDbConnectionInstance().ReadCharacteristicsFromDatabase(majorTableId);
+	QList<CharacteristicsContext*> characteristics = DbConnection::GetDbConnectionInstance().ReadCharacteristicsFromDatabase();
+	QStandardItemModel* tableModel = new QStandardItemModel(characteristics.length(), 6);
+	ui.majorTableView->setModel(tableModel);
+
+	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	{
+		if (j < tableModel->columnCount())
+		{
+			tableModel->setHeaderData(j, Qt::Horizontal, characteristicsColumnNames.at(j));
+		}
+
+		if (i < tableModel->rowCount())
+		{
+			tableModel->setData(tableModel->index(i, 0), characteristics.at(i)->GetId());
+			tableModel->setData(tableModel->index(i, 1), characteristics.at(i)->GetChannel());
+			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 2), characteristics.at(i)->GetNumberOfPoints());
+			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 3), QString::number(characteristics.at(i)->GetBinTime(), 'f', 3));
+			tableModel->itemFromIndex(tableModel->index(i, 3))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 4), QString::number(characteristics.at(i)->GetWeight(), 'f', 3));
+			tableModel->itemFromIndex(tableModel->index(i, 4))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 5), characteristics.at(i)->GetCharacteristicTypeName());
+			tableModel->itemFromIndex(tableModel->index(i, 5))->setTextAlignment(Qt::AlignBottom);
+		}
+	}
+
+	ui.majorTableView->setColumnHidden(0, true);
+}
+
+void TableWriter::FillCharacteristicsTable(QTableView* tableView, QString majorTableName, int majorTableId)
+{
+	QList<CharacteristicsContext*> characteristics = DbConnection::GetDbConnectionInstance().ReadCharacteristicsFromDatabase(majorTableName, majorTableId);
 	QStandardItemModel* tableModel = new QStandardItemModel(characteristics.length(), 6);
 	tableView->setModel(tableModel);
 
@@ -273,6 +305,29 @@ void TableWriter::FillCharacteristicsTable(QTableView* tableView, int majorTable
 	}
 
 	tableView->setColumnHidden(0, true);
+}
+
+void TableWriter::FillCharacteristicTypesTable(Ui::FFSDatabaseInterfaceClass ui)
+{
+	QList<CharacteristicTypeContext*> characteristicTypes = DbConnection::GetDbConnectionInstance().ReadCharacteristicTypesFromDatabase();
+	QStandardItemModel* tableModel = new QStandardItemModel(characteristicTypes.length(), 3);
+	ui.majorTableView->setModel(tableModel);
+
+	for (int j = 0; j < tableModel->columnCount(); j++)
+	{
+		tableModel->setHeaderData(j, Qt::Horizontal, characteristicTypeColumnNames.at(j));
+	}
+
+	for (int i = 0; i < tableModel->rowCount(); i++)
+	{
+		tableModel->setData(tableModel->index(i, 0), characteristicTypes.at(i)->GetId());
+		tableModel->setData(tableModel->index(i, 1), characteristicTypes.at(i)->GetName());
+		tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
+		tableModel->setData(tableModel->index(i, 2), characteristicTypes.at(i)->GetDescription());
+		tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
+	}
+
+	ui.majorTableView->setColumnHidden(0, true);
 }
 
 void TableWriter::FillMeasurementRow(int rowNumber, QStandardItemModel* tableModel, QList<MeasurementContext*> measurements)
@@ -323,6 +378,6 @@ void TableWriter::RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tab
 	}
 	else if (minorTableName == "characteristics")
 	{
-		FillCharacteristicsTable(tableView, majorTableId);
+		FillCharacteristicsTable(tableView, majorTableName, majorTableId);
 	}
 }

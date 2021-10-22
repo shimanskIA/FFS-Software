@@ -15,14 +15,21 @@ public:
 
 	void FillMeasuringSystemsTable(Ui::FFSDatabaseInterfaceClass ui);
 	void FillMeasuringSystemsTable(QTableView* tableView, QString majorTableName, int majorTableId);
+
 	void FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui);
 	void FillMeasurementsTable(QTableView* tableView, QString majorTableName, int majorTableId);
+
 	void FillSamplesTable(Ui::FFSDatabaseInterfaceClass ui);
+
 	void FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui);
 	void FillEquipmentsTable(QTableView* tableView, QString majorTableName, int majorTableId);
 
+	void FillCharacteristicTypesTable(Ui::FFSDatabaseInterfaceClass ui);
+
 	void FillParametersTable(QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
-	void FillCharacteristicsTable(QTableView* tableView, int majorTableId);
+
+	void FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui);
+	void FillCharacteristicsTable(QTableView* tableView, QString majorTableName, int majorTableId);
 
 	void FillMeasurementRow(int rowNumber, QStandardItemModel* tableModel, QList<MeasurementContext*> measurements);
 
@@ -70,4 +77,10 @@ private:
 		"Name",
 		"Description",
 		"Main contributor" };
+
+	const QStringList characteristicTypeColumnNames =
+	{
+		"Id",
+		"Name",
+		"Description" };
 };
