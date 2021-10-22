@@ -33,7 +33,7 @@ void TableWriter::FillMeasuringSystemsTable(Ui::FFSDatabaseInterfaceClass ui)
 	ui.majorTableView->setColumnHidden(0, true);
 }
 
-void TableWriter::FillMeasuringSystemsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
+void TableWriter::FillMeasuringSystemsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
 	QList<BindingContext*> bindings = DbConnection::GetDbConnectionInstance().ReadBindingsFromDatabase(majorTableName, majorTableId);
 	QList<MeasuringSystemContext*> measuringSystems;
@@ -55,7 +55,7 @@ void TableWriter::FillMeasuringSystemsTable(Ui::FFSDatabaseInterfaceClass ui, QS
 	}
 
 	QStandardItemModel* tableModel = new QStandardItemModel(measuringSystems.length(), 4);
-	ui.minorTableView->setModel(tableModel);
+	tableView->setModel(tableModel);
 
 	for (int j = 0; j < tableModel->columnCount(); j++)
 	{
@@ -73,7 +73,7 @@ void TableWriter::FillMeasuringSystemsTable(Ui::FFSDatabaseInterfaceClass ui, QS
 		tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
 	}
 
-	ui.minorTableView->setColumnHidden(0, true);
+	tableView->setColumnHidden(0, true);
 }
 
 void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui)
@@ -152,11 +152,11 @@ void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui)
 	ui.majorTableView->setColumnHidden(0, true);
 }
 
-void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
+void TableWriter::FillMeasurementsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
 	QList<MeasurementContext*> measurements = DbConnection::GetDbConnectionInstance().ReadMeasurementsFromDatabase(majorTableName, majorTableId);
 	QStandardItemModel* tableModel = new QStandardItemModel(measurements.length(), 8);
-	ui.minorTableView->setModel(tableModel);
+	tableView->setModel(tableModel);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -171,10 +171,10 @@ void TableWriter::FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, QStrin
 		}
 	}
 
-	ui.minorTableView->setColumnHidden(0, true);
+	tableView->setColumnHidden(0, true);
 }
 
-void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId)
+void TableWriter::FillEquipmentsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
 	QList<BindingContext*> bindings = DbConnection::GetDbConnectionInstance().ReadBindingsFromDatabase(majorTableName, majorTableId);
 	QList<EquipmentContext*> equipments;
@@ -195,7 +195,7 @@ void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString 
 	}
 
 	QStandardItemModel* tableModel = new QStandardItemModel(equipments.length(), 3);
-	ui.minorTableView->setModel(tableModel);
+	tableView->setModel(tableModel);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -214,14 +214,14 @@ void TableWriter::FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString 
 		}
 	}
 
-	ui.minorTableView->setColumnHidden(0, true);
+	tableView->setColumnHidden(0, true);
 }
 
-void TableWriter::FillParametersTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
+void TableWriter::FillParametersTable(QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
 {
 	QList<ParameterTableContext*> parameters = DbConnection::GetDbConnectionInstance().ReadParametersFromDatabase(majorTableName, minorTableName, majorTableId);
 	QStandardItemModel* tableModel = new QStandardItemModel(parameters.length(), 3);
-	ui.minorTableView->setModel(tableModel);
+	tableView->setModel(tableModel);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -240,14 +240,14 @@ void TableWriter::FillParametersTable(Ui::FFSDatabaseInterfaceClass ui, QString 
 		}
 	}
 
-	ui.minorTableView->setColumnHidden(0, true);
+	tableView->setColumnHidden(0, true);
 }
 
-void TableWriter::FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, int majorTableId)
+void TableWriter::FillCharacteristicsTable(QTableView* tableView, int majorTableId)
 {
 	QList<CharacteristicsContext*> characteristics = DbConnection::GetDbConnectionInstance().ReadCharacteristicsFromDatabase(majorTableId);
 	QStandardItemModel* tableModel = new QStandardItemModel(characteristics.length(), 6);
-	ui.minorTableView->setModel(tableModel);
+	tableView->setModel(tableModel);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -272,7 +272,7 @@ void TableWriter::FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, int
 		}
 	}
 
-	ui.minorTableView->setColumnHidden(0, true);
+	tableView->setColumnHidden(0, true);
 }
 
 void TableWriter::FillMeasurementRow(int rowNumber, QStandardItemModel* tableModel, QList<MeasurementContext*> measurements)
@@ -294,26 +294,35 @@ void TableWriter::FillMeasurementRow(int rowNumber, QStandardItemModel* tableMod
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 7))->setTextAlignment(Qt::AlignBottom);
 }
 
-void TableWriter::RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
+void TableWriter::RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
 {
-	if (minorTableName == "equipment_parameters")
+	if (minorTableName.contains("parameters"))
 	{
-		FillParametersTable(ui, majorTableName, minorTableName, majorTableId);
+		FillParametersTable(tableView, majorTableName, minorTableName, majorTableId);
 	}
 	else if (minorTableName == "equipments")
 	{
-		FillEquipmentsTable(ui, majorTableName, majorTableId);
+		FillEquipmentsTable(tableView, majorTableName, majorTableId);
+		ui.minorSubtableView->setDisabled(false);
+		ui.minorTableSelector->setDisabled(false);
+		ui.minorTableSelector->clear();
+		ui.minorTableSelector->addItem("Equipment parameters");
 	}
 	else if (minorTableName == "measurements")
 	{
-		FillMeasurementsTable(ui, majorTableName, majorTableId);
+		FillMeasurementsTable(tableView, majorTableName, majorTableId);
+		ui.minorSubtableView->setDisabled(false);
+		ui.minorTableSelector->setDisabled(false);
+		ui.minorTableSelector->clear();
+		ui.minorTableSelector->addItem("Measurement parameters");
+		ui.minorTableSelector->addItem("Characteristics");
 	}
 	else if (minorTableName == "measuring_systems")
 	{
-		FillMeasuringSystemsTable(ui, majorTableName, majorTableId);
+		FillMeasuringSystemsTable(tableView, majorTableName, majorTableId);
 	}
-	else
+	else if (minorTableName == "characteristics")
 	{
-
+		FillCharacteristicsTable(tableView, majorTableId);
 	}
 }

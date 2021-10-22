@@ -14,19 +14,19 @@ public:
 	TableWriter();
 
 	void FillMeasuringSystemsTable(Ui::FFSDatabaseInterfaceClass ui);
-	void FillMeasuringSystemsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId);
+	void FillMeasuringSystemsTable(QTableView* tableView, QString majorTableName, int majorTableId);
 	void FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui);
-	void FillMeasurementsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId);
+	void FillMeasurementsTable(QTableView* tableView, QString majorTableName, int majorTableId);
 	void FillSamplesTable(Ui::FFSDatabaseInterfaceClass ui);
 	void FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui);
-	void FillEquipmentsTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, int majorTableId);
+	void FillEquipmentsTable(QTableView* tableView, QString majorTableName, int majorTableId);
 
-	void FillParametersTable(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId);
-	void FillCharacteristicsTable(Ui::FFSDatabaseInterfaceClass ui, int majorTableId);
+	void FillParametersTable(QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
+	void FillCharacteristicsTable(QTableView* tableView, int majorTableId);
 
 	void FillMeasurementRow(int rowNumber, QStandardItemModel* tableModel, QList<MeasurementContext*> measurements);
 
-	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId);
+	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 
 private:
 	const QStringList measurementColumnNames = {

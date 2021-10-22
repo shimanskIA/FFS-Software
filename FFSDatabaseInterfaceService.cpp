@@ -34,8 +34,8 @@ void FFSDatabaseInterfaceService::ShowMeasuringSystemTableRequestReceiver(Ui::FF
 	tableWriter->FillMeasuringSystemsTable(ui);
 }
 
-void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
+void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
 {
 	TableWriter* tableWriter = new TableWriter();
-	tableWriter->RouteRequest(ui, majorTableName, minorTableName, majorTableId);
+	tableWriter->RouteRequest(ui, tableView, majorTableName, minorTableName, majorTableId);
 }

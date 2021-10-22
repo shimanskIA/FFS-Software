@@ -157,6 +157,17 @@ p, li { white-space: pre-wrap; }
       <height>221</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>7</pointsize>
+     </font>
+    </property>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderMinimumSectionSize">
+     <number>20</number>
+    </attribute>
    </widget>
    <widget class="Line" name="line_5">
     <property name="geometry">

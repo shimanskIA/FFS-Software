@@ -20,6 +20,8 @@ private slots:
     void chooseMeasuringSystemTable();
     void openFileDialog();
     void loadDataToSubtable();
+    void loadDataToMinorSubtable();
+    void representMinorTable();
     void representTable();
 
     void SetTableSettings(QTableView* table);
@@ -28,10 +30,15 @@ private:
     Ui::FFSDatabaseInterfaceClass ui;
 
     int selectedId = 0;
+    int minorSelectedId = 0;
     QString actualTable = "measuring system";
     QString actualSubtable = "measurements";
+    QString actualMinorSubtable = "";
 
     bool firstLoad = true;
+    bool minorFirstLoad = true;
     bool isRowSelected = false;
+    bool isSubRowSelected = false;
     bool isSubtableChanged = false;
+    bool isMinorSubtableChanged = false;
 };

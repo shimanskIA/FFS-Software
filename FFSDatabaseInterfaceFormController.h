@@ -14,5 +14,5 @@ public:
     static void ManageShowEquipmentTableRequest(Ui::FFSDatabaseInterfaceClass ui);
     static void ManageShowSampleTableRequest(Ui::FFSDatabaseInterfaceClass ui);
     static void ManageShowMeasuringSystemTableRequest(Ui::FFSDatabaseInterfaceClass ui);
-    static void ManageLoadDataToSubtableRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId);
+    static void ManageLoadDataToSubtableRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 };

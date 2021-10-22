@@ -14,7 +14,9 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.actionEquipment, SIGNAL(triggered()), this, SLOT(chooseEquipmentTable()));
     connect(ui.actionImport, SIGNAL(triggered()), this, SLOT(openFileDialog()));
     connect(ui.majorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToSubtable()));
+    connect(ui.minorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToMinorSubtable()));
     connect(ui.tableSelector, SIGNAL(activated(QString)), this, SLOT(representTable()));
+    connect(ui.minorTableSelector, SIGNAL(activated(QString)), this, SLOT(representMinorTable()));
     FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(ui);
     ui.tableSelector->addItem("Measurements");
     ui.tableSelector->addItem("Equipments");
@@ -39,6 +41,7 @@ void FFSDatabaseInterface::chooseMeasuringSystemTable()
         ui.minorSubtableView->setModel(nullptr);
         actualSubtable = "measurements";
         ui.tableName->setText((tableName + "s:").toUpper());
+        ui.minorTableSelector->clear();
         ui.tableSelector->clear();
         ui.tableSelector->addItem("Measurements");
         ui.tableSelector->addItem("Equipments");
@@ -57,6 +60,7 @@ void FFSDatabaseInterface::chooseMeasurementTable()
         ui.minorSubtableView->setModel(nullptr);
         actualSubtable = "measurement_parameters";
         ui.tableName->setText((tableName + "s:").toUpper());
+        ui.minorTableSelector->clear();
         ui.tableSelector->clear();
         ui.tableSelector->addItem("Measurement parameters");
         ui.tableSelector->addItem("Characteristics");
@@ -75,6 +79,7 @@ void FFSDatabaseInterface::chooseSampleTable()
         ui.minorSubtableView->setModel(nullptr);
         actualSubtable = "measurements";
         ui.tableName->setText((tableName + "s:").toUpper());
+        ui.minorTableSelector->clear();
         ui.tableSelector->clear();
         ui.tableSelector->addItem("Measurements");
         ui.minorSubtableView->setDisabled(true);
@@ -94,6 +99,7 @@ void FFSDatabaseInterface::chooseEquipmentTable()
         ui.minorSubtableView->setModel(nullptr);
         actualSubtable = "equipment_parameters";
         ui.tableName->setText((tableName + "s:").toUpper());
+        ui.minorTableSelector->clear();
         ui.tableSelector->clear();
         ui.tableSelector->addItem("Equipment parameters");
         ui.tableSelector->addItem("Measuring systems");
@@ -121,15 +127,39 @@ void FFSDatabaseInterface::loadDataToSubtable()
     int selectedId = ui.majorTableView->model()->data(indexId).toInt();
     if (selectedId != this->selectedId || isSubtableChanged)
     {
+        ui.minorSubtableView->setModel(nullptr);
         this->selectedId = selectedId;
         isSubtableChanged = false;
+        isSubRowSelected = true;
         QString transformedTable = actualTable;
-        FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(ui, transformedTable.replace(' ', '_'), actualSubtable, selectedId);
+        FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(ui, ui.minorTableView, transformedTable.replace(' ', '_'), actualSubtable, selectedId);
+        actualMinorSubtable = ui.minorTableSelector->currentText().replace(' ', '_').toLower();
         isRowSelected = true;
         if (firstLoad)
         {
             SetTableSettings(ui.minorTableView);
             firstLoad = false;
+        }
+    }
+}
+
+void FFSDatabaseInterface::loadDataToMinorSubtable()
+{
+    int selectedRow = ui.minorTableView->currentIndex().row();
+    QModelIndex indexId = ui.minorTableView->model()->index(selectedRow, 0);
+    int selectedId = ui.minorTableView->model()->data(indexId).toInt();
+    if (selectedId != this->minorSelectedId || isMinorSubtableChanged)
+    {
+        this->minorSelectedId = selectedId;
+        isMinorSubtableChanged = false;
+        QString transformedTable = actualSubtable;
+        transformedTable.chop(1);
+        FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(ui, ui.minorSubtableView, transformedTable.replace(' ', '_'), actualMinorSubtable, selectedId);
+        isSubRowSelected = true;
+        if (minorFirstLoad)
+        {
+            SetTableSettings(ui.minorSubtableView);
+            minorFirstLoad = false;
         }
     }
 }
@@ -140,10 +170,25 @@ void FFSDatabaseInterface::representTable()
     if (newSubtable != actualSubtable)
     {
         isSubtableChanged = true;
+        isSubRowSelected = false;
         actualSubtable = newSubtable;
         if (isRowSelected)
         {
             loadDataToSubtable();
+        }
+    }
+}
+
+void FFSDatabaseInterface::representMinorTable()
+{
+    QString newMinorSubtable = ui.minorTableSelector->currentText().replace(' ', '_').toLower();
+    if (newMinorSubtable != actualMinorSubtable)
+    {
+        isMinorSubtableChanged = true;
+        actualMinorSubtable = newMinorSubtable;
+        if (isSubRowSelected)
+        {
+            loadDataToMinorSubtable();
         }
     }
 }

@@ -31,7 +31,7 @@ void FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(U
 	FFSDatabaseInterfaceService::ShowMeasuringSystemTableRequestReceiver(ui);
 }
 
-void FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(Ui::FFSDatabaseInterfaceClass ui, QString majorTableName, QString minorTableName, int majorTableId)
+void FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
 {
-	FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(ui, majorTableName, minorTableName, majorTableId);
+	FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(ui, tableView, majorTableName, minorTableName, majorTableId);
 }
