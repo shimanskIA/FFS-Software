@@ -21,6 +21,8 @@ void FFSDatabaseInterfaceFormController::ManageShowMeasurementTableRequest(FFSDa
         view->GetUI().minorSubtableView->setModel(nullptr);
         view->GetUI().tableSelector->setDisabled(false);
         view->GetUI().minorTableView->setDisabled(false);
+        view->SetSelectedId(0);
+        view->SetMinorSelectedId(0);
         view->SetActualSubtable("measurement_parameters");
         view->GetUI().tableName->setText((tableName + "s:").toUpper());
         view->GetUI().minorTableSelector->clear();
@@ -46,6 +48,8 @@ void FFSDatabaseInterfaceFormController::ManageShowSampleTableRequest(FFSDatabas
         view->GetUI().minorSubtableView->setModel(nullptr);
         view->GetUI().tableSelector->setDisabled(false);
         view->GetUI().minorTableView->setDisabled(false);
+        view->SetSelectedId(0);
+        view->SetMinorSelectedId(0);
         view->SetActualSubtable("measurements");
         view->GetUI().tableName->setText((tableName + "s:").toUpper());
         view->GetUI().minorTableSelector->clear();
@@ -70,6 +74,8 @@ void FFSDatabaseInterfaceFormController::ManageShowEquipmentTableRequest(FFSData
         view->GetUI().minorSubtableView->setModel(nullptr);
         view->GetUI().tableSelector->setDisabled(false);
         view->GetUI().minorTableView->setDisabled(false);
+        view->SetSelectedId(0);
+        view->SetMinorSelectedId(0);
         view->SetActualSubtable("equipment_parameters");
         view->GetUI().tableName->setText((tableName + "s:").toUpper());
         view->GetUI().minorTableSelector->clear();
@@ -106,6 +112,8 @@ void FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(F
             view->GetUI().minorSubtableView->setModel(nullptr);
             view->GetUI().tableSelector->setDisabled(false);
             view->GetUI().minorTableView->setDisabled(false);
+            view->SetSelectedId(0);
+            view->SetMinorSelectedId(0);
             view->SetActualSubtable("measurements");
             view->GetUI().tableName->setText((tableName + "s:").toUpper());
             view->GetUI().minorTableSelector->clear();
@@ -130,6 +138,8 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicTypesTableReque
         view->GetUI().minorSubtableView->setModel(nullptr);
         view->GetUI().tableSelector->setDisabled(false);
         view->GetUI().minorTableView->setDisabled(false);
+        view->SetSelectedId(0);
+        view->SetMinorSelectedId(0);
         view->SetActualSubtable("characteristics");
         view->GetUI().tableName->setText((tableName + "s:").toUpper());
         view->GetUI().minorTableSelector->clear();
@@ -152,6 +162,8 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicsTableRequest(F
     {
         view->GetUI().minorTableView->setModel(nullptr);
         view->GetUI().minorSubtableView->setModel(nullptr);
+        view->SetSelectedId(0);
+        view->SetMinorSelectedId(0);
         view->GetUI().tableName->setText((tableName + "s:").toUpper());
         view->GetUI().minorTableSelector->clear();
         view->GetUI().tableSelector->clear();
@@ -168,48 +180,54 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicsTableRequest(F
 
 void FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(FFSDatabaseInterface* view)
 {
-    int selectedRow = view->GetUI().majorTableView->currentIndex().row();
-    QModelIndex indexId = view->GetUI().majorTableView->model()->index(selectedRow, 0);
-    int selectedId = view->GetUI().majorTableView->model()->data(indexId).toInt();
-
-    if (selectedId != view->GetSelectedId() || view->GetIsSubtableChanged())
+    if (!view->GetEndMajorNodes().contains(view->GetActualTable()))
     {
-        view->GetUI().minorSubtableView->setModel(nullptr);
-        view->SetSelectedId(selectedId);
-        view->SetIsSubtableChanged(false);
-        QString transformedTable = view->GetActualTable();
-        FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(view->GetUI(), view->GetUI().minorTableView, transformedTable.replace(' ', '_'), view->GetActualSubtable(), selectedId);
-        view->SetActualMinorSubtable(view->GetUI().minorTableSelector->currentText().replace(' ', '_').toLower());
-        view->SetIsRowSelected(true);
-        view->SetIsSubRowSelected(false);
+        int selectedRow = view->GetUI().majorTableView->currentIndex().row();
+        QModelIndex indexId = view->GetUI().majorTableView->model()->index(selectedRow, 0);
+        int selectedId = view->GetUI().majorTableView->model()->data(indexId).toInt();
 
-        if (view->GetFirstLoad())
+        if (selectedId != view->GetSelectedId() || view->GetIsSubtableChanged())
         {
-            view->SetTableSettings(view->GetUI().minorTableView);
-            view->SetFirstLoad(false);
+            view->GetUI().minorSubtableView->setModel(nullptr);
+            view->SetSelectedId(selectedId);
+            view->SetIsSubtableChanged(false);
+            QString transformedTable = view->GetActualTable();
+            FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(view->GetUI(), view->GetUI().minorTableView, transformedTable.replace(' ', '_'), view->GetActualSubtable(), selectedId);
+            view->SetActualMinorSubtable(view->GetUI().minorTableSelector->currentText().replace(' ', '_').toLower());
+            view->SetIsRowSelected(true);
+            view->SetIsSubRowSelected(false);
+
+            if (view->GetFirstLoad())
+            {
+                view->SetTableSettings(view->GetUI().minorTableView);
+                view->SetFirstLoad(false);
+            }
         }
     }
 }
 
 void FFSDatabaseInterfaceFormController::ManageLoadDataToMinorSubtableRequest(FFSDatabaseInterface* view)
 {
-    int selectedRow = view->GetUI().minorTableView->currentIndex().row();
-    QModelIndex indexId = view->GetUI().minorTableView->model()->index(selectedRow, 0);
-    int selectedId = view->GetUI().minorTableView->model()->data(indexId).toInt();
-
-    if (selectedId != view->GetMinorSelectedId() || view->GetIsMinorSubtableChanged())
+    if (!view->GetEndMinorNodes().contains(view->GetActualSubtable()))
     {
-        view->SetMinorSelectedId(selectedId);
-        view->SetIsMinorSubtableChanged(false);
-        QString transformedTable = view->GetActualSubtable();
-        transformedTable.chop(1);
-        FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(view->GetUI(), view->GetUI().minorSubtableView, transformedTable.replace(' ', '_'), view->GetActualMinorSubtable(), selectedId);
-        view->SetIsSubRowSelected(true);
+        int selectedRow = view->GetUI().minorTableView->currentIndex().row();
+        QModelIndex indexId = view->GetUI().minorTableView->model()->index(selectedRow, 0);
+        int selectedId = view->GetUI().minorTableView->model()->data(indexId).toInt();
 
-        if (view->GetMinorFirstLoad())
+        if (selectedId != view->GetMinorSelectedId() || view->GetIsMinorSubtableChanged())
         {
-            view->SetTableSettings(view->GetUI().minorSubtableView);
-            view->SetMinorFirstLoad(false);
+            view->SetMinorSelectedId(selectedId);
+            view->SetIsMinorSubtableChanged(false);
+            QString transformedTable = view->GetActualSubtable();
+            transformedTable.chop(1);
+            FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(view->GetUI(), view->GetUI().minorSubtableView, transformedTable.replace(' ', '_'), view->GetActualMinorSubtable(), selectedId);
+            view->SetIsSubRowSelected(true);
+
+            if (view->GetMinorFirstLoad())
+            {
+                view->SetTableSettings(view->GetUI().minorSubtableView);
+                view->SetMinorFirstLoad(false);
+            }
         }
     }
 }

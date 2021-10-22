@@ -164,6 +164,16 @@ int FFSDatabaseInterface::GetMinorSelectedId()
     return this->minorSelectedId;
 }
 
+QStringList FFSDatabaseInterface::GetEndMajorNodes()
+{
+    return this->endMajorNodes;
+}
+
+QStringList FFSDatabaseInterface::GetEndMinorNodes()
+{
+    return this->endMinorNodes;
+}
+
 void FFSDatabaseInterface::SetActualTable(QString actualTable)
 {
     this->actualTable = actualTable;

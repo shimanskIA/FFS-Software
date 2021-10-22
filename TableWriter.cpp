@@ -69,8 +69,8 @@ void TableWriter::FillMeasuringSystemsTable(QTableView* tableView, QString major
 		tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
 		tableModel->setData(tableModel->index(i, 2), measuringSystems.at(i)->GetDescription());
 		tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
-		tableModel->setData(tableModel->index(i, 2), measuringSystems.at(i)->GetMainContributorName());
-		tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
+		tableModel->setData(tableModel->index(i, 3), measuringSystems.at(i)->GetMainContributorName());
+		tableModel->itemFromIndex(tableModel->index(i, 3))->setTextAlignment(Qt::AlignBottom);
 	}
 
 	tableView->setColumnHidden(0, true);

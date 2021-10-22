@@ -25,6 +25,9 @@ public:
     int GetSelectedId();
     int GetMinorSelectedId();
 
+    QStringList GetEndMajorNodes();
+    QStringList GetEndMinorNodes();
+
     void SetActualTable(QString actualTable);
     void SetActualSubtable(QString actualSubtable);
     void SetActualMinorSubtable(QString actualMinorSubtable);
@@ -68,4 +71,12 @@ private:
     bool isSubRowSelected = false;
     bool isSubtableChanged = false;
     bool isMinorSubtableChanged = false;
+
+    const QStringList endMinorNodes = {
+        "measurement_parameters",
+        "equipment_parameters",
+        "measuring_systems" };
+
+    const QStringList endMajorNodes = {
+        "characteristic" };
 };
