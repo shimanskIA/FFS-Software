@@ -135,6 +135,9 @@
     <ClCompile Include="DbEditor.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IdFileManager.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -212,6 +215,12 @@
     </ClInclude>
     <ClInclude Include="DbEditor.h">
       <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IdFileManager.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NamesHelper.h">
+      <Filter>Model\Helpers\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -231,6 +231,11 @@ void FFSDatabaseInterfaceFormController::ManageShowMajorTableRequest(QString tab
     }
 }
 
+void FFSDatabaseInterfaceFormController::ManageRemoveUnusedIdsRequest()
+{
+    FFSDatabaseInterfaceService::RemoveUnusedIdsRequestReceiver();
+}
+
 void FFSDatabaseInterfaceFormController::ManageDeleteRowRequest(QTableView* tableView, QString tableName)
 {
     tableName = tableName.replace(' ', '_');

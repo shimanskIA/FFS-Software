@@ -10,6 +10,7 @@ class FFSDatabaseInterfaceFormController
 
 public:
     FFSDatabaseInterfaceFormController();
+
     static void ManageFileImportRequest(QString fileName);
     static void ManageShowMeasuringSystemTableRequest(FFSDatabaseInterface* view, bool isFirstLoad = false);
     static void ManageShowCharacteristicsTableRequest(FFSDatabaseInterface* view);
@@ -19,6 +20,7 @@ public:
     static void ManageRepresentSubtableRequest(FFSDatabaseInterface* view);
     static void ManageRepresentMinorSubtableRequest(FFSDatabaseInterface* view);
     static void ManageDeleteRowRequest(QTableView* view, QString tableName);
+    static void ManageRemoveUnusedIdsRequest();
     static void ManageRefreshMajorTableRequest(FFSDatabaseInterface* view);
     static void ManageShowMajorTableRequest(QString tableName, QString subtableName, QStringList selectorItems, FFSDatabaseInterface* view);
 

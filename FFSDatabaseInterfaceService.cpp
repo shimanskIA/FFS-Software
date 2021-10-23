@@ -2,6 +2,7 @@
 #include "DbImporter.h"
 #include "TableWriter.h"
 #include "DbEditor.h"
+#include "IdFileManager.h"
 
 void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 {
@@ -34,6 +35,13 @@ void FFSDatabaseInterfaceService::DeleteRowRequestReceiver(QTableView* tableView
 {
 	DbEditor* dbEditor = new DbEditor();
 	dbEditor->DeleteRow(tableView, tableName);
+}
+
+void FFSDatabaseInterfaceService::RemoveUnusedIdsRequestReceiver()
+{
+	IdFileManager* idFileManager = new IdFileManager();
+	idFileManager->RemoveUnusedIds();
+	idFileManager->AddIdsInUse();
 }
 
 void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)

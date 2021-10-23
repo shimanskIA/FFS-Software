@@ -1,5 +1,6 @@
 #include "DbEditor.h"
 #include "DbConnection.h"
+#include "TextFileInteractionHelper.h"
 
 DbEditor::DbEditor()
 {

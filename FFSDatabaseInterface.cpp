@@ -4,6 +4,7 @@
 #include "FFSDatabaseInterfaceFormController.h"
 
 #include <QFileDialog>
+#include <QCloseEvent>
 
 FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent)
 {
@@ -132,6 +133,12 @@ void FFSDatabaseInterface::SetTableSettings(QTableView* table)
     table->setStyleSheet(
         "QHeaderView::section { background-color: rgb(217, 217, 217)}"
         "QTableView {selection-background-color: steelblue}");
+}
+
+void FFSDatabaseInterface::closeEvent(QCloseEvent* event)
+{
+    FFSDatabaseInterfaceFormController::ManageRemoveUnusedIdsRequest();
+    event->accept();
 }
 
 Ui::FFSDatabaseInterfaceClass FFSDatabaseInterface::GetUI()

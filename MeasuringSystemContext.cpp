@@ -22,6 +22,8 @@ MeasuringSystemContext::~MeasuringSystemContext()
 void MeasuringSystemContext::SetId(int id)
 {
 	TableContext::SetId(id);
+	ChangeBindingsFK(id);
+	ChangeMeasurementsFK(id);
 }
 
 void MeasuringSystemContext::SetName(QString name)

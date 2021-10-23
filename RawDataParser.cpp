@@ -1,4 +1,5 @@
 #include "RawDataParser.h"
+#include "NamesHelper.h"
 
 #include <QTextStream>
 #include <QFile>

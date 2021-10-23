@@ -42,6 +42,8 @@ public:
 
     void SetTableSettings(QTableView* table);
 
+    void closeEvent(QCloseEvent* event) override;
+
 private slots:
     void infoButtonClick();
     void chooseMeasurementTable();

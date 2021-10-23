@@ -112,3 +112,12 @@ void TextFileInteractionHelper::DeleteIdFromTextFile(int id, QString stateFilePa
 
     wfile.close();
 }
+
+void TextFileInteractionHelper::ClearTextFile(QString fileLink)
+{
+    QFile file(fileLink);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        file.close();
+    }
+}

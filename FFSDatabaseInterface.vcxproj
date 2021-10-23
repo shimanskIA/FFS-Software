@@ -96,6 +96,7 @@
     <ClCompile Include="EquipmentParameterContext.cpp" />
     <ClCompile Include="FFSDatabaseInterfaceFormController.cpp" />
     <ClCompile Include="FFSDatabaseInterfaceService.cpp" />
+    <ClCompile Include="IdFileManager.cpp" />
     <ClCompile Include="MeasurementContext.cpp" />
     <ClCompile Include="MeasurementParameterContext.cpp" />
     <ClCompile Include="MeasuringSystemContext.cpp" />
@@ -128,12 +129,14 @@
     <ClInclude Include="EquipmentParameterContext.h" />
     <ClInclude Include="FFSDatabaseInterfaceFormController.h" />
     <ClInclude Include="FFSDatabaseInterfaceService.h" />
+    <ClInclude Include="IdFileManager.h" />
     <ClInclude Include="MeasurementContext.h" />
     <ClInclude Include="MeasurementParameterContext.h" />
     <ClInclude Include="MeasuringSystemContext.h" />
     <ClInclude Include="ParameterTableContext.h" />
     <ClInclude Include="RawDataParser.h" />
     <ClInclude Include="SampleContext.h" />
+    <ClInclude Include="NamesHelper.h" />
     <ClInclude Include="TableContext.h" />
     <ClInclude Include="TableWriter.h" />
     <ClInclude Include="TextFileInteractionHelper.h" />
