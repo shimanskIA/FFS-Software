@@ -18,6 +18,7 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.actionImport, SIGNAL(triggered()), this, SLOT(openFileDialog()));
     connect(ui.majorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToSubtable()));
     connect(ui.minorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToMinorSubtable()));
+    connect(ui.minorSubtableView, SIGNAL(clicked(QModelIndex)), this, SLOT(switchButtons()));
     connect(ui.tableSelector, SIGNAL(activated(QString)), this, SLOT(representTable()));
     connect(ui.minorTableSelector, SIGNAL(activated(QString)), this, SLOT(representMinorTable()));
     FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(this, true);
@@ -77,6 +78,11 @@ void FFSDatabaseInterface::loadDataToSubtable()
 void FFSDatabaseInterface::loadDataToMinorSubtable()
 {
     FFSDatabaseInterfaceFormController::ManageLoadDataToMinorSubtableRequest(this);
+}
+
+void FFSDatabaseInterface::switchButtons()
+{
+    FFSDatabaseInterfaceFormController::ManageSwitchButtonsRequest(this);
 }
 
 void FFSDatabaseInterface::representTable()

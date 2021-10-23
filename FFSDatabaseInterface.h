@@ -53,6 +53,7 @@ private slots:
     void openFileDialog();
     void loadDataToSubtable();
     void loadDataToMinorSubtable();
+    void switchButtons();
     void representMinorTable();
     void representTable();
 
@@ -75,7 +76,8 @@ private:
     const QStringList endMinorNodes = {
         "measurement_parameters",
         "equipment_parameters",
-        "measuring_systems" };
+        "measuring_systems",
+        "characteristics" };
 
     const QStringList endMajorNodes = {
         "characteristic" };

@@ -19,6 +19,10 @@ public:
     static void ManageShowCharacteristicsTableRequest(FFSDatabaseInterface* view);
     static void ManageLoadDataToSubtableRequest(FFSDatabaseInterface* view);
     static void ManageLoadDataToMinorSubtableRequest(FFSDatabaseInterface* view);
+    static void ManageSwitchButtonsRequest(FFSDatabaseInterface* view);
     static void ManageRepresentSubtableRequest(FFSDatabaseInterface* view);
     static void ManageRepresentMinorSubtableRequest(FFSDatabaseInterface* view);
+
+private:
+    static void DisableButtonActivity(FFSDatabaseInterface* view);
 };

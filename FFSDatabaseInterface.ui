@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>961</width>
+    <width>1091</width>
     <height>881</height>
    </rect>
   </property>
@@ -192,13 +192,130 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="majorAddButton">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>60</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="majorDeleteButton">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>110</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="minorAddButton">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>310</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="minorDeleteButton">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>360</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="minorAddSubbutton">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>600</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="minorDeleteSubbutton">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>650</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="majorPreviewButton">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>160</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Preview</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="minorPreviewButton">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>410</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Preview</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="minorPreviewSubbutton">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>700</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Preview</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>961</width>
+     <width>1091</width>
      <height>26</height>
     </rect>
    </property>
