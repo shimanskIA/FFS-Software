@@ -132,6 +132,9 @@
     <ClCompile Include="MeasuringSystemContext.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DbEditor.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -205,6 +208,9 @@
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MeasuringSystemContext.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DbEditor.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -89,6 +89,7 @@
     <ClCompile Include="CharacteristicTypeContext.cpp" />
     <ClCompile Include="DbConnection.cpp" />
     <ClCompile Include="DbContext.cpp" />
+    <ClCompile Include="DbEditor.cpp" />
     <ClCompile Include="DbImporter.cpp" />
     <ClCompile Include="EquipmentContext.cpp" />
     <ClCompile Include="BindingContext.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="CharacteristicTypeContext.h" />
     <ClInclude Include="DbConnection.h" />
     <ClInclude Include="DbContext.h" />
+    <ClInclude Include="DbEditor.h" />
     <ClInclude Include="DbImporter.h" />
     <ClInclude Include="EquipmentContext.h" />
     <ClInclude Include="BindingContext.h" />

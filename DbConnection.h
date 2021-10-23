@@ -11,6 +11,7 @@ class DbConnection
 public:
 	static DbConnection& GetDbConnectionInstance();
 	void AddToDatabase(DbContext* dbContext);
+	void DeleteFromDatabase(QString tableName, int id);
 	QSqlQuery ReadFromDatabase(QString sqlRequest);
 	bool WriteToDatabase(QString sqlWriteRequest, QString tableName);
 

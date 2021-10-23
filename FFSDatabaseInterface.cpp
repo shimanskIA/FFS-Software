@@ -21,6 +21,9 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.minorSubtableView, SIGNAL(clicked(QModelIndex)), this, SLOT(switchButtons()));
     connect(ui.tableSelector, SIGNAL(activated(QString)), this, SLOT(representTable()));
     connect(ui.minorTableSelector, SIGNAL(activated(QString)), this, SLOT(representMinorTable()));
+    connect(ui.majorDeleteButton, SIGNAL(clicked()), this, SLOT(deleteMajorTableRow()));
+    connect(ui.minorDeleteButton, SIGNAL(clicked()), this, SLOT(deleteMinorTableRow()));
+    connect(ui.minorDeleteSubbutton, SIGNAL(clicked()), this, SLOT(deleteMinorSubtableRow()));
     FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(this, true);
     SetTableSettings(ui.majorTableView);
 }
@@ -38,22 +41,22 @@ void FFSDatabaseInterface::chooseMeasuringSystemTable()
 
 void FFSDatabaseInterface::chooseMeasurementTable()
 {
-    FFSDatabaseInterfaceFormController::ManageShowMeasurementTableRequest(this);
+    FFSDatabaseInterfaceFormController::ManageShowMajorTableRequest("measurement", "measurement_parameters", measurementSelectorItems, this);
 }
 
 void FFSDatabaseInterface::chooseSampleTable()
 {
-    FFSDatabaseInterfaceFormController::ManageShowSampleTableRequest(this);
+    FFSDatabaseInterfaceFormController::ManageShowMajorTableRequest("sample", "measurements", sampleSelectorItems, this);
 }
 
 void FFSDatabaseInterface::chooseEquipmentTable()
 {
-    FFSDatabaseInterfaceFormController::ManageShowEquipmentTableRequest(this);
+    FFSDatabaseInterfaceFormController::ManageShowMajorTableRequest("equipment", "equipment_parameters", equipmentSelectorItems, this);
 }
 
 void FFSDatabaseInterface::chooseCharacteristicTypeTable()
 {
-    FFSDatabaseInterfaceFormController::ManageShowCharacteristicTypesTableRequest(this);
+    FFSDatabaseInterfaceFormController::ManageShowMajorTableRequest("characteristic type", "characteristics", characteristicTypeSelectorItems, this);
 }
 
 void FFSDatabaseInterface::chooseCharacteristicTable()
@@ -67,6 +70,7 @@ void FFSDatabaseInterface::openFileDialog()
     if (filePath != nullptr)
     {
         FFSDatabaseInterfaceFormController::ManageFileImportRequest(filePath);
+        FFSDatabaseInterfaceFormController::ManageRefreshMajorTableRequest(this);
     }
 }
 
@@ -93,6 +97,26 @@ void FFSDatabaseInterface::representTable()
 void FFSDatabaseInterface::representMinorTable()
 {
     FFSDatabaseInterfaceFormController::ManageRepresentMinorSubtableRequest(this);
+}
+
+void FFSDatabaseInterface::deleteMajorTableRow()
+{
+    FFSDatabaseInterfaceFormController::ManageDeleteRowRequest(ui.majorTableView, actualTable + "s");
+    FFSDatabaseInterfaceFormController::ManageRefreshMajorTableRequest(this);
+}
+
+void FFSDatabaseInterface::deleteMinorTableRow()
+{
+    FFSDatabaseInterfaceFormController::ManageDeleteRowRequest(ui.minorTableView, actualSubtable);
+    isSubtableChanged = true;
+    FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(this);
+}
+
+void FFSDatabaseInterface::deleteMinorSubtableRow()
+{
+    FFSDatabaseInterfaceFormController::ManageDeleteRowRequest(ui.minorSubtableView, actualMinorSubtable);
+    isMinorSubtableChanged = true;
+    FFSDatabaseInterfaceFormController::ManageLoadDataToMinorSubtableRequest(this);
 }
 
 void FFSDatabaseInterface::SetTableSettings(QTableView* table)

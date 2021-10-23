@@ -19,10 +19,10 @@ public:
 	void FillMeasurementsTable(QTableView* tableView);
 	void FillMeasurementsTable(QTableView* tableView, QString majorTableName, int majorTableId);
 
-	void FillSamplesTable(QTableView* tableView);
-
 	void FillEquipmentsTable(QTableView* tableView);
 	void FillEquipmentsTable(QTableView* tableView, QString majorTableName, int majorTableId);
+
+	void FillSamplesTable(QTableView* tableView);
 
 	void FillCharacteristicTypesTable(QTableView* tableView);
 
@@ -32,6 +32,7 @@ public:
 
 	void FillMeasurementRow(int rowNumber, QStandardItemModel* tableModel, QList<MeasurementContext*> measurements);
 
+	void RouteMajorRequest(FFSDatabaseInterface* view);
 	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 
 private:

@@ -36,7 +36,7 @@ QSqlQuery DbConnection::ReadFromDatabase(QString sqlRequest)
 
 	if (!query.exec(sqlRequest))
 	{
-		qWarning("Database request wasn't proceeded.");
+		qWarning("Database read request wasn't proceeded.");
 	}
 
 	return query;
@@ -48,6 +48,17 @@ void DbConnection::AddToDatabase(DbContext* dbContext)
 	AddCharacteristicTypes(dbContext->GetCharacteristicTypes());
 	AddEquipment(dbContext->GetEquipments());
 	AddMeasuringSystem(dbContext->GetMeasuringSystem());
+}
+
+void DbConnection::DeleteFromDatabase(QString tableName, int id)
+{
+	QString sqlRequest = "DELETE FROM %1 WHERE id = %2";
+	QSqlQuery query;
+
+	if (!query.exec(sqlRequest.arg(tableName).arg(id)))
+	{
+		qWarning("Database delete request wasn't proceeded.");
+	}
 }
 
 void DbConnection::AddSamples(QList<SampleContext*> samples)

@@ -56,6 +56,9 @@ private slots:
     void switchButtons();
     void representMinorTable();
     void representTable();
+    void deleteMajorTableRow();
+    void deleteMinorTableRow();
+    void deleteMinorSubtableRow();
 
 private:
     Ui::FFSDatabaseInterfaceClass ui;
@@ -81,4 +84,18 @@ private:
 
     const QStringList endMajorNodes = {
         "characteristic" };
+
+    const QStringList measurementSelectorItems = {
+        "Measurement parameters",
+        "Characteristics" };
+
+    const QStringList sampleSelectorItems = {
+        "Measurements" };
+
+    const QStringList equipmentSelectorItems = {
+        "Equipment parameters",
+        "Measuring systems" };
+
+    const QStringList characteristicTypeSelectorItems = {
+        "Characteristics" };
 };

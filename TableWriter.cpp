@@ -317,6 +317,35 @@ void TableWriter::FillMeasurementRow(int rowNumber, QStandardItemModel* tableMod
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 7))->setTextAlignment(Qt::AlignBottom);
 }
 
+void TableWriter::RouteMajorRequest(FFSDatabaseInterface* view)
+{
+	if (view->GetActualTable() == "measuring system")
+	{
+		FillMeasuringSystemsTable(view->GetUI().majorTableView);
+	}
+	else if (view->GetActualTable() == "sample")
+	{
+		FillSamplesTable(view->GetUI().majorTableView);
+	}
+	else if (view->GetActualTable() == "equipment")
+	{
+		FillEquipmentsTable(view->GetUI().majorTableView);
+	}
+	else if (view->GetActualTable() == "measurement")
+	{
+		FillMeasurementsTable(view->GetUI().majorTableView);
+	}
+	else if (view->GetActualTable() == "characteristic type")
+	{
+		FillCharacteristicTypesTable(view->GetUI().majorTableView);
+	}
+	else if (view->GetActualTable() == "characteristic")
+	{
+		QString sqlReadRequest = "SELECT * FROM characteristics";
+		FillCharacteristicsTable(view->GetUI().majorTableView, sqlReadRequest);
+	}
+}
+
 void TableWriter::RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
 {
 	if (minorTableName.contains("parameters"))

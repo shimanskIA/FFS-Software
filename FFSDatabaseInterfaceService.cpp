@@ -1,6 +1,7 @@
 #include "FFSDatabaseInterfaceService.h"
 #include "DbImporter.h"
 #include "TableWriter.h"
+#include "DbEditor.h"
 
 void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 {
@@ -10,34 +11,10 @@ void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 	dbImporter->ImportToDatabase();
 }
 
-void FFSDatabaseInterfaceService::ShowMeasurementTableRequestReceiver(QTableView* tableView)
-{
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillMeasurementsTable(tableView);
-}
-
-void FFSDatabaseInterfaceService::ShowSampleTableRequestReceiver(QTableView* tableView)
-{
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillSamplesTable(tableView);
-}
-
-void FFSDatabaseInterfaceService::ShowEquipmentTableRequestReceiver(QTableView* tableView)
-{
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillEquipmentsTable(tableView);
-}
-
 void FFSDatabaseInterfaceService::ShowMeasuringSystemTableRequestReceiver(QTableView* tableView)
 {
 	TableWriter* tableWriter = new TableWriter();
 	tableWriter->FillMeasuringSystemsTable(tableView);
-}
-
-void FFSDatabaseInterfaceService::ShowCharacteristicTypesTableRequestReceiver(QTableView* tableView)
-{
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillCharacteristicTypesTable(tableView);
 }
 
 void FFSDatabaseInterfaceService::ShowCharacteristicsTableRequestReceiver(QTableView* tableView)
@@ -45,6 +22,18 @@ void FFSDatabaseInterfaceService::ShowCharacteristicsTableRequestReceiver(QTable
 	TableWriter* tableWriter = new TableWriter();
 	QString sqlReadRequest = "SELECT * FROM characteristics";
 	tableWriter->FillCharacteristicsTable(tableView, sqlReadRequest);
+}
+
+void FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(FFSDatabaseInterface* view)
+{
+	TableWriter* tableWriter = new TableWriter();
+	tableWriter->RouteMajorRequest(view);
+}
+
+void FFSDatabaseInterfaceService::DeleteRowRequestReceiver(QTableView* tableView, QString tableName)
+{
+	DbEditor* dbEditor = new DbEditor();
+	dbEditor->DeleteRow(tableView, tableName);
 }
 
 void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
