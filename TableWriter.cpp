@@ -11,8 +11,10 @@ TableWriter::TableWriter()
 void TableWriter::FillMeasuringSystemsTable(QTableView* tableView)
 {
 	QList<MeasuringSystemContext*> measuringSystems = DbConnection::GetDbConnectionInstance().ReadMeasuringSystemsFromDatabase();
-	QStandardItemModel* tableModel = new QStandardItemModel(measuringSystems.length(), 4);
-	tableView->setModel(tableModel);
+
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(measuringSystems.length());
+	tableModel->setColumnCount(4);
 
 	for (int j = 0; j < tableModel->columnCount(); j++)
 	{
@@ -54,8 +56,9 @@ void TableWriter::FillMeasuringSystemsTable(QTableView* tableView, QString major
 		}
 	}
 
-	QStandardItemModel* tableModel = new QStandardItemModel(measuringSystems.length(), 4);
-	tableView->setModel(tableModel);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(measuringSystems.length());
+	tableModel->setColumnCount(4);
 
 	for (int j = 0; j < tableModel->columnCount(); j++)
 	{
@@ -79,8 +82,9 @@ void TableWriter::FillMeasuringSystemsTable(QTableView* tableView, QString major
 void TableWriter::FillMeasurementsTable(QTableView* tableView)
 {
 	QList<MeasurementContext*> measurements = DbConnection::GetDbConnectionInstance().ReadMeasurementsFromDatabase();
-	QStandardItemModel* tableModel = new QStandardItemModel(measurements.length(), 9);
-	tableView->setModel(tableModel);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(measurements.length());
+	tableModel->setColumnCount(9);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -103,8 +107,9 @@ void TableWriter::FillMeasurementsTable(QTableView* tableView)
 void TableWriter::FillSamplesTable(QTableView* tableView)
 {
 	QList<SampleContext*> samples = DbConnection::GetDbConnectionInstance().ReadSamplesFromDatabase();
-	QStandardItemModel* tableModel = new QStandardItemModel(samples.length(), 3);
-	tableView->setModel(tableModel);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(samples.length());
+	tableModel->setColumnCount(3);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -129,8 +134,9 @@ void TableWriter::FillSamplesTable(QTableView* tableView)
 void TableWriter::FillEquipmentsTable(QTableView* tableView)
 {
 	QList<EquipmentContext*> equipments = DbConnection::GetDbConnectionInstance().ReadEquipmentsFromDatabase();
-	QStandardItemModel* tableModel = new QStandardItemModel(equipments.length(), 3);
-	tableView->setModel(tableModel);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(equipments.length());
+	tableModel->setColumnCount(3);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -155,8 +161,9 @@ void TableWriter::FillEquipmentsTable(QTableView* tableView)
 void TableWriter::FillMeasurementsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
 	QList<MeasurementContext*> measurements = DbConnection::GetDbConnectionInstance().ReadMeasurementsFromDatabase(majorTableName, majorTableId);
-	QStandardItemModel* tableModel = new QStandardItemModel(measurements.length(), 8);
-	tableView->setModel(tableModel);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(measurements.length());
+	tableModel->setColumnCount(8);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -194,8 +201,9 @@ void TableWriter::FillEquipmentsTable(QTableView* tableView, QString majorTableN
 		}
 	}
 
-	QStandardItemModel* tableModel = new QStandardItemModel(equipments.length(), 3);
-	tableView->setModel(tableModel);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(equipments.length());
+	tableModel->setColumnCount(3);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -220,8 +228,9 @@ void TableWriter::FillEquipmentsTable(QTableView* tableView, QString majorTableN
 void TableWriter::FillParametersTable(QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
 {
 	QList<ParameterTableContext*> parameters = DbConnection::GetDbConnectionInstance().ReadParametersFromDatabase(majorTableName, minorTableName, majorTableId);
-	QStandardItemModel* tableModel = new QStandardItemModel(parameters.length(), 3);
-	tableView->setModel(tableModel);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(parameters.length());
+	tableModel->setColumnCount(3);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -246,8 +255,9 @@ void TableWriter::FillParametersTable(QTableView* tableView, QString majorTableN
 void TableWriter::FillCharacteristicsTable(QTableView* tableView, QString sqlReadRequest)
 {
 	QList<CharacteristicsContext*> characteristics = DbConnection::GetDbConnectionInstance().ReadCharacteristicsFromDatabase(sqlReadRequest);
-	QStandardItemModel* tableModel = new QStandardItemModel(characteristics.length(), 6);
-	tableView->setModel(tableModel);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(characteristics.length());
+	tableModel->setColumnCount(6);
 
 	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
 	{
@@ -278,8 +288,9 @@ void TableWriter::FillCharacteristicsTable(QTableView* tableView, QString sqlRea
 void TableWriter::FillCharacteristicTypesTable(QTableView* tableView)
 {
 	QList<CharacteristicTypeContext*> characteristicTypes = DbConnection::GetDbConnectionInstance().ReadCharacteristicTypesFromDatabase();
-	QStandardItemModel* tableModel = new QStandardItemModel(characteristicTypes.length(), 3);
-	tableView->setModel(tableModel);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(characteristicTypes.length());
+	tableModel->setColumnCount(3);
 
 	for (int j = 0; j < tableModel->columnCount(); j++)
 	{
@@ -298,7 +309,7 @@ void TableWriter::FillCharacteristicTypesTable(QTableView* tableView)
 	tableView->setColumnHidden(0, true);
 }
 
-void TableWriter::FillMeasurementRow(int rowNumber, QStandardItemModel* tableModel, QList<MeasurementContext*> measurements)
+void TableWriter::FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, QList<MeasurementContext*> measurements)
 {
 	tableModel->setData(tableModel->index(rowNumber, 0), measurements.at(rowNumber)->GetId());
 	tableModel->setData(tableModel->index(rowNumber, 1), measurements.at(rowNumber)->GetName());

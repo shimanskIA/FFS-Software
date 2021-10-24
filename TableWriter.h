@@ -3,6 +3,7 @@
 #include "ui_FFSDatabaseInterface.h"
 #include "FFSDatabaseInterface.h"
 #include "MeasurementContext.h"
+#include "FFSTableModel.h"
 
 #include <QString>
 #include <QList>
@@ -30,7 +31,7 @@ public:
 
 	void FillCharacteristicsTable(QTableView* tableView, QString sqlReadRequest);
 
-	void FillMeasurementRow(int rowNumber, QStandardItemModel* tableModel, QList<MeasurementContext*> measurements);
+	void FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, QList<MeasurementContext*> measurements);
 
 	void RouteMajorRequest(FFSDatabaseInterface* view);
 	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);

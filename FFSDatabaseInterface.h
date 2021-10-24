@@ -61,6 +61,7 @@ private slots:
     void deleteMajorTableRow();
     void deleteMinorTableRow();
     void deleteMinorSubtableRow();
+    void updateMajorTableRow();
 
 private:
     Ui::FFSDatabaseInterfaceClass ui;

@@ -2,13 +2,22 @@
 #include "AboutForm.h"
 #include "ui_AboutForm.h"
 #include "FFSDatabaseInterfaceFormController.h"
+#include "FFSTableModel.h"
 
 #include <QFileDialog>
 #include <QCloseEvent>
+#include <QTableWidget>
+#include <QAbstractItemModel>
 
 FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
+    FFSTableModel* majorTableModel = new FFSTableModel(0, 0);
+    FFSTableModel* minorTableModel = new FFSTableModel(0, 0);
+    FFSTableModel* minorSubtableModel = new FFSTableModel(0, 0);
+    ui.majorTableView->setModel(majorTableModel);
+    ui.minorTableView->setModel(minorTableModel);
+    ui.minorSubtableView->setModel(minorSubtableModel);
     connect(ui.actionInfo, SIGNAL(triggered()), this, SLOT(infoButtonClick()));
     connect(ui.actionMeasuringSystem, SIGNAL(triggered()), this, SLOT(chooseMeasuringSystemTable()));
     connect(ui.actionSample, SIGNAL(triggered()), this, SLOT(chooseSampleTable()));
@@ -25,6 +34,7 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.majorDeleteButton, SIGNAL(clicked()), this, SLOT(deleteMajorTableRow()));
     connect(ui.minorDeleteButton, SIGNAL(clicked()), this, SLOT(deleteMinorTableRow()));
     connect(ui.minorDeleteSubbutton, SIGNAL(clicked()), this, SLOT(deleteMinorSubtableRow()));
+    connect(ui.majorTableView->model(), &QAbstractItemModel::dataChanged, this, &FFSDatabaseInterface::updateMajorTableRow);
     FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(this, true);
     SetTableSettings(ui.majorTableView);
 }
@@ -118,6 +128,11 @@ void FFSDatabaseInterface::deleteMinorSubtableRow()
     FFSDatabaseInterfaceFormController::ManageDeleteRowRequest(ui.minorSubtableView, actualMinorSubtable);
     isMinorSubtableChanged = true;
     FFSDatabaseInterfaceFormController::ManageLoadDataToMinorSubtableRequest(this);
+}
+
+void FFSDatabaseInterface::updateMajorTableRow()
+{
+
 }
 
 void FFSDatabaseInterface::SetTableSettings(QTableView* table)

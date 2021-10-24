@@ -138,6 +138,9 @@
     <ClCompile Include="IdFileManager.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FFSTableModel.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -221,6 +224,9 @@
     </ClInclude>
     <ClInclude Include="NamesHelper.h">
       <Filter>Model\Helpers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FFSTableModel.h">
+      <Filter>View\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
