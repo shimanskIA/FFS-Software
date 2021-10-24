@@ -1,6 +1,8 @@
 #include "FFSDatabaseInterfaceFormController.h"
 #include "FFSDatabaseInterfaceService.h"
 
+#include <QVariant>
+
 FFSDatabaseInterfaceFormController::FFSDatabaseInterfaceFormController()
 {
 
@@ -29,8 +31,9 @@ void FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(F
 
         if (view->GetActualTable() != tableName)
         {
-            view->GetUI().minorTableView->setModel(nullptr);
-            view->GetUI().minorSubtableView->setModel(nullptr);
+            ResetTableModel((FFSTableModel*)view->GetUI().majorTableView->model());
+            ResetTableModel((FFSTableModel*)view->GetUI().minorTableView->model());
+            ResetTableModel((FFSTableModel*)view->GetUI().minorSubtableView->model());
             view->GetUI().tableSelector->setDisabled(false);
             view->GetUI().minorTableView->setDisabled(false);
             DisableButtonActivity(view);
@@ -56,8 +59,9 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicsTableRequest(F
 
     if (view->GetActualTable() != tableName)
     {
-        view->GetUI().minorTableView->setModel(nullptr);
-        view->GetUI().minorSubtableView->setModel(nullptr);
+        ResetTableModel((FFSTableModel*)view->GetUI().majorTableView->model());
+        ResetTableModel((FFSTableModel*)view->GetUI().minorTableView->model());
+        ResetTableModel((FFSTableModel*)view->GetUI().minorSubtableView->model());
         view->SetSelectedId(0);
         view->SetMinorSelectedId(0);
         view->GetUI().tableName->setText((tableName + "s:").toUpper());
@@ -85,7 +89,8 @@ void FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(FFSData
 
         if (selectedId != view->GetSelectedId() || view->GetIsSubtableChanged())
         {
-            view->GetUI().minorSubtableView->setModel(nullptr);
+            ResetTableModel((FFSTableModel*)view->GetUI().minorTableView->model());
+            ResetTableModel((FFSTableModel*)view->GetUI().minorSubtableView->model());
             view->GetUI().majorDeleteButton->setDisabled(false);
             view->GetUI().minorAddButton->setDisabled(false);
             view->GetUI().minorDeleteButton->setDisabled(true);
@@ -130,6 +135,7 @@ void FFSDatabaseInterfaceFormController::ManageLoadDataToMinorSubtableRequest(FF
 
         if (selectedId != view->GetMinorSelectedId() || view->GetIsMinorSubtableChanged())
         {
+            ResetTableModel((FFSTableModel*)view->GetUI().minorSubtableView->model());
             view->GetUI().minorDeleteButton->setDisabled(false);
             view->GetUI().minorAddSubbutton->setDisabled(false);
             view->SetMinorSelectedId(selectedId);
@@ -193,6 +199,8 @@ void FFSDatabaseInterfaceFormController::ManageRepresentMinorSubtableRequest(FFS
     {
         view->SetIsMinorSubtableChanged(true);
         view->SetActualMinorSubtable(newMinorSubtable);
+        view->GetUI().minorDeleteSubbutton->setDisabled(true);
+        view->GetUI().minorPreviewSubbutton->setDisabled(true);
 
         if (view->GetIsSubRowSelected())
         {
@@ -205,8 +213,9 @@ void FFSDatabaseInterfaceFormController::ManageShowMajorTableRequest(QString tab
 {
     if (view->GetActualTable() != tableName)
     {
-        view->GetUI().minorTableView->setModel(nullptr);
-        view->GetUI().minorSubtableView->setModel(nullptr);
+        ResetTableModel((FFSTableModel*)view->GetUI().majorTableView->model());
+        ResetTableModel((FFSTableModel*)view->GetUI().minorTableView->model());
+        ResetTableModel((FFSTableModel*)view->GetUI().minorSubtableView->model());
         view->GetUI().tableSelector->setDisabled(false);
         view->GetUI().minorTableView->setDisabled(false);
         DisableButtonActivity(view);
@@ -236,16 +245,38 @@ void FFSDatabaseInterfaceFormController::ManageRemoveUnusedIdsRequest()
     FFSDatabaseInterfaceService::RemoveUnusedIdsRequestReceiver();
 }
 
+void FFSDatabaseInterfaceFormController::ManageSwitchToEditModeRequest(QTableView* tableView, FFSDatabaseInterface* view)
+{
+    view->SetIsInEditMode(true);
+    QVariant cellValue = tableView->currentIndex().data();
+    view->SetPreviousCellValue(cellValue);
+}
+
 void FFSDatabaseInterfaceFormController::ManageDeleteRowRequest(QTableView* tableView, QString tableName)
 {
     tableName = tableName.replace(' ', '_');
     FFSDatabaseInterfaceService::DeleteRowRequestReceiver(tableView, tableName);
 }
 
+void FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(QString tableName, QTableView* tableView, FFSDatabaseInterface* view)
+{
+    if (view->GetIsInEditMode())
+    {
+        view->SetIsInEditMode(false);
+        QVariant cellValue = tableView->currentIndex().data();
+        if (cellValue.toString() != view->GetPreviousCellValue().toString())
+        {
+            tableName = tableName.replace(' ', '_');
+            FFSDatabaseInterfaceService::UpdateTableRequestReceiver(cellValue, tableName, tableView);
+        }
+    }
+}
+
 void FFSDatabaseInterfaceFormController::ManageRefreshMajorTableRequest(FFSDatabaseInterface* view)
 {
-    view->GetUI().minorTableView->setModel(nullptr);
-    view->GetUI().minorSubtableView->setModel(nullptr);
+    ResetTableModel((FFSTableModel*)view->GetUI().majorTableView->model());
+    ResetTableModel((FFSTableModel*)view->GetUI().minorTableView->model());
+    ResetTableModel((FFSTableModel*)view->GetUI().minorSubtableView->model());
     view->SetSelectedId(0);
     view->SetMinorSelectedId(0);
     view->GetUI().minorTableSelector->clear();
@@ -267,4 +298,10 @@ void FFSDatabaseInterfaceFormController::DisableButtonActivity(FFSDatabaseInterf
     view->GetUI().minorPreviewButton->setDisabled(true);
     view->GetUI().majorDeleteButton->setDisabled(true);
     view->GetUI().majorPreviewButton->setDisabled(true);
+}
+
+void FFSDatabaseInterfaceFormController::ResetTableModel(FFSTableModel* tableModel)
+{
+    tableModel->setRowCount(0);
+    tableModel->setColumnCount(0);
 }

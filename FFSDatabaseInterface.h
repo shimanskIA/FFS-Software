@@ -2,6 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include <QtSql>
+#include <QVariant>
 
 #include "ui_FFSDatabaseInterface.h"
 
@@ -22,8 +23,10 @@ public:
     bool GetMinorFirstLoad();
     bool GetIsSubtableChanged();
     bool GetIsMinorSubtableChanged();
+    bool GetIsInEditMode();
     int GetSelectedId();
     int GetMinorSelectedId();
+    QVariant GetPreviousCellValue();
 
     QStringList GetEndMajorNodes();
     QStringList GetEndMinorNodes();
@@ -39,6 +42,8 @@ public:
     void SetIsMinorSubtableChanged(bool isMinorSubtableChanged);
     void SetSelectedId(int selectedId);
     void SetMinorSelectedId(int minorSelectedId);
+    void SetIsInEditMode(bool isInEditMode);
+    void SetPreviousCellValue(QVariant cellValue);
 
     void SetTableSettings(QTableView* table);
 
@@ -56,12 +61,17 @@ private slots:
     void loadDataToSubtable();
     void loadDataToMinorSubtable();
     void switchButtons();
+    void switchMajorTableToEditMode();
+    void switchMinorTableToEditMode();
+    void switchMinorSubtableToEditMode();
     void representMinorTable();
     void representTable();
     void deleteMajorTableRow();
     void deleteMinorTableRow();
     void deleteMinorSubtableRow();
     void updateMajorTableRow();
+    void updateMinorTableRow();
+    void updateMinorSubtableRow();
 
 private:
     Ui::FFSDatabaseInterfaceClass ui;
@@ -71,6 +81,7 @@ private:
     QString actualTable = "measuring system";
     QString actualSubtable = "measurements";
     QString actualMinorSubtable = "";
+    QVariant previousCellValue;
 
     bool firstLoad = true;
     bool minorFirstLoad = true;
@@ -78,6 +89,7 @@ private:
     bool isSubRowSelected = false;
     bool isSubtableChanged = false;
     bool isMinorSubtableChanged = false;
+    bool isInEditMode = false;
 
     const QStringList endMinorNodes = {
         "measurement_parameters",

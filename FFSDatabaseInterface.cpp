@@ -27,14 +27,19 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.actionCharacteristic, SIGNAL(triggered()), this, SLOT(chooseCharacteristicTable()));
     connect(ui.actionImport, SIGNAL(triggered()), this, SLOT(openFileDialog()));
     connect(ui.majorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToSubtable()));
+    connect(ui.majorTableView->model(), &QAbstractItemModel::dataChanged, this, &FFSDatabaseInterface::updateMajorTableRow);
+    connect(ui.majorTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(switchMajorTableToEditMode()));
     connect(ui.minorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToMinorSubtable()));
+    connect(ui.minorTableView->model(), &QAbstractItemModel::dataChanged, this, &FFSDatabaseInterface::updateMinorTableRow);
+    connect(ui.minorTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(switchMinorTableToEditMode()));
     connect(ui.minorSubtableView, SIGNAL(clicked(QModelIndex)), this, SLOT(switchButtons()));
+    connect(ui.minorSubtableView->model(), &QAbstractItemModel::dataChanged, this, &FFSDatabaseInterface::updateMinorSubtableRow);
+    connect(ui.minorSubtableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(switchMinorSubtableToEditMode()));
     connect(ui.tableSelector, SIGNAL(activated(QString)), this, SLOT(representTable()));
     connect(ui.minorTableSelector, SIGNAL(activated(QString)), this, SLOT(representMinorTable()));
     connect(ui.majorDeleteButton, SIGNAL(clicked()), this, SLOT(deleteMajorTableRow()));
     connect(ui.minorDeleteButton, SIGNAL(clicked()), this, SLOT(deleteMinorTableRow()));
     connect(ui.minorDeleteSubbutton, SIGNAL(clicked()), this, SLOT(deleteMinorSubtableRow()));
-    connect(ui.majorTableView->model(), &QAbstractItemModel::dataChanged, this, &FFSDatabaseInterface::updateMajorTableRow);
     FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(this, true);
     SetTableSettings(ui.majorTableView);
 }
@@ -130,9 +135,34 @@ void FFSDatabaseInterface::deleteMinorSubtableRow()
     FFSDatabaseInterfaceFormController::ManageLoadDataToMinorSubtableRequest(this);
 }
 
+void FFSDatabaseInterface::switchMajorTableToEditMode()
+{
+    FFSDatabaseInterfaceFormController::ManageSwitchToEditModeRequest(ui.majorTableView, this);
+}
+
+void FFSDatabaseInterface::switchMinorTableToEditMode()
+{
+    FFSDatabaseInterfaceFormController::ManageSwitchToEditModeRequest(ui.minorTableView, this);
+}
+
+void FFSDatabaseInterface::switchMinorSubtableToEditMode()
+{
+    FFSDatabaseInterfaceFormController::ManageSwitchToEditModeRequest(ui.minorSubtableView, this);
+}
+
 void FFSDatabaseInterface::updateMajorTableRow()
 {
+    FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(actualTable + "s", ui.majorTableView, this);
+}
 
+void FFSDatabaseInterface::updateMinorTableRow()
+{
+    FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(actualSubtable, ui.minorTableView, this);
+}
+
+void FFSDatabaseInterface::updateMinorSubtableRow()
+{
+    FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(actualMinorSubtable, ui.minorSubtableView, this);
 }
 
 void FFSDatabaseInterface::SetTableSettings(QTableView* table)
@@ -206,6 +236,11 @@ bool FFSDatabaseInterface::GetIsMinorSubtableChanged()
     return this->isMinorSubtableChanged;
 }
 
+bool FFSDatabaseInterface::GetIsInEditMode()
+{
+    return this->isInEditMode;
+}
+
 int FFSDatabaseInterface::GetSelectedId()
 {
     return this->selectedId;
@@ -214,6 +249,11 @@ int FFSDatabaseInterface::GetSelectedId()
 int FFSDatabaseInterface::GetMinorSelectedId()
 {
     return this->minorSelectedId;
+}
+
+QVariant FFSDatabaseInterface::GetPreviousCellValue()
+{
+    return this->previousCellValue;
 }
 
 QStringList FFSDatabaseInterface::GetEndMajorNodes()
@@ -269,6 +309,16 @@ void FFSDatabaseInterface::SetFirstLoad(bool firstLoad)
 void FFSDatabaseInterface::SetMinorFirstLoad(bool minorFirstLoad)
 {
     this->minorFirstLoad = minorFirstLoad;
+}
+
+void FFSDatabaseInterface::SetIsInEditMode(bool isInEditMode)
+{
+    this->isInEditMode = isInEditMode;
+}
+
+void FFSDatabaseInterface::SetPreviousCellValue(QVariant cellValue)
+{
+    this->previousCellValue = cellValue;
 }
 
 void FFSDatabaseInterface::SetSelectedId(int selectedId)

@@ -23,6 +23,7 @@ void TableWriter::FillMeasuringSystemsTable(QTableView* tableView)
 
 	for (int i = 0; i < tableModel->rowCount(); i++)
 	{
+		
 		tableModel->setData(tableModel->index(i, 0), measuringSystems.at(i)->GetId());
 		tableModel->setData(tableModel->index(i, 1), measuringSystems.at(i)->GetName());
 		tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
@@ -107,6 +108,7 @@ void TableWriter::FillMeasurementsTable(QTableView* tableView)
 void TableWriter::FillSamplesTable(QTableView* tableView)
 {
 	QList<SampleContext*> samples = DbConnection::GetDbConnectionInstance().ReadSamplesFromDatabase();
+
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(samples.length());
 	tableModel->setColumnCount(3);

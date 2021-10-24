@@ -2,6 +2,7 @@
 
 #include "ui_FFSDatabaseInterface.h"
 #include "FFSDatabaseInterface.h"
+#include "FFSTableModel.h"
 
 #include <QString>
 
@@ -21,8 +22,11 @@ public:
     static void ManageRepresentMinorSubtableRequest(FFSDatabaseInterface* view);
     static void ManageDeleteRowRequest(QTableView* view, QString tableName);
     static void ManageRemoveUnusedIdsRequest();
+    static void ManageSwitchToEditModeRequest(QTableView* tableView, FFSDatabaseInterface* view);
     static void ManageRefreshMajorTableRequest(FFSDatabaseInterface* view);
+    static void ManageUpdateTableRequest(QString tableName, QTableView* tableView, FFSDatabaseInterface* view);
     static void ManageShowMajorTableRequest(QString tableName, QString subtableName, QStringList selectorItems, FFSDatabaseInterface* view);
+    static void ResetTableModel(FFSTableModel* tableModel);
 
 private:
     static void DisableButtonActivity(FFSDatabaseInterface* view);

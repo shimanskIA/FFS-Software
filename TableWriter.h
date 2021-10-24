@@ -77,7 +77,7 @@ private:
 		"Id",
 		"Name",
 		"Description",
-		"Main contributor" };
+		"Main contributor name" };
 
 	const QStringList characteristicTypeColumnNames =
 	{

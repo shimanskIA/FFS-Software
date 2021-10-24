@@ -14,6 +14,7 @@ public:
 	static void ShowCharacteristicsTableRequestReceiver(QTableView* tableView);
 	static void ShowMajorTableRequestReceiver(FFSDatabaseInterface* view);
 	static void DeleteRowRequestReceiver(QTableView* tableView, QString tableName);
+	static void UpdateTableRequestReceiver(QVariant cellValue, QString tableName, QTableView* tableView);
 	static void RemoveUnusedIdsRequestReceiver();
 	static void LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 };

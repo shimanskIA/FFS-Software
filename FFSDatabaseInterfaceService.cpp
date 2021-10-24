@@ -37,6 +37,12 @@ void FFSDatabaseInterfaceService::DeleteRowRequestReceiver(QTableView* tableView
 	dbEditor->DeleteRow(tableView, tableName);
 }
 
+void FFSDatabaseInterfaceService::UpdateTableRequestReceiver(QVariant cellValue, QString tableName, QTableView* tableView)
+{
+	DbEditor* dbEditor = new DbEditor();
+	dbEditor->UpdateRow(cellValue, tableName, tableView);
+}
+
 void FFSDatabaseInterfaceService::RemoveUnusedIdsRequestReceiver()
 {
 	IdFileManager* idFileManager = new IdFileManager();
