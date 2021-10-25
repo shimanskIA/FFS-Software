@@ -108,6 +108,9 @@
     <ClCompile Include="MeasuringSystemContext.cpp" />
     <ClCompile Include="ParameterTableContext.cpp" />
     <ClCompile Include="RawDataParser.cpp" />
+    <ClCompile Include="SampleAddForm.cpp" />
+    <ClCompile Include="SampleAddFormController.cpp" />
+    <ClCompile Include="SampleAddService.cpp" />
     <ClCompile Include="SampleContext.cpp" />
     <ClCompile Include="TableContext.cpp" />
     <ClCompile Include="TableWriter.cpp" />
@@ -122,6 +125,7 @@
     <ClCompile Include="FFSDatabaseInterface.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <QtUic Include="MeasuringSystemAddForm.ui" />
+    <QtUic Include="SampleAddForm.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AboutForm.h" />
@@ -130,6 +134,9 @@
     <QtMoc Include="EquipmentAddForm.h" />
     <ClInclude Include="EquipmentAddFormController.h" />
     <ClInclude Include="EquipmentAddService.h" />
+    <QtMoc Include="SampleAddForm.h" />
+    <ClInclude Include="SampleAddFormController.h" />
+    <ClInclude Include="SampleAddService.h" />
     <ClInclude Include="WindowManager.h" />
     <QtMoc Include="BaseAddForm.h" />
     <ClInclude Include="CharacteristicsContext.h" />

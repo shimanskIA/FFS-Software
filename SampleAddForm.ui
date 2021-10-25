@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>EquipmentAddFormClass</class>
- <widget class="QWidget" name="EquipmentAddFormClass">
+ <class>SampleAddFormClass</class>
+ <widget class="QWidget" name="SampleAddFormClass">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add equipment</string>
+   <string>Add sample</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -82,7 +82,7 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QPushButton" name="AddEquipmentButton">
+  <widget class="QPushButton" name="AddSampleButton">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -92,7 +92,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Add equipment</string>
+    <string>Add sample</string>
    </property>
   </widget>
  </widget>

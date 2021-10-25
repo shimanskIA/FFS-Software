@@ -44,6 +44,10 @@ bool DbEditor::AddRow(QVariant tableContext)
     {
         return DbConnection::GetDbConnectionInstance().AddEquipmentItem(tableContext.value<EquipmentContext*>());
     }
+    else if (tableContext.canConvert<SampleContext*>())
+    {
+        return DbConnection::GetDbConnectionInstance().AddSample(tableContext.value<SampleContext*>());
+    }
     else
     {
 
@@ -52,3 +56,4 @@ bool DbEditor::AddRow(QVariant tableContext)
 }
 
 Q_DECLARE_METATYPE(EquipmentContext*);
+Q_DECLARE_METATYPE(SampleContext*);

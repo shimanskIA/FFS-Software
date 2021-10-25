@@ -30,6 +30,7 @@ public:
 	void AddBindings(QList<BindingContext*> bindings);
 
 	bool AddEquipmentItem(EquipmentContext* equipmentItem);
+	bool AddSample(SampleContext* sampleContext);
 
 	QList<MeasuringSystemContext*> ReadMeasuringSystemsFromDatabase();
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase();

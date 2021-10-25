@@ -446,6 +446,15 @@ bool DbConnection::AddEquipmentItem(EquipmentContext* equipmentItem)
 	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "equipments");
 }
 
+bool DbConnection::AddSample(SampleContext* sample)
+{
+	int id = sample->GetId();
+	QString name = sample->GetName();
+	QString description = sample->GetDescription();
+	QString sqlWriteRequest = "INSERT INTO samples(id, name, description) VALUES (%1, '%2', '%3')";
+	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "samples");
+}
+
 QList<MeasuringSystemContext*> DbConnection::ReadMeasuringSystemsFromDatabase()
 {
 	QString sqlReadRequest = "SELECT * FROM measuring_systems";

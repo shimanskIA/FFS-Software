@@ -19,6 +19,4 @@ private slots:
 
 private:
     Ui::EquipmentAddFormClass ui;
-
-    bool isRowAdded = false;
 };

@@ -11,5 +11,3 @@ class EquipmentAddFormController
 public:
 	static void ManageAddEquipmentRequest(EquipmentAddForm* view);
 };
-
-
