@@ -3,6 +3,7 @@
 #include "ui_AboutForm.h"
 #include "FFSDatabaseInterfaceFormController.h"
 #include "FFSTableModel.h"
+#include "MeasuringSystemAddForm.h"
 
 #include <QFileDialog>
 #include <QCloseEvent>
@@ -40,6 +41,9 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.majorDeleteButton, SIGNAL(clicked()), this, SLOT(deleteMajorTableRow()));
     connect(ui.minorDeleteButton, SIGNAL(clicked()), this, SLOT(deleteMinorTableRow()));
     connect(ui.minorDeleteSubbutton, SIGNAL(clicked()), this, SLOT(deleteMinorSubtableRow()));
+    connect(ui.majorAddButton, SIGNAL(clicked()), this, SLOT(showAddRowMajorTableView()));
+    connect(ui.minorAddButton, SIGNAL(clicked()), this, SLOT(showAddRowMinorTableView()));
+    connect(ui.minorAddSubbutton, SIGNAL(clicked()), this, SLOT(showAddRowMinorSubtableView()));
     FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(this, true);
     SetTableSettings(ui.majorTableView);
 }
@@ -165,6 +169,35 @@ void FFSDatabaseInterface::updateMinorSubtableRow()
     FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(actualMinorSubtable, ui.minorSubtableView, this);
 }
 
+void FFSDatabaseInterface::showAddRowMajorTableView()
+{
+    addTryMajorTable = true;
+    FFSDatabaseInterfaceFormController::ManageShowAddViewRequest(actualTable + "s", this);
+}
+
+void FFSDatabaseInterface::showAddRowMinorTableView()
+{
+
+}
+
+void FFSDatabaseInterface::showAddRowMinorSubtableView()
+{
+
+}
+
+void FFSDatabaseInterface::showWindow()
+{
+    FFSDatabaseInterfaceFormController::ManageRefreshViewRequest(this, addView->GetIsRowAdded());
+    addView->close();
+    this->show();
+}
+
+void FFSDatabaseInterface::SetUpAddView(BaseAddForm* addView)
+{
+    this->addView = addView;
+    connect(addView, &BaseAddForm::windowClosed, this, &FFSDatabaseInterface::showWindow);
+}
+
 void FFSDatabaseInterface::SetTableSettings(QTableView* table)
 {
     table->setColumnHidden(0, true);
@@ -241,6 +274,21 @@ bool FFSDatabaseInterface::GetIsInEditMode()
     return this->isInEditMode;
 }
 
+bool FFSDatabaseInterface::GetAddTryMajorTable()
+{
+    return this->addTryMajorTable;
+}
+
+bool FFSDatabaseInterface::GetAddTryMinorTable()
+{
+    return this->addTryMinorTable;
+}
+
+bool FFSDatabaseInterface::GetAddTryMinorSubtable()
+{
+    return this->addTryMinorSubtable;
+}
+
 int FFSDatabaseInterface::GetSelectedId()
 {
     return this->selectedId;
@@ -314,6 +362,21 @@ void FFSDatabaseInterface::SetMinorFirstLoad(bool minorFirstLoad)
 void FFSDatabaseInterface::SetIsInEditMode(bool isInEditMode)
 {
     this->isInEditMode = isInEditMode;
+}
+
+void FFSDatabaseInterface::SetAddTryMajorTable(bool addTryMajorTable)
+{
+    this->addTryMajorTable = addTryMajorTable;
+}
+
+void FFSDatabaseInterface::SetAddTryMinorTable(bool addTryMinorTable)
+{
+    this->addTryMinorTable = addTryMinorTable;
+}
+
+void FFSDatabaseInterface::SetAddTryMinorSubtable(bool addTryMinorSubtable)
+{
+    this->addTryMinorSubtable = addTryMinorSubtable;
 }
 
 void FFSDatabaseInterface::SetPreviousCellValue(QVariant cellValue)

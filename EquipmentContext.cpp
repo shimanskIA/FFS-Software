@@ -11,6 +11,11 @@ EquipmentContext::EquipmentContext(int id) : TableContext(id)
 
 }
 
+EquipmentContext::EquipmentContext() : TableContext()
+{
+
+}
+
 EquipmentContext::~EquipmentContext()
 {
 	qDeleteAll(equipmentParameters);

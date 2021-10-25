@@ -3,11 +3,6 @@
 
 #include <QVariant>
 
-FFSDatabaseInterfaceFormController::FFSDatabaseInterfaceFormController()
-{
-
-}
-
 void FFSDatabaseInterfaceFormController::ManageFileImportRequest(QString fileName)
 {
 	FFSDatabaseInterfaceService::ImportRequestReceiver(fileName);
@@ -286,6 +281,31 @@ void FFSDatabaseInterfaceFormController::ManageRefreshMajorTableRequest(FFSDatab
     FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(view);
     view->SetIsRowSelected(false);
     view->SetIsSubRowSelected(false);
+}
+
+void FFSDatabaseInterfaceFormController::ManageRefreshViewRequest(FFSDatabaseInterface* view, bool wasAdded)
+{
+    if (view->GetAddTryMajorTable() && wasAdded)
+    {
+        view->SetAddTryMajorTable(false);
+        ManageRefreshMajorTableRequest(view);
+    }
+    else if (view->GetAddTryMinorTable() && wasAdded)
+    {
+        view->SetAddTryMinorTable(false);
+        ManageLoadDataToSubtableRequest(view);
+    }
+    else if (view->GetAddTryMinorSubtable() && wasAdded)
+    {
+        view->SetAddTryMinorSubtable(false);
+        ManageLoadDataToMinorSubtableRequest(view);
+    }
+}
+
+void FFSDatabaseInterfaceFormController::ManageShowAddViewRequest(QString tableName, FFSDatabaseInterface* view)
+{
+    tableName = tableName.replace(' ', '_');
+    FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableName, view);
 }
 
 void FFSDatabaseInterfaceFormController::DisableButtonActivity(FFSDatabaseInterface* view)

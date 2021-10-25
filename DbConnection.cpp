@@ -437,6 +437,15 @@ void DbConnection::AddBindings(QList<BindingContext*> bindings)
 	}
 }
 
+bool DbConnection::AddEquipmentItem(EquipmentContext* equipmentItem)
+{
+	int id = equipmentItem->GetId();
+	QString name = equipmentItem->GetName();
+	QString description = equipmentItem->GetDescription();
+	QString sqlWriteRequest = "INSERT INTO equipments(id, name, description) VALUES (%1, '%2', '%3')";
+	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "equipments");
+}
+
 QList<MeasuringSystemContext*> DbConnection::ReadMeasuringSystemsFromDatabase()
 {
 	QString sqlReadRequest = "SELECT * FROM measuring_systems";

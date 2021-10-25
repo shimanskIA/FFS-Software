@@ -141,6 +141,24 @@
     <ClCompile Include="FFSTableModel.cpp">
       <Filter>View\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BaseAddForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MeasuringSystemAddForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentAddForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentAddFormController.cpp">
+      <Filter>Controller\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentAddService.cpp">
+      <Filter>Model\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -149,12 +167,27 @@
     <QtUic Include="AboutForm.ui">
       <Filter>View\Form Files</Filter>
     </QtUic>
+    <QtUic Include="MeasuringSystemAddForm.ui">
+      <Filter>View\Form Files</Filter>
+    </QtUic>
+    <QtUic Include="EquipmentAddForm.ui">
+      <Filter>View\Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AboutForm.h">
       <Filter>View\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="FFSDatabaseInterface.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BaseAddForm.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MeasuringSystemAddForm.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="EquipmentAddForm.h">
       <Filter>View\Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -227,6 +260,15 @@
     </ClInclude>
     <ClInclude Include="FFSTableModel.h">
       <Filter>View\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentAddFormController.h">
+      <Filter>Controller\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentAddService.h">
+      <Filter>Model\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

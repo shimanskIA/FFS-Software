@@ -5,6 +5,7 @@
 #include <QVariant>
 
 #include "ui_FFSDatabaseInterface.h"
+#include "BaseAddForm.h"
 
 class FFSDatabaseInterface : public QMainWindow
 {
@@ -24,6 +25,9 @@ public:
     bool GetIsSubtableChanged();
     bool GetIsMinorSubtableChanged();
     bool GetIsInEditMode();
+    bool GetAddTryMajorTable();
+    bool GetAddTryMinorTable();
+    bool GetAddTryMinorSubtable();
     int GetSelectedId();
     int GetMinorSelectedId();
     QVariant GetPreviousCellValue();
@@ -40,10 +44,15 @@ public:
     void SetMinorFirstLoad(bool minorFirstLoad);
     void SetIsSubtableChanged(bool isSubtableChanged);
     void SetIsMinorSubtableChanged(bool isMinorSubtableChanged);
+    void SetAddTryMajorTable(bool addTryMajorTable);
+    void SetAddTryMinorTable(bool addTryMinorTable);
+    void SetAddTryMinorSubtable(bool addTryMinorSubtable);
     void SetSelectedId(int selectedId);
     void SetMinorSelectedId(int minorSelectedId);
     void SetIsInEditMode(bool isInEditMode);
     void SetPreviousCellValue(QVariant cellValue);
+
+    void SetUpAddView(BaseAddForm* addView);
 
     void SetTableSettings(QTableView* table);
 
@@ -72,9 +81,14 @@ private slots:
     void updateMajorTableRow();
     void updateMinorTableRow();
     void updateMinorSubtableRow();
+    void showAddRowMajorTableView();
+    void showAddRowMinorTableView();
+    void showAddRowMinorSubtableView();
+    void showWindow();
 
 private:
     Ui::FFSDatabaseInterfaceClass ui;
+    BaseAddForm* addView = nullptr;
 
     int selectedId = 0;
     int minorSelectedId = 0;
@@ -90,6 +104,9 @@ private:
     bool isSubtableChanged = false;
     bool isMinorSubtableChanged = false;
     bool isInEditMode = false;
+    bool addTryMajorTable = false;
+    bool addTryMinorTable = false;
+    bool addTryMinorSubtable = false;
 
     const QStringList endMinorNodes = {
         "measurement_parameters",

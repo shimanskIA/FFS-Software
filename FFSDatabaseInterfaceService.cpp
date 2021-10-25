@@ -3,6 +3,7 @@
 #include "TableWriter.h"
 #include "DbEditor.h"
 #include "IdFileManager.h"
+#include "WindowManager.h"
 
 void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 {
@@ -54,4 +55,10 @@ void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatab
 {
 	TableWriter* tableWriter = new TableWriter();
 	tableWriter->RouteRequest(ui, tableView, majorTableName, minorTableName, majorTableId);
+}
+
+void FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view)
+{
+	WindowManager* windowMananger = new WindowManager();
+	windowMananger->ManageWindows(tableName, view);
 }

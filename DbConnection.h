@@ -29,6 +29,8 @@ public:
 
 	void AddBindings(QList<BindingContext*> bindings);
 
+	bool AddEquipmentItem(EquipmentContext* equipmentItem);
+
 	QList<MeasuringSystemContext*> ReadMeasuringSystemsFromDatabase();
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase();
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase(QString majortableName, int fk);

@@ -11,6 +11,7 @@ class EquipmentContext : public TableContext
 {
 public:
 	EquipmentContext(QString stateFilePath);
+	EquipmentContext();
 	EquipmentContext(int id);
 	~EquipmentContext();
 	void SetId(int id) override;

@@ -1,6 +1,7 @@
 #include "DbEditor.h"
 #include "DbConnection.h"
 #include "TextFileInteractionHelper.h"
+#include "EquipmentContext.h"
 
 DbEditor::DbEditor()
 {
@@ -36,3 +37,18 @@ void DbEditor::UpdateRow(QVariant cellValue, QString tableName, QTableView* tabl
 
     DbConnection::GetDbConnectionInstance().UpdateDatabase(tableName, columnName, dbCellValue, selectedId);
 }
+
+bool DbEditor::AddRow(QVariant tableContext)
+{
+    if (tableContext.canConvert<EquipmentContext*>())
+    {
+        return DbConnection::GetDbConnectionInstance().AddEquipmentItem(tableContext.value<EquipmentContext*>());
+    }
+    else
+    {
+
+    }
+    return false;
+}
+
+Q_DECLARE_METATYPE(EquipmentContext*);
