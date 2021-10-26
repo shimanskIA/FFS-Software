@@ -455,6 +455,15 @@ bool DbConnection::AddSample(SampleContext* sample)
 	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "samples");
 }
 
+bool DbConnection::AddCharacteristicType(CharacteristicTypeContext* characteristicType)
+{
+	int id = characteristicType->GetId();
+	QString name = characteristicType->GetName();
+	QString description = characteristicType->GetDescription();
+	QString sqlWriteRequest = "INSERT INTO characteristic_types(id, name, description) VALUES (%1, '%2', '%3')";
+	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "characteristic_types");
+}
+
 QList<MeasuringSystemContext*> DbConnection::ReadMeasuringSystemsFromDatabase()
 {
 	QString sqlReadRequest = "SELECT * FROM measuring_systems";

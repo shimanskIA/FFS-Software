@@ -48,12 +48,13 @@ bool DbEditor::AddRow(QVariant tableContext)
     {
         return DbConnection::GetDbConnectionInstance().AddSample(tableContext.value<SampleContext*>());
     }
-    else
+    else if (tableContext.canConvert<CharacteristicTypeContext*>())
     {
-
+        return DbConnection::GetDbConnectionInstance().AddCharacteristicType(tableContext.value<CharacteristicTypeContext*>());
     }
     return false;
 }
 
 Q_DECLARE_METATYPE(EquipmentContext*);
 Q_DECLARE_METATYPE(SampleContext*);
+Q_DECLARE_METATYPE(CharacteristicTypeContext*);

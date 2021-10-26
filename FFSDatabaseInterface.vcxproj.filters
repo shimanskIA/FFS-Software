@@ -168,6 +168,15 @@
     <ClCompile Include="SampleAddService.cpp">
       <Filter>Model\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CharacteristicTypeAddForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacteristicTypeAddFormController.cpp">
+      <Filter>Controller\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacteristicTypeAddService.cpp">
+      <Filter>Model\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -183,6 +192,9 @@
       <Filter>View\Form Files</Filter>
     </QtUic>
     <QtUic Include="SampleAddForm.ui">
+      <Filter>View\Form Files</Filter>
+    </QtUic>
+    <QtUic Include="CharacteristicTypeAddForm.ui">
       <Filter>View\Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -203,6 +215,9 @@
       <Filter>View\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="SampleAddForm.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CharacteristicTypeAddForm.h">
       <Filter>View\Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -289,6 +304,12 @@
       <Filter>Controller\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SampleAddService.h">
+      <Filter>Model\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacteristicTypeAddFormController.h">
+      <Filter>Controller\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacteristicTypeAddService.h">
       <Filter>Model\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
