@@ -200,7 +200,7 @@ void DbConnection::AddMeasurements(QList<MeasurementContext*> measurements)
 					hasEqual = true;
 					twinId = id;
 					QList<int>::iterator itParameters = equalParametersIds.begin();
-					QList<int>::iterator itCharacteristics = equalParametersIds.begin();
+					QList<int>::iterator itCharacteristics = equalCharacteristicsIds.begin();
 
 					foreach(MeasurementParameterContext * measurementParameter, measurement->GetMeasurementParameters())
 					{
@@ -462,6 +462,32 @@ bool DbConnection::AddCharacteristicType(CharacteristicTypeContext* characterist
 	QString description = characteristicType->GetDescription();
 	QString sqlWriteRequest = "INSERT INTO characteristic_types(id, name, description) VALUES (%1, '%2', '%3')";
 	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "characteristic_types");
+}
+
+bool DbConnection::AddMeasurement(MeasurementContext* measurement)
+{
+	int id = measurement->GetId();
+	QString name = measurement->GetName();
+	QString date = measurement->GetDateTime();
+	QString file_link = measurement->GetFileLink();
+	int repeat_count = measurement->GetRepeatCount();
+	int kinetics_count = measurement->GetKineticsCount();
+	int number_of_channels = measurement->GetKineticsCount();
+	int number_positions = measurement->GetNumberPositions();
+	int fk_sample = measurement->GetFKSample();
+	int fk_measuring_system = measurement->GetFKMeasuringSystem();
+	QString sqlWriteRequest = "INSERT INTO measurements(id, name, date, file_link, repeat_count, kinetics_count, number_of_channels, number_positions, fk_sample, fk_measuring_system) VALUES (%1, '%2', '%3', '%4', %5, %6, %7, %8, %9, %10)";
+	return WriteToDatabase(sqlWriteRequest
+		.arg(id)
+		.arg(name)
+		.arg(date)
+		.arg(file_link)
+		.arg(repeat_count)
+		.arg(kinetics_count)
+		.arg(number_of_channels)
+		.arg(number_positions)
+		.arg(fk_sample)
+		.arg(fk_measuring_system), "measurements");
 }
 
 QList<MeasuringSystemContext*> DbConnection::ReadMeasuringSystemsFromDatabase()

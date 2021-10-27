@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Add measuring system</string>
   </property>
   <widget class="QTextEdit" name="textEdit">
    <property name="geometry">
@@ -21,6 +21,11 @@
      <width>211</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -49,6 +54,11 @@
      <width>211</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -95,6 +105,11 @@
      <width>211</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
    </property>
   </widget>
   <widget class="Line" name="line">

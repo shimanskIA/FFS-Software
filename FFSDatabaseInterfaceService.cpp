@@ -26,10 +26,10 @@ void FFSDatabaseInterfaceService::ShowCharacteristicsTableRequestReceiver(QTable
 	tableWriter->FillCharacteristicsTable(tableView, sqlReadRequest);
 }
 
-void FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(FFSDatabaseInterface* view)
+void FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(QString tableName, QTableView* tableView)
 {
 	TableWriter* tableWriter = new TableWriter();
-	tableWriter->RouteMajorRequest(view);
+	tableWriter->RouteMajorRequest(tableName, tableView);
 }
 
 void FFSDatabaseInterfaceService::DeleteRowRequestReceiver(QTableView* tableView, QString tableName)
@@ -57,8 +57,8 @@ void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatab
 	tableWriter->RouteRequest(ui, tableView, majorTableName, minorTableName, majorTableId);
 }
 
-void FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view)
+void FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view, int fk1, int fk2)
 {
 	WindowManager* windowMananger = new WindowManager();
-	windowMananger->ManageWindows(tableName, view);
+	windowMananger->ManageWindows(tableName, view, fk1, fk2);
 }

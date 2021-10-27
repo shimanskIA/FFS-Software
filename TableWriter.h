@@ -33,7 +33,7 @@ public:
 
 	void FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, QList<MeasurementContext*> measurements);
 
-	void RouteMajorRequest(FFSDatabaseInterface* view);
+	void RouteMajorRequest(QString tableName, QTableView* tableView);
 	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 
 private:

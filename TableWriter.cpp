@@ -330,32 +330,32 @@ void TableWriter::FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, Q
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 7))->setTextAlignment(Qt::AlignBottom);
 }
 
-void TableWriter::RouteMajorRequest(FFSDatabaseInterface* view)
+void TableWriter::RouteMajorRequest(QString tableName, QTableView* tableView)
 {
-	if (view->GetActualTable() == "measuring system")
+	if (tableName == "measuring system")
 	{
-		FillMeasuringSystemsTable(view->GetUI().majorTableView);
+		FillMeasuringSystemsTable(tableView);
 	}
-	else if (view->GetActualTable() == "sample")
+	else if (tableName == "sample")
 	{
-		FillSamplesTable(view->GetUI().majorTableView);
+		FillSamplesTable(tableView);
 	}
-	else if (view->GetActualTable() == "equipment")
+	else if (tableName == "equipment")
 	{
-		FillEquipmentsTable(view->GetUI().majorTableView);
+		FillEquipmentsTable(tableView);
 	}
-	else if (view->GetActualTable() == "measurement")
+	else if (tableName == "measurement")
 	{
-		FillMeasurementsTable(view->GetUI().majorTableView);
+		FillMeasurementsTable(tableView);
 	}
-	else if (view->GetActualTable() == "characteristic type")
+	else if (tableName == "characteristic type")
 	{
-		FillCharacteristicTypesTable(view->GetUI().majorTableView);
+		FillCharacteristicTypesTable(tableView);
 	}
-	else if (view->GetActualTable() == "characteristic")
+	else if (tableName == "characteristic")
 	{
 		QString sqlReadRequest = "SELECT * FROM characteristics";
-		FillCharacteristicsTable(view->GetUI().majorTableView, sqlReadRequest);
+		FillCharacteristicsTable(tableView, sqlReadRequest);
 	}
 }
 

@@ -229,7 +229,7 @@ void FFSDatabaseInterfaceFormController::ManageShowMajorTableRequest(QString tab
         view->GetUI().minorSubtableView->setDisabled(true);
         view->GetUI().minorTableSelector->setDisabled(true);
         view->SetActualTable(tableName);
-        FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(view);
+        FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(tableName, view->GetUI().majorTableView);
         view->SetIsRowSelected(false);
         view->SetIsSubRowSelected(false);
     }
@@ -278,7 +278,7 @@ void FFSDatabaseInterfaceFormController::ManageRefreshMajorTableRequest(FFSDatab
     view->GetUI().minorSubtableView->setDisabled(true);
     view->GetUI().minorTableSelector->setDisabled(true);
     DisableButtonActivity(view);
-    FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(view);
+    FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(view->GetActualTable(), view->GetUI().majorTableView);
     view->SetIsRowSelected(false);
     view->SetIsSubRowSelected(false);
 }
@@ -293,11 +293,13 @@ void FFSDatabaseInterfaceFormController::ManageRefreshViewRequest(FFSDatabaseInt
     else if (view->GetAddTryMinorTable() && wasAdded)
     {
         view->SetAddTryMinorTable(false);
+        view->SetIsSubtableChanged(true);
         ManageLoadDataToSubtableRequest(view);
     }
     else if (view->GetAddTryMinorSubtable() && wasAdded)
     {
         view->SetAddTryMinorSubtable(false);
+        view->SetIsMinorSubtableChanged(true);
         ManageLoadDataToMinorSubtableRequest(view);
     }
 }
@@ -306,6 +308,22 @@ void FFSDatabaseInterfaceFormController::ManageShowAddViewRequest(QString tableN
 {
     tableName = tableName.replace(' ', '_');
     FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableName, view);
+}
+
+void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewRequest(QString tableView, FFSDatabaseInterface* view)
+{
+    int selectedRow = view->GetUI().majorTableView->currentIndex().row();
+    QModelIndex indexId = view->GetUI().majorTableView->model()->index(selectedRow, 0);
+    int selectedId = view->GetUI().majorTableView->model()->data(indexId).toInt();
+
+    if (view->GetActualTable() == "sample")
+    {
+        FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableView, view, 0, selectedId);
+    }
+    else if (view->GetActualTable() == "measuring system")
+    {
+        FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableView, view, selectedId, 0);
+    }
 }
 
 void FFSDatabaseInterfaceFormController::DisableButtonActivity(FFSDatabaseInterface* view)

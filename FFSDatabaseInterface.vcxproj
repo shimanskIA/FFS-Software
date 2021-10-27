@@ -105,6 +105,9 @@
     <ClCompile Include="FFSDatabaseInterfaceService.cpp" />
     <ClCompile Include="FFSTableModel.cpp" />
     <ClCompile Include="IdFileManager.cpp" />
+    <ClCompile Include="MeasurementAddForm.cpp" />
+    <ClCompile Include="MeasurementAddFormController.cpp" />
+    <ClCompile Include="MeasurementAddService.cpp" />
     <ClCompile Include="MeasurementContext.cpp" />
     <ClCompile Include="MeasurementParameterContext.cpp" />
     <ClCompile Include="MeasuringSystemAddForm.cpp" />
@@ -128,6 +131,7 @@
     <ClCompile Include="AboutForm.cpp" />
     <ClCompile Include="FFSDatabaseInterface.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
+    <QtUic Include="MeasurementAddForm.ui" />
     <QtUic Include="MeasuringSystemAddForm.ui" />
     <QtUic Include="SampleAddForm.ui" />
   </ItemGroup>
@@ -142,6 +146,9 @@
     <ClInclude Include="EquipmentAddFormController.h" />
     <ClInclude Include="EquipmentAddService.h" />
     <QtMoc Include="SampleAddForm.h" />
+    <QtMoc Include="MeasurementAddForm.h" />
+    <ClInclude Include="MeasurementAddFormController.h" />
+    <ClInclude Include="MeasurementAddService.h" />
     <ClInclude Include="SampleAddFormController.h" />
     <ClInclude Include="SampleAddService.h" />
     <ClInclude Include="WindowManager.h" />

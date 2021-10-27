@@ -177,6 +177,15 @@
     <ClCompile Include="CharacteristicTypeAddService.cpp">
       <Filter>Model\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MeasurementAddForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MeasurementAddFormController.cpp">
+      <Filter>Controller\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="MeasurementAddService.cpp">
+      <Filter>Model\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -195,6 +204,9 @@
       <Filter>View\Form Files</Filter>
     </QtUic>
     <QtUic Include="CharacteristicTypeAddForm.ui">
+      <Filter>View\Form Files</Filter>
+    </QtUic>
+    <QtUic Include="MeasurementAddForm.ui">
       <Filter>View\Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -218,6 +230,9 @@
       <Filter>View\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="CharacteristicTypeAddForm.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MeasurementAddForm.h">
       <Filter>View\Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -310,6 +325,12 @@
       <Filter>Controller\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CharacteristicTypeAddService.h">
+      <Filter>Model\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeasurementAddFormController.h">
+      <Filter>Controller\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeasurementAddService.h">
       <Filter>Model\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

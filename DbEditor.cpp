@@ -52,9 +52,14 @@ bool DbEditor::AddRow(QVariant tableContext)
     {
         return DbConnection::GetDbConnectionInstance().AddCharacteristicType(tableContext.value<CharacteristicTypeContext*>());
     }
+    else if (tableContext.canConvert<MeasurementContext*>())
+    {
+        return DbConnection::GetDbConnectionInstance().AddMeasurement(tableContext.value<MeasurementContext*>());
+    }
     return false;
 }
 
 Q_DECLARE_METATYPE(EquipmentContext*);
 Q_DECLARE_METATYPE(SampleContext*);
 Q_DECLARE_METATYPE(CharacteristicTypeContext*);
+Q_DECLARE_METATYPE(MeasurementContext*);
