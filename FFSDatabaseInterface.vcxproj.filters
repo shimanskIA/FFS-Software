@@ -61,6 +61,15 @@
     <Filter Include="Model\Helpers\Source Files">
       <UniqueIdentifier>{c1a7b33b-2681-4009-af2c-d9091ad5620e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controller\Entities">
+      <UniqueIdentifier>{9498c5bc-4294-4f29-8e5f-ab9609987c0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller\Entities\Header Files">
+      <UniqueIdentifier>{50485352-55af-4af0-9713-1e9fb316813e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller\Entities\Source Files">
+      <UniqueIdentifier>{d1253be2-86a6-4e49-892e-88f6bf1bb793}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FFSDatabaseInterface.qrc">
@@ -186,6 +195,18 @@
     <ClCompile Include="MeasurementAddService.cpp">
       <Filter>Model\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CharacteristicAddForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDependentAddForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacteristicAddFormController.cpp">
+      <Filter>Controller\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacteristicAddService.cpp">
+      <Filter>Model\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -207,6 +228,9 @@
       <Filter>View\Form Files</Filter>
     </QtUic>
     <QtUic Include="MeasurementAddForm.ui">
+      <Filter>View\Form Files</Filter>
+    </QtUic>
+    <QtUic Include="CharacteristicAddForm.ui">
       <Filter>View\Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -233,6 +257,12 @@
       <Filter>View\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="MeasurementAddForm.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BaseDependentAddForm.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CharacteristicAddForm.h">
       <Filter>View\Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -331,6 +361,12 @@
       <Filter>Controller\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MeasurementAddService.h">
+      <Filter>Model\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacteristicAddFormController.h">
+      <Filter>Controller\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacteristicAddService.h">
       <Filter>Model\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

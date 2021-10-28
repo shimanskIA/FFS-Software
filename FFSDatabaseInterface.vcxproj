@@ -85,6 +85,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseDependentAddForm.cpp" />
+    <ClCompile Include="CharacteristicAddForm.cpp" />
+    <ClCompile Include="CharacteristicAddFormController.cpp" />
+    <ClCompile Include="CharacteristicAddService.cpp" />
     <ClCompile Include="CharacteristicTypeAddForm.cpp" />
     <ClCompile Include="CharacteristicTypeAddFormController.cpp" />
     <ClCompile Include="CharacteristicTypeAddService.cpp" />
@@ -124,6 +128,7 @@
     <ClCompile Include="WindowManager.cpp" />
     <QtRcc Include="FFSDatabaseInterface.qrc" />
     <QtUic Include="AboutForm.ui" />
+    <QtUic Include="CharacteristicAddForm.ui" />
     <QtUic Include="CharacteristicTypeAddForm.ui" />
     <QtUic Include="EquipmentAddForm.ui" />
     <QtUic Include="FFSDatabaseInterface.ui" />
@@ -141,6 +146,10 @@
   <ItemGroup>
     <QtMoc Include="EquipmentAddForm.h" />
     <QtMoc Include="CharacteristicTypeAddForm.h" />
+    <QtMoc Include="BaseDependentAddForm.h" />
+    <QtMoc Include="CharacteristicAddForm.h" />
+    <ClInclude Include="CharacteristicAddFormController.h" />
+    <ClInclude Include="CharacteristicAddService.h" />
     <ClInclude Include="CharacteristicTypeAddFormController.h" />
     <ClInclude Include="CharacteristicTypeAddService.h" />
     <ClInclude Include="EquipmentAddFormController.h" />

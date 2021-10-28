@@ -1,134 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MeasurementAddFormClass</class>
- <widget class="QWidget" name="MeasurementAddFormClass">
+ <class>CharacteristicAddFormClass</class>
+ <widget class="QWidget" name="CharacteristicAddFormClass">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>786</width>
-    <height>845</height>
+    <height>781</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add measurement</string>
+   <string>Add characteristic</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>246</x>
-     <y>82</y>
-     <width>51</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Date:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>40</y>
-     <width>51</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Name:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>255</x>
-     <y>120</y>
-     <width>31</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>File:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>182</x>
-     <y>160</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Repeat count:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>177</x>
-     <y>200</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Kinetics count:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>134</x>
-     <y>240</y>
-     <width>161</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Number of channels:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>152</x>
-     <y>280</y>
+     <x>157</x>
+     <y>80</y>
      <width>141</width>
      <height>31</height>
     </rect>
@@ -139,10 +28,103 @@
     </font>
    </property>
    <property name="text">
-    <string>Number positions:</string>
+    <string>Number of points:</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="NameInput">
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>225</x>
+     <y>40</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Channel:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>222</x>
+     <y>120</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Bin time:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>272</x>
+     <y>160</y>
+     <width>21</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>X:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>272</x>
+     <y>200</y>
+     <width>21</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Y:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>231</x>
+     <y>240</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Weight:</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="ChannelInput">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -157,7 +139,7 @@
     </font>
    </property>
   </widget>
-  <widget class="QTextEdit" name="DateInput">
+  <widget class="QTextEdit" name="NumberOfPointsInput">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -172,7 +154,7 @@
     </font>
    </property>
   </widget>
-  <widget class="QTextEdit" name="FileInput">
+  <widget class="QTextEdit" name="BinTimeInput">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -187,7 +169,7 @@
     </font>
    </property>
   </widget>
-  <widget class="QTextEdit" name="RepeatCountInput">
+  <widget class="QTextEdit" name="XInput">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -206,7 +188,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>380</y>
+     <y>330</y>
      <width>771</width>
      <height>192</height>
     </rect>
@@ -230,7 +212,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>640</y>
+     <y>590</y>
      <width>771</width>
      <height>101</height>
     </rect>
@@ -254,7 +236,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>570</y>
+     <y>520</y>
      <width>771</width>
      <height>16</height>
     </rect>
@@ -267,7 +249,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>740</y>
+     <y>690</y>
      <width>771</width>
      <height>16</height>
     </rect>
@@ -276,24 +258,24 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QPushButton" name="AddMeasurementButton">
+  <widget class="QPushButton" name="AddCharacteristicButton">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>760</y>
+     <x>320</x>
+     <y>710</y>
      <width>141</width>
      <height>51</height>
     </rect>
    </property>
    <property name="text">
-    <string>Add measurement</string>
+    <string>Add characteristic</string>
    </property>
   </widget>
   <widget class="QPushButton" name="downButton">
    <property name="geometry">
     <rect>
      <x>350</x>
-     <y>590</y>
+     <y>540</y>
      <width>31</width>
      <height>41</height>
     </rect>
@@ -306,7 +288,7 @@
    <property name="geometry">
     <rect>
      <x>390</x>
-     <y>590</y>
+     <y>540</y>
      <width>31</width>
      <height>41</height>
     </rect>
@@ -319,7 +301,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>350</y>
+     <y>300</y>
      <width>201</width>
      <height>22</height>
     </rect>
@@ -329,7 +311,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>830</y>
+     <y>770</y>
      <width>771</width>
      <height>16</height>
     </rect>
@@ -338,7 +320,7 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QTextEdit" name="KineticsCountInput">
+  <widget class="QTextEdit" name="YInput">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -353,26 +335,11 @@
     </font>
    </property>
   </widget>
-  <widget class="QTextEdit" name="NumberOfChannelsInput">
+  <widget class="QTextEdit" name="WeightInput">
    <property name="geometry">
     <rect>
      <x>300</x>
      <y>240</y>
-     <width>231</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="NumberPositionsInput">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>280</y>
      <width>231</width>
      <height>31</height>
     </rect>

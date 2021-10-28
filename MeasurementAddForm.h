@@ -4,9 +4,9 @@
 
 #include "ui_MeasurementAddForm.h"
 #include "FFSTableModel.h"
-#include "BaseAddForm.h"
+#include "BaseDependentAddForm.h"
 
-class MeasurementAddForm : public BaseAddForm
+class MeasurementAddForm : public BaseDependentAddForm
 {
     Q_OBJECT
 
@@ -29,8 +29,6 @@ public:
 
     void SetFKMeasuringSystem(int fk_measuring_system);
     void SetFKSample(int fk_sample);
-
-    void SetTableSettings(QTableView* table);
 
 private slots:
     void addMeasurement();

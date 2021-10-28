@@ -326,6 +326,22 @@ void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewRequest(QString t
     }
 }
 
+void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewSubRequest(QString tableView, FFSDatabaseInterface* view)
+{
+    int selectedRow = view->GetUI().minorTableView->currentIndex().row();
+    QModelIndex indexId = view->GetUI().minorTableView->model()->index(selectedRow, 0);
+    int selectedId = view->GetUI().minorTableView->model()->data(indexId).toInt();
+
+    if (view->GetActualTable() == "characteristic type")
+    {
+        FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableView, view, 0, selectedId);
+    }
+    else if (view->GetActualTable() == "measurement")
+    {
+        FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableView, view, selectedId, 0);
+    }
+}
+
 void FFSDatabaseInterfaceFormController::DisableButtonActivity(FFSDatabaseInterface* view)
 {
     view->GetUI().minorAddSubbutton->setDisabled(true);

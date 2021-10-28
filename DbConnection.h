@@ -33,6 +33,7 @@ public:
 	bool AddSample(SampleContext* sampleContext);
 	bool AddCharacteristicType(CharacteristicTypeContext* characteristicType);
 	bool AddMeasurement(MeasurementContext* measurement);
+	bool AddCharacteristic(CharacteristicsContext* characteristic);
 
 	QList<MeasuringSystemContext*> ReadMeasuringSystemsFromDatabase();
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase();

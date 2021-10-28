@@ -183,7 +183,8 @@ void FFSDatabaseInterface::showAddRowMinorTableView()
 
 void FFSDatabaseInterface::showAddRowMinorSubtableView()
 {
-
+    addTryMinorSubtable = true;
+    FFSDatabaseInterfaceFormController::ManageShowMinorAddViewRequest(actualMinorSubtable, this);
 }
 
 void FFSDatabaseInterface::showWindow()

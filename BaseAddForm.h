@@ -1,8 +1,7 @@
 #pragma once
 
-#pragma once
-
 #include <QtWidgets/QWidget>
+#include <QTableView>
 
 class BaseAddForm : public QWidget
 {

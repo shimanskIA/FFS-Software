@@ -398,25 +398,7 @@ void DbConnection::AddCharacteristics(QList<CharacteristicsContext*> characteris
 {
 	foreach(CharacteristicsContext* characteristic, characteristics)
 	{
-		QString sqlWriteRequest = "INSERT INTO characteristics(id, channel, number_of_points, bin_time, x, y, weight, fk_measurement, fk_characteristic_type) VALUES (%1, '%2', %3, %4, '%5', '%6', %7, %8, %9)";
-		int id = characteristic->GetId();
-		QString channel = characteristic->GetChannel();
-		int number_of_points = characteristic->GetNumberOfPoints();
-		double bin_time = characteristic->GetBinTime();
-		QString x = characteristic->GetX();
-		QString y = characteristic->GetY();
-		double weight = characteristic->GetWeight();
-		int fk_measurement = characteristic->GetFKMeasurement();
-		int fk_characteristic_type = characteristic->GetFKCharacteristicType();
-		WriteToDatabase(sqlWriteRequest
-			.arg(id).arg(channel)
-			.arg(number_of_points)
-			.arg(bin_time)
-			.arg(x)
-			.arg(y)
-			.arg(weight)
-			.arg(fk_measurement)
-			.arg(fk_characteristic_type), "characteristics");
+		AddCharacteristic(characteristic);
 	}
 }
 
@@ -462,6 +444,29 @@ bool DbConnection::AddCharacteristicType(CharacteristicTypeContext* characterist
 	QString description = characteristicType->GetDescription();
 	QString sqlWriteRequest = "INSERT INTO characteristic_types(id, name, description) VALUES (%1, '%2', '%3')";
 	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "characteristic_types");
+}
+
+bool DbConnection::AddCharacteristic(CharacteristicsContext* characteristic)
+{
+	QString sqlWriteRequest = "INSERT INTO characteristics(id, channel, number_of_points, bin_time, x, y, weight, fk_measurement, fk_characteristic_type) VALUES (%1, '%2', %3, %4, '%5', '%6', %7, %8, %9)";
+	int id = characteristic->GetId();
+	QString channel = characteristic->GetChannel();
+	int number_of_points = characteristic->GetNumberOfPoints();
+	double bin_time = characteristic->GetBinTime();
+	QString x = characteristic->GetX();
+	QString y = characteristic->GetY();
+	double weight = characteristic->GetWeight();
+	int fk_measurement = characteristic->GetFKMeasurement();
+	int fk_characteristic_type = characteristic->GetFKCharacteristicType();
+	return WriteToDatabase(sqlWriteRequest
+		.arg(id).arg(channel)
+		.arg(number_of_points)
+		.arg(bin_time)
+		.arg(x)
+		.arg(y)
+		.arg(weight)
+		.arg(fk_measurement)
+		.arg(fk_characteristic_type), "characteristics");
 }
 
 bool DbConnection::AddMeasurement(MeasurementContext* measurement)

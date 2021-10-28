@@ -28,6 +28,7 @@ public:
     static void ResetTableModel(FFSTableModel* tableModel);
     static void ManageShowAddViewRequest(QString tableName, FFSDatabaseInterface* view);
     static void ManageShowMinorAddViewRequest(QString tableName, FFSDatabaseInterface* view);
+    static void ManageShowMinorAddViewSubRequest(QString tableName, FFSDatabaseInterface* view);
 
 private:
     static void DisableButtonActivity(FFSDatabaseInterface* view);
