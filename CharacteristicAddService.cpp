@@ -1,13 +1,8 @@
 #include "CharacteristicAddService.h"
-#include "TableWriter.h"
 #include "DbEditor.h"
 #include "NamesHelper.h"
+#include "CharacteristicsContext.h"
 
-void CharacteristicAddService::ShowAllElementsTableRequestReceiver(QString tableName, QTableView* tableView)
-{
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->RouteMajorRequest(tableName, tableView);
-}
 
 void CharacteristicAddService::AddCharacteristicRequestReceiver(CharacteristicAddForm* view)
 {

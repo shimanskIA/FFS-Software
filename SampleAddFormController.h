@@ -5,9 +5,8 @@
 
 #include <QString>
 
-class SampleAddFormController
+static class SampleAddFormController
 {
-
 public:
 	static void ManageAddSampleRequest(SampleAddForm* view);
 };

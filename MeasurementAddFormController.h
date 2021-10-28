@@ -2,12 +2,12 @@
 
 #include "ui_MeasurementAddForm.h"
 #include "MeasurementAddForm.h"
+#include "TableFillRequestController.h"
 
 #include <QString>
 
-class MeasurementAddFormController
+static class MeasurementAddFormController : TableFillRequestController
 {
-
 public:
 	static void ManageAddMeasurementRequest(MeasurementAddForm* view);
 	static void ManageShowAllElementsTableRequest(QString tableName, QTableView* tableView, MeasurementAddForm* view, bool load = false);

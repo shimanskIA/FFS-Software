@@ -123,6 +123,7 @@
     <ClCompile Include="SampleAddService.cpp" />
     <ClCompile Include="SampleContext.cpp" />
     <ClCompile Include="TableContext.cpp" />
+    <ClCompile Include="TableFillRequestController.cpp" />
     <ClCompile Include="TableWriter.cpp" />
     <ClCompile Include="TextFileInteractionHelper.cpp" />
     <ClCompile Include="WindowManager.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="MeasurementAddService.h" />
     <ClInclude Include="SampleAddFormController.h" />
     <ClInclude Include="SampleAddService.h" />
+    <ClInclude Include="TableFillRequestController.h" />
     <ClInclude Include="WindowManager.h" />
     <QtMoc Include="BaseAddForm.h" />
     <ClInclude Include="CharacteristicsContext.h" />

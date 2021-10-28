@@ -1,5 +1,6 @@
 #include "CharacteristicAddFormController.h"
 #include "CharacteristicAddService.h"
+#include "TableWriter.h"
 
 void CharacteristicAddFormController::ManageAddCharacteristicRequest(CharacteristicAddForm* view)
 {
@@ -23,7 +24,7 @@ void CharacteristicAddFormController::ManageShowAllElementsTableRequest(QString 
 
 	if (firstLoad)
 	{
-		CharacteristicAddService::ShowAllElementsTableRequestReceiver(tableName, tableView);
+		ManageFillIndependentTableRequest(tableName, tableView);
 	}
 }
 

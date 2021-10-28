@@ -5,9 +5,8 @@
 
 #include <QString>
 
-class CharacteristicTypeAddFormController
+static class CharacteristicTypeAddFormController
 {
-
 public:
 	static void ManageAddCharacteristicTypeRequest(CharacteristicTypeAddForm* view);
 };

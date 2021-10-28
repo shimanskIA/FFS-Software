@@ -1,13 +1,7 @@
 #include "MeasurementAddService.h"
-#include "TableWriter.h"
 #include "DbEditor.h"
 #include "NamesHelper.h"
-
-void MeasurementAddService::ShowAllElementsTableRequestReceiver(QString tableName, QTableView* tableView)
-{
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->RouteMajorRequest(tableName, tableView);
-}
+#include "MeasurementContext.h"
 
 void MeasurementAddService::AddMeasurementRequestReceiver(MeasurementAddForm* view)
 {

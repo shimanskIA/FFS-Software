@@ -1,5 +1,6 @@
 #include "MeasurementAddFormController.h"
 #include "MeasurementAddService.h"
+#include "TableWriter.h"
 
 void MeasurementAddFormController::ManageAddMeasurementRequest(MeasurementAddForm* view)
 {
@@ -23,7 +24,7 @@ void MeasurementAddFormController::ManageShowAllElementsTableRequest(QString tab
 
 	if (firstLoad)
 	{
-		MeasurementAddService::ShowAllElementsTableRequestReceiver(tableName, tableView);
+		ManageFillIndependentTableRequest(tableName, tableView);
 	}
 }
 

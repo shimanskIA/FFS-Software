@@ -5,9 +5,8 @@
 
 #include <QString>
 
-class EquipmentAddFormController
+static class EquipmentAddFormController
 {
-
 public:
 	static void ManageAddEquipmentRequest(EquipmentAddForm* view);
 };

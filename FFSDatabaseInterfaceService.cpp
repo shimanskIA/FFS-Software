@@ -1,9 +1,7 @@
 #include "FFSDatabaseInterfaceService.h"
 #include "DbImporter.h"
-#include "TableWriter.h"
 #include "DbEditor.h"
 #include "IdFileManager.h"
-#include "WindowManager.h"
 
 void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 {
@@ -11,25 +9,6 @@ void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 	RawDataParser* rawDataParser = new RawDataParser(fileLink);
 	DbImporter *dbImporter = new DbImporter(dbContext, rawDataParser);
 	dbImporter->ImportToDatabase();
-}
-
-void FFSDatabaseInterfaceService::ShowMeasuringSystemTableRequestReceiver(QTableView* tableView)
-{
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillMeasuringSystemsTable(tableView);
-}
-
-void FFSDatabaseInterfaceService::ShowCharacteristicsTableRequestReceiver(QTableView* tableView)
-{
-	TableWriter* tableWriter = new TableWriter();
-	QString sqlReadRequest = "SELECT * FROM characteristics";
-	tableWriter->FillCharacteristicsTable(tableView, sqlReadRequest);
-}
-
-void FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(QString tableName, QTableView* tableView)
-{
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->RouteMajorRequest(tableName, tableView);
 }
 
 void FFSDatabaseInterfaceService::DeleteRowRequestReceiver(QTableView* tableView, QString tableName)
@@ -49,16 +28,4 @@ void FFSDatabaseInterfaceService::RemoveUnusedIdsRequestReceiver()
 	IdFileManager* idFileManager = new IdFileManager();
 	idFileManager->RemoveUnusedIds();
 	idFileManager->AddIdsInUse();
-}
-
-void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
-{
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->RouteRequest(ui, tableView, majorTableName, minorTableName, majorTableId);
-}
-
-void FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys)
-{
-	WindowManager* windowMananger = new WindowManager();
-	windowMananger->ManageWindows(tableName, view, foreignKeys);
 }

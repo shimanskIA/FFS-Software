@@ -135,9 +135,6 @@
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EntryPoint.cpp" />
-    <ClCompile Include="TableWriter.cpp">
-      <Filter>Model\Entities\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MeasuringSystemContext.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
@@ -152,9 +149,6 @@
     </ClCompile>
     <ClCompile Include="BaseAddForm.cpp">
       <Filter>View\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowManager.cpp">
-      <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MeasuringSystemAddForm.cpp">
       <Filter>View\Source Files</Filter>
@@ -206,6 +200,15 @@
     </ClCompile>
     <ClCompile Include="CharacteristicAddService.cpp">
       <Filter>Model\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TableWriter.cpp">
+      <Filter>Controller\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Controller\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TableFillRequestController.cpp">
+      <Filter>Controller\Source FIles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -318,9 +321,6 @@
     <ClInclude Include="ParameterTableContext.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TableWriter.h">
-      <Filter>Model\Entities\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MeasuringSystemContext.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
@@ -335,9 +335,6 @@
     </ClInclude>
     <ClInclude Include="FFSTableModel.h">
       <Filter>View\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowManager.h">
-      <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EquipmentAddFormController.h">
       <Filter>Controller\Header Files</Filter>
@@ -368,6 +365,15 @@
     </ClInclude>
     <ClInclude Include="CharacteristicAddService.h">
       <Filter>Model\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TableWriter.h">
+      <Filter>Controller\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Controller\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TableFillRequestController.h">
+      <Filter>Controller\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

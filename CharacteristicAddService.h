@@ -8,6 +8,5 @@
 class CharacteristicAddService
 {
 public:
-	static void ShowAllElementsTableRequestReceiver(QString tableName, QTableView* tableView);
 	static void AddCharacteristicRequestReceiver(CharacteristicAddForm* view);
 };

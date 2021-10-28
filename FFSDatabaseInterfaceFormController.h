@@ -3,12 +3,12 @@
 #include "ui_FFSDatabaseInterface.h"
 #include "FFSDatabaseInterface.h"
 #include "FFSTableModel.h"
+#include "TableFillRequestController.h"
 
 #include <QString>
 
-class FFSDatabaseInterfaceFormController
+static class FFSDatabaseInterfaceFormController : TableFillRequestController
 {
-
 public:
     static void ManageFileImportRequest(QString fileName);
     static void ManageShowMeasuringSystemTableRequest(FFSDatabaseInterface* view, bool isFirstLoad = false);
@@ -29,6 +29,11 @@ public:
     static void ManageShowAddViewRequest(QString tableName, FFSDatabaseInterface* view);
     static void ManageShowMinorAddViewRequest(QString tableName, FFSDatabaseInterface* view);
     static void ManageShowMinorAddViewSubRequest(QString tableName, FFSDatabaseInterface* view);
+
+    static void ShowMeasuringSystemTableRequestReceiver(QTableView* tableView);
+    static void ShowCharacteristicsTableRequestReceiver(QTableView* tableView);
+    static void ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys = QMap<QString, int>());
+    static void LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 
 private:
     static void DisableButtonActivity(FFSDatabaseInterface* view);

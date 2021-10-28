@@ -1,5 +1,7 @@
 #include "FFSDatabaseInterfaceFormController.h"
 #include "FFSDatabaseInterfaceService.h"
+#include "TableWriter.h"
+#include "WindowManager.h"
 
 #include <QVariant>
 
@@ -12,7 +14,7 @@ void FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(F
 {
     if (isFirstLoad)
     {
-        FFSDatabaseInterfaceService::ShowMeasuringSystemTableRequestReceiver(view->GetUI().majorTableView);
+        ShowMeasuringSystemTableRequestReceiver(view->GetUI().majorTableView);
         view->GetUI().tableSelector->addItem("Measurements");
         view->GetUI().tableSelector->addItem("Equipments");
         view->GetUI().tableName->setText((view->GetActualTable() + "s:").toUpper());
@@ -41,7 +43,7 @@ void FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(F
             view->GetUI().tableSelector->addItem("Measurements");
             view->GetUI().tableSelector->addItem("Equipments");
             view->SetActualTable(tableName);
-            FFSDatabaseInterfaceService::ShowMeasuringSystemTableRequestReceiver(view->GetUI().majorTableView);
+            ShowMeasuringSystemTableRequestReceiver(view->GetUI().majorTableView);
             view->SetIsRowSelected(false);
             view->SetIsSubRowSelected(false);
         }
@@ -68,7 +70,7 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicsTableRequest(F
         view->GetUI().minorTableView->setDisabled(true);
         DisableButtonActivity(view);
         view->SetActualTable(tableName);
-        FFSDatabaseInterfaceService::ShowCharacteristicsTableRequestReceiver(view->GetUI().majorTableView);
+        ShowCharacteristicsTableRequestReceiver(view->GetUI().majorTableView);
         view->SetIsRowSelected(false);
         view->SetIsSubRowSelected(false);
     }
@@ -97,7 +99,7 @@ void FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(FFSData
             view->SetMinorSelectedId(0);
             view->SetIsSubtableChanged(false);
             QString transformedTable = view->GetActualTable();
-            FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(view->GetUI(), view->GetUI().minorTableView, transformedTable.replace(' ', '_'), view->GetActualSubtable(), selectedId);
+            LoadDataToSubtableRequestReceiver(view->GetUI(), view->GetUI().minorTableView, transformedTable.replace(' ', '_'), view->GetActualSubtable(), selectedId);
             view->SetActualMinorSubtable(view->GetUI().minorTableSelector->currentText().replace(' ', '_').toLower());
             view->SetIsRowSelected(true);
             view->SetIsSubRowSelected(false);
@@ -137,7 +139,7 @@ void FFSDatabaseInterfaceFormController::ManageLoadDataToMinorSubtableRequest(FF
             view->SetIsMinorSubtableChanged(false);
             QString transformedTable = view->GetActualSubtable();
             transformedTable.chop(1);
-            FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(view->GetUI(), view->GetUI().minorSubtableView, transformedTable.replace(' ', '_'), view->GetActualMinorSubtable(), selectedId);
+            LoadDataToSubtableRequestReceiver(view->GetUI(), view->GetUI().minorSubtableView, transformedTable.replace(' ', '_'), view->GetActualMinorSubtable(), selectedId);
             view->SetIsSubRowSelected(true);
 
             if (view->GetMinorFirstLoad())
@@ -229,7 +231,7 @@ void FFSDatabaseInterfaceFormController::ManageShowMajorTableRequest(QString tab
         view->GetUI().minorSubtableView->setDisabled(true);
         view->GetUI().minorTableSelector->setDisabled(true);
         view->SetActualTable(tableName);
-        FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(tableName, view->GetUI().majorTableView);
+        ManageFillIndependentTableRequest(tableName, view->GetUI().majorTableView);
         view->SetIsRowSelected(false);
         view->SetIsSubRowSelected(false);
     }
@@ -278,7 +280,7 @@ void FFSDatabaseInterfaceFormController::ManageRefreshMajorTableRequest(FFSDatab
     view->GetUI().minorSubtableView->setDisabled(true);
     view->GetUI().minorTableSelector->setDisabled(true);
     DisableButtonActivity(view);
-    FFSDatabaseInterfaceService::ShowMajorTableRequestReceiver(view->GetActualTable(), view->GetUI().majorTableView);
+    ManageFillIndependentTableRequest(view->GetActualTable(), view->GetUI().majorTableView);
     view->SetIsRowSelected(false);
     view->SetIsSubRowSelected(false);
 }
@@ -307,7 +309,7 @@ void FFSDatabaseInterfaceFormController::ManageRefreshViewRequest(FFSDatabaseInt
 void FFSDatabaseInterfaceFormController::ManageShowAddViewRequest(QString tableName, FFSDatabaseInterface* view)
 {
     tableName = tableName.replace(' ', '_');
-    FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableName, view);
+    ShowAddViewRequestReceiver(tableName, view);
 }
 
 void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewRequest(QString tableName, FFSDatabaseInterface* view)
@@ -318,7 +320,7 @@ void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewRequest(QString t
 
     QString majorTableName = view->GetActualTable();
     view->GetForeignKeys()[majorTableName] = selectedId;
-    FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableName, view, view->GetForeignKeys());
+    ShowAddViewRequestReceiver(tableName, view, view->GetForeignKeys());
     view->GetForeignKeys()[view->GetActualTable()] = 0;
 }
 
@@ -331,7 +333,7 @@ void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewSubRequest(QStrin
     QString majorTableName = view->GetActualSubtable();
     majorTableName.chop(1);
     view->GetForeignKeys()[majorTableName] = selectedId;
-    FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableName, view, view->GetForeignKeys());
+    ShowAddViewRequestReceiver(tableName, view, view->GetForeignKeys());
     view->GetForeignKeys()[view->GetActualSubtable()] = 0;
 }
 
@@ -351,4 +353,29 @@ void FFSDatabaseInterfaceFormController::ResetTableModel(FFSTableModel* tableMod
 {
     tableModel->setRowCount(0);
     tableModel->setColumnCount(0);
+}
+
+void FFSDatabaseInterfaceFormController::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
+{
+    TableWriter* tableWriter = new TableWriter();
+    tableWriter->RouteRequest(ui, tableView, majorTableName, minorTableName, majorTableId);
+}
+
+void FFSDatabaseInterfaceFormController::ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys)
+{
+    WindowManager* windowMananger = new WindowManager();
+    windowMananger->ManageWindows(tableName, view, foreignKeys);
+}
+
+void FFSDatabaseInterfaceFormController::ShowMeasuringSystemTableRequestReceiver(QTableView* tableView)
+{
+    TableWriter* tableWriter = new TableWriter();
+    tableWriter->FillMeasuringSystemsTable(tableView);
+}
+
+void FFSDatabaseInterfaceFormController::ShowCharacteristicsTableRequestReceiver(QTableView* tableView)
+{
+    TableWriter* tableWriter = new TableWriter();
+    QString sqlReadRequest = "SELECT * FROM characteristics";
+    tableWriter->FillCharacteristicsTable(tableView, sqlReadRequest);
 }

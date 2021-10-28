@@ -2,12 +2,12 @@
 
 #include "ui_CharacteristicAddForm.h"
 #include "CharacteristicAddForm.h"
+#include "TableFillRequestController.h"
 
 #include <QString>
 
-class CharacteristicAddFormController
+static class CharacteristicAddFormController : TableFillRequestController
 {
-
 public:
 	static void ManageAddCharacteristicRequest(CharacteristicAddForm* view);
 	static void ManageShowAllElementsTableRequest(QString tableName, QTableView* tableView, CharacteristicAddForm* view, bool load = false);

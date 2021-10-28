@@ -8,6 +8,5 @@
 class MeasurementAddService
 {
 public:
-	static void ShowAllElementsTableRequestReceiver(QString tableName, QTableView* tableView);
 	static void AddMeasurementRequestReceiver(MeasurementAddForm* view);
 };
