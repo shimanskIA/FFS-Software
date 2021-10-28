@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtSql>
 #include <QVariant>
+#include <QMap>
 
 #include "ui_FFSDatabaseInterface.h"
 #include "BaseAddForm.h"
@@ -31,6 +32,7 @@ public:
     int GetSelectedId();
     int GetMinorSelectedId();
     QVariant GetPreviousCellValue();
+    QMap<QString, int> &GetForeignKeys();
 
     QStringList GetEndMajorNodes();
     QStringList GetEndMinorNodes();
@@ -96,6 +98,8 @@ private:
     QString actualSubtable = "measurements";
     QString actualMinorSubtable = "";
     QVariant previousCellValue;
+
+    QMap<QString, int> foreignKeys;
 
     bool firstLoad = true;
     bool minorFirstLoad = true;

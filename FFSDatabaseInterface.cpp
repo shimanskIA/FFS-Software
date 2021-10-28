@@ -19,6 +19,11 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     ui.majorTableView->setModel(majorTableModel);
     ui.minorTableView->setModel(minorTableModel);
     ui.minorSubtableView->setModel(minorSubtableModel);
+    foreignKeys.insert("measuring system", 0);
+    foreignKeys.insert("equipment", 0);
+    foreignKeys.insert("sample", 0);
+    foreignKeys.insert("characteristic type", 0);
+    foreignKeys.insert("measurement", 0);
     connect(ui.actionInfo, SIGNAL(triggered()), this, SLOT(infoButtonClick()));
     connect(ui.actionMeasuringSystem, SIGNAL(triggered()), this, SLOT(chooseMeasuringSystemTable()));
     connect(ui.actionSample, SIGNAL(triggered()), this, SLOT(chooseSampleTable()));
@@ -184,7 +189,7 @@ void FFSDatabaseInterface::showAddRowMinorTableView()
 void FFSDatabaseInterface::showAddRowMinorSubtableView()
 {
     addTryMinorSubtable = true;
-    FFSDatabaseInterfaceFormController::ManageShowMinorAddViewRequest(actualMinorSubtable, this);
+    FFSDatabaseInterfaceFormController::ManageShowMinorAddViewSubRequest(actualMinorSubtable, this);
 }
 
 void FFSDatabaseInterface::showWindow()
@@ -304,6 +309,11 @@ int FFSDatabaseInterface::GetMinorSelectedId()
 QVariant FFSDatabaseInterface::GetPreviousCellValue()
 {
     return this->previousCellValue;
+}
+
+QMap<QString, int>& FFSDatabaseInterface::GetForeignKeys()
+{
+    return this->foreignKeys;
 }
 
 QStringList FFSDatabaseInterface::GetEndMajorNodes()

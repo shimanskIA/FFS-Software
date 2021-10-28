@@ -11,7 +11,7 @@ WindowManager::WindowManager()
 
 }
 
-void WindowManager::ManageWindows(QString tableName, FFSDatabaseInterface* view, int fk1, int fk2)
+void WindowManager::ManageWindows(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys)
 {
 	if (tableName == "measuring_systems")
 	{
@@ -44,14 +44,14 @@ void WindowManager::ManageWindows(QString tableName, FFSDatabaseInterface* view,
 	else if (tableName == "measurements")
 	{
 		view->hide();
-		MeasurementAddForm* addForm = new MeasurementAddForm(Q_NULLPTR, fk1, fk2);
+		MeasurementAddForm* addForm = new MeasurementAddForm(Q_NULLPTR, foreignKeys["measuring system"], foreignKeys["sample"]);
 		addForm->show();
 		view->SetUpAddView(addForm);
 	}
 	else if (tableName == "characteristics")
 	{
 		view->hide();
-		CharacteristicAddForm* addForm = new CharacteristicAddForm(Q_NULLPTR, fk1, fk2);
+		CharacteristicAddForm* addForm = new CharacteristicAddForm(Q_NULLPTR, foreignKeys["measurement"], foreignKeys["characteristic type"]);
 		addForm->show();
 		view->SetUpAddView(addForm);
 	}

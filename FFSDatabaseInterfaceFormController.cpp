@@ -310,36 +310,29 @@ void FFSDatabaseInterfaceFormController::ManageShowAddViewRequest(QString tableN
     FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableName, view);
 }
 
-void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewRequest(QString tableView, FFSDatabaseInterface* view)
+void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewRequest(QString tableName, FFSDatabaseInterface* view)
 {
     int selectedRow = view->GetUI().majorTableView->currentIndex().row();
     QModelIndex indexId = view->GetUI().majorTableView->model()->index(selectedRow, 0);
     int selectedId = view->GetUI().majorTableView->model()->data(indexId).toInt();
 
-    if (view->GetActualTable() == "sample")
-    {
-        FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableView, view, 0, selectedId);
-    }
-    else if (view->GetActualTable() == "measuring system")
-    {
-        FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableView, view, selectedId, 0);
-    }
+    QString majorTableName = view->GetActualTable();
+    view->GetForeignKeys()[majorTableName] = selectedId;
+    FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableName, view, view->GetForeignKeys());
+    view->GetForeignKeys()[view->GetActualTable()] = 0;
 }
 
-void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewSubRequest(QString tableView, FFSDatabaseInterface* view)
+void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewSubRequest(QString tableName, FFSDatabaseInterface* view)
 {
     int selectedRow = view->GetUI().minorTableView->currentIndex().row();
     QModelIndex indexId = view->GetUI().minorTableView->model()->index(selectedRow, 0);
     int selectedId = view->GetUI().minorTableView->model()->data(indexId).toInt();
 
-    if (view->GetActualTable() == "characteristic type")
-    {
-        FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableView, view, 0, selectedId);
-    }
-    else if (view->GetActualTable() == "measurement")
-    {
-        FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableView, view, selectedId, 0);
-    }
+    QString majorTableName = view->GetActualSubtable();
+    majorTableName.chop(1);
+    view->GetForeignKeys()[majorTableName] = selectedId;
+    FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(tableName, view, view->GetForeignKeys());
+    view->GetForeignKeys()[view->GetActualSubtable()] = 0;
 }
 
 void FFSDatabaseInterfaceFormController::DisableButtonActivity(FFSDatabaseInterface* view)

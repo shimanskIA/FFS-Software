@@ -57,8 +57,8 @@ void FFSDatabaseInterfaceService::LoadDataToSubtableRequestReceiver(Ui::FFSDatab
 	tableWriter->RouteRequest(ui, tableView, majorTableName, minorTableName, majorTableId);
 }
 
-void FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view, int fk1, int fk2)
+void FFSDatabaseInterfaceService::ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys)
 {
 	WindowManager* windowMananger = new WindowManager();
-	windowMananger->ManageWindows(tableName, view, fk1, fk2);
+	windowMananger->ManageWindows(tableName, view, foreignKeys);
 }
