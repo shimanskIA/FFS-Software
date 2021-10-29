@@ -16,6 +16,7 @@ void SampleAddService::AddSampleRequestReceiver(SampleAddForm* view)
 	DbEditor* dbEditor = new DbEditor();
 	bool isRowAdded = dbEditor->AddRow(tableContext);
 	view->SetIsRowAdded(isRowAdded);
+
 	if (isRowAdded)
 	{
 		sample->IncrementId();

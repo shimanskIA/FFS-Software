@@ -372,12 +372,7 @@ void DbConnection::AddMeasurementParameters(QList<MeasurementParameterContext*> 
 {
 	foreach(MeasurementParameterContext * measurementParameter, measurementParameters)
 	{
-		QString sqlWriteRequest = "INSERT INTO measurement_parameters(id, name, value, fk_measurement) VALUES (%1, '%2', '%3', %4)";
-		int id = measurementParameter->GetId();
-		QString name = measurementParameter->GetName();
-		QString value = measurementParameter->GetValue();
-		int fk_measurement = measurementParameter->GetFKMeasurement();
-		WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(value).arg(fk_measurement), "measurement_parameters");
+		AddMeasurementParameter(measurementParameter);
 	}
 }
 
@@ -385,12 +380,7 @@ void DbConnection::AddEquipmentParameters(QList<EquipmentParameterContext*> equi
 {
 	foreach(EquipmentParameterContext * equipmentParameter, equipmentParameters)
 	{
-		QString sqlWriteRequest = "INSERT INTO equipment_parameters(id, name, value, fk_equipment) VALUES (%1, '%2', '%3', %4)";
-		int id = equipmentParameter->GetId();
-		QString name = equipmentParameter->GetName();
-		QString value = equipmentParameter->GetValue();
-		int fk_equipment = equipmentParameter->GetFKEquipment();
-		WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(value).arg(fk_equipment), "equipment_parameters");
+		AddEquipmentParameter(equipmentParameter);
 	}
 }
 
@@ -493,6 +483,46 @@ bool DbConnection::AddMeasurement(MeasurementContext* measurement)
 		.arg(number_positions)
 		.arg(fk_sample)
 		.arg(fk_measuring_system), "measurements");
+}
+
+bool DbConnection::AddEquipmentParameter(EquipmentParameterContext* equipmentParameter)
+{
+	QString sqlReadRequest = "SELECT * FROM equipment_parameters WHERE name = '%1' AND value = '%2' AND fk_equipment = %3";
+	int id = equipmentParameter->GetId();
+	QString name = equipmentParameter->GetName();
+	QString value = equipmentParameter->GetValue();
+	int fk_equipment = equipmentParameter->GetFKEquipment();
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(name).arg(value).arg(fk_equipment));
+
+	if (!query.next())
+	{
+		QString sqlWriteRequest = "INSERT INTO equipment_parameters(id, name, value, fk_equipment) VALUES (%1, '%2', '%3', %4)";
+		return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(value).arg(fk_equipment), "equipment_parameters");
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool DbConnection::AddMeasurementParameter(MeasurementParameterContext* measurementParameter)
+{
+	QString sqlReadRequest = "SELECT * FROM measurement_parameters WHERE name = '%1' AND value = '%2' AND fk_measurement = %3";
+	int id = measurementParameter->GetId();
+	QString name = measurementParameter->GetName();
+	QString value = measurementParameter->GetValue();
+	int fk_measurement = measurementParameter->GetFKMeasurement();
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(name).arg(value).arg(fk_measurement));
+
+	if (!query.next())
+	{
+		QString sqlWriteRequest = "INSERT INTO measurement_parameters(id, name, value, fk_measurement) VALUES (%1, '%2', '%3', %4)";
+		return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(value).arg(fk_measurement), "measurement_parameters");
+	}
+	else
+	{
+		return false;
+	}
 }
 
 QList<MeasuringSystemContext*> DbConnection::ReadMeasuringSystemsFromDatabase()

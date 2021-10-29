@@ -116,6 +116,9 @@
     <ClCompile Include="MeasurementParameterContext.cpp" />
     <ClCompile Include="MeasuringSystemAddForm.cpp" />
     <ClCompile Include="MeasuringSystemContext.cpp" />
+    <ClCompile Include="ParameterAddFormController.cpp" />
+    <ClCompile Include="ParameterAddForm.cpp" />
+    <ClCompile Include="ParameterAddService.cpp" />
     <ClCompile Include="ParameterTableContext.cpp" />
     <ClCompile Include="RawDataParser.cpp" />
     <ClCompile Include="SampleAddForm.cpp" />
@@ -139,6 +142,7 @@
     <ClCompile Include="EntryPoint.cpp" />
     <QtUic Include="MeasurementAddForm.ui" />
     <QtUic Include="MeasuringSystemAddForm.ui" />
+    <QtUic Include="ParameterAddForm.ui" />
     <QtUic Include="SampleAddForm.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +163,9 @@
     <QtMoc Include="MeasurementAddForm.h" />
     <ClInclude Include="MeasurementAddFormController.h" />
     <ClInclude Include="MeasurementAddService.h" />
+    <QtMoc Include="ParameterAddForm.h" />
+    <ClInclude Include="ParameterAddFormController.h" />
+    <ClInclude Include="ParameterAddService.h" />
     <ClInclude Include="SampleAddFormController.h" />
     <ClInclude Include="SampleAddService.h" />
     <ClInclude Include="TableFillRequestController.h" />

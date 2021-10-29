@@ -210,6 +210,15 @@
     <ClCompile Include="TableFillRequestController.cpp">
       <Filter>Controller\Source FIles</Filter>
     </ClCompile>
+    <ClCompile Include="ParameterAddForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParameterAddFormController.cpp">
+      <Filter>Controller\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="ParameterAddService.cpp">
+      <Filter>Model\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -234,6 +243,9 @@
       <Filter>View\Form Files</Filter>
     </QtUic>
     <QtUic Include="CharacteristicAddForm.ui">
+      <Filter>View\Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ParameterAddForm.ui">
       <Filter>View\Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -266,6 +278,9 @@
       <Filter>View\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="CharacteristicAddForm.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ParameterAddForm.h">
       <Filter>View\Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -374,6 +389,12 @@
     </ClInclude>
     <ClInclude Include="TableFillRequestController.h">
       <Filter>Controller\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterAddFormController.h">
+      <Filter>Controller\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterAddService.h">
+      <Filter>Model\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

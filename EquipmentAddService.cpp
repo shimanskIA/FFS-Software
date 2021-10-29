@@ -16,6 +16,7 @@ void EquipmentAddService::AddEquipmentRequestReceiver(EquipmentAddForm* view)
 	DbEditor* dbEditor = new DbEditor();
 	bool isRowAdded = dbEditor->AddRow(tableContext);
 	view->SetIsRowAdded(isRowAdded);
+
 	if (isRowAdded)
 	{
 		equipmentItem->IncrementId();

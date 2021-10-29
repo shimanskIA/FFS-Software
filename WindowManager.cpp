@@ -5,6 +5,7 @@
 #include "CharacteristicTypeAddForm.h"
 #include "MeasurementAddForm.h"
 #include "CharacteristicAddForm.h"
+#include "ParameterAddForm.h"
 
 WindowManager::WindowManager()
 {
@@ -52,6 +53,20 @@ void WindowManager::ManageWindows(QString tableName, FFSDatabaseInterface* view,
 	{
 		view->hide();
 		CharacteristicAddForm* addForm = new CharacteristicAddForm(Q_NULLPTR, foreignKeys["measurement"], foreignKeys["characteristic type"]);
+		addForm->show();
+		view->SetUpAddView(addForm);
+	}
+	else if (tableName == "measurement_parameters")
+	{
+		view->hide();
+		ParameterAddForm* addForm = new ParameterAddForm(Q_NULLPTR, foreignKeys["measurement"], "measurement");
+		addForm->show();
+		view->SetUpAddView(addForm);
+	}
+	else if (tableName == "equipment_parameters")
+	{
+		view->hide();
+		ParameterAddForm* addForm = new ParameterAddForm(Q_NULLPTR, foreignKeys["equipment"], "equipment");
 		addForm->show();
 		view->SetUpAddView(addForm);
 	}
