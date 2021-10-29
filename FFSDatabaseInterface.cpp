@@ -13,6 +13,8 @@
 FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
+    this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
+    this->setFixedSize(1091, 881);
     FFSTableModel* majorTableModel = new FFSTableModel(0, 0);
     FFSTableModel* minorTableModel = new FFSTableModel(0, 0);
     FFSTableModel* minorSubtableModel = new FFSTableModel(0, 0);

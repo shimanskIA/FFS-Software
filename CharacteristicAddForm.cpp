@@ -4,6 +4,7 @@
 CharacteristicAddForm::CharacteristicAddForm(QWidget* parent, int fk_measurement, int fk_characteristic_type) : BaseDependentAddForm(parent)
 {
 	ui.setupUi(this);
+	this->setFixedSize(961, 781);
 	ui.downButton->setDisabled(true);
 	ui.upButton->setDisabled(true);
 	ui.AddCharacteristicButton->setDisabled(true);

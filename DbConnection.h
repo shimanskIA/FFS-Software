@@ -30,8 +30,8 @@ public:
 	void AddBindings(QList<BindingContext*> bindings);
 
 	bool AddEquipmentItem(EquipmentContext* equipmentItem);
-	bool AddSample(SampleContext* sampleContext);
-	bool AddCharacteristicType(CharacteristicTypeContext* characteristicType);
+	bool AddSample(SampleContext* sampleContext, bool isComplex = false);
+	bool AddCharacteristicType(CharacteristicTypeContext* characteristicType, bool isComplex = false);
 	bool AddMeasurement(MeasurementContext* measurement);
 	bool AddCharacteristic(CharacteristicsContext* characteristic);
 	bool AddEquipmentParameter(EquipmentParameterContext* equipmentParameter);

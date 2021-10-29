@@ -76,43 +76,15 @@ void DbConnection::AddSamples(QList<SampleContext*> samples)
 {
 	foreach(SampleContext* sample, samples)
 	{
-		QString sqlReadRequest = "SELECT * FROM samples WHERE name = '%1' AND description = '%2'";
-		QString name = sample->GetName();
-		QString description = sample->GetDescription();
-		QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
-
-		if (!query.next())
-		{
-			int id = sample->GetId();
-			QString sqlWriteRequest = "INSERT INTO samples(id, name, description) VALUES (%1, '%2', '%3')";
-			WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "samples");
-		}
-		else
-		{
-			sample->SetId(query.value(0).toInt());
-		}
+		AddSample(sample, true);
 	}
 }
 
-void DbConnection::AddCharacteristicTypes(QList<CharacteristicTypeContext*> characteristic_types)
+void DbConnection::AddCharacteristicTypes(QList<CharacteristicTypeContext*> characteristicTypes)
 {
-	foreach(CharacteristicTypeContext* characteristic_type, characteristic_types)
+	foreach(CharacteristicTypeContext* characteristicType, characteristicTypes)
 	{
-		QString sqlReadRequest = "SELECT * FROM characteristic_types WHERE name = '%1' AND description = '%2'";
-		QString name = characteristic_type->GetName();
-		QString description = characteristic_type->GetDescription();
-		QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
-
-		if (!query.next())
-		{
-			int id = characteristic_type->GetId();
-			QString sqlWriteRequest = "INSERT INTO characteristic_types(id, name, description) VALUES (%1, '%2', '%3')";
-			WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "characteristic_types");
-		}
-		else
-		{
-			characteristic_type->SetId(query.value(0).toInt());
-		}
+		AddCharacteristicType(characteristicType, true);
 	}
 }
 
@@ -418,27 +390,57 @@ bool DbConnection::AddEquipmentItem(EquipmentContext* equipmentItem)
 	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "equipments");
 }
 
-bool DbConnection::AddSample(SampleContext* sample)
+bool DbConnection::AddSample(SampleContext* sample, bool isComplex)
 {
+	QString sqlReadRequest = "SELECT * FROM samples WHERE name = '%1' AND description = '%2'";
 	int id = sample->GetId();
 	QString name = sample->GetName();
 	QString description = sample->GetDescription();
-	QString sqlWriteRequest = "INSERT INTO samples(id, name, description) VALUES (%1, '%2', '%3')";
-	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "samples");
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
+	
+	if (!query.next())
+	{
+		QString sqlWriteRequest = "INSERT INTO samples(id, name, description) VALUES (%1, '%2', '%3')";
+		return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "samples");
+	}
+	else
+	{
+		if (isComplex)
+		{
+			sample->SetId(query.value(0).toInt());
+		}
+
+		return false;
+	}
 }
 
-bool DbConnection::AddCharacteristicType(CharacteristicTypeContext* characteristicType)
+bool DbConnection::AddCharacteristicType(CharacteristicTypeContext* characteristicType, bool isComplex)
 {
+	QString sqlReadRequest = "SELECT * FROM characteristic_types WHERE name = '%1' AND description = '%2'";
 	int id = characteristicType->GetId();
 	QString name = characteristicType->GetName();
 	QString description = characteristicType->GetDescription();
-	QString sqlWriteRequest = "INSERT INTO characteristic_types(id, name, description) VALUES (%1, '%2', '%3')";
-	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "characteristic_types");
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
+
+	if (!query.next())
+	{
+		QString sqlWriteRequest = "INSERT INTO characteristic_types(id, name, description) VALUES (%1, '%2', '%3')";
+		return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "characteristic_types");
+	}
+	else
+	{
+		if (isComplex)
+		{
+			characteristicType->SetId(query.value(0).toInt());
+		}
+
+		return false;
+	}
 }
 
 bool DbConnection::AddCharacteristic(CharacteristicsContext* characteristic)
 {
-	QString sqlWriteRequest = "INSERT INTO characteristics(id, channel, number_of_points, bin_time, x, y, weight, fk_measurement, fk_characteristic_type) VALUES (%1, '%2', %3, %4, '%5', '%6', %7, %8, %9)";
+	QString sqlReadRequest = "SELECT * FROM characteristics WHERE channel = '%1' AND number_of_points = %2 AND bin_time = %3 AND x = '%4' AND y = '%5' AND weight = %6 AND fk_measurement = %7 AND fk_characteristic_type = %8";
 	int id = characteristic->GetId();
 	QString channel = characteristic->GetChannel();
 	int number_of_points = characteristic->GetNumberOfPoints();
@@ -448,15 +450,34 @@ bool DbConnection::AddCharacteristic(CharacteristicsContext* characteristic)
 	double weight = characteristic->GetWeight();
 	int fk_measurement = characteristic->GetFKMeasurement();
 	int fk_characteristic_type = characteristic->GetFKCharacteristicType();
-	return WriteToDatabase(sqlWriteRequest
-		.arg(id).arg(channel)
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest
+		.arg(channel)
 		.arg(number_of_points)
 		.arg(bin_time)
 		.arg(x)
 		.arg(y)
 		.arg(weight)
 		.arg(fk_measurement)
-		.arg(fk_characteristic_type), "characteristics");
+		.arg(fk_characteristic_type));
+
+	if (!query.next())
+	{
+		QString sqlWriteRequest = "INSERT INTO characteristics(id, channel, number_of_points, bin_time, x, y, weight, fk_measurement, fk_characteristic_type) VALUES (%1, '%2', %3, %4, '%5', '%6', %7, %8, %9)";
+		return WriteToDatabase(sqlWriteRequest
+			.arg(id)
+			.arg(channel)
+			.arg(number_of_points)
+			.arg(bin_time)
+			.arg(x)
+			.arg(y)
+			.arg(weight)
+			.arg(fk_measurement)
+			.arg(fk_characteristic_type), "characteristics");
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool DbConnection::AddMeasurement(MeasurementContext* measurement)

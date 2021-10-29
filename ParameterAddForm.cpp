@@ -4,6 +4,7 @@
 ParameterAddForm::ParameterAddForm(QWidget* parent, int fk, QString majorTable) : BaseAddForm(parent)
 {
 	ui.setupUi(this);
+	this->setFixedSize(462, 207);
 	FFSTableModel* allMajorElementsTableModel = new FFSTableModel(0, 0);
 	FFSTableModel* chosenMajorElementsTableModel = new FFSTableModel(0, 0);
 	this->majorTable = majorTable;
