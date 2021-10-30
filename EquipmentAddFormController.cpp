@@ -9,6 +9,15 @@ void EquipmentAddFormController::ManageAddEquipmentRequest(EquipmentAddForm* vie
 	EquipmentContext* equipmentItem = new EquipmentContext(equipmentStatePath);
 	equipmentItem->SetName(name);
 	equipmentItem->SetDescription(description);
+
+	if (view->GetFKMeasuringSystem() != 0)
+	{
+		BindingContext* binding = new BindingContext();
+		binding->SetFKMeasuringSystem(view->GetFKMeasuringSystem());
+		binding->SetFKEquipment(equipmentItem->GetId());
+		equipmentItem->SetBinding(binding);
+	}
+
 	bool isRowAdded =  EquipmentAddService::AddEquipmentRequestReceiver(equipmentItem);
 	view->SetIsRowAdded(isRowAdded);
 }

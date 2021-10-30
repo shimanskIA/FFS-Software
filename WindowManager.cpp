@@ -24,7 +24,7 @@ void WindowManager::ManageWindows(QString tableName, FFSDatabaseInterface* view,
 	else if (tableName == "equipments")
 	{
 		view->hide();
-		EquipmentAddForm* addForm = new EquipmentAddForm();
+		EquipmentAddForm* addForm = new EquipmentAddForm(Q_NULLPTR, foreignKeys["measuring system"]);
 		addForm->show();
 		view->SetUpAddView(addForm);
 	}

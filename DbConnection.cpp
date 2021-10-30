@@ -400,13 +400,30 @@ void DbConnection::AddBindings(QList<BindingContext*> bindings)
 	}
 }
 
+bool DbConnection::AddBinding(BindingContext* binding)
+{
+	int fk_equipment = binding->GetFKEquipment();
+	int fk_measurement = binding->GetFKMeasuringSystem();
+	QString sqlWriteRequest = "INSERT INTO bindings(fk_measuring_system, fk_equipment) VALUES (%1, %2)";
+	return WriteToDatabase(sqlWriteRequest.arg(fk_measurement).arg(fk_equipment), "bindings");
+}
+
 bool DbConnection::AddEquipmentItem(EquipmentContext* equipmentItem)
 {
 	int id = equipmentItem->GetId();
 	QString name = equipmentItem->GetName();
 	QString description = equipmentItem->GetDescription();
 	QString sqlWriteRequest = "INSERT INTO equipments(id, name, description) VALUES (%1, '%2', '%3')";
-	return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "equipments");
+	bool isRowAdded;
+	isRowAdded = WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "equipments");
+	
+	if (isRowAdded)
+	{
+		AddBinding(equipmentItem->GetBinding());
+		return true;
+	}
+
+	return false;
 }
 
 bool DbConnection::AddSample(SampleContext* sample, bool isComplex)

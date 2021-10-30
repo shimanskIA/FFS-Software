@@ -37,6 +37,7 @@ public:
 	bool AddEquipmentParameter(EquipmentParameterContext* equipmentParameter);
 	bool AddMeasurementParameter(MeasurementParameterContext* measurementParameter);
 	bool AddForwardMeasuringSystem(MeasuringSystemContext* measuringSystem);
+	bool AddBinding(BindingContext* binding);
 
 	QList<MeasuringSystemContext*> ReadMeasuringSystemsFromDatabase();
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase();

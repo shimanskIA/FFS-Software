@@ -78,6 +78,11 @@ QList<EquipmentParameterContext*> EquipmentContext::GetEquipmentParameters()
 	return this->equipmentParameters;
 }
 
+BindingContext* EquipmentContext::GetBinding()
+{
+	return this->binding;
+}
+
 int EquipmentContext::GetAmountOfEquipmentParameters()
 {
 	return this->equipmentParameters.length();

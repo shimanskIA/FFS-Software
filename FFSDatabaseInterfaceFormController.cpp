@@ -89,7 +89,12 @@ void FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(FFSData
             ResetTableModel((FFSTableModel*)view->GetUI().minorTableView->model());
             ResetTableModel((FFSTableModel*)view->GetUI().minorSubtableView->model());
             view->GetUI().majorDeleteButton->setDisabled(false);
-            view->GetUI().minorAddButton->setDisabled(false);
+            
+            if (view->GetActualSubtable() != "measuring_systems")
+            {
+                view->GetUI().minorAddButton->setDisabled(false);
+            }
+
             view->GetUI().minorDeleteButton->setDisabled(true);
             view->GetUI().minorPreviewButton->setDisabled(true);
             view->GetUI().minorAddSubbutton->setDisabled(true);
@@ -181,6 +186,11 @@ void FFSDatabaseInterfaceFormController::ManageRepresentSubtableRequest(FFSDatab
         view->GetUI().minorDeleteButton->setDisabled(true);
         view->GetUI().minorPreviewButton->setDisabled(true);
         view->GetUI().minorAddSubbutton->setDisabled(true);
+
+        if (newSubtable == "measuring_systems")
+        {
+            view->GetUI().minorAddButton->setDisabled(true);
+        }
 
         if (view->GetIsRowSelected())
         {

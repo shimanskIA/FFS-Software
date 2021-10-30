@@ -27,6 +27,7 @@ public:
 	QString GetDescription();
 
 	QList<EquipmentParameterContext*> GetEquipmentParameters();
+	BindingContext* GetBinding();
 
 	int GetAmountOfEquipmentParameters();
 

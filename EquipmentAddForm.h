@@ -10,7 +10,9 @@ class EquipmentAddForm : public BaseAddForm
     Q_OBJECT
 
 public:
-    EquipmentAddForm(QWidget* parent = Q_NULLPTR);
+    EquipmentAddForm(QWidget* parent = Q_NULLPTR, int fk_measuring_system = 0);
+
+    int GetFKMeasuringSystem();
 
     Ui::EquipmentAddFormClass GetUI();
 
@@ -19,4 +21,5 @@ private slots:
 
 private:
     Ui::EquipmentAddFormClass ui;
+    int fk_measuring_system;
 };

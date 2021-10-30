@@ -46,11 +46,14 @@ void MeasuringSystemAddFormController::ManageChooseUpperElementRequest(Measuring
 		chosenElementsTableModel->setHeaderData(j, Qt::Horizontal, allElementsTableModel->headerData(j, Qt::Horizontal));
 	}
 
+	
 	if (view->GetIsFirstTime())
 	{
 		view->SetTableSettings(view->GetUI().chosenElementsTable);
 		view->SetIsFirstTime(false);
 	}
+
+	view->GetUI().chosenElementsTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 	view->GetUI().chosenElementsTable->setColumnHidden(0, true);
 }
 
