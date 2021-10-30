@@ -219,6 +219,12 @@
     <ClCompile Include="ParameterAddService.cpp">
       <Filter>Model\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MeasuringSystemAddFormController.cpp">
+      <Filter>Controller\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="MeasuringSystemAddService.cpp">
+      <Filter>Model\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -394,6 +400,12 @@
       <Filter>Controller\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ParameterAddService.h">
+      <Filter>Model\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeasuringSystemAddFormController.h">
+      <Filter>Controller\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeasuringSystemAddService.h">
       <Filter>Model\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

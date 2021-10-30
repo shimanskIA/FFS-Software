@@ -270,6 +270,25 @@ void DbConnection::AddMeasuringSystem(MeasuringSystemContext* measuringSystem)
 	wasEquipmentAdded = false;
 }
 
+bool DbConnection::AddForwardMeasuringSystem(MeasuringSystemContext* measuringSystem)
+{
+	QString sqlWriteRequest = "INSERT INTO measuring_systems(id, name, description, main_contributor_name) VALUES (%1, '%2', '%3', '%4')";
+	int id = measuringSystem->GetId();
+	QString name = measuringSystem->GetName();
+	QString description = measuringSystem->GetDescription();
+	QString mainContributorName = measuringSystem->GetMainContributorName();
+	bool isRowAdded;
+	isRowAdded = WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description).arg(mainContributorName), "measuring_systems");
+
+	if (isRowAdded)
+	{
+		AddBindings(measuringSystem->GetBindings());
+		return true;
+	}
+
+	return false;
+}
+
 void DbConnection::AddEquipment(QList<EquipmentContext*> equipments)
 {
 	foreach(EquipmentContext * equipment, equipments)

@@ -115,6 +115,8 @@
     <ClCompile Include="MeasurementContext.cpp" />
     <ClCompile Include="MeasurementParameterContext.cpp" />
     <ClCompile Include="MeasuringSystemAddForm.cpp" />
+    <ClCompile Include="MeasuringSystemAddFormController.cpp" />
+    <ClCompile Include="MeasuringSystemAddService.cpp" />
     <ClCompile Include="MeasuringSystemContext.cpp" />
     <ClCompile Include="ParameterAddFormController.cpp" />
     <ClCompile Include="ParameterAddForm.cpp" />
@@ -164,6 +166,8 @@
     <ClInclude Include="MeasurementAddFormController.h" />
     <ClInclude Include="MeasurementAddService.h" />
     <QtMoc Include="ParameterAddForm.h" />
+    <ClInclude Include="MeasuringSystemAddFormController.h" />
+    <ClInclude Include="MeasuringSystemAddService.h" />
     <ClInclude Include="ParameterAddFormController.h" />
     <ClInclude Include="ParameterAddService.h" />
     <ClInclude Include="SampleAddFormController.h" />
