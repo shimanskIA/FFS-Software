@@ -1,12 +1,11 @@
 #pragma once
 
-#include "ui_MeasurementAddForm.h"
-#include "MeasurementAddForm.h"
+#include "MeasurementContext.h"
 
 #include <QString>
 
 class MeasurementAddService
 {
 public:
-	static void AddMeasurementRequestReceiver(MeasurementAddForm* view);
+	static bool AddMeasurementRequestReceiver(MeasurementContext* measurement);
 };

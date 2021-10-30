@@ -1,12 +1,10 @@
 #pragma once
 
-#include "ui_EquipmentAddForm.h"
-#include "EquipmentAddForm.h"
-
 #include <QString>
+#include "EquipmentContext.h"
 
 class EquipmentAddService
 {
 public:
-	static void AddEquipmentRequestReceiver(EquipmentAddForm* view);
+	static bool AddEquipmentRequestReceiver(EquipmentContext* equipment);
 };

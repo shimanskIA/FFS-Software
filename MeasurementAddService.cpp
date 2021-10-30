@@ -1,60 +1,20 @@
 #include "MeasurementAddService.h"
 #include "DbEditor.h"
-#include "NamesHelper.h"
-#include "MeasurementContext.h"
 
-void MeasurementAddService::AddMeasurementRequestReceiver(MeasurementAddForm* view)
+bool MeasurementAddService::AddMeasurementRequestReceiver(MeasurementContext* measurement)
 {
-	bool finalResult = true;
-	QString name = view->GetUI().NameInput->toPlainText();
-	QString date = view->GetUI().DateInput->toPlainText();
-	QString file = view->GetUI().FileInput->toPlainText();
-	bool convertionResult;
-	int repeatCount = view->GetUI().RepeatCountInput->toPlainText().toInt(&convertionResult);
-	finalResult = finalResult && convertionResult;
-	int kineticsCount = view->GetUI().KineticsCountInput->toPlainText().toInt(&convertionResult);
-	finalResult = finalResult && convertionResult;
-	int numberOfChannels = view->GetUI().NumberOfChannelsInput->toPlainText().toInt(&convertionResult);
-	finalResult = finalResult && convertionResult;
-	int numberPositions = view->GetUI().NumberPositionsInput->toPlainText().toInt(&convertionResult);
-	finalResult = finalResult && convertionResult;
+	QVariant tableContext;
+	tableContext.setValue<MeasurementContext*>(measurement);
+	DbEditor* dbEditor = new DbEditor();
+	bool isRowAdded = dbEditor->AddRow(tableContext);
 
-	if (finalResult)
+	if (isRowAdded)
 	{
-		MeasurementContext* measurement = new MeasurementContext(measurementStatePath);
-		measurement->SetName(name);
-		measurement->SetDateTime(date);
-		measurement->SetFileLink(file);
-		measurement->SetRepeatCount(repeatCount);
-		measurement->SetKineticsCount(kineticsCount);
-		measurement->SetNumberOfChannels(numberOfChannels);
-		measurement->SetNumberPositions(numberPositions);
-
-		if (view->GetFKMeasuringSystem() == 0)
-		{
-			int id = view->GetChosenMeasuringSystemsTableModel()->data(view->GetChosenMeasuringSystemsTableModel()->index(0, 0)).toInt();
-			view->SetFKMeasuringSystem(id);
-		}
-
-		if (view->GetFKSample() == 0)
-		{
-			int id = view->GetChosenSamplesTableModel()->data(view->GetChosenSamplesTableModel()->index(0, 0)).toInt();
-			view->SetFKSample(id);
-		}
-
-		measurement->SetFKMeasuringSystem(view->GetFKMeasuringSystem());
-		measurement->SetFKSample(new SampleContext(view->GetFKSample()));
-
-		QVariant tableContext;
-		tableContext.setValue<MeasurementContext*>(measurement);
-		DbEditor* dbEditor = new DbEditor();
-		bool isRowAdded = dbEditor->AddRow(tableContext);
-		view->SetIsRowAdded(isRowAdded);
-		if (isRowAdded)
-		{
-			measurement->IncrementId();
-		}
+		measurement->IncrementId();
+		return true;
 	}
+
+	return false;
 }
 
 Q_DECLARE_METATYPE(MeasurementContext*);

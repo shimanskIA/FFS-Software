@@ -1,12 +1,10 @@
 #pragma once
 
-#include "ui_ParameterAddForm.h"
-#include "ParameterAddForm.h"
-
 #include <QString>
+#include <QVariant>
 
 class ParameterAddService
 {
 public:
-	static void AddParameterRequestReceiver(ParameterAddForm* view);
+	static bool AddParameterRequestReceiver(QVariant parameter);
 };
