@@ -39,6 +39,9 @@ public:
 	bool AddForwardMeasuringSystem(MeasuringSystemContext* measuringSystem);
 	bool AddBinding(BindingContext* binding);
 
+	bool ReadAbscissaFromDatabase(int characteristicId, QVector<double>& x);
+	bool ReadOrdinateFromDatabase(int characteristicId, QVector<double>& y);
+
 	QList<MeasuringSystemContext*> ReadMeasuringSystemsFromDatabase();
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase();
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase(QString majortableName, int fk);

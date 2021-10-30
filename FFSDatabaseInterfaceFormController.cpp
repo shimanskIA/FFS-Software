@@ -2,6 +2,7 @@
 #include "FFSDatabaseInterfaceService.h"
 #include "TableWriter.h"
 #include "WindowManager.h"
+#include "DbConnection.h"
 
 #include <QVariant>
 
@@ -345,6 +346,31 @@ void FFSDatabaseInterfaceFormController::ManageShowMinorAddViewSubRequest(QStrin
     view->GetForeignKeys()[majorTableName] = selectedId;
     ShowAddViewRequestReceiver(tableName, view, view->GetForeignKeys());
     view->GetForeignKeys()[view->GetActualSubtable()] = 0;
+}
+
+void FFSDatabaseInterfaceFormController::ManageShowCharacteristicPreviewRequest(QTableView* tableView, FFSDatabaseInterface* view)
+{
+    int selectedRow = tableView->currentIndex().row();
+    QModelIndex indexId = tableView->model()->index(selectedRow, 0);
+    int selectedId = tableView->model()->data(indexId).toInt();
+
+    if (view->GetOpenedCharacteristicPreviewWindows().contains(selectedId))
+    {
+        view->GetOpenedCharacteristicPreviewWindows()[selectedId]->showNormal();
+    }
+    else
+    {
+
+        QVector<double> x;
+        QVector<double> y;
+
+        if (DbConnection::GetDbConnectionInstance().ReadAbscissaFromDatabase(selectedId, x) &&
+            DbConnection::GetDbConnectionInstance().ReadOrdinateFromDatabase(selectedId, y))
+        {
+            WindowManager* windowManager = new WindowManager();
+            windowManager->ShowCharacteristicPreview(x, y, view, selectedId);
+        }
+    }
 }
 
 void FFSDatabaseInterfaceFormController::DisableButtonActivity(FFSDatabaseInterface* view)

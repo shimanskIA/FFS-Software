@@ -582,6 +582,54 @@ bool DbConnection::AddMeasurementParameter(MeasurementParameterContext* measurem
 	}
 }
 
+bool DbConnection::ReadAbscissaFromDatabase(int characteristicId, QVector<double>& x)
+{
+	QString sqlReadRequest = "SELECT x FROM characteristics WHERE id = %1";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(characteristicId));
+	query.next();
+	QString rawX = query.value(0).toString().trimmed();
+	QStringList separatedX = rawX.split(' ');
+
+	foreach(QString xValue, separatedX)
+	{
+		bool wasConverted;
+		double realValue = xValue.toDouble(&wasConverted);
+
+		if (!wasConverted)
+		{
+			return false;
+		}
+
+		x.append(realValue);
+	}
+
+	return true;
+}
+
+bool DbConnection::ReadOrdinateFromDatabase(int characteristicId, QVector<double>& y)
+{
+	QString sqlReadRequest = "SELECT y FROM characteristics WHERE id = %1";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(characteristicId));
+	query.next();
+	QString rawY = query.value(0).toString().trimmed();
+	QStringList separatedY = rawY.split(' ');
+
+	foreach(QString yValue, separatedY)
+	{
+		bool wasConverted;
+		double realValue = yValue.toDouble(&wasConverted);
+
+		if (!wasConverted)
+		{
+			return false;
+		}
+
+		y.append(realValue);
+	}
+
+	return true;
+}
+
 QList<MeasuringSystemContext*> DbConnection::ReadMeasuringSystemsFromDatabase()
 {
 	QString sqlReadRequest = "SELECT * FROM measuring_systems";

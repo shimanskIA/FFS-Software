@@ -10,4 +10,5 @@ public:
 	WindowManager();
 
 	void ManageWindows(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys = QMap<QString, int>());
+	void ShowCharacteristicPreview(QVector<double> x, QVector<double> y, FFSDatabaseInterface* view, int fk_characteristic);
 };

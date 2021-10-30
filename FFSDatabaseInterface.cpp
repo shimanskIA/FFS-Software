@@ -1,5 +1,6 @@
 #include "FFSDatabaseInterface.h"
 #include "AboutForm.h"
+#include "ui_Test.h"
 #include "ui_AboutForm.h"
 #include "FFSDatabaseInterfaceFormController.h"
 #include "FFSTableModel.h"
@@ -51,6 +52,9 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.majorAddButton, SIGNAL(clicked()), this, SLOT(showAddRowMajorTableView()));
     connect(ui.minorAddButton, SIGNAL(clicked()), this, SLOT(showAddRowMinorTableView()));
     connect(ui.minorAddSubbutton, SIGNAL(clicked()), this, SLOT(showAddRowMinorSubtableView()));
+    connect(ui.majorPreviewButton, SIGNAL(clicked()), this, SLOT(showMajorCharacteristicPreview()));
+    connect(ui.minorPreviewButton, SIGNAL(clicked()), this, SLOT(showMinorCharacteristicPreview()));
+    connect(ui.minorPreviewSubbutton, SIGNAL(clicked()), this, SLOT(showMinorCharacteristicSubPreview()));
     FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(this, true);
     SetTableSettings(ui.majorTableView);
 }
@@ -201,10 +205,36 @@ void FFSDatabaseInterface::showWindow()
     this->show();
 }
 
+void FFSDatabaseInterface::showMajorCharacteristicPreview()
+{
+    FFSDatabaseInterfaceFormController::ManageShowCharacteristicPreviewRequest(ui.majorTableView, this);
+}
+
+void FFSDatabaseInterface::showMinorCharacteristicPreview()
+{
+    FFSDatabaseInterfaceFormController::ManageShowCharacteristicPreviewRequest(ui.minorTableView, this);
+}
+
+void FFSDatabaseInterface::showMinorCharacteristicSubPreview()
+{
+    FFSDatabaseInterfaceFormController::ManageShowCharacteristicPreviewRequest(ui.minorSubtableView, this);
+}
+
 void FFSDatabaseInterface::SetUpAddView(BaseAddForm* addView)
 {
     this->addView = addView;
     connect(addView, &BaseAddForm::windowClosed, this, &FFSDatabaseInterface::showWindow);
+}
+
+void FFSDatabaseInterface::AddOpenedCharacteristicPreviewWindow(int windowId, CharacteristicPreviewForm* characteristicPreview)
+{
+    this->openedCharacteristicPreviewWindows.insert(windowId, characteristicPreview);
+    connect(characteristicPreview, &CharacteristicPreviewForm::previewWindowClosed, this, &FFSDatabaseInterface::closePreviewWindow);
+}
+
+void FFSDatabaseInterface::closePreviewWindow(int windowId)
+{
+    this->openedCharacteristicPreviewWindows.remove(windowId);
 }
 
 void FFSDatabaseInterface::SetTableSettings(QTableView* table)
@@ -316,6 +346,11 @@ QVariant FFSDatabaseInterface::GetPreviousCellValue()
 QMap<QString, int>& FFSDatabaseInterface::GetForeignKeys()
 {
     return this->foreignKeys;
+}
+
+QMap<int, CharacteristicPreviewForm*> FFSDatabaseInterface::GetOpenedCharacteristicPreviewWindows()
+{
+    return this->openedCharacteristicPreviewWindows;
 }
 
 QStringList FFSDatabaseInterface::GetEndMajorNodes()

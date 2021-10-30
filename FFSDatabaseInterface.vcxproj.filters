@@ -225,6 +225,12 @@
     <ClCompile Include="MeasuringSystemAddService.cpp">
       <Filter>Model\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qcustomplot.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacteristicPreviewForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -252,6 +258,9 @@
       <Filter>View\Form Files</Filter>
     </QtUic>
     <QtUic Include="ParameterAddForm.ui">
+      <Filter>View\Form Files</Filter>
+    </QtUic>
+    <QtUic Include="CharacteristicPreviewForm.ui">
       <Filter>View\Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -287,6 +296,12 @@
       <Filter>View\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ParameterAddForm.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="qcustomplot.h">
+      <Filter>Resource Files</Filter>
+    </QtMoc>
+    <QtMoc Include="CharacteristicPreviewForm.h">
       <Filter>View\Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -7,6 +7,7 @@
 
 #include "ui_FFSDatabaseInterface.h"
 #include "BaseAddForm.h"
+#include "CharacteristicPreviewForm.h"
 
 class FFSDatabaseInterface : public QMainWindow
 {
@@ -33,6 +34,7 @@ public:
     int GetMinorSelectedId();
     QVariant GetPreviousCellValue();
     QMap<QString, int> &GetForeignKeys();
+    QMap<int, CharacteristicPreviewForm*> GetOpenedCharacteristicPreviewWindows();
 
     QStringList GetEndMajorNodes();
     QStringList GetEndMinorNodes();
@@ -57,6 +59,8 @@ public:
     void SetUpAddView(BaseAddForm* addView);
 
     void SetTableSettings(QTableView* table);
+
+    void AddOpenedCharacteristicPreviewWindow(int, CharacteristicPreviewForm* characteristicPreview);
 
     void closeEvent(QCloseEvent* event) override;
 
@@ -87,6 +91,10 @@ private slots:
     void showAddRowMinorTableView();
     void showAddRowMinorSubtableView();
     void showWindow();
+    void showMajorCharacteristicPreview();
+    void showMinorCharacteristicPreview();
+    void showMinorCharacteristicSubPreview();
+    void closePreviewWindow(int windowId);
 
 private:
     Ui::FFSDatabaseInterfaceClass ui;
@@ -100,6 +108,7 @@ private:
     QVariant previousCellValue;
 
     QMap<QString, int> foreignKeys;
+    QMap<int, CharacteristicPreviewForm*> openedCharacteristicPreviewWindows;
 
     bool firstLoad = true;
     bool minorFirstLoad = true;

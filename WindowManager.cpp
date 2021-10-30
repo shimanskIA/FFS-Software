@@ -6,6 +6,7 @@
 #include "MeasurementAddForm.h"
 #include "CharacteristicAddForm.h"
 #include "ParameterAddForm.h"
+#include "CharacteristicPreviewForm.h"
 
 WindowManager::WindowManager()
 {
@@ -70,4 +71,11 @@ void WindowManager::ManageWindows(QString tableName, FFSDatabaseInterface* view,
 		addForm->show();
 		view->SetUpAddView(addForm);
 	}
+}
+
+void WindowManager::ShowCharacteristicPreview(QVector<double> x, QVector<double> y, FFSDatabaseInterface* view, int fk_characteristic)
+{
+	CharacteristicPreviewForm* previewForm = new CharacteristicPreviewForm(x, y, fk_characteristic);
+	previewForm->show();
+	view->AddOpenedCharacteristicPreviewWindow(fk_characteristic, previewForm);
 }

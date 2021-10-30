@@ -29,6 +29,7 @@ public:
     static void ManageShowAddViewRequest(QString tableName, FFSDatabaseInterface* view);
     static void ManageShowMinorAddViewRequest(QString tableName, FFSDatabaseInterface* view);
     static void ManageShowMinorAddViewSubRequest(QString tableName, FFSDatabaseInterface* view);
+    static void ManageShowCharacteristicPreviewRequest(QTableView* tableView, FFSDatabaseInterface* view);
 
     static void ShowMeasuringSystemTableRequestReceiver(QTableView* tableView);
     static void ShowCharacteristicsTableRequestReceiver(QTableView* tableView);
