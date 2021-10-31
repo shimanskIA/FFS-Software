@@ -14,6 +14,7 @@ class CharacteristicAddForm : public BaseDependentAddForm
 
 public:
     CharacteristicAddForm(QWidget* parent = Q_NULLPTR, int fk_measurement = 0, int fk_characteristic_type = 0);
+    ~CharacteristicAddForm();
 
     FFSTableModel* GetAllMeasurementsTableModel();
     FFSTableModel* GetAllCharacteristicTypesTableModel();

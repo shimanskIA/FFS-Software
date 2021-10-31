@@ -59,6 +59,12 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     SetTableSettings(ui.majorTableView);
 }
 
+FFSDatabaseInterface::~FFSDatabaseInterface()
+{
+    qDeleteAll(openedCharacteristicPreviewWindows);
+    openedCharacteristicPreviewWindows.clear();
+}
+
 void FFSDatabaseInterface::infoButtonClick()
 {
     AboutForm* aboutForm = new AboutForm();

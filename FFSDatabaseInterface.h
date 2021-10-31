@@ -15,6 +15,7 @@ class FFSDatabaseInterface : public QMainWindow
 
 public:
     FFSDatabaseInterface(QWidget *parent = Q_NULLPTR);
+    ~FFSDatabaseInterface();
 
     Ui::FFSDatabaseInterfaceClass GetUI();
     QString GetActualTable();

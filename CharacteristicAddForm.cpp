@@ -56,6 +56,14 @@ CharacteristicAddForm::CharacteristicAddForm(QWidget* parent, int fk_measurement
 	SetTableSettings(ui.allElementsTable);
 }
 
+CharacteristicAddForm::~CharacteristicAddForm()
+{
+	delete allCharacteristicTypesTableModel;
+	delete chosenCharacteristicTypesTableModel;
+	delete allMeasurementsTableModel;
+	delete chosenMeasurementsTableModel;
+}
+
 void CharacteristicAddForm::addCharacteristic()
 {
 	CharacteristicAddFormController::ManageAddCharacteristicRequest(this);

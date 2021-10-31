@@ -56,6 +56,14 @@ MeasurementAddForm::MeasurementAddForm(QWidget* parent, int fk_measuring_system,
 	SetTableSettings(ui.allElementsTable);
 }
 
+MeasurementAddForm::~MeasurementAddForm()
+{
+	delete allMeasuringSystemTableModel;
+	delete chosenMeasuringSystemsTableModel;
+	delete allSamplesTableModel;
+	delete chosenSamplesTableModel;
+}
+
 void MeasurementAddForm::addMeasurement()
 {
 	MeasurementAddFormController::ManageAddMeasurementRequest(this);

@@ -12,6 +12,7 @@ class MeasurementAddForm : public BaseDependentAddForm
 
 public:
     MeasurementAddForm(QWidget* parent = Q_NULLPTR, int fk_measuring_system = 0, int fk_sample = 0);
+    ~MeasurementAddForm();
 
     FFSTableModel* GetAllSamplesTableModel();
     FFSTableModel* GetAllMeasuringSystemsTableModel();
