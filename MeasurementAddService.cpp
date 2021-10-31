@@ -1,12 +1,12 @@
 #include "MeasurementAddService.h"
-#include "DbEditor.h"
+#include "DbWriter.h"
 
 bool MeasurementAddService::AddMeasurementRequestReceiver(MeasurementContext* measurement)
 {
 	QVariant tableContext;
 	tableContext.setValue<MeasurementContext*>(measurement);
-	DbEditor* dbEditor = new DbEditor();
-	bool isRowAdded = dbEditor->AddRow(tableContext);
+	DbWriter* dbWriter = new DbWriter();
+	bool isRowAdded = dbWriter->AddRow(tableContext);
 
 	if (isRowAdded)
 	{

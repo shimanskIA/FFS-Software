@@ -1,7 +1,7 @@
 #include "IdFileManager.h"
 #include "NamesHelper.h"
 #include "TextFileInteractionHelper.h"
-#include "DbConnection.h"
+#include "DbReader.h"
 
 IdFileManager::IdFileManager()
 {
@@ -36,7 +36,8 @@ void IdFileManager::AddIdsInUse()
 void IdFileManager::AddIdsToSingleFile(QString tableName, QString stateFilePath)
 {
 	QString sqlReadRequest = "SELECT id FROM %1";
-	QSqlQuery query = DbConnection::GetDbConnectionInstance().ReadFromDatabase(sqlReadRequest.arg(tableName));
+	DbReader* dbReader = new DbReader();
+	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(tableName));
 
 	while (query.next())
 	{

@@ -1,13 +1,13 @@
 #include "CharacteristicAddService.h"
-#include "DbEditor.h"
+#include "DbWriter.h"
 
 
 bool CharacteristicAddService::AddCharacteristicRequestReceiver(CharacteristicsContext* characteristic)
 {
 	QVariant tableContext;
 	tableContext.setValue<CharacteristicsContext*>(characteristic);
-	DbEditor* dbEditor = new DbEditor();
-	bool isRowAdded = dbEditor->AddRow(tableContext);
+	DbWriter* dbWriter = new DbWriter();
+	bool isRowAdded = dbWriter->AddRow(tableContext);
 
 	if (isRowAdded)
 	{

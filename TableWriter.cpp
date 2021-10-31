@@ -1,20 +1,16 @@
 #include "TableWriter.h"
-#include "DbConnection.h"
 #include "TableItemDelegate.h"
 
 #include <QStandardItemModel>
 
 TableWriter::TableWriter()
 {
-
+	dbReader = new DbReader();
 }
 
 void TableWriter::FillMeasuringSystemsTable(QTableView* tableView)
 {
-	QList<MeasuringSystemContext*> measuringSystems = DbConnection::GetDbConnectionInstance().ReadMeasuringSystemsFromDatabase();
-	TableItemDelegate* decDelegate = new TableItemDelegate(tableView);
-	tableView->setItemDelegateForColumn(3, decDelegate);
-	tableView->setItemDelegateForColumn(4, decDelegate);
+	QList<MeasuringSystemContext*> measuringSystems = dbReader->ReadMeasuringSystemsFromDatabase();
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(measuringSystems.length());
 	tableModel->setColumnCount(4);
@@ -41,13 +37,14 @@ void TableWriter::FillMeasuringSystemsTable(QTableView* tableView)
 
 void TableWriter::FillMeasuringSystemsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
-	QList<BindingContext*> bindings = DbConnection::GetDbConnectionInstance().ReadBindingsFromDatabase(majorTableName, majorTableId);
+	DbReader* dbReader = new DbReader();
+	QList<BindingContext*> bindings = dbReader->ReadBindingsFromDatabase(majorTableName, majorTableId);
 	QList<MeasuringSystemContext*> measuringSystems;
 
 	foreach(BindingContext * binding, bindings)
 	{
 		QString sqlReadRequest = "SELECT * FROM measuring_systems WHERE id = %1";
-		QSqlQuery query = DbConnection::GetDbConnectionInstance().ReadFromDatabase(sqlReadRequest.arg(binding->GetFKMeasuringSystem()));
+		QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(binding->GetFKMeasuringSystem()));
 
 		if (query.next())
 		{
@@ -85,7 +82,7 @@ void TableWriter::FillMeasuringSystemsTable(QTableView* tableView, QString major
 
 void TableWriter::FillMeasurementsTable(QTableView* tableView)
 {
-	QList<MeasurementContext*> measurements = DbConnection::GetDbConnectionInstance().ReadMeasurementsFromDatabase();
+	QList<MeasurementContext*> measurements = dbReader->ReadMeasurementsFromDatabase();
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(measurements.length());
 	tableModel->setColumnCount(9);
@@ -110,8 +107,7 @@ void TableWriter::FillMeasurementsTable(QTableView* tableView)
 
 void TableWriter::FillSamplesTable(QTableView* tableView)
 {
-	QList<SampleContext*> samples = DbConnection::GetDbConnectionInstance().ReadSamplesFromDatabase();
-
+	QList<SampleContext*> samples = dbReader->ReadSamplesFromDatabase();
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(samples.length());
 	tableModel->setColumnCount(3);
@@ -138,7 +134,7 @@ void TableWriter::FillSamplesTable(QTableView* tableView)
 
 void TableWriter::FillEquipmentsTable(QTableView* tableView)
 {
-	QList<EquipmentContext*> equipments = DbConnection::GetDbConnectionInstance().ReadEquipmentsFromDatabase();
+	QList<EquipmentContext*> equipments = dbReader->ReadEquipmentsFromDatabase();
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(equipments.length());
 	tableModel->setColumnCount(3);
@@ -165,7 +161,7 @@ void TableWriter::FillEquipmentsTable(QTableView* tableView)
 
 void TableWriter::FillMeasurementsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
-	QList<MeasurementContext*> measurements = DbConnection::GetDbConnectionInstance().ReadMeasurementsFromDatabase(majorTableName, majorTableId);
+	QList<MeasurementContext*> measurements = dbReader->ReadMeasurementsFromDatabase(majorTableName, majorTableId);
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(measurements.length());
 	tableModel->setColumnCount(8);
@@ -188,13 +184,13 @@ void TableWriter::FillMeasurementsTable(QTableView* tableView, QString majorTabl
 
 void TableWriter::FillEquipmentsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
-	QList<BindingContext*> bindings = DbConnection::GetDbConnectionInstance().ReadBindingsFromDatabase(majorTableName, majorTableId);
+	QList<BindingContext*> bindings = dbReader->ReadBindingsFromDatabase(majorTableName, majorTableId);
 	QList<EquipmentContext*> equipments;
 
 	foreach(BindingContext* binding, bindings)
 	{
 		QString sqlReadRequest = "SELECT * FROM equipments WHERE id = %1";
-		QSqlQuery query = DbConnection::GetDbConnectionInstance().ReadFromDatabase(sqlReadRequest.arg(binding->GetFKEquipment()));
+		QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(binding->GetFKEquipment()));
 
 		if (query.next())
 		{
@@ -232,7 +228,7 @@ void TableWriter::FillEquipmentsTable(QTableView* tableView, QString majorTableN
 
 void TableWriter::FillParametersTable(QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
 {
-	QList<ParameterTableContext*> parameters = DbConnection::GetDbConnectionInstance().ReadParametersFromDatabase(majorTableName, minorTableName, majorTableId);
+	QList<ParameterTableContext*> parameters = dbReader->ReadParametersFromDatabase(majorTableName, minorTableName, majorTableId);
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(parameters.length());
 	tableModel->setColumnCount(3);
@@ -259,7 +255,10 @@ void TableWriter::FillParametersTable(QTableView* tableView, QString majorTableN
 
 void TableWriter::FillCharacteristicsTable(QTableView* tableView, QString sqlReadRequest)
 {
-	QList<CharacteristicsContext*> characteristics = DbConnection::GetDbConnectionInstance().ReadCharacteristicsFromDatabase(sqlReadRequest);
+	QList<CharacteristicsContext*> characteristics = dbReader->ReadCharacteristicsFromDatabase(sqlReadRequest);
+	TableItemDelegate* decDelegate = new TableItemDelegate(tableView);
+	tableView->setItemDelegateForColumn(3, decDelegate);
+	tableView->setItemDelegateForColumn(4, decDelegate);
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(characteristics.length());
 	tableModel->setColumnCount(6);
@@ -298,7 +297,7 @@ void TableWriter::FillCharacteristicsTable(QTableView* tableView, QString sqlRea
 
 void TableWriter::FillCharacteristicTypesTable(QTableView* tableView)
 {
-	QList<CharacteristicTypeContext*> characteristicTypes = DbConnection::GetDbConnectionInstance().ReadCharacteristicTypesFromDatabase();
+	QList<CharacteristicTypeContext*> characteristicTypes = dbReader->ReadCharacteristicTypesFromDatabase();
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(characteristicTypes.length());
 	tableModel->setColumnCount(3);

@@ -1,9 +1,9 @@
 #include "ParameterAddService.h"
-#include "DbEditor.h"
+#include "DbWriter.h"
 
 bool ParameterAddService::AddParameterRequestReceiver(QVariant parameter)
 {
-	DbEditor* dbEditor = new DbEditor();
-	bool isRowAdded = dbEditor->AddRow(parameter);
+	DbWriter* dbWriter = new DbWriter();
+	bool isRowAdded = dbWriter->AddRow(parameter);
 	return isRowAdded;
 }

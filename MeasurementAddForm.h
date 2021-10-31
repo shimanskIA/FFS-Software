@@ -33,11 +33,11 @@ public:
 
 private slots:
     void addMeasurement();
-    void showAllElementsTable();
-    void chooseElement();
-    void selectChosenElement();
-    void selectElement();
-    void cancelChoose();
+    void showAllElementsTable() override;
+    void chooseElement() override;
+    void selectChosenElement() override;
+    void selectElement() override;
+    void cancelChoose() override;
 
 private:
     Ui::MeasurementAddFormClass ui;

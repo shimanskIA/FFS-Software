@@ -93,6 +93,8 @@
     <ClCompile Include="CharacteristicTypeAddForm.cpp" />
     <ClCompile Include="CharacteristicTypeAddFormController.cpp" />
     <ClCompile Include="CharacteristicTypeAddService.cpp" />
+    <ClCompile Include="DbReader.cpp" />
+    <ClCompile Include="DbWriter.cpp" />
     <ClCompile Include="EquipmentAddFormController.cpp" />
     <ClCompile Include="BaseAddForm.cpp" />
     <ClCompile Include="CharacteristicsContext.cpp" />
@@ -164,6 +166,8 @@
     <QtMoc Include="CharacteristicPreviewForm.h" />
     <ClInclude Include="CharacteristicTypeAddFormController.h" />
     <ClInclude Include="CharacteristicTypeAddService.h" />
+    <ClInclude Include="DbReader.h" />
+    <ClInclude Include="DbWriter.h" />
     <ClInclude Include="EquipmentAddFormController.h" />
     <ClInclude Include="EquipmentAddService.h" />
     <QtMoc Include="SampleAddForm.h" />

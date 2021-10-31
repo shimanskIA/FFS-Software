@@ -2,6 +2,7 @@
 #include "DbImporter.h"
 #include "DbEditor.h"
 #include "IdFileManager.h"
+#include "DbConnection.h"
 
 void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 {
@@ -11,16 +12,28 @@ void FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 	dbImporter->ImportToDatabase();
 }
 
-void FFSDatabaseInterfaceService::DeleteRowRequestReceiver(QTableView* tableView, QString tableName)
+void FFSDatabaseInterfaceService::DeleteRowRequestReceiver(QString tableName, int selectedId)
 {
 	DbEditor* dbEditor = new DbEditor();
-	dbEditor->DeleteRow(tableView, tableName);
+	dbEditor->DeleteFromDatabase(tableName, selectedId);
 }
 
-bool FFSDatabaseInterfaceService::UpdateTableRequestReceiver(QVariant cellValue, QString tableName, QTableView* tableView)
+bool FFSDatabaseInterfaceService::UpdateTableRequestReceiver(QString tableName, QString columnName, QVariant cellValue, int selectedId)
 {
 	DbEditor* dbEditor = new DbEditor();
-	return dbEditor->UpdateRow(cellValue, tableName, tableView);
+	return dbEditor->UpdateRow(tableName, columnName, cellValue, selectedId);
+}
+
+bool FFSDatabaseInterfaceService::ReadAbscissaRequestReceiver(int selectedId, QVector<double>& x)
+{
+	DbReader* dbReader = new DbReader();
+	return dbReader->ReadAbscissaFromDatabase(selectedId, x);
+}
+
+bool FFSDatabaseInterfaceService::ReadOrdinateRequestReceiver(int selectedId, QVector<double>& y)
+{
+	DbReader* dbReader = new DbReader();
+	return dbReader->ReadOrdinateFromDatabase(selectedId, y);
 }
 
 void FFSDatabaseInterfaceService::RemoveUnusedIdsRequestReceiver()

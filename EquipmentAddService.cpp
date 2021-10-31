@@ -1,12 +1,12 @@
 #include "EquipmentAddService.h"
-#include "DbEditor.h"
+#include "DbWriter.h"
 
 bool EquipmentAddService::AddEquipmentRequestReceiver(EquipmentContext* equipmentItem)
 {
 	QVariant tableContext;
 	tableContext.setValue<EquipmentContext*>(equipmentItem);
-	DbEditor* dbEditor = new DbEditor();
-	bool isRowAdded = dbEditor->AddRow(tableContext);
+	DbWriter* dbWriter = new DbWriter();
+	bool isRowAdded = dbWriter->AddRow(tableContext);
 
 	if (isRowAdded)
 	{

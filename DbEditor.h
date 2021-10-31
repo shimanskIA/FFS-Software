@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseAddForm.h"
+#include "DbWriter.h"
 
 #include <QTableView>
 #include <QString>
@@ -9,8 +9,12 @@ class DbEditor
 {
 public:
 	DbEditor();
+
+	void DeleteFromDatabase(QString tableName, int id);
+	bool UpdateDatabase(QString tableName, QString columnName, QString cellValue, int id);
 	
-	void DeleteRow(QTableView* tableView, QString tableName);
-	bool UpdateRow(QVariant cellValue, QString tableName, QTableView* tableView);
-	bool AddRow(QVariant tableContext);
+	bool UpdateRow(QString tableName, QString columnName, QVariant cellValue, int selectedId);
+
+private:
+	DbWriter* dbWriter;
 };

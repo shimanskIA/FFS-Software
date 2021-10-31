@@ -263,7 +263,10 @@ void FFSDatabaseInterfaceFormController::ManageSwitchToEditModeRequest(QTableVie
 void FFSDatabaseInterfaceFormController::ManageDeleteRowRequest(QTableView* tableView, QString tableName)
 {
     tableName = tableName.replace(' ', '_');
-    FFSDatabaseInterfaceService::DeleteRowRequestReceiver(tableView, tableName);
+    int selectedRow = tableView->currentIndex().row();
+    QModelIndex indexId = tableView->model()->index(selectedRow, 0);
+    int selectedId = tableView->model()->data(indexId).toInt();
+    FFSDatabaseInterfaceService::DeleteRowRequestReceiver(tableName, selectedId);
 }
 
 void FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(QString tableName, QTableView* tableView, FFSDatabaseInterface* view)
@@ -277,7 +280,14 @@ void FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(QString tableN
             if (cellValue.toString() != view->GetPreviousCellValue().toString())
             {
                 tableName = tableName.replace(' ', '_');
-                if (!FFSDatabaseInterfaceService::UpdateTableRequestReceiver(cellValue, tableName, tableView))
+                int selectedColumn = tableView->currentIndex().column();
+                QString columnName = tableView->model()->headerData(selectedColumn, Qt::Horizontal, Qt::DisplayRole).toString();
+                columnName = columnName.replace(' ', '_').toLower();
+                int selectedRow = tableView->currentIndex().row();
+                QModelIndex indexId = tableView->model()->index(selectedRow, 0);
+                int selectedId = tableView->model()->data(indexId).toInt();
+
+                if (!FFSDatabaseInterfaceService::UpdateTableRequestReceiver(tableName, columnName, cellValue, selectedId))
                 {
                     tableView->model()->setData(tableView->currentIndex(), view->GetPreviousCellValue());
                 }
@@ -374,8 +384,8 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicPreviewRequest(
         QVector<double> x;
         QVector<double> y;
 
-        if (DbConnection::GetDbConnectionInstance().ReadAbscissaFromDatabase(selectedId, x) &&
-            DbConnection::GetDbConnectionInstance().ReadOrdinateFromDatabase(selectedId, y))
+        if (FFSDatabaseInterfaceService::ReadAbscissaRequestReceiver(selectedId, x) &&
+            FFSDatabaseInterfaceService::ReadOrdinateRequestReceiver(selectedId, y))
         {
             WindowManager* windowManager = new WindowManager();
             windowManager->ShowCharacteristicPreview(x, y, view, selectedId);

@@ -4,6 +4,7 @@
 #include "FFSDatabaseInterface.h"
 #include "MeasurementContext.h"
 #include "FFSTableModel.h"
+#include "DbReader.h"
 
 #include <QString>
 #include <QList>
@@ -37,6 +38,8 @@ public:
 	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 
 private:
+	DbReader* dbReader;
+
 	const QStringList measurementColumnNames = {
 		"Id",
 		"Name",

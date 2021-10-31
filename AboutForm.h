@@ -10,7 +10,9 @@ class AboutForm : public QWidget
 
 public:
     AboutForm(QWidget* parent = Q_NULLPTR);
+    static AboutForm& GetAboutFormInstance();
 
 private:
     Ui::AboutForm ui;
+    AboutForm(const AboutForm&) {}
 };

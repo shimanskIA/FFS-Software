@@ -67,8 +67,7 @@ FFSDatabaseInterface::~FFSDatabaseInterface()
 
 void FFSDatabaseInterface::infoButtonClick()
 {
-    AboutForm* aboutForm = new AboutForm();
-    aboutForm->show();
+    AboutForm::GetAboutFormInstance().showNormal();
 }
 
 void FFSDatabaseInterface::chooseMeasuringSystemTable()

@@ -1,5 +1,5 @@
 #include "DbImporter.h"
-#include "DbConnection.h"
+#include "DbWriter.h"
 
 DbImporter::DbImporter(DbContext *dbContext, RawDataParser *rawDataParser)
 {
@@ -16,5 +16,6 @@ DbImporter::~DbImporter()
 void DbImporter::ImportToDatabase()
 {
 	rawDataParser->ParseRawDataFile(dbContext);
-	DbConnection::GetDbConnectionInstance().AddToDatabase(dbContext);
+	DbWriter* dbWriter = new DbWriter();
+	dbWriter->AddToDatabase(dbContext);
 }

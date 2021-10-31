@@ -35,11 +35,11 @@ public:
 
 private slots:
     void addCharacteristic();
-    void showAllElementsTable();
-    void chooseElement();
-    void selectChosenElement();
-    void selectElement();
-    void cancelChoose();
+    void showAllElementsTable() override;
+    void chooseElement() override;
+    void selectChosenElement() override;
+    void selectElement() override;
+    void cancelChoose() override;
 
 private:
     Ui::CharacteristicAddFormClass ui;
