@@ -61,7 +61,7 @@ void DbConnection::DeleteFromDatabase(QString tableName, int id)
 	}
 }
 
-void DbConnection::UpdateDatabase(QString tableName, QString columnName, QString cellValue, int id)
+bool DbConnection::UpdateDatabase(QString tableName, QString columnName, QString cellValue, int id)
 {
 	QString sqlUpdateRequest = "UPDATE %1 SET %2 = %3 WHERE id = %4";
 	QSqlQuery query;
@@ -69,7 +69,10 @@ void DbConnection::UpdateDatabase(QString tableName, QString columnName, QString
 	if (!query.exec(sqlUpdateRequest.arg(tableName).arg(columnName).arg(cellValue).arg(id)))
 	{
 		qWarning("Database update request wasn't proceeded.");
+		return false;
 	}
+
+	return true;
 }
 
 void DbConnection::AddSamples(QList<SampleContext*> samples)

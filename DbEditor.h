@@ -11,6 +11,6 @@ public:
 	DbEditor();
 	
 	void DeleteRow(QTableView* tableView, QString tableName);
-	void UpdateRow(QVariant cellValue, QString tableName, QTableView* tableView);
+	bool UpdateRow(QVariant cellValue, QString tableName, QTableView* tableView);
 	bool AddRow(QVariant tableContext);
 };

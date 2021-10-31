@@ -271,11 +271,21 @@ void FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(QString tableN
     if (view->GetIsInEditMode())
     {
         view->SetIsInEditMode(false);
-        QVariant cellValue = tableView->currentIndex().data();
-        if (cellValue.toString() != view->GetPreviousCellValue().toString())
+        if (IsValueAllowed(tableName, tableView, tableView->currentIndex().row()))
         {
-            tableName = tableName.replace(' ', '_');
-            FFSDatabaseInterfaceService::UpdateTableRequestReceiver(cellValue, tableName, tableView);
+            QVariant cellValue = tableView->currentIndex().data();
+            if (cellValue.toString() != view->GetPreviousCellValue().toString())
+            {
+                tableName = tableName.replace(' ', '_');
+                if (!FFSDatabaseInterfaceService::UpdateTableRequestReceiver(cellValue, tableName, tableView))
+                {
+                    tableView->model()->setData(tableView->currentIndex(), view->GetPreviousCellValue());
+                }
+            }
+        }
+        else
+        {
+            tableView->model()->setData(tableView->currentIndex(), view->GetPreviousCellValue());
         }
     }
 }
@@ -414,4 +424,45 @@ void FFSDatabaseInterfaceFormController::ShowCharacteristicsTableRequestReceiver
     TableWriter* tableWriter = new TableWriter();
     QString sqlReadRequest = "SELECT * FROM characteristics";
     tableWriter->FillCharacteristicsTable(tableView, sqlReadRequest);
+}
+
+bool FFSDatabaseInterfaceFormController::IsValueAllowed(QString tableName, QTableView* tableView, int selectedRow)
+{
+    if (tableName.contains("parameter"))
+    {
+        return ContainsEqualRow(selectedRow, tableView);
+    }
+
+    return true;
+}
+
+bool FFSDatabaseInterfaceFormController::ContainsEqualRow(int selectedRow, QTableView* tableView)
+{
+    for (int i = 0; i < tableView->model()->rowCount(); i++)
+    {
+        if (i != selectedRow)
+        {
+            bool contains = true;
+
+            for (int j = 1; j < tableView->model()->columnCount(); j++)
+            {
+                if (tableView->model()->index(i, j).data() == tableView->model()->index(selectedRow, j).data())
+                {
+                    contains = contains && true;
+                }
+                else
+                {
+                    contains = false;
+                    break;
+                }
+            }
+
+            if (contains)
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }

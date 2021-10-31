@@ -11,6 +11,6 @@ class FFSDatabaseInterfaceService
 public:
 	static void ImportRequestReceiver(QString fileLink);
 	static void DeleteRowRequestReceiver(QTableView* tableView, QString tableName);
-	static void UpdateTableRequestReceiver(QVariant cellValue, QString tableName, QTableView* tableView);
+	static bool UpdateTableRequestReceiver(QVariant cellValue, QString tableName, QTableView* tableView);
 	static void RemoveUnusedIdsRequestReceiver();
 };

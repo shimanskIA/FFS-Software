@@ -231,6 +231,9 @@
     <ClCompile Include="CharacteristicPreviewForm.cpp">
       <Filter>View\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TableItemDelegate.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -302,6 +305,9 @@
       <Filter>Resource Files</Filter>
     </QtMoc>
     <QtMoc Include="CharacteristicPreviewForm.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="TableItemDelegate.h">
       <Filter>View\Header Files</Filter>
     </QtMoc>
   </ItemGroup>

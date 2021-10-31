@@ -16,7 +16,7 @@ void DbEditor::DeleteRow(QTableView* tableView, QString tableName)
     DbConnection::GetDbConnectionInstance().DeleteFromDatabase(tableName, selectedId);
 }
 
-void DbEditor::UpdateRow(QVariant cellValue, QString tableName, QTableView* tableView)
+bool DbEditor::UpdateRow(QVariant cellValue, QString tableName, QTableView* tableView)
 {
     int selectedColumn = tableView->currentIndex().column();
     QString columnName = tableView->model()->headerData(selectedColumn, Qt::Horizontal, Qt::DisplayRole).toString();
@@ -35,7 +35,7 @@ void DbEditor::UpdateRow(QVariant cellValue, QString tableName, QTableView* tabl
         dbCellValue = cellValue.toString();
     }
 
-    DbConnection::GetDbConnectionInstance().UpdateDatabase(tableName, columnName, dbCellValue, selectedId);
+    return DbConnection::GetDbConnectionInstance().UpdateDatabase(tableName, columnName, dbCellValue, selectedId);
 }
 
 bool DbEditor::AddRow(QVariant tableContext)

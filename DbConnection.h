@@ -12,7 +12,7 @@ public:
 	static DbConnection& GetDbConnectionInstance();
 	void AddToDatabase(DbContext* dbContext);
 	void DeleteFromDatabase(QString tableName, int id);
-	void UpdateDatabase(QString tableName, QString columnName, QString cellValue, int id);
+	bool UpdateDatabase(QString tableName, QString columnName, QString cellValue, int id);
 	QSqlQuery ReadFromDatabase(QString sqlRequest);
 	bool WriteToDatabase(QString sqlWriteRequest, QString tableName);
 

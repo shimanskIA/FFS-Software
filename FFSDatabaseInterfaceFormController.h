@@ -36,6 +36,9 @@ public:
     static void ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys = QMap<QString, int>());
     static void LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 
+    static bool IsValueAllowed(QString tableName, QTableView* tableView, int selectedRow);
+    static bool ContainsEqualRow(int selectedRow, QTableView* tableView);
+
 private:
     static void DisableButtonActivity(FFSDatabaseInterface* view);
 };
