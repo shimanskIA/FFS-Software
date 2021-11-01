@@ -17,4 +17,10 @@ bool EquipmentAddService::AddEquipmentRequestReceiver(EquipmentContext* equipmen
 	return false;
 }
 
+void EquipmentAddService::AddExistingEquipmentRequestReceiver(QList<BindingContext*> bindings)
+{
+	DbWriter* dbWriter = new DbWriter();
+	dbWriter->AddBindings(bindings);
+}
+
 Q_DECLARE_METATYPE(EquipmentContext*);

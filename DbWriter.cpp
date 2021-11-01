@@ -367,7 +367,13 @@ bool DbWriter::AddEquipmentItem(EquipmentContext* equipmentItem)
 
 	if (isRowAdded)
 	{
-		AddBinding(equipmentItem->GetBinding());
+		BindingContext* binding = equipmentItem->GetBinding();
+
+		if (binding != nullptr)
+		{
+			AddBinding(binding);
+		}
+
 		return true;
 	}
 

@@ -319,6 +319,33 @@ void TableWriter::FillCharacteristicTypesTable(QTableView* tableView)
 	tableView->setColumnHidden(0, true);
 }
 
+void TableWriter::FillExistingEquipmentTable(QTableView* tableView, int fk_measuring_system)
+{
+	QList<EquipmentContext*> existingEquipment = dbReader->ReadExistingEquipmentFromDatabase(fk_measuring_system);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(existingEquipment.length());
+	tableModel->setColumnCount(3);
+
+	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	{
+		if (j < tableModel->columnCount())
+		{
+			tableModel->setHeaderData(j, Qt::Horizontal, equipmentColumnNames.at(j));
+		}
+
+		if (i < tableModel->rowCount())
+		{
+			tableModel->setData(tableModel->index(i, 0), existingEquipment.at(i)->GetId());
+			tableModel->setData(tableModel->index(i, 1), existingEquipment.at(i)->GetName());
+			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
+			tableModel->setData(tableModel->index(i, 2), existingEquipment.at(i)->GetDescription());
+			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
+		}
+	}
+
+	tableView->setColumnHidden(0, true);
+}
+
 void TableWriter::FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, QList<MeasurementContext*> measurements)
 {
 	QDateTime DateTime;

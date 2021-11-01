@@ -178,6 +178,30 @@ QList<EquipmentContext*> DbReader::ReadEquipmentsFromDatabase()
 	return equipments;
 }
 
+QList<EquipmentContext*> DbReader::ReadExistingEquipmentFromDatabase(int fk_measuring_system)
+{
+	QString sqlReadRequest = "SELECT fk_equipment FROM bindings WHERE fk_measuring_system = %1";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(fk_measuring_system));
+	QList<int> forbiddenIds;
+
+	while (query.next())
+	{
+		forbiddenIds.append(query.value(0).toInt());
+	}
+
+	QList<EquipmentContext*> equipments = ReadEquipmentsFromDatabase();
+
+	foreach(EquipmentContext * equipment, equipments)
+	{
+		if (forbiddenIds.contains(equipment->GetId()))
+		{
+			equipments.removeOne(equipment);
+		}
+	}
+
+	return equipments;
+}
+
 QList<CharacteristicsContext*> DbReader::ReadCharacteristicsFromDatabase(QString sqlReadRequest)
 {
 	QSqlQuery query = ReadFromDatabase(sqlReadRequest);

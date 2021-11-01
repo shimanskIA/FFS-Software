@@ -34,6 +34,8 @@ public:
 
 	void FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, QList<MeasurementContext*> measurements);
 
+	void FillExistingEquipmentTable(QTableView* tableView, int fk_measuring_system);
+
 	void RouteMajorRequest(QString tableName, QTableView* tableView);
 	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 

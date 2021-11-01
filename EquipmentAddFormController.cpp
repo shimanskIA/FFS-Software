@@ -1,6 +1,8 @@
 #include "EquipmentAddFormController.h"
 #include "EquipmentAddService.h"
 #include "NamesHelper.h"
+#include "FFSTableModel.h"
+#include "TableWriter.h"
 
 void EquipmentAddFormController::ManageAddEquipmentRequest(EquipmentAddForm* view)
 {
@@ -20,4 +22,100 @@ void EquipmentAddFormController::ManageAddEquipmentRequest(EquipmentAddForm* vie
 
 	bool isRowAdded =  EquipmentAddService::AddEquipmentRequestReceiver(equipmentItem);
 	view->SetIsRowAdded(isRowAdded);
+}
+
+void EquipmentAddFormController::ManageAddExistingEquipmentRequest(EquipmentAddForm* view, int fk_measuring_system)
+{
+	QList<BindingContext*> bindings;
+
+	for (int i = 0; i < view->GetUI().chosenEquipmentTable->model()->rowCount(); i++)
+	{
+		BindingContext* binding = new BindingContext();
+		binding->SetFKMeasuringSystem(fk_measuring_system);
+		binding->SetFKEquipment(view->GetUI().chosenEquipmentTable->model()->index(i, 0).data().toInt());
+		bindings.append(binding);
+	}
+
+	EquipmentAddService::AddExistingEquipmentRequestReceiver(bindings);
+	view->SetIsRowAdded(true);
+}
+
+void EquipmentAddFormController::ManageShowAllElementsTableRequest(QTableView* tableView)
+{
+	ManageFillIndependentTableRequest("equipment", tableView);
+}
+
+void EquipmentAddFormController::ManageChooseUpperElementRequest(EquipmentAddForm* view)
+{
+	int selectedRow = view->GetUI().allEquipmentTable->currentIndex().row();
+	FFSTableModel* chosenElementsTableModel = (FFSTableModel*)view->GetUI().chosenEquipmentTable->model();
+	FFSTableModel* allElementsTableModel = (FFSTableModel*)view->GetUI().allEquipmentTable->model();
+	chosenElementsTableModel->appendRow(allElementsTableModel->takeRow(selectedRow));
+
+	for (int j = 0; j < allElementsTableModel->columnCount(); j++)
+	{
+		chosenElementsTableModel->setHeaderData(j, Qt::Horizontal, allElementsTableModel->headerData(j, Qt::Horizontal));
+	}
+
+
+	if (view->GetIsFirstTime())
+	{
+		view->SetTableSettings(view->GetUI().chosenEquipmentTable);
+		view->SetIsFirstTime(false);
+	}
+
+	view->GetUI().chosenEquipmentTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+	view->GetUI().chosenEquipmentTable->setColumnHidden(0, true);
+	view->GetUI().AddEquipmentButton->setDisabled(false);
+}
+
+void EquipmentAddFormController::ManageCancelChooseRequest(EquipmentAddForm* view)
+{
+	int selectedRow = view->GetUI().chosenEquipmentTable->currentIndex().row();
+	FFSTableModel* chosenElementsTableModel = (FFSTableModel*)view->GetUI().chosenEquipmentTable->model();
+	FFSTableModel* allElementsTableModel = (FFSTableModel*)view->GetUI().allEquipmentTable->model();
+	allElementsTableModel->appendRow(chosenElementsTableModel->takeRow(selectedRow));
+	allElementsTableModel->sort(0, Qt::AscendingOrder);
+
+	if (chosenElementsTableModel->rowCount() == 0)
+	{
+		view->GetUI().AddEquipmentButton->setDisabled(true);
+	}
+}
+
+void EquipmentAddFormController::ManageChooseExistingEquipmentRequest(EquipmentAddForm* view, int checkboxState)
+{
+	if (checkboxState == Qt::Checked)
+	{
+		auto ui = view->GetUI();
+		ui.NameInput->setDisabled(true);
+		ui.DescriptionInput->setDisabled(true);
+		ui.AddEquipmentButton->setDisabled(true);
+		ui.allEquipmentTable->setDisabled(false);
+		ui.chosenEquipmentTable->setDisabled(false);
+		view->SetIsExistingEquipmentChosen(true);
+		ManageShowExistingEquipmentRequest(view);
+
+		if (view->GetIsFirstTimeChecked())
+		{
+			view->SetTableSettings(ui.allEquipmentTable);
+			view->SetIsFirstTimeChecked(false);
+		}
+	}
+	else
+	{
+		auto ui = view->GetUI();
+		ui.NameInput->setDisabled(false);
+		ui.DescriptionInput->setDisabled(false);
+		ui.AddEquipmentButton->setDisabled(false);
+		ui.allEquipmentTable->setDisabled(true);
+		ui.chosenEquipmentTable->setDisabled(true);
+		view->SetIsExistingEquipmentChosen(false);
+	}
+}
+
+void EquipmentAddFormController::ManageShowExistingEquipmentRequest(EquipmentAddForm* view)
+{
+	TableWriter* tableWriter = new TableWriter();
+	tableWriter->FillExistingEquipmentTable(view->GetUI().allEquipmentTable, view->GetFKMeasuringSystem());
 }
