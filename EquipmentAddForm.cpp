@@ -11,7 +11,11 @@ EquipmentAddForm::EquipmentAddForm(QWidget* parent, int fk_measuring_system) : B
 	ui.downButton->setDisabled(true);
 	ui.upButton->setDisabled(true);
 
-	if (fk_measuring_system != 0)
+	if (fk_measuring_system == 0)
+	{
+		ui.addExistingEquipmentCheckbox->setDisabled(true);
+	}
+	else
 	{
 		allEquipmentTableModel = new FFSTableModel(0, 0);
 		ui.allEquipmentTable->setModel(allEquipmentTableModel);
