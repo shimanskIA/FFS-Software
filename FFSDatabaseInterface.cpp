@@ -145,6 +145,7 @@ void FFSDatabaseInterface::deleteMajorTableRow()
 
 void FFSDatabaseInterface::deleteMinorTableRow()
 {
+
     FFSDatabaseInterfaceFormController::ManageDeleteRowRequest(ui.minorTableView, actualSubtable);
     isSubtableChanged = true;
     FFSDatabaseInterfaceFormController::ManageLoadDataToSubtableRequest(this);

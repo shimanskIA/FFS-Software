@@ -18,6 +18,17 @@ void DbEditor::DeleteFromDatabase(QString tableName, int id)
     }
 }
 
+void DbEditor::DeleteBindingsWithMeasuringSystem(int fk_measuring_system)
+{
+    QString sqlRequest = "DELETE FROM bindings WHERE fk_measuring_system = %1";
+    QSqlQuery query;
+
+    if (!query.exec(sqlRequest.arg(fk_measuring_system)))
+    {
+        qWarning("Database delete request wasn't proceeded.");
+    }
+}
+
 bool DbEditor::UpdateDatabase(QString tableName, QString columnName, QString cellValue, int id)
 {
     QString sqlUpdateRequest = "UPDATE %1 SET %2 = %3 WHERE id = %4";

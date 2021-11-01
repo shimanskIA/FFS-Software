@@ -4,6 +4,7 @@
 #include <QPoint>
 #include <QRubberBand>
 #include <QMouseEvent>
+#include <QStack>
 
 #include "ui_CharacteristicPreviewForm.h"
 
@@ -31,8 +32,8 @@ private:
     bool zoomMode;
     QRubberBand* rubberBand;
     QPoint origin;
-    QList<QCPRange> previousXAxeRanges;
-    QList<QCPRange> previousYAxeRanges;
+    QStack<QCPRange> previousXAxeRanges;
+    QStack<QCPRange> previousYAxeRanges;
     int windowId;
     void closeEvent(QCloseEvent* event) override;
 };

@@ -210,12 +210,12 @@
     <rect>
      <x>20</x>
      <y>120</y>
-     <width>161</width>
+     <width>201</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Add existing equipment</string>
+    <string>Manipulate existing equipment</string>
    </property>
   </widget>
   <zorder>label</zorder>

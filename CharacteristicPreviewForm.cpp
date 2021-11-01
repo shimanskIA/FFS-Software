@@ -59,10 +59,8 @@ void CharacteristicPreviewForm::mousePressEvent(QMouseEvent* event)
         {
             if (!this->previousXAxeRanges.isEmpty())
             {
-                ui.plotPreview->xAxis->setRange(previousXAxeRanges.last());
-                ui.plotPreview->yAxis->setRange(previousYAxeRanges.last());
-                this->previousXAxeRanges.removeLast();
-                this->previousYAxeRanges.removeLast();
+                ui.plotPreview->xAxis->setRange(previousXAxeRanges.pop());
+                ui.plotPreview->yAxis->setRange(previousYAxeRanges.pop());
                 ui.plotPreview->replot();
             }
         }
@@ -83,8 +81,8 @@ void CharacteristicPreviewForm::mouseReleaseEvent(QMouseEvent* event)
 {
     if (rubberBand->isVisible())
     {
-        previousXAxeRanges.append(ui.plotPreview->xAxis->range());
-        previousYAxeRanges.append(ui.plotPreview->yAxis->range());
+        previousXAxeRanges.push(ui.plotPreview->xAxis->range());
+        previousYAxeRanges.push(ui.plotPreview->yAxis->range());
         const QRect& zoomRect = rubberBand->geometry();
         int xp1, yp1, xp2, yp2;
         zoomRect.getCoords(&xp1, &yp1, &xp2, &yp2);

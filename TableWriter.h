@@ -1,7 +1,9 @@
 #pragma once
 
 #include "ui_FFSDatabaseInterface.h"
+#include "ui_EquipmentAddForm.h"
 #include "FFSDatabaseInterface.h"
+#include "EquipmentAddForm.h"
 #include "MeasurementContext.h"
 #include "FFSTableModel.h"
 #include "DbReader.h"
@@ -34,7 +36,7 @@ public:
 
 	void FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, QList<MeasurementContext*> measurements);
 
-	void FillExistingEquipmentTable(QTableView* tableView, int fk_measuring_system);
+	void FillExistingEquipmentTable(EquipmentAddForm* view, int fk_measuring_system);
 
 	void RouteMajorRequest(QString tableName, QTableView* tableView);
 	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);

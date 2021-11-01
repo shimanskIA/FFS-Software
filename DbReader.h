@@ -22,6 +22,7 @@ public:
 	QList<SampleContext*> ReadSamplesFromDatabase();
 	QList<EquipmentContext*> ReadEquipmentsFromDatabase();
 	QList<EquipmentContext*> ReadExistingEquipmentFromDatabase(int fk_measuring_system);
+	QList<EquipmentContext*> ReadBindedEquipmentFromDatabase(int fk_measuring_system);
 	QList<CharacteristicsContext*> ReadCharacteristicsFromDatabase(QString sqlReadRequest);
 	QList<CharacteristicTypeContext*> ReadCharacteristicTypesFromDatabase();
 	QList<BindingContext*> ReadBindingsFromDatabase(QString majorTableName, int fk);

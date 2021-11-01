@@ -12,11 +12,11 @@ class EquipmentAddForm : public BaseDependentAddForm
 
 public:
     EquipmentAddForm(QWidget* parent = Q_NULLPTR, int fk_measuring_system = 0);
+    ~EquipmentAddForm();
 
     int GetFKMeasuringSystem();
 
     bool GetIsFirstTime();
-    bool GetIsFirstTimeChecked();
     bool GetIsExistingEquipmentChosen();
 
     FFSTableModel* GetAllEquipmentTableModel();
@@ -25,7 +25,6 @@ public:
     Ui::EquipmentAddFormClass GetUI();
 
     void SetIsFirstTime(bool isFirstTime);
-    void SetIsFirstTimeChecked(bool isFirstTimeChecked);
     void SetIsExistingEquipmentChosen(bool isExistingEquipmentChosen);
 
 private slots:
@@ -48,6 +47,5 @@ private:
     FFSTableModel* chosenEquipmentTableModel = nullptr;
 
     bool isFirstTime = true;
-    bool isFirstTimeChecked = true;
     bool isExistingEquipmentChosen = false;
 };

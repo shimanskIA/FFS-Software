@@ -11,11 +11,7 @@ EquipmentAddForm::EquipmentAddForm(QWidget* parent, int fk_measuring_system) : B
 	ui.downButton->setDisabled(true);
 	ui.upButton->setDisabled(true);
 
-	if (fk_measuring_system == 0)
-	{
-		ui.addExistingEquipmentCheckbox->setDisabled(true);
-	}
-	else
+	if (fk_measuring_system != 0)
 	{
 		allEquipmentTableModel = new FFSTableModel(0, 0);
 		ui.allEquipmentTable->setModel(allEquipmentTableModel);
@@ -31,6 +27,12 @@ EquipmentAddForm::EquipmentAddForm(QWidget* parent, int fk_measuring_system) : B
 	}
 
 	connect(ui.AddEquipmentButton, SIGNAL(clicked()), this, SLOT(addEquipment()));
+}
+
+EquipmentAddForm::~EquipmentAddForm()
+{
+	delete allEquipmentTableModel;
+	delete chosenEquipmentTableModel;
 }
 
 void EquipmentAddForm::sortAllElementsTableRows(int selectedColumn)
@@ -122,11 +124,6 @@ bool EquipmentAddForm::GetIsFirstTime()
 	return this->isFirstTime;
 }
 
-bool EquipmentAddForm::GetIsFirstTimeChecked()
-{
-	return this->isFirstTimeChecked;
-}
-
 Ui::EquipmentAddFormClass EquipmentAddForm::GetUI()
 {
 	return this->ui;
@@ -140,9 +137,4 @@ void EquipmentAddForm::SetIsExistingEquipmentChosen(bool isExistingEquipmentChos
 void EquipmentAddForm::SetIsFirstTime(bool isFirstTime)
 {
 	this->isFirstTime = isFirstTime;
-}
-
-void EquipmentAddForm::SetIsFirstTimeChecked(bool isFirstTimeChecked)
-{
-	this->isFirstTimeChecked = isFirstTimeChecked;
 }

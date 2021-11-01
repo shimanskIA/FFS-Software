@@ -1,5 +1,6 @@
 #include "EquipmentAddService.h"
 #include "DbWriter.h"
+#include "DbEditor.h"
 
 bool EquipmentAddService::AddEquipmentRequestReceiver(EquipmentContext* equipmentItem)
 {
@@ -19,6 +20,9 @@ bool EquipmentAddService::AddEquipmentRequestReceiver(EquipmentContext* equipmen
 
 void EquipmentAddService::AddExistingEquipmentRequestReceiver(QList<BindingContext*> bindings)
 {
+	DbEditor* dbEditor = new DbEditor();
+	int fk_measuring_system = bindings.first()->GetFKMeasuringSystem();
+	dbEditor->DeleteBindingsWithMeasuringSystem(fk_measuring_system);
 	DbWriter* dbWriter = new DbWriter();
 	dbWriter->AddBindings(bindings);
 }

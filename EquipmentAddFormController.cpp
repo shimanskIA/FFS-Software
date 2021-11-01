@@ -57,13 +57,6 @@ void EquipmentAddFormController::ManageChooseUpperElementRequest(EquipmentAddFor
 		chosenElementsTableModel->setHeaderData(j, Qt::Horizontal, allElementsTableModel->headerData(j, Qt::Horizontal));
 	}
 
-
-	if (view->GetIsFirstTime())
-	{
-		view->SetTableSettings(view->GetUI().chosenEquipmentTable);
-		view->SetIsFirstTime(false);
-	}
-
 	view->GetUI().chosenEquipmentTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 	view->GetUI().chosenEquipmentTable->setColumnHidden(0, true);
 	view->GetUI().AddEquipmentButton->setDisabled(false);
@@ -90,16 +83,25 @@ void EquipmentAddFormController::ManageChooseExistingEquipmentRequest(EquipmentA
 		auto ui = view->GetUI();
 		ui.NameInput->setDisabled(true);
 		ui.DescriptionInput->setDisabled(true);
-		ui.AddEquipmentButton->setDisabled(true);
 		ui.allEquipmentTable->setDisabled(false);
 		ui.chosenEquipmentTable->setDisabled(false);
 		view->SetIsExistingEquipmentChosen(true);
 		ManageShowExistingEquipmentRequest(view);
 
-		if (view->GetIsFirstTimeChecked())
+		if (view->GetUI().chosenEquipmentTable->model()->rowCount() == 0)
+		{
+			ui.AddEquipmentButton->setDisabled(true);
+		}
+		else
+		{
+			ui.AddEquipmentButton->setDisabled(false);
+		}
+
+		if (view->GetIsFirstTime())
 		{
 			view->SetTableSettings(ui.allEquipmentTable);
-			view->SetIsFirstTimeChecked(false);
+			view->SetTableSettings(ui.chosenEquipmentTable);
+			view->SetIsFirstTime(false);
 		}
 	}
 	else
@@ -117,5 +119,5 @@ void EquipmentAddFormController::ManageChooseExistingEquipmentRequest(EquipmentA
 void EquipmentAddFormController::ManageShowExistingEquipmentRequest(EquipmentAddForm* view)
 {
 	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillExistingEquipmentTable(view->GetUI().allEquipmentTable, view->GetFKMeasuringSystem());
+	tableWriter->FillExistingEquipmentTable(view, view->GetFKMeasuringSystem());
 }
