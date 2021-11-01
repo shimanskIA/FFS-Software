@@ -321,10 +321,11 @@ void TableWriter::FillCharacteristicTypesTable(QTableView* tableView)
 
 void TableWriter::FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, QList<MeasurementContext*> measurements)
 {
+	QDateTime DateTime;
 	tableModel->setData(tableModel->index(rowNumber, 0), measurements.at(rowNumber)->GetId());
 	tableModel->setData(tableModel->index(rowNumber, 1), measurements.at(rowNumber)->GetName());
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 1))->setTextAlignment(Qt::AlignBottom);
-	tableModel->setData(tableModel->index(rowNumber, 2), measurements.at(rowNumber)->GetDateTime());
+	tableModel->setData(tableModel->index(rowNumber, 2), DateTime.fromString(measurements.at(rowNumber)->GetDateTime(), "H:m:s M/d/yyyy"));
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 2))->setTextAlignment(Qt::AlignBottom);
 	tableModel->setData(tableModel->index(rowNumber, 3), measurements.at(rowNumber)->GetFileLink().split('/').last());
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 3))->setTextAlignment(Qt::AlignBottom);

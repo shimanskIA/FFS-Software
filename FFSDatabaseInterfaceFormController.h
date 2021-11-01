@@ -7,7 +7,7 @@
 
 #include <QString>
 
-static class FFSDatabaseInterfaceFormController : TableFillRequestController
+static class FFSDatabaseInterfaceFormController : public TableFillRequestController
 {
 public:
     static void ManageFileImportRequest(QString fileName);

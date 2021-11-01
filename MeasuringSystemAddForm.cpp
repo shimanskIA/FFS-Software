@@ -17,7 +17,19 @@ MeasuringSystemAddForm::MeasuringSystemAddForm(QWidget* parent) : BaseDependentA
 	connect(ui.allElementsTable, SIGNAL(clicked(QModelIndex)), this, SLOT(selectElement()));
 	connect(ui.downButton, SIGNAL(clicked()), this, SLOT(chooseElement()));
 	connect(ui.upButton, SIGNAL(clicked()), this, SLOT(cancelChoose()));
+	connect(ui.allElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortAllElementsTableRows(int)));
+	connect(ui.chosenElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortChosenElementsTableRows(int)));
 	SetTableSettings(ui.allElementsTable);
+}
+
+void MeasuringSystemAddForm::sortAllElementsTableRows(int selectedColumn)
+{
+	MeasuringSystemAddFormController::ManageSortRowsRequest(ui.allElementsTable, selectedColumn);
+}
+
+void MeasuringSystemAddForm::sortChosenElementsTableRows(int selectedColumn)
+{
+	MeasuringSystemAddFormController::ManageSortRowsRequest(ui.chosenElementsTable, selectedColumn);
 }
 
 void MeasuringSystemAddForm::addMeasuringSystem()

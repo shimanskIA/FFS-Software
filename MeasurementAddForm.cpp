@@ -53,6 +53,8 @@ MeasurementAddForm::MeasurementAddForm(QWidget* parent, int fk_measuring_system,
 	connect(ui.allElementsTable, SIGNAL(clicked(QModelIndex)), this, SLOT(selectElement()));
 	connect(ui.downButton, SIGNAL(clicked()), this, SLOT(chooseElement()));
 	connect(ui.upButton, SIGNAL(clicked()), this, SLOT(cancelChoose()));
+	connect(ui.allElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortAllElementsTableRows(int)));
+	connect(ui.chosenElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortChosenElementsTableRows(int)));
 	SetTableSettings(ui.allElementsTable);
 }
 
@@ -62,6 +64,16 @@ MeasurementAddForm::~MeasurementAddForm()
 	delete chosenMeasuringSystemsTableModel;
 	delete allSamplesTableModel;
 	delete chosenSamplesTableModel;
+}
+
+void MeasurementAddForm::sortAllElementsTableRows(int selectedColumn)
+{
+	MeasurementAddFormController::ManageSortRowsRequest(ui.allElementsTable, selectedColumn);
+}
+
+void MeasurementAddForm::sortChosenElementsTableRows(int selectedColumn)
+{
+	MeasurementAddFormController::ManageSortRowsRequest(ui.chosenElementsTable, selectedColumn);
 }
 
 void MeasurementAddForm::addMeasurement()

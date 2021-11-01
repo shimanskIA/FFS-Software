@@ -33,6 +33,8 @@ public:
 
 private slots:
     void addMeasurement();
+    void sortAllElementsTableRows(int selectedColumn) override;
+    void sortChosenElementsTableRows(int selectedColumn) override;
     void showAllElementsTable() override;
     void chooseElement() override;
     void selectChosenElement() override;

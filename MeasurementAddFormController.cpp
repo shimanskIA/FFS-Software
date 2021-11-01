@@ -6,10 +6,27 @@
 void MeasurementAddFormController::ManageAddMeasurementRequest(MeasurementAddForm* view)
 {
 	bool finalResult = true;
+	bool isRowAdded = false;
+	QDateTime DateTime;
+	QString file = view->GetUI().FileInput->toPlainText();
+
+	if (file.isEmpty())
+	{
+		view->SetIsRowAdded(isRowAdded);
+		return;
+	}
+
 	QString name = view->GetUI().NameInput->toPlainText();
 	QString date = view->GetUI().DateInput->toPlainText();
-	QString file = view->GetUI().FileInput->toPlainText();
+
 	bool convertionResult;
+
+	if (!date.isEmpty())
+	{
+		convertionResult = DateTime.fromString(date, "H:m:s M/d/yyyy").isValid();
+		finalResult = finalResult && convertionResult;
+	}
+
 	int repeatCount = view->GetUI().RepeatCountInput->toPlainText().toInt(&convertionResult);
 	finalResult = finalResult && convertionResult;
 	int kineticsCount = view->GetUI().KineticsCountInput->toPlainText().toInt(&convertionResult);
@@ -18,7 +35,6 @@ void MeasurementAddFormController::ManageAddMeasurementRequest(MeasurementAddFor
 	finalResult = finalResult && convertionResult;
 	int numberPositions = view->GetUI().NumberPositionsInput->toPlainText().toInt(&convertionResult);
 	finalResult = finalResult && convertionResult;
-	bool isRowAdded = false;
 
 	if (finalResult)
 	{

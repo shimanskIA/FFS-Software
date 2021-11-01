@@ -17,6 +17,7 @@ public:
 signals:
     void windowClosed();
 
+
 protected:
     void closeEvent(QCloseEvent* event) override;
     

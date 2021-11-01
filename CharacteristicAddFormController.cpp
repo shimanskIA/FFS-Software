@@ -14,8 +14,14 @@ void CharacteristicAddFormController::ManageAddCharacteristicRequest(Characteris
 	finalResult = finalResult && convertionResult;
 	double binTime = view->GetUI().BinTimeInput->toPlainText().toDouble(&convertionResult);
 	finalResult = finalResult && convertionResult;
-	double weight = view->GetUI().WeightInput->toPlainText().toDouble(&convertionResult);
-	finalResult = finalResult && convertionResult;
+	double weight = 0;
+
+	if (!view->GetUI().WeightInput->toPlainText().isEmpty())
+	{
+		weight = view->GetUI().WeightInput->toPlainText().toDouble(&convertionResult);
+		finalResult = finalResult && convertionResult;
+	}
+
 	bool isRowAdded = false;
 
 	if (finalResult)

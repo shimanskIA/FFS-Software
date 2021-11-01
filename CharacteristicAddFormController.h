@@ -6,7 +6,7 @@
 
 #include <QString>
 
-static class CharacteristicAddFormController : TableFillRequestController
+static class CharacteristicAddFormController : public TableFillRequestController
 {
 public:
 	static void ManageAddCharacteristicRequest(CharacteristicAddForm* view);

@@ -53,6 +53,8 @@ CharacteristicAddForm::CharacteristicAddForm(QWidget* parent, int fk_measurement
 	connect(ui.allElementsTable, SIGNAL(clicked(QModelIndex)), this, SLOT(selectElement()));
 	connect(ui.downButton, SIGNAL(clicked()), this, SLOT(chooseElement()));
 	connect(ui.upButton, SIGNAL(clicked()), this, SLOT(cancelChoose()));
+	connect(ui.allElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortAllElementsTableRows(int)));
+	connect(ui.chosenElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortChosenElementsTableRows(int)));
 	SetTableSettings(ui.allElementsTable);
 }
 
@@ -62,6 +64,16 @@ CharacteristicAddForm::~CharacteristicAddForm()
 	delete chosenCharacteristicTypesTableModel;
 	delete allMeasurementsTableModel;
 	delete chosenMeasurementsTableModel;
+}
+
+void CharacteristicAddForm::sortAllElementsTableRows(int selectedColumn)
+{
+	CharacteristicAddFormController::ManageSortRowsRequest(ui.allElementsTable, selectedColumn);
+}
+
+void CharacteristicAddForm::sortChosenElementsTableRows(int selectedColumn)
+{
+	CharacteristicAddFormController::ManageSortRowsRequest(ui.chosenElementsTable, selectedColumn);
 }
 
 void CharacteristicAddForm::addCharacteristic()

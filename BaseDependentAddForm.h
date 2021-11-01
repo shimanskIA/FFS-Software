@@ -15,6 +15,8 @@ public:
 	void SetTableSettings(QTableView* tableView);
 
 protected slots:
+	virtual void sortAllElementsTableRows(int selectedColumn) = 0;
+	virtual void sortChosenElementsTableRows(int selectedColumn) = 0;
 	virtual void showAllElementsTable() = 0;
 	virtual void chooseElement() = 0;
 	virtual void selectChosenElement() = 0;

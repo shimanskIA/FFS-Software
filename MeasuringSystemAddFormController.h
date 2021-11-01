@@ -6,7 +6,7 @@
 
 #include <QString>
 
-static class MeasuringSystemAddFormController : TableFillRequestController
+static class MeasuringSystemAddFormController : public TableFillRequestController
 {
 public:
 	static void ManageAddMeasuringSystemRequest(MeasuringSystemAddForm* view);

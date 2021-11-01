@@ -55,6 +55,9 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.majorPreviewButton, SIGNAL(clicked()), this, SLOT(showMajorCharacteristicPreview()));
     connect(ui.minorPreviewButton, SIGNAL(clicked()), this, SLOT(showMinorCharacteristicPreview()));
     connect(ui.minorPreviewSubbutton, SIGNAL(clicked()), this, SLOT(showMinorCharacteristicSubPreview()));
+    connect(ui.majorTableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortMajorTableRows(int)));
+    connect(ui.minorTableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortMinorTableRows(int)));
+    connect(ui.minorSubtableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortMinorSubtableRows(int)));
     FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(this, true);
     SetTableSettings(ui.majorTableView);
 }
@@ -240,6 +243,21 @@ void FFSDatabaseInterface::AddOpenedCharacteristicPreviewWindow(int windowId, Ch
 void FFSDatabaseInterface::closePreviewWindow(int windowId)
 {
     this->openedCharacteristicPreviewWindows.remove(windowId);
+}
+
+void FFSDatabaseInterface::sortMajorTableRows(int selectedColumn)
+{
+    FFSDatabaseInterfaceFormController::ManageSortRowsRequest(ui.majorTableView, selectedColumn);
+}
+
+void FFSDatabaseInterface::sortMinorTableRows(int selectedColumn)
+{
+    FFSDatabaseInterfaceFormController::ManageSortRowsRequest(ui.minorTableView, selectedColumn);
+}
+
+void FFSDatabaseInterface::sortMinorSubtableRows(int selectedColumn)
+{
+    FFSDatabaseInterfaceFormController::ManageSortRowsRequest(ui.minorSubtableView, selectedColumn);
 }
 
 void FFSDatabaseInterface::SetTableSettings(QTableView* table)

@@ -40,6 +40,11 @@ bool DbEditor::UpdateRow(QString tableName, QString columnName, QVariant cellVal
     {
         dbCellValue = "'" + cellValue.toString() + "'";
     }
+    else if (cellValue.type() == QVariant::Type::DateTime)
+    {
+        dbCellValue = cellValue.value<QDateTime>().toString("H:m:s MM/dd/yyyy");
+        dbCellValue = "'" + dbCellValue + "'";
+    }
     else
     {
         dbCellValue = cellValue.toString();

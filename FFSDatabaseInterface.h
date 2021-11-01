@@ -96,6 +96,9 @@ private slots:
     void showMinorCharacteristicPreview();
     void showMinorCharacteristicSubPreview();
     void closePreviewWindow(int windowId);
+    void sortMajorTableRows(int selectedColumn);
+    void sortMinorTableRows(int selectedColumn);
+    void sortMinorSubtableRows(int selectedColumn);
 
 private:
     Ui::FFSDatabaseInterfaceClass ui;
