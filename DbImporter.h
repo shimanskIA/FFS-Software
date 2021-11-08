@@ -2,6 +2,7 @@
 
 #include "DbContext.h"
 #include "RawDataParser.h"
+#include "OperationStatusMessage.h"
 
 class DbImporter
 {
@@ -9,7 +10,7 @@ class DbImporter
 public:
     DbImporter(DbContext* dbContext, RawDataParser* rawDataParser);
     ~DbImporter();
-    void ImportToDatabase();
+    OperationStatusMessage* ImportToDatabase();
 
 private:
     DbContext* dbContext;

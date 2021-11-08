@@ -108,6 +108,7 @@
     <ClCompile Include="EquipmentContext.cpp" />
     <ClCompile Include="BindingContext.cpp" />
     <ClCompile Include="EquipmentParameterContext.cpp" />
+    <ClCompile Include="ErrorForm.cpp" />
     <ClCompile Include="FFSDatabaseInterfaceFormController.cpp" />
     <ClCompile Include="FFSDatabaseInterfaceService.cpp" />
     <ClCompile Include="FFSTableModel.cpp" />
@@ -121,6 +122,7 @@
     <ClCompile Include="MeasuringSystemAddFormController.cpp" />
     <ClCompile Include="MeasuringSystemAddService.cpp" />
     <ClCompile Include="MeasuringSystemContext.cpp" />
+    <ClCompile Include="OperationStatusMessage.cpp" />
     <ClCompile Include="ParameterAddFormController.cpp" />
     <ClCompile Include="ParameterAddForm.cpp" />
     <ClCompile Include="ParameterAddService.cpp" />
@@ -143,6 +145,7 @@
     <QtUic Include="CharacteristicPreviewForm.ui" />
     <QtUic Include="CharacteristicTypeAddForm.ui" />
     <QtUic Include="EquipmentAddForm.ui" />
+    <QtUic Include="ErrorForm.ui" />
     <QtUic Include="FFSDatabaseInterface.ui" />
     <QtMoc Include="FFSDatabaseInterface.h" />
     <ClCompile Include="AboutForm.cpp" />
@@ -172,11 +175,13 @@
     <ClInclude Include="EquipmentAddService.h" />
     <QtMoc Include="SampleAddForm.h" />
     <QtMoc Include="MeasurementAddForm.h" />
+    <QtMoc Include="ErrorForm.h" />
     <ClInclude Include="MeasurementAddFormController.h" />
     <ClInclude Include="MeasurementAddService.h" />
     <QtMoc Include="ParameterAddForm.h" />
     <ClInclude Include="MeasuringSystemAddFormController.h" />
     <ClInclude Include="MeasuringSystemAddService.h" />
+    <ClInclude Include="OperationStatusMessage.h" />
     <ClInclude Include="ParameterAddFormController.h" />
     <ClInclude Include="ParameterAddService.h" />
     <QtMoc Include="qcustomplot.h" />

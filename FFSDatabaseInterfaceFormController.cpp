@@ -3,12 +3,19 @@
 #include "TableWriter.h"
 #include "WindowManager.h"
 #include "DbConnection.h"
+#include "ErrorForm.h"
 
 #include <QVariant>
 
 void FFSDatabaseInterfaceFormController::ManageFileImportRequest(QString fileName)
 {
-	FFSDatabaseInterfaceService::ImportRequestReceiver(fileName);
+	OperationStatusMessage* operationStatusMessage = FFSDatabaseInterfaceService::ImportRequestReceiver(fileName);
+
+    if (!operationStatusMessage->GetIsSuccessfull())
+    {
+        ErrorForm* errorForm = new ErrorForm(operationStatusMessage->GetOperationMessage());
+        errorForm->show();
+    }
 }
 
 void FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(FFSDatabaseInterface* view, bool isFirstLoad)
@@ -266,7 +273,13 @@ void FFSDatabaseInterfaceFormController::ManageDeleteRowRequest(QTableView* tabl
     int selectedRow = tableView->currentIndex().row();
     QModelIndex indexId = tableView->model()->index(selectedRow, 0);
     int selectedId = tableView->model()->data(indexId).toInt();
-    FFSDatabaseInterfaceService::DeleteRowRequestReceiver(tableName, selectedId);
+    OperationStatusMessage* operationStatusMessage = FFSDatabaseInterfaceService::DeleteRowRequestReceiver(tableName, selectedId);
+
+    if (!operationStatusMessage->GetIsSuccessfull())
+    {
+        ErrorForm* errorForm = new ErrorForm(operationStatusMessage->GetOperationMessage());
+        errorForm->show();
+    }
 }
 
 void FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(QString tableName, QTableView* tableView, FFSDatabaseInterface* view)
@@ -286,10 +299,14 @@ void FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(QString tableN
                 int selectedRow = tableView->currentIndex().row();
                 QModelIndex indexId = tableView->model()->index(selectedRow, 0);
                 int selectedId = tableView->model()->data(indexId).toInt();
+                OperationStatusMessage* operationStatusMessage = 
+                    FFSDatabaseInterfaceService::UpdateTableRequestReceiver(tableName, columnName, cellValue, selectedId);
 
-                if (!FFSDatabaseInterfaceService::UpdateTableRequestReceiver(tableName, columnName, cellValue, selectedId))
+                if (!operationStatusMessage->GetIsSuccessfull())
                 {
                     tableView->model()->setData(tableView->currentIndex(), view->GetPreviousCellValue());
+                    ErrorForm* errorForm = new ErrorForm(operationStatusMessage->GetOperationMessage());
+                    errorForm->show();
                 }
             }
         }
@@ -384,11 +401,28 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicPreviewRequest(
         QVector<double> x;
         QVector<double> y;
 
-        if (FFSDatabaseInterfaceService::ReadAbscissaRequestReceiver(selectedId, x) &&
-            FFSDatabaseInterfaceService::ReadOrdinateRequestReceiver(selectedId, y))
+        OperationStatusMessage* readAbscissaRequestStatusMessage = FFSDatabaseInterfaceService::ReadAbscissaRequestReceiver(selectedId, x);
+        OperationStatusMessage* readOrdinateRequestStatusMessage = FFSDatabaseInterfaceService::ReadOrdinateRequestReceiver(selectedId, y);
+
+        if (readAbscissaRequestStatusMessage->GetIsSuccessfull() &&
+            readOrdinateRequestStatusMessage->GetIsSuccessfull())
         {
             WindowManager* windowManager = new WindowManager();
             windowManager->ShowCharacteristicPreview(x, y, view, selectedId);
+        }
+        else
+        {
+            if (!readAbscissaRequestStatusMessage->GetIsSuccessfull())
+            {
+                ErrorForm* errorForm = new ErrorForm(readAbscissaRequestStatusMessage->GetOperationMessage());
+                errorForm->show();
+            }
+
+            if (!readOrdinateRequestStatusMessage->GetIsSuccessfull())
+            {
+                ErrorForm* errorForm = new ErrorForm(readOrdinateRequestStatusMessage->GetOperationMessage());
+                errorForm->show();
+            }
         }
     }
 }

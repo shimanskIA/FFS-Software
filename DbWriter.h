@@ -10,20 +10,20 @@ public:
 	DbWriter();
 
 	bool WriteToDatabase(QString sqlWriteRequest, QString tableName);
-	void AddToDatabase(DbContext* dbContext);
+	bool AddToDatabase(DbContext* dbContext);
 
-	void AddSamples(QList<SampleContext*> samples);
-	void AddCharacteristicTypes(QList<CharacteristicTypeContext*> characteristic_types);
-	void AddMeasurementParameters(QList<MeasurementParameterContext*> measurementParameters);
-	void AddEquipmentParameters(QList<EquipmentParameterContext*> equipmentParameters);
-	void AddCharacteristics(QList<CharacteristicsContext*> characteristics);
+	bool AddSamples(QList<SampleContext*> samples);
+	bool AddCharacteristicTypes(QList<CharacteristicTypeContext*> characteristic_types);
+	bool AddMeasurementParameters(QList<MeasurementParameterContext*> measurementParameters);
+	bool AddEquipmentParameters(QList<EquipmentParameterContext*> equipmentParameters);
+	bool AddCharacteristics(QList<CharacteristicsContext*> characteristics);
 
-	void AddMeasuringSystem(MeasuringSystemContext* measuringSystem);
+	bool AddMeasuringSystem(MeasuringSystemContext* measuringSystem);
 
-	void AddMeasurements(QList<MeasurementContext*> measurements);
-	void AddEquipment(QList<EquipmentContext*> equipments);
+	bool AddMeasurements(QList<MeasurementContext*> measurements);
+	bool AddEquipment(QList<EquipmentContext*> equipments);
 
-	void AddBindings(QList<BindingContext*> bindings);
+	bool AddBindings(QList<BindingContext*> bindings);
 
 	bool AddEquipmentItem(EquipmentContext* equipmentItem);
 	bool AddSample(SampleContext* sampleContext, bool isComplex = false);

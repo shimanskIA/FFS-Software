@@ -43,22 +43,22 @@ void MeasurementContext::SetFileLink(QString fileLink)
 	this->fileLink = fileLink;
 }
 
-void MeasurementContext::SetNumberOfChannels(int numberOfChannels)
+void MeasurementContext::SetNumberOfChannels(uint numberOfChannels)
 {
 	this->numberOfChannels = numberOfChannels;
 }
 
-void MeasurementContext::SetRepeatCount(int repeatCount)
+void MeasurementContext::SetRepeatCount(uint repeatCount)
 {
 	this->repeatCount = repeatCount;
 }
 
-void MeasurementContext::SetKineticsCount(int kineticsCount)
+void MeasurementContext::SetKineticsCount(uint kineticsCount)
 {
 	this->kineticsCount = kineticsCount;
 }
 
-void MeasurementContext::SetNumberPositions(int numberPositions)
+void MeasurementContext::SetNumberPositions(uint numberPositions)
 {
 	this->numberPositions = numberPositions;
 }
@@ -117,22 +117,22 @@ QString MeasurementContext::GetFileLink()
 	return this->fileLink;
 }
 
-int MeasurementContext::GetNumberOfChannels()
+uint MeasurementContext::GetNumberOfChannels()
 {
 	return this->numberOfChannels;
 }
 
-int MeasurementContext::GetNumberPositions()
+uint MeasurementContext::GetNumberPositions()
 {
 	return this->numberPositions;
 }
 
-int MeasurementContext::GetKineticsCount()
+uint MeasurementContext::GetKineticsCount()
 {
 	return this->kineticsCount;
 }
 
-int MeasurementContext::GetRepeatCount()
+uint MeasurementContext::GetRepeatCount()
 {
 	return this->repeatCount;
 }

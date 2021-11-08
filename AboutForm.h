@@ -13,6 +13,6 @@ public:
     static AboutForm& GetAboutFormInstance();
 
 private:
-    Ui::AboutForm ui;
+    Ui::AboutFormClass ui;
     AboutForm(const AboutForm&) {}
 };

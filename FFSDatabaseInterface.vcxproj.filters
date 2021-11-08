@@ -70,6 +70,15 @@
     <Filter Include="Controller\Entities\Source Files">
       <UniqueIdentifier>{d1253be2-86a6-4e49-892e-88f6bf1bb793}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{2ea179bd-f627-4c9c-a8d4-db1ee8fa82fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers\Header Files">
+      <UniqueIdentifier>{00978b8a-5f32-451f-960a-13fbae3fcc26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers\Source Files">
+      <UniqueIdentifier>{70e32624-22c5-4e15-a49c-d1f4614ba6f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FFSDatabaseInterface.qrc">
@@ -240,6 +249,12 @@
     <ClCompile Include="DbReader.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OperationStatusMessage.cpp">
+      <Filter>Helpers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -270,6 +285,9 @@
       <Filter>View\Form Files</Filter>
     </QtUic>
     <QtUic Include="CharacteristicPreviewForm.ui">
+      <Filter>View\Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ErrorForm.ui">
       <Filter>View\Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -314,6 +332,9 @@
       <Filter>View\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="TableItemDelegate.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ErrorForm.h">
       <Filter>View\Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -440,6 +461,9 @@
     </ClInclude>
     <ClInclude Include="DbReader.h">
       <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OperationStatusMessage.h">
+      <Filter>Helpers\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,9 +13,24 @@ DbImporter::~DbImporter()
 	delete rawDataParser;
 }
 
-void DbImporter::ImportToDatabase()
+OperationStatusMessage* DbImporter::ImportToDatabase()
 {
-	rawDataParser->ParseRawDataFile(dbContext);
+	OperationStatusMessage* operationStatusMessage = rawDataParser->ParseRawDataFile(dbContext);
+
+	if (!operationStatusMessage->GetIsSuccessfull())
+	{
+		return operationStatusMessage;
+	}
+
 	DbWriter* dbWriter = new DbWriter();
-	dbWriter->AddToDatabase(dbContext);
+	bool wasAnyElementInFileAdded = dbWriter->AddToDatabase(dbContext);
+
+	if (!wasAnyElementInFileAdded)
+	{
+		OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+		errorStatusMessage->SetOperationMessage("The file you are trying to add already exists in database.");
+		return errorStatusMessage;
+	}
+
+	return new OperationStatusMessage(true);
 }

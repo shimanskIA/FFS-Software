@@ -3,6 +3,7 @@
 #include <QString>
 
 #include "DbContext.h"
+#include "OperationStatusMessage.h"
 
 class RawDataParser
 {
@@ -12,10 +13,10 @@ public:
 	~RawDataParser();
 
 	void SetFileLink(QString fileLink);
-	void ParseRawDataFile(DbContext* dbContext);
-	void CZConfoCor2Parser(DbContext* dbContext);
-	void CZConfoCor1Parser(DbContext* dbContext);
-	void SomeOtherDeviceParser(DbContext* dbContext);
+	OperationStatusMessage* ParseRawDataFile(DbContext* dbContext);
+	OperationStatusMessage* CZConfoCor2Parser(DbContext* dbContext);
+	OperationStatusMessage* CZConfoCor1Parser(DbContext* dbContext);
+	OperationStatusMessage* SomeOtherDeviceParser(DbContext* dbContext);
 	void CascadeEquipmentParametersRead(QString line, bool& flag, QString endLine, EquipmentContext*& equipmentItem, DbContext* dbContext);
 	void CreateNewEquipmentItem(QString name, bool& flag, EquipmentContext*& equipmentItem);
 	void Bind(MeasuringSystemContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext);

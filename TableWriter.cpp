@@ -275,7 +275,7 @@ void TableWriter::FillCharacteristicsTable(QTableView* tableView, QString sqlRea
 			tableModel->setData(tableModel->index(i, 0), characteristics.at(i)->GetId());
 			tableModel->setData(tableModel->index(i, 1), characteristics.at(i)->GetChannel());
 			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 2), (uint)characteristics.at(i)->GetNumberOfPoints());
+			tableModel->setData(tableModel->index(i, 2), characteristics.at(i)->GetNumberOfPoints());
 			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
 			tableModel->setData(tableModel->index(i, 3), QString::number(characteristics.at(i)->GetBinTime(), 'f', 4)
 				.remove(QRegExp("0+$"))
@@ -369,13 +369,13 @@ void TableWriter::FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, Q
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 2))->setTextAlignment(Qt::AlignBottom);
 	tableModel->setData(tableModel->index(rowNumber, 3), measurements.at(rowNumber)->GetFileLink().split('/').last());
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 3))->setTextAlignment(Qt::AlignBottom);
-	tableModel->setData(tableModel->index(rowNumber, 4), (uint)measurements.at(rowNumber)->GetRepeatCount());
+	tableModel->setData(tableModel->index(rowNumber, 4), measurements.at(rowNumber)->GetRepeatCount());
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 4))->setTextAlignment(Qt::AlignBottom);
-	tableModel->setData(tableModel->index(rowNumber, 5), (uint)measurements.at(rowNumber)->GetKineticsCount());
+	tableModel->setData(tableModel->index(rowNumber, 5), measurements.at(rowNumber)->GetKineticsCount());
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 5))->setTextAlignment(Qt::AlignBottom);
-	tableModel->setData(tableModel->index(rowNumber, 6), (uint)measurements.at(rowNumber)->GetNumberOfChannels());
+	tableModel->setData(tableModel->index(rowNumber, 6), measurements.at(rowNumber)->GetNumberOfChannels());
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 6))->setTextAlignment(Qt::AlignBottom);
-	tableModel->setData(tableModel->index(rowNumber, 7), (uint)measurements.at(rowNumber)->GetNumberPositions());
+	tableModel->setData(tableModel->index(rowNumber, 7), measurements.at(rowNumber)->GetNumberPositions());
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 7))->setTextAlignment(Qt::AlignBottom);
 }
 

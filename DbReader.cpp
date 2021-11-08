@@ -17,7 +17,7 @@ QSqlQuery DbReader::ReadFromDatabase(QString sqlRequest)
 	return query;
 }
 
-bool DbReader::ReadAbscissaFromDatabase(int characteristicId, QVector<double>& x)
+OperationStatusMessage* DbReader::ReadAbscissaFromDatabase(int characteristicId, QVector<double>& x)
 {
 	QString sqlReadRequest = "SELECT x FROM characteristics WHERE id = %1";
 	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(characteristicId));
@@ -32,16 +32,18 @@ bool DbReader::ReadAbscissaFromDatabase(int characteristicId, QVector<double>& x
 
 		if (!wasConverted)
 		{
-			return false;
+			OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+			errorStatusMessage->SetOperationMessage("It was unable to convert abscissa to double.");
+			return errorStatusMessage;
 		}
 
 		x.append(realValue);
 	}
 
-	return true;
+	return new OperationStatusMessage(true);
 }
 
-bool DbReader::ReadOrdinateFromDatabase(int characteristicId, QVector<double>& y)
+OperationStatusMessage* DbReader::ReadOrdinateFromDatabase(int characteristicId, QVector<double>& y)
 {
 	QString sqlReadRequest = "SELECT y FROM characteristics WHERE id = %1";
 	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(characteristicId));
@@ -56,13 +58,15 @@ bool DbReader::ReadOrdinateFromDatabase(int characteristicId, QVector<double>& y
 
 		if (!wasConverted)
 		{
-			return false;
+			OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+			errorStatusMessage->SetOperationMessage("It was unable to convert ordinate to double");
+			return errorStatusMessage;
 		}
 
 		y.append(realValue);
 	}
 
-	return true;
+	return new OperationStatusMessage(true);
 }
 
 QList<MeasuringSystemContext*> DbReader::ReadMeasuringSystemsFromDatabase()
@@ -82,7 +86,6 @@ QList<MeasuringSystemContext*> DbReader::ReadMeasuringSystemsFromDatabase()
 	}
 
 	return measuringSystems;
-
 }
 
 QList<MeasurementContext*> DbReader::ReadMeasurementsFromDatabase()
@@ -98,10 +101,10 @@ QList<MeasurementContext*> DbReader::ReadMeasurementsFromDatabase()
 		measurement->SetName(query.value(1).toString().trimmed());
 		measurement->SetDateTime(query.value(2).toString().trimmed());
 		measurement->SetFileLink(query.value(3).toString().trimmed());
-		measurement->SetRepeatCount(query.value(4).toInt());
-		measurement->SetKineticsCount(query.value(5).toInt());
-		measurement->SetNumberOfChannels(query.value(6).toInt());
-		measurement->SetNumberPositions(query.value(7).toInt());
+		measurement->SetRepeatCount(query.value(4).toUInt());
+		measurement->SetKineticsCount(query.value(5).toUInt());
+		measurement->SetNumberOfChannels(query.value(6).toUInt());
+		measurement->SetNumberPositions(query.value(7).toUInt());
 
 		int fk_sample = query.value(8).toInt();
 		SampleContext* sample = new SampleContext(fk_sample);
@@ -132,10 +135,10 @@ QList<MeasurementContext*> DbReader::ReadMeasurementsFromDatabase(QString majorT
 		measurement->SetName(query.value(1).toString().trimmed());
 		measurement->SetDateTime(query.value(2).toString().trimmed());
 		measurement->SetFileLink(query.value(3).toString().trimmed());
-		measurement->SetRepeatCount(query.value(4).toInt());
-		measurement->SetKineticsCount(query.value(5).toInt());
-		measurement->SetNumberOfChannels(query.value(6).toInt());
-		measurement->SetNumberPositions(query.value(7).toInt());
+		measurement->SetRepeatCount(query.value(4).toUInt());
+		measurement->SetKineticsCount(query.value(5).toUInt());
+		measurement->SetNumberOfChannels(query.value(6).toUInt());
+		measurement->SetNumberPositions(query.value(7).toUInt());
 		measurements.append(measurement);
 	}
 
@@ -236,7 +239,7 @@ QList<CharacteristicsContext*> DbReader::ReadCharacteristicsFromDatabase(QString
 		int id = query.value(0).toInt();
 		CharacteristicsContext* characteristic = new CharacteristicsContext(id);
 		characteristic->SetChannel(query.value(1).toString().trimmed());
-		characteristic->SetNumberOfPoints(query.value(2).toInt());
+		characteristic->SetNumberOfPoints(query.value(2).toUInt());
 		characteristic->SetBinTime(query.value(3).toDouble());
 		characteristic->SetWeight(query.value(6).toDouble());
 

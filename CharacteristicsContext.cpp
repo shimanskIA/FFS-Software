@@ -41,7 +41,7 @@ void CharacteristicsContext::SetY(QString y)
 	this->y = y;
 }
 
-void CharacteristicsContext::SetNumberOfPoints(int numberOfPoints)
+void CharacteristicsContext::SetNumberOfPoints(uint numberOfPoints)
 {
 	this->numberOfPoints = numberOfPoints;
 }
@@ -73,7 +73,7 @@ QString CharacteristicsContext::GetChannel()
 	return this->channel;
 }
 
-int CharacteristicsContext::GetNumberOfPoints()
+uint CharacteristicsContext::GetNumberOfPoints()
 {
 	return this->numberOfPoints;
 }

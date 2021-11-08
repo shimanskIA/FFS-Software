@@ -24,36 +24,43 @@ void RawDataParser::SetFileLink(QString fileLink)
 	this->fileLink = fileLink;
 }
 
-void RawDataParser::ParseRawDataFile(DbContext* dbContext)
+OperationStatusMessage* RawDataParser::ParseRawDataFile(DbContext* dbContext)
 {
 	QString header = ReadHeader();
+
 	if (header.contains("Carl Zeiss ConfoCor1"))
 	{
-		CZConfoCor1Parser(dbContext);
+		return CZConfoCor1Parser(dbContext);
 	}
 	else if (header.contains("Carl Zeiss ConfoCor2"))
 	{
-		CZConfoCor2Parser(dbContext);
+		return CZConfoCor2Parser(dbContext);
 	}
-	else
+	else if (header.contains("Some other device"))
 	{
-		SomeOtherDeviceParser(dbContext);
+		return SomeOtherDeviceParser(dbContext);
 	}
-	
+
+	OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+	errorStatusMessage->SetOperationMessage("There's no parser found for chosen file.");
+	return errorStatusMessage;
 }
 
-void RawDataParser::CZConfoCor1Parser(DbContext* dbContext)
+OperationStatusMessage* RawDataParser::CZConfoCor1Parser(DbContext* dbContext)
 {
-
+	return new OperationStatusMessage(true);
 }
 
-void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
+OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 {
 	QFile file(fileLink);
 
 	if (!file.open(QIODevice::ReadOnly)) 
 	{
 		qWarning("Cannot open file for reading"); 
+		OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+		errorStatusMessage->SetOperationMessage("It was unable to open this file for reading.");
+		return errorStatusMessage;
 	}
 
 	QTextStream in(&file);
@@ -109,22 +116,54 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 		else if (measurementReadFlag)
 		{
-			if (line.contains("NumberChannels"))
+			try
 			{
-				measurement->SetNumberOfChannels(line.split('=').last().trimmed().toInt());
+				bool wasConverted;
+
+				if (line.contains("NumberChannels"))
+				{
+					measurement->SetNumberOfChannels(line.split('=').last().trimmed().toInt(&wasConverted));
+
+					if (!wasConverted)
+					{
+						throw "Number of channels seems to have an invalid value";
+					}
+				}
+				else if (line.contains("RepeatCount"))
+				{
+					measurement->SetRepeatCount(line.split('=').last().trimmed().toUInt(&wasConverted));
+
+					if (!wasConverted)
+					{
+						throw "Repeat count seems to have an invalid value";
+					}
+				}
+				else if (line.contains("KineticsCount"))
+				{
+					measurement->SetKineticsCount(line.split('=').last().trimmed().toUInt());
+
+					if (!wasConverted)
+					{
+						throw "Kinetics count seems to have an invalid value";
+					}
+				}
+				else if (line.contains("NumberPositions"))
+				{
+					measurement->SetNumberPositions(line.split('=').last().trimmed().toUInt());
+
+					if (!wasConverted)
+					{
+						throw "Number positions seems to have an invalid value";
+					}
+
+					measurementReadFlag = false;
+				}
 			}
-			else if (line.contains("RepeatCount"))
+			catch (QString ex)
 			{
-				measurement->SetRepeatCount(line.split('=').last().trimmed().toInt());
-			}
-			else if (line.contains("KineticsCount"))
-			{
-				measurement->SetKineticsCount(line.split('=').last().trimmed().toInt());
-			}
-			else if (line.contains("NumberPositions"))
-			{
-				measurement->SetNumberPositions(line.split('=').last().trimmed().toInt());
-				measurementReadFlag = false;
+				OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+				errorStatusMessage->SetOperationMessage(ex);
+				return errorStatusMessage;
 			}
 		}
 
@@ -307,11 +346,28 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		else if(numberOfPointsReadFlag)
 		{
 			QString numberOfRowsAndColumns = line.split('=').last().trimmed();
-			int numberOfPoints = numberOfRowsAndColumns.split(' ').first().toInt();
-			numberOfPointsReadFlag = false;
-			characteristicReadFlag = true;
-			characteristic->SetNumberOfPoints(numberOfPoints);
-			numberOfIterations = numberOfPoints;
+
+			try
+			{
+				bool wasConverted;
+				uint numberOfPoints = numberOfRowsAndColumns.split(' ').first().toUInt(&wasConverted);
+
+				if (!wasConverted)
+				{
+					throw "Invalid number of points";
+				}
+
+				numberOfPointsReadFlag = false;
+				characteristicReadFlag = true;
+				characteristic->SetNumberOfPoints(numberOfPoints);
+				numberOfIterations = numberOfPoints;
+			}
+			catch (QString ex)
+			{
+				OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+				errorStatusMessage->SetOperationMessage(ex);
+				return errorStatusMessage;
+			}
 		}
 
 		else if (characteristicReadFlag)
@@ -319,6 +375,26 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			QStringList coordinates = GetCoordinates(line);
 			QString x = coordinates.first();
 			QString y = coordinates.last();
+
+			try
+			{
+				bool wasXConverted;
+				bool wasYConverted;
+				x.toDouble(&wasXConverted);
+				y.toDouble(&wasYConverted);
+
+				if (!wasXConverted || !wasYConverted)
+				{
+					throw "X or Y coordinates have invalid values.";
+				}
+			}
+			catch (QString ex)
+			{
+				OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+				errorStatusMessage->SetOperationMessage(ex);
+				return errorStatusMessage;
+			}
+
 			characteristic->AddNewXCoordinate(x);
 			characteristic->AddNewYCoordinate(y);
 
@@ -356,9 +432,9 @@ void RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	file.close();
 }
 
-void RawDataParser::SomeOtherDeviceParser(DbContext* dbContext)
+OperationStatusMessage* RawDataParser::SomeOtherDeviceParser(DbContext* dbContext)
 {
-
+	return new OperationStatusMessage(true);
 }
 
 void RawDataParser::CascadeEquipmentParametersRead(QString line, bool& flag, QString endLine, EquipmentContext*& equipmentItem, DbContext* dbContext)

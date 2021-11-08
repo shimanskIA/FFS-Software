@@ -2,6 +2,7 @@
 
 #include "ui_FFSDatabaseInterface.h"
 #include "FFSDatabaseInterface.h"
+#include "OperationStatusMessage.h"
 
 #include <QString>
 #include <QStandardItemModel>
@@ -9,10 +10,10 @@
 class FFSDatabaseInterfaceService
 {
 public:
-	static void ImportRequestReceiver(QString fileLink);
-	static void DeleteRowRequestReceiver(QString tableName, int selectedId);
-	static bool UpdateTableRequestReceiver(QString tableName, QString columnName, QVariant cellValue, int selectedId);
-	static bool ReadAbscissaRequestReceiver(int selectedId, QVector<double>& x);
-	static bool ReadOrdinateRequestReceiver(int selectedId, QVector<double>& y);
+	static OperationStatusMessage* ImportRequestReceiver(QString fileLink);
+	static OperationStatusMessage* DeleteRowRequestReceiver(QString tableName, int selectedId);
+	static OperationStatusMessage* UpdateTableRequestReceiver(QString tableName, QString columnName, QVariant cellValue, int selectedId);
+	static OperationStatusMessage* ReadAbscissaRequestReceiver(int selectedId, QVector<double>& x);
+	static OperationStatusMessage* ReadOrdinateRequestReceiver(int selectedId, QVector<double>& y);
 	static void RemoveUnusedIdsRequestReceiver();
 };

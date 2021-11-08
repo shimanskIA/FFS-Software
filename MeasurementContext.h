@@ -19,10 +19,10 @@ public:
 	void SetName(QString name);
 	void SetDateTime(QString dateTime);
 	void SetFileLink(QString fileLink);
-	void SetNumberOfChannels(int numberOfChannels);
-	void SetRepeatCount(int repeatCount);
-	void SetKineticsCount(int kineticsCount);
-	void SetNumberPositions(int numberPositions);
+	void SetNumberOfChannels(uint numberOfChannels);
+	void SetRepeatCount(uint repeatCount);
+	void SetKineticsCount(uint kineticsCount);
+	void SetNumberPositions(uint numberPositions);
 	void SetFKSample(SampleContext* fk_sample);
 	void SetFKMeasuringSystem(int fk_measuring_system);
 	void ChangeMeasurementParametersFK(int new_fk);
@@ -35,10 +35,10 @@ public:
 	QString GetDateTime();
 	QString GetFileLink();
 	QString GetSampleName();
-	int GetNumberOfChannels();
-	int GetRepeatCount();
-	int GetKineticsCount();
-	int GetNumberPositions();
+	uint GetNumberOfChannels();
+	uint GetRepeatCount();
+	uint GetKineticsCount();
+	uint GetNumberPositions();
 	int GetFKSample();
 	int GetFKMeasuringSystem();
 
@@ -55,10 +55,10 @@ private:
 	QString name = "";
 	QString dateTime = "";
 	QString fileLink = "";
-	int numberOfChannels = 0;
-	int repeatCount = 0;
-	int numberPositions = 0;
-	int kineticsCount = 0;
+	uint numberOfChannels = 0;
+	uint repeatCount = 0;
+	uint numberPositions = 0;
+	uint kineticsCount = 0;
 	SampleContext* fk_sample = nullptr;
 	int fk_measuring_system = 0;
 

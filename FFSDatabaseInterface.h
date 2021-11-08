@@ -106,8 +106,8 @@ private:
 
     int selectedId = 0;
     int minorSelectedId = 0;
-    QString actualTable = "measuring system";
-    QString actualSubtable = "measurements";
+    QString actualTable = "";
+    QString actualSubtable = "";
     QString actualMinorSubtable = "";
     QVariant previousCellValue;
 

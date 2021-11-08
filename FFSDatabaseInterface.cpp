@@ -57,7 +57,7 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.majorTableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortMajorTableRows(int)));
     connect(ui.minorTableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortMinorTableRows(int)));
     connect(ui.minorSubtableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortMinorSubtableRows(int)));
-    FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(this, true);
+    FFSDatabaseInterfaceFormController::ManageShowMajorTableRequest("measurement", "measurement_parameters", measurementSelectorItems, this);
     SetTableSettings(ui.majorTableView);
 }
 

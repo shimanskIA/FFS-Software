@@ -2,6 +2,7 @@
 
 #include "DbContext.h"
 #include "DbConnection.h"
+#include "OperationStatusMessage.h"
 
 #include <QString>
 #include <QtSql>
@@ -13,8 +14,8 @@ public:
 
 	QSqlQuery ReadFromDatabase(QString sqlRequest);
 
-	bool ReadAbscissaFromDatabase(int characteristicId, QVector<double>& x);
-	bool ReadOrdinateFromDatabase(int characteristicId, QVector<double>& y);
+	OperationStatusMessage* ReadAbscissaFromDatabase(int characteristicId, QVector<double>& x);
+	OperationStatusMessage* ReadOrdinateFromDatabase(int characteristicId, QVector<double>& y);
 
 	QList<MeasuringSystemContext*> ReadMeasuringSystemsFromDatabase();
 	QList<MeasurementContext*> ReadMeasurementsFromDatabase();

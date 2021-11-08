@@ -7,7 +7,7 @@ DbEditor::DbEditor()
     dbWriter = new DbWriter();
 }
 
-void DbEditor::DeleteFromDatabase(QString tableName, int id)
+OperationStatusMessage* DbEditor::DeleteFromDatabase(QString tableName, int id)
 {
     QString sqlRequest = "DELETE FROM %1 WHERE id = %2";
     QSqlQuery query;
@@ -15,10 +15,15 @@ void DbEditor::DeleteFromDatabase(QString tableName, int id)
     if (!query.exec(sqlRequest.arg(tableName).arg(id)))
     {
         qWarning("Database delete request wasn't proceeded.");
+        OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+        errorStatusMessage->SetOperationMessage("Database delete request wasn't proceeded.");
+        return errorStatusMessage;
     }
+
+    return new OperationStatusMessage(true);
 }
 
-void DbEditor::DeleteBindingsWithMeasuringSystem(int fk_measuring_system)
+OperationStatusMessage* DbEditor::DeleteBindingsWithMeasuringSystem(int fk_measuring_system)
 {
     QString sqlRequest = "DELETE FROM bindings WHERE fk_measuring_system = %1";
     QSqlQuery query;
@@ -26,10 +31,15 @@ void DbEditor::DeleteBindingsWithMeasuringSystem(int fk_measuring_system)
     if (!query.exec(sqlRequest.arg(fk_measuring_system)))
     {
         qWarning("Database delete request wasn't proceeded.");
+        OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+        errorStatusMessage->SetOperationMessage("Database delete request wasn't proceeded.");
+        return errorStatusMessage;
     }
+
+    return new OperationStatusMessage(true);
 }
 
-bool DbEditor::UpdateDatabase(QString tableName, QString columnName, QString cellValue, int id)
+OperationStatusMessage* DbEditor::UpdateDatabase(QString tableName, QString columnName, QString cellValue, int id)
 {
     QString sqlUpdateRequest = "UPDATE %1 SET %2 = %3 WHERE id = %4";
     QSqlQuery query;
@@ -37,13 +47,15 @@ bool DbEditor::UpdateDatabase(QString tableName, QString columnName, QString cel
     if (!query.exec(sqlUpdateRequest.arg(tableName).arg(columnName).arg(cellValue).arg(id)))
     {
         qWarning("Database update request wasn't proceeded.");
-        return false;
+        OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+        errorStatusMessage->SetOperationMessage("Database update request wasn't proceeded.");
+        return errorStatusMessage;
     }
 
-    return true;
+    return new OperationStatusMessage(true);
 }
 
-bool DbEditor::UpdateRow(QString tableName, QString columnName, QVariant cellValue, int selectedId)
+OperationStatusMessage* DbEditor::UpdateRow(QString tableName, QString columnName, QVariant cellValue, int selectedId)
 {
     QString dbCellValue;
 
