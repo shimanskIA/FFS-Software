@@ -48,4 +48,6 @@ private:
 
     bool isFirstTime = true;
     bool isExistingEquipmentChosen = false;
+
+    void closeEvent(QCloseEvent* event) override;
 };

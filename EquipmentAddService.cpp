@@ -18,13 +18,16 @@ bool EquipmentAddService::AddEquipmentRequestReceiver(EquipmentContext* equipmen
 	return false;
 }
 
-void EquipmentAddService::AddExistingEquipmentRequestReceiver(QList<BindingContext*> bindings)
+void EquipmentAddService::AddExistingEquipmentRequestReceiver(QList<BindingContext*> bindings, int fk_measuring_system)
 {
 	DbEditor* dbEditor = new DbEditor();
-	int fk_measuring_system = bindings.first()->GetFKMeasuringSystem();
 	dbEditor->DeleteBindingsWithMeasuringSystem(fk_measuring_system);
 	DbWriter* dbWriter = new DbWriter();
-	dbWriter->AddBindings(bindings);
+
+	if (!bindings.isEmpty())
+	{
+		dbWriter->AddBindings(bindings);
+	}
 }
 
 Q_DECLARE_METATYPE(EquipmentContext*);

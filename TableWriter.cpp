@@ -87,73 +87,16 @@ void TableWriter::FillMeasurementsTable(QTableView* tableView)
 	tableModel->setRowCount(measurements.length());
 	tableModel->setColumnCount(9);
 
-	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	for (int j = 0; j < tableModel->columnCount(); j++)
 	{
-		if (j < tableModel->columnCount())
-		{
-			tableModel->setHeaderData(j, Qt::Horizontal, measurementColumnNames.at(j));
-		}
-
-		if (i < tableModel->rowCount())
-		{
-			FillMeasurementRow(i, tableModel, measurements);
-			tableModel->setData(tableModel->index(i, 8), measurements.at(i)->GetSampleName());
-			tableModel->itemFromIndex(tableModel->index(i, 8))->setTextAlignment(Qt::AlignBottom);
-		}
-	}	
-
-	tableView->setColumnHidden(0, true);
-}
-
-void TableWriter::FillSamplesTable(QTableView* tableView)
-{
-	QList<SampleContext*> samples = dbReader->ReadSamplesFromDatabase();
-	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
-	tableModel->setRowCount(samples.length());
-	tableModel->setColumnCount(3);
-
-	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
-	{
-		if (j < tableModel->columnCount())
-		{
-			tableModel->setHeaderData(j, Qt::Horizontal, sampleColumnNames.at(j));
-		}
-
-		if (i < tableModel->rowCount())
-		{
-			tableModel->setData(tableModel->index(i, 0), samples.at(i)->GetId());
-			tableModel->setData(tableModel->index(i, 1), samples.at(i)->GetName());
-			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 2), samples.at(i)->GetDescription());
-			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
-		}
+		tableModel->setHeaderData(j, Qt::Horizontal, measurementColumnNames.at(j));
 	}
 
-	tableView->setColumnHidden(0, true);
-}
-
-void TableWriter::FillEquipmentsTable(QTableView* tableView)
-{
-	QList<EquipmentContext*> equipments = dbReader->ReadEquipmentsFromDatabase();
-	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
-	tableModel->setRowCount(equipments.length());
-	tableModel->setColumnCount(3);
-
-	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	for (int i = 0; i < tableModel->rowCount(); i++)
 	{
-		if (j < tableModel->columnCount())
-		{
-			tableModel->setHeaderData(j, Qt::Horizontal, equipmentColumnNames.at(j));
-		}
-
-		if (i < tableModel->rowCount())
-		{
-			tableModel->setData(tableModel->index(i, 0), equipments.at(i)->GetId());
-			tableModel->setData(tableModel->index(i, 1), equipments.at(i)->GetName());
-			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 2), equipments.at(i)->GetDescription());
-			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
-		}
+		FillMeasurementRow(i, tableModel, measurements);
+		tableModel->setData(tableModel->index(i, 8), measurements.at(i)->GetSampleName());
+		tableModel->itemFromIndex(tableModel->index(i, 8))->setTextAlignment(Qt::AlignBottom);
 	}
 
 	tableView->setColumnHidden(0, true);
@@ -166,17 +109,38 @@ void TableWriter::FillMeasurementsTable(QTableView* tableView, QString majorTabl
 	tableModel->setRowCount(measurements.length());
 	tableModel->setColumnCount(8);
 
-	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	for (int j = 0; j < tableModel->columnCount(); j++)
 	{
-		if (j < tableModel->columnCount())
-		{
-			tableModel->setHeaderData(j, Qt::Horizontal, measurementColumnNames.at(j));
-		}
+		tableModel->setHeaderData(j, Qt::Horizontal, measurementColumnNames.at(j));
+	}
 
-		if (i < tableModel->rowCount())
-		{
-			FillMeasurementRow(i, tableModel, measurements);
-		}
+	for (int i = 0; i < tableModel->rowCount(); i++)
+	{
+		FillMeasurementRow(i, tableModel, measurements);
+	}
+
+	tableView->setColumnHidden(0, true);
+}
+
+void TableWriter::FillSamplesTable(QTableView* tableView)
+{
+	QList<SampleContext*> samples = dbReader->ReadSamplesFromDatabase();
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(samples.length());
+	tableModel->setColumnCount(3);
+
+	for (int j = 0; j < tableModel->columnCount(); j++)
+	{
+		tableModel->setHeaderData(j, Qt::Horizontal, sampleColumnNames.at(j));
+	}
+
+	for (int i = 0; i < tableModel->rowCount(); i++)
+	{
+		tableModel->setData(tableModel->index(i, 0), samples.at(i)->GetId());
+		tableModel->setData(tableModel->index(i, 1), samples.at(i)->GetName());
+		tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
+		tableModel->setData(tableModel->index(i, 2), samples.at(i)->GetDescription());
+		tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
 	}
 
 	tableView->setColumnHidden(0, true);
@@ -187,7 +151,7 @@ void TableWriter::FillEquipmentsTable(QTableView* tableView, QString majorTableN
 	QList<BindingContext*> bindings = dbReader->ReadBindingsFromDatabase(majorTableName, majorTableId);
 	QList<EquipmentContext*> equipments;
 
-	foreach(BindingContext* binding, bindings)
+	foreach(BindingContext * binding, bindings)
 	{
 		QString sqlReadRequest = "SELECT * FROM equipments WHERE id = %1";
 		QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(binding->GetFKEquipment()));
@@ -202,28 +166,96 @@ void TableWriter::FillEquipmentsTable(QTableView* tableView, QString majorTableN
 		}
 	}
 
+	FillEquipmentsTable(tableView, equipments);
+}
+
+void TableWriter::FillEquipmentsTable(QTableView* tableView, QList<EquipmentContext*> equipments)
+{
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(equipments.length());
 	tableModel->setColumnCount(3);
 
-	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	for (int j = 0; j < tableModel->columnCount(); j++)
 	{
-		if (j < tableModel->columnCount())
+		tableModel->setHeaderData(j, Qt::Horizontal, equipmentColumnNames.at(j));
+	}
+
+	for (int i = 0; i < tableModel->rowCount(); i++)
+	{
+		QString equipmentName = equipments.at(i)->GetName();
+		int amountOfEquipmentWithEqualName = tableModel->getColumnItemsThatContainValue(1, equipmentName).length();
+
+		if (amountOfEquipmentWithEqualName > 0)
 		{
-			tableModel->setHeaderData(j, Qt::Horizontal, equipmentColumnNames.at(j));
+			equipmentName += " (" + QString::number(amountOfEquipmentWithEqualName) + ")";
 		}
 
-		if (i < tableModel->rowCount())
-		{
-			tableModel->setData(tableModel->index(i, 0), equipments.at(i)->GetId());
-			tableModel->setData(tableModel->index(i, 1), equipments.at(i)->GetName());
-			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 2), equipments.at(i)->GetDescription());
-			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
-		}
+		tableModel->setData(tableModel->index(i, 0), equipments.at(i)->GetId());
+		tableModel->setData(tableModel->index(i, 1), equipmentName);
+		tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
+		tableModel->setData(tableModel->index(i, 2), equipments.at(i)->GetDescription());
+		tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
 	}
 
 	tableView->setColumnHidden(0, true);
+}
+
+void TableWriter::FillExistingEquipmentTable(EquipmentAddForm* view, int fk_measuring_system)
+{
+	FFSTableModel* allEquipmentTableModel = view->GetAllEquipmentTableModel();
+	FFSTableModel* chosenEquipmentTableModel = view->GetChosenEquipmentTableModel();
+	QList<EquipmentContext*> existingEquipment = dbReader->ReadExistingEquipmentFromDatabase(fk_measuring_system);
+	QList<EquipmentContext*> bindedEquipment = dbReader->ReadBindedEquipmentFromDatabase(fk_measuring_system);
+	allEquipmentTableModel->setRowCount(existingEquipment.length());
+	allEquipmentTableModel->setColumnCount(3);
+	chosenEquipmentTableModel->setRowCount(bindedEquipment.length());
+	chosenEquipmentTableModel->setColumnCount(3);
+
+	for (int j = 0; j < allEquipmentTableModel->columnCount(); j++)
+	{
+		allEquipmentTableModel->setHeaderData(j, Qt::Horizontal, equipmentColumnNames.at(j));
+		chosenEquipmentTableModel->setHeaderData(j, Qt::Horizontal, equipmentColumnNames.at(j));
+	}
+	
+	for (int i = 0; i < allEquipmentTableModel->rowCount(); i++)
+	{
+		QString equipmentName = existingEquipment.at(i)->GetName();
+		int amountOfExistingEquipmentWithEqualName = allEquipmentTableModel->getColumnItemsThatContainValue(1, equipmentName).length();
+
+		if (amountOfExistingEquipmentWithEqualName > 0)
+		{
+			equipmentName += " (" + QString::number(amountOfExistingEquipmentWithEqualName) + ")";
+		}
+		
+		allEquipmentTableModel->setData(allEquipmentTableModel->index(i, 0), existingEquipment.at(i)->GetId());
+		allEquipmentTableModel->setData(allEquipmentTableModel->index(i, 1), equipmentName);
+		allEquipmentTableModel->itemFromIndex(allEquipmentTableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
+		allEquipmentTableModel->setData(allEquipmentTableModel->index(i, 2), existingEquipment.at(i)->GetDescription());
+		allEquipmentTableModel->itemFromIndex(allEquipmentTableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
+	}
+
+	view->GetUI().allEquipmentTable->setColumnHidden(0, true);
+
+	for (int i = 0; i < chosenEquipmentTableModel->rowCount(); i++)
+	{
+		QString equipmentName = bindedEquipment.at(i)->GetName();
+		int amountOfBindedEquipmentWithEqualName = chosenEquipmentTableModel->getColumnItemsThatContainValue(1, equipmentName).length();
+		int amountOfExistingEquipmentWithEqualName = allEquipmentTableModel->getColumnItemsThatContainValue(1, equipmentName).length();
+		amountOfBindedEquipmentWithEqualName += amountOfExistingEquipmentWithEqualName;
+
+		if (amountOfBindedEquipmentWithEqualName > 0)
+		{
+			equipmentName += " (" + QString::number(amountOfBindedEquipmentWithEqualName) + ")";
+		}
+		
+		chosenEquipmentTableModel->setData(chosenEquipmentTableModel->index(i, 0), bindedEquipment.at(i)->GetId());
+		chosenEquipmentTableModel->setData(chosenEquipmentTableModel->index(i, 1), equipmentName);
+		chosenEquipmentTableModel->itemFromIndex(chosenEquipmentTableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
+		chosenEquipmentTableModel->setData(chosenEquipmentTableModel->index(i, 2), bindedEquipment.at(i)->GetDescription());
+		chosenEquipmentTableModel->itemFromIndex(chosenEquipmentTableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
+	}
+
+	view->GetUI().chosenEquipmentTable->setColumnHidden(0, true);
 }
 
 void TableWriter::FillParametersTable(QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
@@ -317,46 +349,6 @@ void TableWriter::FillCharacteristicTypesTable(QTableView* tableView)
 	}
 
 	tableView->setColumnHidden(0, true);
-}
-
-void TableWriter::FillExistingEquipmentTable(EquipmentAddForm* view, int fk_measuring_system)
-{
-	FFSTableModel* allEquipmentTableModel = view->GetAllEquipmentTableModel();
-	FFSTableModel* chosenEquipmentTableModel = view->GetChosenEquipmentTableModel();
-	QList<EquipmentContext*> existingEquipment = dbReader->ReadExistingEquipmentFromDatabase(fk_measuring_system);
-	QList<EquipmentContext*> bindedEquipment = dbReader->ReadBindedEquipmentFromDatabase(fk_measuring_system);
-	allEquipmentTableModel->setRowCount(existingEquipment.length());
-	allEquipmentTableModel->setColumnCount(3);
-	chosenEquipmentTableModel->setRowCount(bindedEquipment.length());
-	chosenEquipmentTableModel->setColumnCount(3);
-
-	for (int j = 0; j < allEquipmentTableModel->columnCount(); j++)
-	{
-		allEquipmentTableModel->setHeaderData(j, Qt::Horizontal, equipmentColumnNames.at(j));
-		chosenEquipmentTableModel->setHeaderData(j, Qt::Horizontal, equipmentColumnNames.at(j));
-	}
-
-	for (int i = 0; i < allEquipmentTableModel->rowCount(); i++)
-	{
-		allEquipmentTableModel->setData(allEquipmentTableModel->index(i, 0), existingEquipment.at(i)->GetId());
-		allEquipmentTableModel->setData(allEquipmentTableModel->index(i, 1), existingEquipment.at(i)->GetName());
-		allEquipmentTableModel->itemFromIndex(allEquipmentTableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
-		allEquipmentTableModel->setData(allEquipmentTableModel->index(i, 2), existingEquipment.at(i)->GetDescription());
-		allEquipmentTableModel->itemFromIndex(allEquipmentTableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
-	}
-
-	view->GetUI().allEquipmentTable->setColumnHidden(0, true);
-
-	for (int i = 0; i < chosenEquipmentTableModel->rowCount(); i++)
-	{
-		chosenEquipmentTableModel->setData(chosenEquipmentTableModel->index(i, 0), bindedEquipment.at(i)->GetId());
-		chosenEquipmentTableModel->setData(chosenEquipmentTableModel->index(i, 1), bindedEquipment.at(i)->GetName());
-		chosenEquipmentTableModel->itemFromIndex(chosenEquipmentTableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
-		chosenEquipmentTableModel->setData(chosenEquipmentTableModel->index(i, 2), bindedEquipment.at(i)->GetDescription());
-		chosenEquipmentTableModel->itemFromIndex(chosenEquipmentTableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
-	}
-
-	view->GetUI().chosenEquipmentTable->setColumnHidden(0, true);
 }
 
 void TableWriter::FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, QList<MeasurementContext*> measurements)

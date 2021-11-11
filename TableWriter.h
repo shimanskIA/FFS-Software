@@ -23,8 +23,8 @@ public:
 	void FillMeasurementsTable(QTableView* tableView);
 	void FillMeasurementsTable(QTableView* tableView, QString majorTableName, int majorTableId);
 
-	void FillEquipmentsTable(QTableView* tableView);
 	void FillEquipmentsTable(QTableView* tableView, QString majorTableName, int majorTableId);
+	void FillEquipmentsTable(QTableView* tableView, QList<EquipmentContext*> equipments = (new DbReader())->ReadEquipmentsFromDatabase());
 
 	void FillSamplesTable(QTableView* tableView);
 

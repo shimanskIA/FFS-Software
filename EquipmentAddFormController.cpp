@@ -36,7 +36,7 @@ void EquipmentAddFormController::ManageAddExistingEquipmentRequest(EquipmentAddF
 		bindings.append(binding);
 	}
 
-	EquipmentAddService::AddExistingEquipmentRequestReceiver(bindings);
+	EquipmentAddService::AddExistingEquipmentRequestReceiver(bindings, fk_measuring_system);
 	view->SetIsRowAdded(true);
 }
 

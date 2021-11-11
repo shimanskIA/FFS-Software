@@ -363,6 +363,19 @@
      <height>22</height>
     </rect>
    </property>
+   <property name="dateTime">
+    <datetime>
+     <hour>0</hour>
+     <minute>0</minute>
+     <second>0</second>
+     <year>2000</year>
+     <month>1</month>
+     <day>1</day>
+    </datetime>
+   </property>
+   <property name="displayFormat">
+    <string>H:m:s M/d/yyyy</string>
+   </property>
   </widget>
   <widget class="Line" name="line_4">
    <property name="geometry">

@@ -229,6 +229,27 @@ QList<EquipmentContext*> DbReader::ReadBindedEquipmentFromDatabase(int fk_measur
 	return equipments;
 }
 
+QList<EquipmentContext*> DbReader::ReadEquipmentOfSpecificTypeFromDatabase(QString name)
+{
+	QString sqlReadRequest = "SELECT * FROM equipments WHERE name LIKE '%%1%'";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(name));
+	QList<EquipmentContext*> equipments;
+	TransformQueryToEquipments(query, equipments);
+	return equipments;
+}
+
+void DbReader::TransformQueryToEquipments(QSqlQuery query, QList<EquipmentContext*>& equipments)
+{
+	while (query.next())
+	{
+		int id = query.value(0).toInt();
+		EquipmentContext* equipment = new EquipmentContext(id);
+		equipment->SetName(query.value(1).toString().trimmed());
+		equipment->SetDescription(query.value(2).toString().trimmed());
+		equipments.append(equipment);
+	}
+}
+
 QList<CharacteristicsContext*> DbReader::ReadCharacteristicsFromDatabase(QString sqlReadRequest)
 {
 	QSqlQuery query = ReadFromDatabase(sqlReadRequest);

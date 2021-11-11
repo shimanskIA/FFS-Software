@@ -142,3 +142,13 @@ void EquipmentAddForm::SetIsFirstTime(bool isFirstTime)
 {
 	this->isFirstTime = isFirstTime;
 }
+
+void EquipmentAddForm::closeEvent(QCloseEvent* event)
+{
+	if (chosenEquipmentTableModel->rowCount() == 0)
+	{
+		EquipmentAddFormController::ManageAddExistingEquipmentRequest(this, fk_measuring_system);
+	}
+
+	BaseAddForm::closeEvent(event);
+}

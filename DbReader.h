@@ -24,8 +24,11 @@ public:
 	QList<EquipmentContext*> ReadEquipmentsFromDatabase();
 	QList<EquipmentContext*> ReadExistingEquipmentFromDatabase(int fk_measuring_system);
 	QList<EquipmentContext*> ReadBindedEquipmentFromDatabase(int fk_measuring_system);
+	QList<EquipmentContext*> ReadEquipmentOfSpecificTypeFromDatabase(QString name);
 	QList<CharacteristicsContext*> ReadCharacteristicsFromDatabase(QString sqlReadRequest);
 	QList<CharacteristicTypeContext*> ReadCharacteristicTypesFromDatabase();
 	QList<BindingContext*> ReadBindingsFromDatabase(QString majorTableName, int fk);
 	QList<ParameterTableContext*> ReadParametersFromDatabase(QString majorTableName, QString minorTableName, int fk);
+
+	void TransformQueryToEquipments(QSqlQuery query, QList<EquipmentContext*>& equipments);
 };

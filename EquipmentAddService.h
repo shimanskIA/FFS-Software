@@ -8,5 +8,5 @@ class EquipmentAddService
 {
 public:
 	static bool AddEquipmentRequestReceiver(EquipmentContext* equipment);
-	static void AddExistingEquipmentRequestReceiver(QList<BindingContext*> bindings);
+	static void AddExistingEquipmentRequestReceiver(QList<BindingContext*> bindings, int fk_measuring_system);
 };
