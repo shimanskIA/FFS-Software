@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>786</width>
-    <height>845</height>
+    <width>791</width>
+    <height>634</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,15 +16,15 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>246</x>
-     <y>82</y>
-     <width>51</width>
-     <height>31</height>
+     <x>18</x>
+     <y>50</y>
+     <width>31</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="text">
@@ -34,15 +34,15 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>40</y>
-     <width>51</width>
-     <height>31</height>
+     <x>10</x>
+     <y>20</y>
+     <width>41</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="text">
@@ -52,15 +52,15 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>255</x>
-     <y>120</y>
+     <x>25</x>
+     <y>80</y>
      <width>31</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="text">
@@ -73,15 +73,15 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>182</x>
-     <y>160</y>
-     <width>121</width>
-     <height>31</height>
+     <x>639</x>
+     <y>20</y>
+     <width>91</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="text">
@@ -91,15 +91,15 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>177</x>
-     <y>200</y>
-     <width>121</width>
-     <height>31</height>
+     <x>636</x>
+     <y>50</y>
+     <width>91</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="text">
@@ -109,15 +109,15 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>134</x>
-     <y>240</y>
-     <width>161</width>
-     <height>31</height>
+     <x>600</x>
+     <y>80</y>
+     <width>121</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="text">
@@ -127,15 +127,15 @@
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>152</x>
-     <y>280</y>
-     <width>141</width>
-     <height>31</height>
+     <x>614</x>
+     <y>110</y>
+     <width>111</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="text">
@@ -145,68 +145,44 @@
   <widget class="QTextEdit" name="NameInput">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>40</y>
-     <width>231</width>
-     <height>31</height>
+     <x>59</x>
+     <y>20</y>
+     <width>161</width>
+     <height>22</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
-  </widget>
-  <widget class="QTextEdit" name="DateInput">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>80</y>
-     <width>231</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
    </property>
   </widget>
   <widget class="QTextEdit" name="FileInput">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>120</y>
-     <width>231</width>
-     <height>31</height>
+     <x>59</x>
+     <y>80</y>
+     <width>161</width>
+     <height>22</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
-  </widget>
-  <widget class="QTextEdit" name="RepeatCountInput">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>160</y>
-     <width>231</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
    </property>
   </widget>
   <widget class="QTableView" name="allElementsTable">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>380</y>
+     <y>180</y>
      <width>771</width>
      <height>192</height>
     </rect>
@@ -230,7 +206,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>640</y>
+     <y>440</y>
      <width>771</width>
      <height>101</height>
     </rect>
@@ -254,7 +230,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>570</y>
+     <y>370</y>
      <width>771</width>
      <height>16</height>
     </rect>
@@ -267,7 +243,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>740</y>
+     <y>540</y>
      <width>771</width>
      <height>16</height>
     </rect>
@@ -280,7 +256,7 @@
    <property name="geometry">
     <rect>
      <x>310</x>
-     <y>760</y>
+     <y>560</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -292,8 +268,8 @@
   <widget class="QPushButton" name="downButton">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>590</y>
+     <x>340</x>
+     <y>390</y>
      <width>31</width>
      <height>41</height>
     </rect>
@@ -305,8 +281,8 @@
   <widget class="QPushButton" name="upButton">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>590</y>
+     <x>380</x>
+     <y>390</y>
      <width>31</width>
      <height>41</height>
     </rect>
@@ -319,7 +295,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>350</y>
+     <y>150</y>
      <width>201</width>
      <height>22</height>
     </rect>
@@ -329,7 +305,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>830</y>
+     <y>620</y>
      <width>771</width>
      <height>16</height>
     </rect>
@@ -338,51 +314,93 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QTextEdit" name="KineticsCountInput">
+  <widget class="QSpinBox" name="NumberOfChannelsInput">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>200</y>
-     <width>231</width>
-     <height>31</height>
+     <x>730</x>
+     <y>80</y>
+     <width>42</width>
+     <height>22</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </widget>
-  <widget class="QTextEdit" name="NumberOfChannelsInput">
+  <widget class="QSpinBox" name="NumberPositionsInput">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>240</y>
-     <width>231</width>
-     <height>31</height>
+     <x>730</x>
+     <y>110</y>
+     <width>42</width>
+     <height>22</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
   </widget>
-  <widget class="QTextEdit" name="NumberPositionsInput">
+  <widget class="QSpinBox" name="KineticsCountInput">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>280</y>
-     <width>231</width>
-     <height>31</height>
+     <x>730</x>
+     <y>50</y>
+     <width>42</width>
+     <height>22</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
+  </widget>
+  <widget class="QSpinBox" name="RepeatCountInput">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>20</y>
+     <width>42</width>
+     <height>22</height>
+    </rect>
    </property>
   </widget>
+  <widget class="QDateTimeEdit" name="DateInput">
+   <property name="geometry">
+    <rect>
+     <x>59</x>
+     <y>50</y>
+     <width>161</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="Line" name="line_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>133</y>
+     <width>761</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <zorder>label</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_4</zorder>
+  <zorder>label_5</zorder>
+  <zorder>label_6</zorder>
+  <zorder>label_7</zorder>
+  <zorder>NameInput</zorder>
+  <zorder>FileInput</zorder>
+  <zorder>allElementsTable</zorder>
+  <zorder>chosenElementsTable</zorder>
+  <zorder>line</zorder>
+  <zorder>line_2</zorder>
+  <zorder>AddMeasurementButton</zorder>
+  <zorder>downButton</zorder>
+  <zorder>upButton</zorder>
+  <zorder>tableSelector</zorder>
+  <zorder>line_3</zorder>
+  <zorder>NumberOfChannelsInput</zorder>
+  <zorder>NumberPositionsInput</zorder>
+  <zorder>KineticsCountInput</zorder>
+  <zorder>RepeatCountInput</zorder>
+  <zorder>DateInput</zorder>
+  <zorder>label_2</zorder>
+  <zorder>line_4</zorder>
  </widget>
  <resources/>
  <connections/>

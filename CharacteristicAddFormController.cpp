@@ -9,48 +9,36 @@ void CharacteristicAddFormController::ManageAddCharacteristicRequest(Characteris
 	QString channel = view->GetUI().ChannelInput->toPlainText();
 	QString x = view->GetUI().XInput->toPlainText();
 	QString y = view->GetUI().YInput->toPlainText();
-	bool convertionResult;
-	int numberOfPoints = view->GetUI().NumberOfPointsInput->toPlainText().toInt(&convertionResult);
-	finalResult = finalResult && convertionResult;
-	double binTime = view->GetUI().BinTimeInput->toPlainText().toDouble(&convertionResult);
-	finalResult = finalResult && convertionResult;
-	double weight = 0;
-
-	if (!view->GetUI().WeightInput->toPlainText().isEmpty())
-	{
-		weight = view->GetUI().WeightInput->toPlainText().toDouble(&convertionResult);
-		finalResult = finalResult && convertionResult;
-	}
+	int numberOfPoints = view->GetUI().NumberOfPointsInput->value();
+	double binTime = view->GetUI().BinTimeInput->value();
+	double weight = view->GetUI().WeightInput->value();
 
 	bool isRowAdded = false;
 
-	if (finalResult)
+	CharacteristicsContext* characteristic = new CharacteristicsContext(characteristicStatePath);
+
+	characteristic->SetChannel(channel);
+	characteristic->SetBinTime(binTime);
+	characteristic->SetNumberOfPoints(numberOfPoints);
+	characteristic->SetX(x);
+	characteristic->SetY(y);
+	characteristic->SetWeight(weight);
+
+	if (view->GetFKMeasurement() == 0)
 	{
-		CharacteristicsContext* characteristic = new CharacteristicsContext(characteristicStatePath);
-
-		characteristic->SetChannel(channel);
-		characteristic->SetBinTime(binTime);
-		characteristic->SetNumberOfPoints(numberOfPoints);
-		characteristic->SetX(x);
-		characteristic->SetY(y);
-		characteristic->SetWeight(weight);
-
-		if (view->GetFKMeasurement() == 0)
-		{
-			int id = view->GetChosenMeasurementsTableModel()->data(view->GetChosenMeasurementsTableModel()->index(0, 0)).toInt();
-			view->SetFKMeasurement(id);
-		}
-
-		if (view->GetFKCharacteristicType() == 0)
-		{
-			int id = view->GetChosenCharacteristicTypesTableModel()->data(view->GetChosenCharacteristicTypesTableModel()->index(0, 0)).toInt();
-			view->SetFKCharacteristicType(id);
-		}
-
-		characteristic->SetFKMeasurement(view->GetFKMeasurement());
-		characteristic->SetFKCharacteristicType(new CharacteristicTypeContext(view->GetFKCharacteristicType()));
-		isRowAdded = CharacteristicAddService::AddCharacteristicRequestReceiver(characteristic);
+		int id = view->GetChosenMeasurementsTableModel()->data(view->GetChosenMeasurementsTableModel()->index(0, 0)).toInt();
+		view->SetFKMeasurement(id);
 	}
+
+	if (view->GetFKCharacteristicType() == 0)
+	{
+		int id = view->GetChosenCharacteristicTypesTableModel()->data(view->GetChosenCharacteristicTypesTableModel()->index(0, 0)).toInt();
+		view->SetFKCharacteristicType(id);
+	}
+
+	characteristic->SetFKMeasurement(view->GetFKMeasurement());
+	characteristic->SetFKCharacteristicType(new CharacteristicTypeContext(view->GetFKCharacteristicType()));
+	isRowAdded = CharacteristicAddService::AddCharacteristicRequestReceiver(characteristic);
 
 	view->SetIsRowAdded(isRowAdded);
 }

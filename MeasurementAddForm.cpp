@@ -4,7 +4,7 @@
 MeasurementAddForm::MeasurementAddForm(QWidget* parent, int fk_measuring_system, int fk_sample) : BaseDependentAddForm(parent)
 {
 	ui.setupUi(this);
-	this->setFixedSize(786, 845);
+	this->setFixedSize(791, 634);
 	ui.downButton->setDisabled(true);
 	ui.upButton->setDisabled(true);
 	ui.AddMeasurementButton->setDisabled(true);

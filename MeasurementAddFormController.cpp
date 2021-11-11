@@ -5,9 +5,7 @@
 
 void MeasurementAddFormController::ManageAddMeasurementRequest(MeasurementAddForm* view)
 {
-	bool finalResult = true;
 	bool isRowAdded = false;
-	QDateTime DateTime;
 	QString file = view->GetUI().FileInput->toPlainText();
 
 	if (file.isEmpty())
@@ -17,52 +15,36 @@ void MeasurementAddFormController::ManageAddMeasurementRequest(MeasurementAddFor
 	}
 
 	QString name = view->GetUI().NameInput->toPlainText();
-	QString date = view->GetUI().DateInput->toPlainText();
+	QString date = view->GetUI().DateInput->text();
+	int repeatCount = view->GetUI().RepeatCountInput->value();
+	int kineticsCount = view->GetUI().KineticsCountInput->value();
+	int numberOfChannels = view->GetUI().NumberOfChannelsInput->value();
+	int numberPositions = view->GetUI().NumberPositionsInput->value();
 
-	bool convertionResult;
+	MeasurementContext* measurement = new MeasurementContext(measurementStatePath);
+	measurement->SetName(name);
+	measurement->SetDateTime(date);
+	measurement->SetFileLink(file);
+	measurement->SetRepeatCount(repeatCount);
+	measurement->SetKineticsCount(kineticsCount);
+	measurement->SetNumberOfChannels(numberOfChannels);
+	measurement->SetNumberPositions(numberPositions);
 
-	if (!date.isEmpty())
+	if (view->GetFKMeasuringSystem() == 0)
 	{
-		convertionResult = DateTime.fromString(date, "H:m:s M/d/yyyy").isValid();
-		finalResult = finalResult && convertionResult;
+		int id = view->GetChosenMeasuringSystemsTableModel()->data(view->GetChosenMeasuringSystemsTableModel()->index(0, 0)).toInt();
+		view->SetFKMeasuringSystem(id);
 	}
 
-	int repeatCount = view->GetUI().RepeatCountInput->toPlainText().toInt(&convertionResult);
-	finalResult = finalResult && convertionResult;
-	int kineticsCount = view->GetUI().KineticsCountInput->toPlainText().toInt(&convertionResult);
-	finalResult = finalResult && convertionResult;
-	int numberOfChannels = view->GetUI().NumberOfChannelsInput->toPlainText().toInt(&convertionResult);
-	finalResult = finalResult && convertionResult;
-	int numberPositions = view->GetUI().NumberPositionsInput->toPlainText().toInt(&convertionResult);
-	finalResult = finalResult && convertionResult;
-
-	if (finalResult)
+	if (view->GetFKSample() == 0)
 	{
-		MeasurementContext* measurement = new MeasurementContext(measurementStatePath);
-		measurement->SetName(name);
-		measurement->SetDateTime(date);
-		measurement->SetFileLink(file);
-		measurement->SetRepeatCount(repeatCount);
-		measurement->SetKineticsCount(kineticsCount);
-		measurement->SetNumberOfChannels(numberOfChannels);
-		measurement->SetNumberPositions(numberPositions);
-
-		if (view->GetFKMeasuringSystem() == 0)
-		{
-			int id = view->GetChosenMeasuringSystemsTableModel()->data(view->GetChosenMeasuringSystemsTableModel()->index(0, 0)).toInt();
-			view->SetFKMeasuringSystem(id);
-		}
-
-		if (view->GetFKSample() == 0)
-		{
-			int id = view->GetChosenSamplesTableModel()->data(view->GetChosenSamplesTableModel()->index(0, 0)).toInt();
-			view->SetFKSample(id);
-		}
-
-		measurement->SetFKMeasuringSystem(view->GetFKMeasuringSystem());
-		measurement->SetFKSample(new SampleContext(view->GetFKSample()));
-		isRowAdded = MeasurementAddService::AddMeasurementRequestReceiver(measurement);
+		int id = view->GetChosenSamplesTableModel()->data(view->GetChosenSamplesTableModel()->index(0, 0)).toInt();
+		view->SetFKSample(id);
 	}
+
+	measurement->SetFKMeasuringSystem(view->GetFKMeasuringSystem());
+	measurement->SetFKSample(new SampleContext(view->GetFKSample()));
+	isRowAdded = MeasurementAddService::AddMeasurementRequestReceiver(measurement);
 
 	view->SetIsRowAdded(isRowAdded);
 }
