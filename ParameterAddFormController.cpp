@@ -36,9 +36,14 @@ void ParameterAddFormController::ManageAddParameterRequest(ParameterAddForm* vie
 	{
 		parameter->IncrementId();
 	}
+	else
+	{
+		ErrorForm* errorForm = new ErrorForm("It was unable to add parameter because it already exists in database.");
+		errorForm->setWindowFlags(Qt::WindowStaysOnTopHint);
+		errorForm->show();
+	}
 
 	view->SetIsRowAdded(isRowAdded);
-	
 }
 
 Q_DECLARE_METATYPE(MeasurementParameterContext*);

@@ -313,6 +313,11 @@ void FFSDatabaseInterfaceFormController::ManageUpdateTableRequest(QString tableN
         else
         {
             tableView->model()->setData(tableView->currentIndex(), view->GetPreviousCellValue());
+            QString errorMessage = "The %1 you are trying to add already exists in database";
+            tableName.chop(1);
+            tableName.replace('_', ' ');
+            ErrorForm* errorForm = new ErrorForm(errorMessage.arg(tableName));
+            errorForm->show();
         }
     }
 }

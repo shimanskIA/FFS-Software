@@ -2,6 +2,7 @@
 
 #include "ui_ParameterAddForm.h"
 #include "ParameterAddForm.h"
+#include "ErrorForm.h"
 
 #include <QString>
 
