@@ -4,6 +4,7 @@
 #include "FFSDatabaseInterfaceFormController.h"
 #include "FFSTableModel.h"
 #include "MeasuringSystemAddForm.h"
+#include "MeasuringSystemInputForm.h"
 
 #include <QFileDialog>
 #include <QCloseEvent>
@@ -210,6 +211,11 @@ void FFSDatabaseInterface::showWindow()
 {
     FFSDatabaseInterfaceFormController::ManageRefreshViewRequest(this, addView->GetIsRowAdded());
     addView->close();
+    this->show();
+}
+
+void FFSDatabaseInterface::makeWindowVisible()
+{
     this->show();
 }
 

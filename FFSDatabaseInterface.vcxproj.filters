@@ -255,6 +255,12 @@
     <ClCompile Include="ErrorForm.cpp">
       <Filter>View\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MeasuringSystemInputForm.cpp">
+      <Filter>View\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MeasuringSystemInputFormController.cpp">
+      <Filter>Controller\Source FIles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -288,6 +294,9 @@
       <Filter>View\Form Files</Filter>
     </QtUic>
     <QtUic Include="ErrorForm.ui">
+      <Filter>View\Form Files</Filter>
+    </QtUic>
+    <QtUic Include="MeasuringSystemInputForm.ui">
       <Filter>View\Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -335,6 +344,9 @@
       <Filter>View\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ErrorForm.h">
+      <Filter>View\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MeasuringSystemInputForm.h">
       <Filter>View\Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -464,6 +476,9 @@
     </ClInclude>
     <ClInclude Include="OperationStatusMessage.h">
       <Filter>Helpers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeasuringSystemInputFormController.h">
+      <Filter>Controller\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

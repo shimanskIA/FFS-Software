@@ -122,6 +122,8 @@
     <ClCompile Include="MeasuringSystemAddFormController.cpp" />
     <ClCompile Include="MeasuringSystemAddService.cpp" />
     <ClCompile Include="MeasuringSystemContext.cpp" />
+    <ClCompile Include="MeasuringSystemInputForm.cpp" />
+    <ClCompile Include="MeasuringSystemInputFormController.cpp" />
     <ClCompile Include="OperationStatusMessage.cpp" />
     <ClCompile Include="ParameterAddFormController.cpp" />
     <ClCompile Include="ParameterAddForm.cpp" />
@@ -153,6 +155,7 @@
     <ClCompile Include="EntryPoint.cpp" />
     <QtUic Include="MeasurementAddForm.ui" />
     <QtUic Include="MeasuringSystemAddForm.ui" />
+    <QtUic Include="MeasuringSystemInputForm.ui" />
     <QtUic Include="ParameterAddForm.ui" />
     <QtUic Include="SampleAddForm.ui" />
   </ItemGroup>
@@ -181,6 +184,8 @@
     <QtMoc Include="ParameterAddForm.h" />
     <ClInclude Include="MeasuringSystemAddFormController.h" />
     <ClInclude Include="MeasuringSystemAddService.h" />
+    <QtMoc Include="MeasuringSystemInputForm.h" />
+    <ClInclude Include="MeasuringSystemInputFormController.h" />
     <ClInclude Include="OperationStatusMessage.h" />
     <ClInclude Include="ParameterAddFormController.h" />
     <ClInclude Include="ParameterAddService.h" />

@@ -1,5 +1,6 @@
 #include "RawDataParser.h"
 #include "NamesHelper.h"
+#include "MeasuringSystemInputForm.h"
 
 #include <QTextStream>
 #include <QFile>
@@ -7,6 +8,8 @@
 RawDataParser::RawDataParser(QString fileLink)
 {
 	this->fileLink = fileLink;
+	this->measuringSystem = new MeasuringSystemContext(measuringSystemStatePath);
+	this->measuringSystem->SetDescription("Write your description here.");
 }
 
 RawDataParser::RawDataParser()
@@ -70,11 +73,11 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	EquipmentContext* equipmentItem = nullptr;
 	CharacteristicsContext* characteristic = nullptr;
 
-	MeasuringSystemContext* measuringSystem = new MeasuringSystemContext(measuringSystemStatePath);
-	measuringSystem->SetDescription("Write your description here.");
+	MeasuringSystemInputForm* measuringSystemInputForm = new MeasuringSystemInputForm();
+	connect(measuringSystemInputForm, &MeasuringSystemInputForm::measuringSystemSet, this, &RawDataParser::createMeasuringSystem);
+	measuringSystemInputForm->exec();
 
 	QMap<QString, CharacteristicTypeContext*> usedCharacteristicTypes;
-	
 	QString fullSampleName = "";
 	QString fullSampleDistribution = "";
 	QString actualChannelName = "";
@@ -126,7 +129,8 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 					if (!wasConverted)
 					{
-						throw "Number of channels seems to have an invalid value";
+						QString ex = "Number of channels seems to have an invalid value";
+						throw (ex);
 					}
 				}
 				else if (line.contains("RepeatCount"))
@@ -135,7 +139,8 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 					if (!wasConverted)
 					{
-						throw "Repeat count seems to have an invalid value";
+						QString ex = "Repeat count seems to have an invalid value";
+						throw (ex);
 					}
 				}
 				else if (line.contains("KineticsCount"))
@@ -144,7 +149,8 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 					if (!wasConverted)
 					{
-						throw "Kinetics count seems to have an invalid value";
+						QString ex = "Kinetics count seems to have an invalid value";
+						throw (ex);
 					}
 				}
 				else if (line.contains("NumberPositions"))
@@ -153,7 +159,8 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 					if (!wasConverted)
 					{
-						throw "Number positions seems to have an invalid value";
+						QString ex = "Number positions seems to have an invalid value.";
+						throw (ex);
 					}
 
 					measurementReadFlag = false;
@@ -354,7 +361,8 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 				if (!wasConverted)
 				{
-					throw "Invalid number of points";
+					QString ex = "Invalid number of points.";
+					throw (ex);
 				}
 
 				numberOfPointsReadFlag = false;
@@ -385,7 +393,8 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 
 				if (!wasXConverted || !wasYConverted)
 				{
-					throw "X or Y coordinates have invalid values.";
+					QString ex = "X or Y coordinates have invalid values.";
+					throw (ex);
 				}
 			}
 			catch (QString ex)
@@ -520,4 +529,17 @@ QString RawDataParser::ReadHeader()
 	QString header = in.readLine(); 
 	file.close();
 	return header;
+}
+
+void RawDataParser::createMeasuringSystem(QMap<QString, QString> credentials)
+{
+	this->measuringSystem->SetName(credentials["name"]);
+	QString description = credentials["description"];
+	
+	if (description != "")
+	{
+		this->measuringSystem->SetDescription(description);
+	}
+
+	this->measuringSystem->SetMainContributorName(credentials["contributor"]);
 }

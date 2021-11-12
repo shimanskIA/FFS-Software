@@ -4,7 +4,7 @@
 
 BaseAddForm::BaseAddForm(QWidget* parent) : QWidget(parent)
 {
-	this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
+	
 }
 
 void BaseAddForm::closeEvent(QCloseEvent* event)

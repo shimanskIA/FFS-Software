@@ -92,6 +92,7 @@ private slots:
     void showAddRowMinorTableView();
     void showAddRowMinorSubtableView();
     void showWindow();
+    void makeWindowVisible();
     void showMajorCharacteristicPreview();
     void showMinorCharacteristicPreview();
     void showMinorCharacteristicSubPreview();

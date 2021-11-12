@@ -1,11 +1,13 @@
 #pragma once
 
 #include <QString>
+#include <QMap>
+#include <QObject>
 
 #include "DbContext.h"
 #include "OperationStatusMessage.h"
 
-class RawDataParser
+class RawDataParser : public QObject
 {
 public:
 	RawDataParser(QString fileLink);
@@ -23,8 +25,13 @@ public:
 	QStringList GetCoordinates(QString line);
 	QString ReadHeader();
 
+private slots:
+	void createMeasuringSystem(QMap<QString, QString> credentials);
+
 private:
 	QString fileLink;
+	MeasuringSystemContext* measuringSystem = nullptr;
+	//QMap<QString, QString> measuringSystemCredentials;
 	int dataSetNumber = 0;
 	int channelNumber = 0;
 	int correlationNumber = 0;
