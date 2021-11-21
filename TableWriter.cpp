@@ -282,49 +282,21 @@ void TableWriter::FillParametersTable(QTableView* tableView, QString majorTableN
 		}
 	}
 
+	
 	tableView->setColumnHidden(0, true);
 }
 
-void TableWriter::FillCharacteristicsTable(QTableView* tableView, QString sqlReadRequest)
+void TableWriter::FillCharacteristicsTable(QTableView* tableView)
 {
-	QList<CharacteristicsContext*> characteristics = dbReader->ReadCharacteristicsFromDatabase(sqlReadRequest);
-	TableItemDelegate* decDelegate = new TableItemDelegate(tableView);
-	tableView->setItemDelegateForColumn(3, decDelegate);
-	tableView->setItemDelegateForColumn(4, decDelegate);
-	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
-	tableModel->setRowCount(characteristics.length());
-	tableModel->setColumnCount(6);
+	QList<CharacteristicsContext*> characteristics = dbReader->ReadCharacteristicsFromDatabase();
+	FillBaseCharacteristicsTable(tableView, characteristics);
+}
 
-	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
-	{
-		if (j < tableModel->columnCount())
-		{
-			tableModel->setHeaderData(j, Qt::Horizontal, characteristicsColumnNames.at(j));
-		}
-
-		if (i < tableModel->rowCount())
-		{
-			tableModel->setData(tableModel->index(i, 0), characteristics.at(i)->GetId());
-			tableModel->setData(tableModel->index(i, 1), characteristics.at(i)->GetChannel());
-			tableModel->itemFromIndex(tableModel->index(i, 1))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 2), characteristics.at(i)->GetNumberOfPoints());
-			tableModel->itemFromIndex(tableModel->index(i, 2))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 3), QString::number(characteristics.at(i)->GetBinTime(), 'f', 4)
-				.remove(QRegExp("0+$"))
-				.remove(QRegExp("[.]$"))
-				.toDouble());
-			tableModel->itemFromIndex(tableModel->index(i, 3))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 4), QString::number(characteristics.at(i)->GetWeight(), 'f', 4)
-				.remove(QRegExp("0+$"))
-				.remove(QRegExp("[.]$"))
-				.toDouble());
-			tableModel->itemFromIndex(tableModel->index(i, 4))->setTextAlignment(Qt::AlignBottom);
-			tableModel->setData(tableModel->index(i, 5), characteristics.at(i)->GetCharacteristicTypeName());
-			tableModel->itemFromIndex(tableModel->index(i, 5))->setTextAlignment(Qt::AlignBottom);
-		}
-	}
-
-	tableView->setColumnHidden(0, true);
+void TableWriter::FillCharacteristicsTable(QTableView* tableView, QString majorTableName, int majorTableId)
+{
+	QList<CharacteristicsContext*> characteristics = dbReader->ReadCharacteristicsFromDatabase(majorTableName, majorTableId);
+	FillBaseCharacteristicsTable(tableView, characteristics);
+	tableView->setColumnHidden(1, true);
 }
 
 void TableWriter::FillCharacteristicTypesTable(QTableView* tableView)
@@ -371,6 +343,54 @@ void TableWriter::FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, Q
 	tableModel->itemFromIndex(tableModel->index(rowNumber, 7))->setTextAlignment(Qt::AlignBottom);
 }
 
+void TableWriter::FillCharacteristicsRow(int rowNumber, FFSTableModel* tableModel, QList<CharacteristicsContext*> characteristics)
+{
+	tableModel->setData(tableModel->index(rowNumber, 0), characteristics.at(rowNumber)->GetId());
+	tableModel->setData(tableModel->index(rowNumber, 1), characteristics.at(rowNumber)->GetName());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 1))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 2), characteristics.at(rowNumber)->GetChannel());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 2))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 3), characteristics.at(rowNumber)->GetNumberOfPoints());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 3))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 4), QString::number(characteristics.at(rowNumber)->GetBinTime(), 'f', 4)
+		.remove(QRegExp("0+$"))
+		.remove(QRegExp("[.]$"))
+		.toDouble());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 4))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 5), QString::number(characteristics.at(rowNumber)->GetWeight(), 'f', 4)
+		.remove(QRegExp("0+$"))
+		.remove(QRegExp("[.]$"))
+		.toDouble());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 5))->setTextAlignment(Qt::AlignBottom);
+	tableModel->setData(tableModel->index(rowNumber, 6), characteristics.at(rowNumber)->GetCharacteristicTypeName());
+	tableModel->itemFromIndex(tableModel->index(rowNumber, 6))->setTextAlignment(Qt::AlignBottom);
+}
+
+void TableWriter::FillBaseCharacteristicsTable(QTableView* tableView, QList<CharacteristicsContext*> characteristics)
+{
+	TableItemDelegate* decDelegate = new TableItemDelegate(tableView);
+	tableView->setItemDelegateForColumn(3, decDelegate);
+	tableView->setItemDelegateForColumn(4, decDelegate);
+	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
+	tableModel->setRowCount(characteristics.length());
+	tableModel->setColumnCount(7);
+
+	for (int i = 0, j = 0; i < tableModel->rowCount() || j < tableModel->columnCount(); i++, j++)
+	{
+		if (j < tableModel->columnCount())
+		{
+			tableModel->setHeaderData(j, Qt::Horizontal, characteristicsColumnNames.at(j));
+		}
+
+		if (i < tableModel->rowCount())
+		{
+			FillCharacteristicsRow(i, tableModel, characteristics);
+		}
+	}
+
+	tableView->setColumnHidden(0, true);
+}
+
 void TableWriter::RouteMajorRequest(QString tableName, QTableView* tableView)
 {
 	if (tableName == "measuring system")
@@ -395,8 +415,7 @@ void TableWriter::RouteMajorRequest(QString tableName, QTableView* tableView)
 	}
 	else if (tableName == "characteristic")
 	{
-		QString sqlReadRequest = "SELECT * FROM characteristics";
-		FillCharacteristicsTable(tableView, sqlReadRequest);
+		FillCharacteristicsTable(tableView);
 	}
 }
 
@@ -429,7 +448,6 @@ void TableWriter::RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tab
 	}
 	else if (minorTableName == "characteristics")
 	{
-		QString sqlReadRequest = "SELECT * FROM characteristics WHERE fk_%1 = %2";
-		FillCharacteristicsTable(tableView, sqlReadRequest.arg(majorTableName).arg(majorTableId));
+		FillCharacteristicsTable(tableView, majorTableName, majorTableId);
 	}
 }

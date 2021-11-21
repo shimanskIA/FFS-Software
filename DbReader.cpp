@@ -250,21 +250,35 @@ void DbReader::TransformQueryToEquipments(QSqlQuery query, QList<EquipmentContex
 	}
 }
 
-QList<CharacteristicsContext*> DbReader::ReadCharacteristicsFromDatabase(QString sqlReadRequest)
+QList<CharacteristicsContext*> DbReader::ReadCharacteristicsFromDatabase()
 {
+	QString sqlReadRequest = "SELECT * FROM characteristics";
 	QSqlQuery query = ReadFromDatabase(sqlReadRequest);
+	return ReadCharacteristicsFromDatabase(query);
+}
+
+QList<CharacteristicsContext*> DbReader::ReadCharacteristicsFromDatabase(QString majorTableName, int majorTableId)
+{
+	QString sqlReadRequest = "SELECT * FROM characteristics WHERE fk_%1 = %2";
+	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(majorTableName).arg(majorTableId));
+	return ReadCharacteristicsFromDatabase(query);
+}
+
+QList<CharacteristicsContext*> DbReader::ReadCharacteristicsFromDatabase(QSqlQuery query)
+{
 	QList<CharacteristicsContext*> characteristics;
 
 	while (query.next())
 	{
 		int id = query.value(0).toInt();
 		CharacteristicsContext* characteristic = new CharacteristicsContext(id);
-		characteristic->SetChannel(query.value(1).toString().trimmed());
-		characteristic->SetNumberOfPoints(query.value(2).toUInt());
-		characteristic->SetBinTime(query.value(3).toDouble());
-		characteristic->SetWeight(query.value(6).toDouble());
+		characteristic->SetName(query.value(1).toString().trimmed());
+		characteristic->SetChannel(query.value(2).toString().trimmed());
+		characteristic->SetNumberOfPoints(query.value(3).toUInt());
+		characteristic->SetBinTime(query.value(4).toDouble());
+		characteristic->SetWeight(query.value(7).toDouble());
 
-		int fk_characteristic_type = query.value(8).toInt();
+		int fk_characteristic_type = query.value(9).toInt();
 		CharacteristicTypeContext* characteristicType = new CharacteristicTypeContext(fk_characteristic_type);
 		QString sqlSampleReadRequest = "SELECT * FROM characteristic_types WHERE id = %1";
 		QSqlQuery characteristicTypeQuery = ReadFromDatabase(sqlSampleReadRequest.arg(fk_characteristic_type));

@@ -483,6 +483,7 @@ bool DbWriter::AddCharacteristic(CharacteristicsContext* characteristic)
 {
 	QString sqlReadRequest = "SELECT * FROM characteristics WHERE channel = '%1' AND number_of_points = %2 AND bin_time = %3 AND x = '%4' AND y = '%5' AND weight = %6 AND fk_measurement = %7 AND fk_characteristic_type = %8";
 	int id = characteristic->GetId();
+	QString name = characteristic->GetName();
 	QString channel = characteristic->GetChannel();
 	uint number_of_points = characteristic->GetNumberOfPoints();
 	double bin_time = characteristic->GetBinTime();
@@ -503,9 +504,10 @@ bool DbWriter::AddCharacteristic(CharacteristicsContext* characteristic)
 
 	if (!query.next())
 	{
-		QString sqlWriteRequest = "INSERT INTO characteristics(id, channel, number_of_points, bin_time, x, y, weight, fk_measurement, fk_characteristic_type) VALUES (%1, '%2', %3, %4, '%5', '%6', %7, %8, %9)";
+		QString sqlWriteRequest = "INSERT INTO characteristics(id, name, channel, number_of_points, bin_time, x, y, weight, fk_measurement, fk_characteristic_type) VALUES (%1, '%2', '%3', %4, %5, '%6', '%7', %8, %9, %10)";
 		return WriteToDatabase(sqlWriteRequest
 			.arg(id)
+			.arg(name)
 			.arg(channel)
 			.arg(number_of_points)
 			.arg(bin_time)

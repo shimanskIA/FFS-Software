@@ -345,9 +345,11 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			}
 			
 			numberOfPointsReadFlag = true;
+			QString characteristicName = (measurement->GetName() + measurement->GetFileLink().split('/').last() + measurement->GetDateTime()).toUpper();
 			characteristic->SetChannel(actualChannelName);
 			characteristic->SetFKCharacteristicType(usedCharacteristicTypes[actualCharacteristicType]);
 			characteristic->SetFKMeasurement(measurement->GetId());
+			characteristic->SetName(characteristicName);
 		}
 
 		else if(numberOfPointsReadFlag)

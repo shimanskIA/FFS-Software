@@ -471,8 +471,7 @@ void FFSDatabaseInterfaceFormController::ShowMeasuringSystemTableRequestReceiver
 void FFSDatabaseInterfaceFormController::ShowCharacteristicsTableRequestReceiver(QTableView* tableView)
 {
     TableWriter* tableWriter = new TableWriter();
-    QString sqlReadRequest = "SELECT * FROM characteristics";
-    tableWriter->FillCharacteristicsTable(tableView, sqlReadRequest);
+    tableWriter->FillCharacteristicsTable(tableView);
 }
 
 bool FFSDatabaseInterfaceFormController::IsValueAllowed(QString tableName, QTableView* tableView, int selectedRow)

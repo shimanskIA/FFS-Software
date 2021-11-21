@@ -32,9 +32,12 @@ public:
 
 	void FillParametersTable(QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 
-	void FillCharacteristicsTable(QTableView* tableView, QString sqlReadRequest);
+	void FillCharacteristicsTable(QTableView* tableView);
+	void FillCharacteristicsTable(QTableView* tableView, QString majorTableName, int majorTableId);
 
 	void FillMeasurementRow(int rowNumber, FFSTableModel* tableModel, QList<MeasurementContext*> measurements);
+	void FillCharacteristicsRow(int rowNumber, FFSTableModel* tableModel, QList<CharacteristicsContext*> characteristics);
+	void FillBaseCharacteristicsTable(QTableView* tableView, QList<CharacteristicsContext*> characteristics);
 
 	void FillExistingEquipmentTable(EquipmentAddForm* view, int fk_measuring_system);
 
@@ -73,6 +76,7 @@ private:
 	const QStringList characteristicsColumnNames =
 	{
 		"Id",
+		"Name",
 		"Channel",
 		"Number of points",
 		"Bin time",

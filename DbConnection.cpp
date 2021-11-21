@@ -3,7 +3,7 @@
 DbConnection::DbConnection()
 {
 	database = QSqlDatabase::addDatabase("QODBC");
-	database.setDatabaseName("DRIVER={SQL SERVER};SERVER=ACER-A515\\SQLEXPRESS;DATABASE=ffsdbv5;UID=Ivan;PWD=;Trusted_Connection=Yes;");
+	database.setDatabaseName("DRIVER={SQL SERVER};SERVER=ACER-A515\\SQLEXPRESS;DATABASE=ffsdbv6;UID=Ivan;PWD=;Trusted_Connection=Yes;");
 	
 	if (!database.open())
 	{

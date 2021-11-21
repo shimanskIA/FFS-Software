@@ -16,6 +16,11 @@ CharacteristicsContext::CharacteristicsContext() : TableContext()
 
 }
 
+void CharacteristicsContext::SetName(QString name)
+{
+	this->name = name;
+}
+
 void CharacteristicsContext::SetChannel(QString channel)
 {
 	this->channel = channel;
@@ -66,6 +71,11 @@ void CharacteristicsContext::SetFKMeasurement(int fk_measurement)
 void CharacteristicsContext::SetFKCharacteristicType(CharacteristicTypeContext* fk_characteristic_type)
 {
 	this->fk_characteristic_type = fk_characteristic_type;
+}
+
+QString CharacteristicsContext::GetName()
+{
+	return this->name;
 }
 
 QString CharacteristicsContext::GetChannel()

@@ -11,7 +11,8 @@ public:
 	CharacteristicsContext(QString stateFilePath);
 	CharacteristicsContext(int id);
 	CharacteristicsContext();
-	void SetChannel(QString);
+	void SetName(QString name);
+	void SetChannel(QString channel);
 	void SetWeight(double weight);
 	void SetBinTime(double binTime);
 	void SetX(QString x);
@@ -22,6 +23,7 @@ public:
 	void SetFKMeasurement(int fk_measurement);
 	void SetFKCharacteristicType(CharacteristicTypeContext* fk_characteristic_type);
 
+	QString GetName();
 	QString GetChannel();
 	uint GetNumberOfPoints();
 	QString GetX();
@@ -33,6 +35,7 @@ public:
 	QString GetCharacteristicTypeName();
 
 private:
+	QString name = "";
 	QString channel = "";
 	QString x = "";
 	QString y = "";
