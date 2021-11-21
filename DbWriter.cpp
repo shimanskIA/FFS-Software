@@ -54,8 +54,8 @@ bool DbWriter::AddCharacteristicTypes(QList<CharacteristicTypeContext*> characte
 bool DbWriter::AddMeasurements(QList<MeasurementContext*> measurements)
 {
 	bool wasAnyMeasurementAdded = false;
-	bool wasAnyMeasurementParameterAdded;
-	bool wasAnyCharacteristicAdded;
+	bool wasAnyMeasurementParameterAdded = false;
+	bool wasAnyCharacteristicAdded = false;
 	
 	foreach(MeasurementContext * measurement, measurements)
 	{
@@ -118,13 +118,13 @@ bool DbWriter::AddMeasurements(QList<MeasurementContext*> measurements)
 				while (characteristicsQuery.next())
 				{
 					CharacteristicsContext* characteristic = new CharacteristicsContext();
-					characteristic->SetChannel(characteristicsQuery.value(1).toString().trimmed());
-					characteristic->SetNumberOfPoints(characteristicsQuery.value(2).toUInt());
-					characteristic->SetBinTime(characteristicsQuery.value(3).toDouble());
-					characteristic->SetX(characteristicsQuery.value(4).toString().trimmed());
-					characteristic->SetY(characteristicsQuery.value(5).toString().trimmed());
-					characteristic->SetWeight(characteristicsQuery.value(6).toDouble());
-					characteristic->SetFKCharacteristicType(new CharacteristicTypeContext(characteristicsQuery.value(8).toUInt()));
+					characteristic->SetChannel(characteristicsQuery.value(2).toString().trimmed());
+					characteristic->SetNumberOfPoints(characteristicsQuery.value(3).toUInt());
+					characteristic->SetBinTime(characteristicsQuery.value(4).toDouble());
+					characteristic->SetX(characteristicsQuery.value(5).toString().trimmed());
+					characteristic->SetY(characteristicsQuery.value(6).toString().trimmed());
+					characteristic->SetWeight(characteristicsQuery.value(7).toDouble());
+					characteristic->SetFKCharacteristicType(new CharacteristicTypeContext(characteristicsQuery.value(9).toUInt()));
 
 					if (measurement->ContainsCharacteristic(characteristic))
 					{
@@ -181,7 +181,7 @@ bool DbWriter::AddMeasurements(QList<MeasurementContext*> measurements)
 		wasAnyCharacteristicAdded = AddCharacteristics(measurement->GetCharacteristics());
 	}
 
-	return wasAnyMeasurementAdded && wasAnyCharacteristicAdded && wasAnyMeasurementParameterAdded;
+	return wasAnyMeasurementAdded || wasAnyCharacteristicAdded || wasAnyMeasurementParameterAdded;
 }
 
 bool DbWriter::AddMeasuringSystem(MeasuringSystemContext* measuringSystem)
@@ -242,7 +242,7 @@ bool DbWriter::AddMeasuringSystem(MeasuringSystemContext* measuringSystem)
 	wasAnyBindingAdded = AddBindings(measuringSystem->GetBindings());
 	wasAnyMeasurementAdded = AddMeasurements(measuringSystem->GetMeasurements());
 	wasEquipmentAdded = false;
-	return wasMeasuringSystemAdded && wasAnyBindingAdded && wasAnyMeasurementAdded;
+	return wasMeasuringSystemAdded || wasAnyBindingAdded || wasAnyMeasurementAdded;
 }
 
 bool DbWriter::AddForwardMeasuringSystem(MeasuringSystemContext* measuringSystem)
@@ -266,7 +266,7 @@ bool DbWriter::AddForwardMeasuringSystem(MeasuringSystemContext* measuringSystem
 
 bool DbWriter::AddEquipment(QList<EquipmentContext*> equipments)
 {
-	bool wasAnyEquipmentParameterAdded;
+	bool wasAnyEquipmentParameterAdded = true;
 	
 	foreach(EquipmentContext * equipment, equipments)
 	{
@@ -335,7 +335,7 @@ bool DbWriter::AddEquipment(QList<EquipmentContext*> equipments)
 		wasAnyEquipmentParameterAdded = AddEquipmentParameters(equipment->GetEquipmentParameters());
 	}
 
-	return wasEquipmentAdded && wasAnyEquipmentParameterAdded;
+	return wasEquipmentAdded || wasAnyEquipmentParameterAdded;
 }
 
 bool DbWriter::AddMeasurementParameters(QList<MeasurementParameterContext*> measurementParameters)
