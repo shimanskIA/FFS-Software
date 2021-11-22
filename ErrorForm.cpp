@@ -1,6 +1,6 @@
 #include "ErrorForm.h"
 
-ErrorForm::ErrorForm(QString errorMessage, QWidget* parent) : QWidget(parent)
+ErrorForm::ErrorForm(QString errorMessage, QWidget* parent) : QDialog(parent)
 {
 	ui.setupUi(this);
 	this->setStyleSheet("background-color: white;");

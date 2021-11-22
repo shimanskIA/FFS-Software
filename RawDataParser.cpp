@@ -73,10 +73,6 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	EquipmentContext* equipmentItem = nullptr;
 	CharacteristicsContext* characteristic = nullptr;
 
-	MeasuringSystemInputForm* measuringSystemInputForm = new MeasuringSystemInputForm();
-	connect(measuringSystemInputForm, &MeasuringSystemInputForm::measuringSystemSet, this, &RawDataParser::createMeasuringSystem);
-	measuringSystemInputForm->exec();
-
 	QMap<QString, CharacteristicTypeContext*> usedCharacteristicTypes;
 	QString fullSampleName = "";
 	QString fullSampleDistribution = "";
@@ -531,17 +527,4 @@ QString RawDataParser::ReadHeader()
 	QString header = in.readLine(); 
 	file.close();
 	return header;
-}
-
-void RawDataParser::createMeasuringSystem(QMap<QString, QString> credentials)
-{
-	this->measuringSystem->SetName(credentials["name"]);
-	QString description = credentials["description"];
-	
-	if (description != "")
-	{
-		this->measuringSystem->SetDescription(description);
-	}
-
-	this->measuringSystem->SetMainContributorName(credentials["contributor"]);
 }

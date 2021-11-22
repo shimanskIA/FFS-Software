@@ -36,6 +36,25 @@ OperationStatusMessage* FFSDatabaseInterfaceService::ReadOrdinateRequestReceiver
 	return dbReader->ReadOrdinateFromDatabase(selectedId, y);
 }
 
+OperationStatusMessage* FFSDatabaseInterfaceService::InitializeMeasuringSystemRequestReceiver(QMap<QString, QString> credentials)
+{
+	DbReader* dbReader = new DbReader();
+	QString sqlReadRequest = "SELECT * FROM measuring_systems WHERE name = '%1' AND main_contributor_name = '%2'";
+	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(credentials["name"]).arg(credentials["contributor"]));
+
+	if (query.next())
+	{
+		OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
+		errorStatusMessage->SetOperationMessage("Measuring system with these credentials already exists.");
+		return errorStatusMessage;
+	}
+	else
+	{
+		DbWriter::inputMeasuringSystemCredentials = credentials;
+		return new OperationStatusMessage(true);
+	}
+}
+
 void FFSDatabaseInterfaceService::RemoveUnusedIdsRequestReceiver()
 {
 	IdFileManager* idFileManager = new IdFileManager();

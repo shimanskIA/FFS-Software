@@ -2,10 +2,11 @@
 
 #include <QtWidgets/QWidget>
 #include <QString>
+#include <QDialog>
 
 #include "ui_ErrorForm.h"
 
-class ErrorForm : public QWidget
+class ErrorForm : public QDialog
 {
     Q_OBJECT
 

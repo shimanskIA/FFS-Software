@@ -1,4 +1,5 @@
 #include "DbWriter.h"
+#include "FFSDatabaseInterfaceFormController.h"
 
 DbWriter::DbWriter()
 {
@@ -186,9 +187,10 @@ bool DbWriter::AddMeasurements(QList<MeasurementContext*> measurements)
 
 bool DbWriter::AddMeasuringSystem(MeasuringSystemContext* measuringSystem)
 {
-	bool wasMeasuringSystemAdded;
-	bool wasAnyMeasurementAdded;
-	bool wasAnyBindingAdded;
+	bool wasMeasuringSystemAdded = false;
+	bool wasAnyMeasurementAdded = false;
+	bool wasAnyBindingAdded = false;
+	bool equalMeasuringSystemExists = false;
 	
 	QString sqlReadRequest = "SELECT id FROM measuring_systems";
 	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest);
@@ -228,9 +230,24 @@ bool DbWriter::AddMeasuringSystem(MeasuringSystemContext* measuringSystem)
 			if (areEqual)
 			{
 				measuringSystem->SetId(id);
+				equalMeasuringSystemExists = true;
 				break;
 			}
 		}
+	}
+
+	if (!equalMeasuringSystemExists)
+	{
+		FFSDatabaseInterfaceFormController::ManageCreateMeasuringSystemInputFormRequest();
+		measuringSystem->SetName(inputMeasuringSystemCredentials["name"]);
+		QString description = inputMeasuringSystemCredentials["description"];
+
+		if (description != "")
+		{
+			measuringSystem->SetDescription(description);
+		}
+
+		measuringSystem->SetMainContributorName(inputMeasuringSystemCredentials["contributor"]);
 	}
 
 	QString sqlWriteRequest = "INSERT INTO measuring_systems(id, name, description, main_contributor_name) VALUES (%1, '%2', '%3', '%4')";
@@ -635,3 +652,5 @@ Q_DECLARE_METATYPE(CharacteristicsContext*);
 Q_DECLARE_METATYPE(EquipmentParameterContext*);
 Q_DECLARE_METATYPE(MeasurementParameterContext*);
 Q_DECLARE_METATYPE(MeasuringSystemContext*);
+
+QMap<QString, QString> DbWriter::inputMeasuringSystemCredentials;

@@ -4,6 +4,7 @@
 #include "FFSDatabaseInterface.h"
 #include "FFSTableModel.h"
 #include "TableFillRequestController.h"
+#include "DbWriter.h"
 
 #include <QString>
 
@@ -30,6 +31,8 @@ public:
     static void ManageShowMinorAddViewRequest(QString tableName, FFSDatabaseInterface* view);
     static void ManageShowMinorAddViewSubRequest(QString tableName, FFSDatabaseInterface* view);
     static void ManageShowCharacteristicPreviewRequest(QTableView* tableView, FFSDatabaseInterface* view);
+
+    static void ManageCreateMeasuringSystemInputFormRequest();
 
     static void ShowMeasuringSystemTableRequestReceiver(QTableView* tableView);
     static void ShowCharacteristicsTableRequestReceiver(QTableView* tableView);

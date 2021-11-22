@@ -6,8 +6,9 @@
 
 #include "DbContext.h"
 #include "OperationStatusMessage.h"
+#include "DbReader.h"
 
-class RawDataParser : public QObject
+class RawDataParser
 {
 public:
 	RawDataParser(QString fileLink);
@@ -25,13 +26,9 @@ public:
 	QStringList GetCoordinates(QString line);
 	QString ReadHeader();
 
-private slots:
-	void createMeasuringSystem(QMap<QString, QString> credentials);
-
 private:
 	QString fileLink;
 	MeasuringSystemContext* measuringSystem = nullptr;
-	//QMap<QString, QString> measuringSystemCredentials;
 	int dataSetNumber = 0;
 	int channelNumber = 0;
 	int correlationNumber = 0;

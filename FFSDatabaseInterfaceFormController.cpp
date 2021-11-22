@@ -432,6 +432,12 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicPreviewRequest(
     }
 }
 
+void FFSDatabaseInterfaceFormController::ManageCreateMeasuringSystemInputFormRequest()
+{
+    WindowManager* windowManager = new WindowManager();
+    windowManager->BindMeasuringSystemToInputForm();
+}
+
 void FFSDatabaseInterfaceFormController::DisableButtonActivity(FFSDatabaseInterface* view)
 {
     view->GetUI().minorAddSubbutton->setDisabled(true);

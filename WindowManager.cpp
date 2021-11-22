@@ -7,6 +7,10 @@
 #include "CharacteristicAddForm.h"
 #include "ParameterAddForm.h"
 #include "CharacteristicPreviewForm.h"
+#include "DbWriter.h"
+#include "FFSDatabaseInterfaceService.h"
+#include "OperationStatusMessage.h"
+#include "ErrorForm.h"
 
 WindowManager::WindowManager()
 {
@@ -78,4 +82,23 @@ void WindowManager::ShowCharacteristicPreview(QVector<double> x, QVector<double>
 	CharacteristicPreviewForm* previewForm = new CharacteristicPreviewForm(x, y, fk_characteristic);
 	previewForm->show();
 	view->AddOpenedCharacteristicPreviewWindow(fk_characteristic, previewForm);
+}
+
+void WindowManager::BindMeasuringSystemToInputForm()
+{
+	MeasuringSystemInputForm* measuringSystemInputForm = new MeasuringSystemInputForm();
+	connect(measuringSystemInputForm, &MeasuringSystemInputForm::measuringSystemSet, this, &WindowManager::redirectInitializeMeasuringSystemRequest);
+	measuringSystemInputForm->exec();
+}
+
+void WindowManager::redirectInitializeMeasuringSystemRequest(QMap<QString, QString> credentials)
+{
+	OperationStatusMessage* statusMessage = FFSDatabaseInterfaceService::InitializeMeasuringSystemRequestReceiver(credentials);
+
+	if (!statusMessage->GetIsSuccessfull())
+	{
+		ErrorForm* errorForm = new ErrorForm(statusMessage->GetOperationMessage());
+		errorForm->exec();
+		BindMeasuringSystemToInputForm();
+	}
 }

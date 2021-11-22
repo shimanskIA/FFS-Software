@@ -15,5 +15,6 @@ public:
 	static OperationStatusMessage* UpdateTableRequestReceiver(QString tableName, QString columnName, QVariant cellValue, int selectedId);
 	static OperationStatusMessage* ReadAbscissaRequestReceiver(int selectedId, QVector<double>& x);
 	static OperationStatusMessage* ReadOrdinateRequestReceiver(int selectedId, QVector<double>& y);
+	static OperationStatusMessage* InitializeMeasuringSystemRequestReceiver(QMap<QString, QString> credentials);
 	static void RemoveUnusedIdsRequestReceiver();
 };

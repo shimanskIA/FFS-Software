@@ -37,6 +37,8 @@ public:
 
 	bool AddRow(QVariant tableContext);
 
+	static QMap<QString, QString> inputMeasuringSystemCredentials;
+
 private:
 	DbReader* dbReader;
 
