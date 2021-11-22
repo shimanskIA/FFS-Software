@@ -15,6 +15,7 @@ public:
     Ui::CharacteristicTypeAddFormClass GetUI();
 
 private slots:
+    void manageAddButtonActivity();
     void addCharacteristicType();
 
 private:

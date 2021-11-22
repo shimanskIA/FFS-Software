@@ -1,6 +1,7 @@
 #include "CharacteristicTypeAddFormController.h"
 #include "CharacteristicTypeAddService.h"
 #include "NamesHelper.h"
+#include "ErrorForm.h"
 
 void CharacteristicTypeAddFormController::ManageAddCharacteristicTypeRequest(CharacteristicTypeAddForm* view)
 {
@@ -11,4 +12,28 @@ void CharacteristicTypeAddFormController::ManageAddCharacteristicTypeRequest(Cha
 	characteristicType->SetDescription(description);
 	bool isRowAdded = CharacteristicTypeAddService::AddCharacteristicTypeRequestReceiver(characteristicType);
 	view->SetIsRowAdded(isRowAdded);
+
+	if (isRowAdded)
+	{
+		view->close();
+	}
+	else
+	{
+		ErrorForm* errorForm = new ErrorForm("Characteristic type with these name and description already exists.");
+		errorForm->show();
+		view->GetUI().NameInput->setText("");
+	}
+}
+
+void CharacteristicTypeAddFormController::ManageAddButtonActivity(CharacteristicTypeAddForm* view)
+{
+	auto ui = view->GetUI();
+	if (ui.NameInput->toPlainText() != "")
+	{
+		ui.AddCharacteristicTypeButton->setDisabled(false);
+	}
+	else
+	{
+		ui.AddCharacteristicTypeButton->setDisabled(true);
+	}
 }

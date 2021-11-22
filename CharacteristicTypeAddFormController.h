@@ -9,4 +9,5 @@ static class CharacteristicTypeAddFormController
 {
 public:
 	static void ManageAddCharacteristicTypeRequest(CharacteristicTypeAddForm* view);
+	static void ManageAddButtonActivity(CharacteristicTypeAddForm* view);
 };

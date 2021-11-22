@@ -28,10 +28,10 @@ void MeasuringSystemAddFormController::ManageAddMeasuringSystemRequest(Measuring
 	}
 
 	isRowAdded = MeasuringSystemAddService::AddMeasuringSystemRequestReceiver(measuringSystem);
+	view->SetIsRowAdded(isRowAdded);
 
 	if (isRowAdded)
 	{
-		view->SetIsRowAdded(isRowAdded);
 		view->close();
 	}
 	else
@@ -86,10 +86,10 @@ void MeasuringSystemAddFormController::ManageAddButtonActivity(MeasuringSystemAd
 	if (ui.NameInput->toPlainText() != "" &&
 		ui.MainContributorNameInput->toPlainText() != "")
 	{
-		ui.addMeasuringSystemButton->setDisabled(false);
+		ui.AddMeasuringSystemButton->setDisabled(false);
 	}
 	else
 	{
-		ui.addMeasuringSystemButton->setDisabled(true);
+		ui.AddMeasuringSystemButton->setDisabled(true);
 	}
 }

@@ -186,7 +186,7 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QPushButton" name="addMeasuringSystemButton">
+  <widget class="QPushButton" name="AddMeasuringSystemButton">
    <property name="geometry">
     <rect>
      <x>310</x>
