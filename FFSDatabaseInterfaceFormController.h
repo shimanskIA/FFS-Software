@@ -34,6 +34,8 @@ public:
 
     static void ManageCreateMeasuringSystemInputFormRequest();
 
+private:
+    static void DisableButtonActivity(FFSDatabaseInterface* view);
     static void ShowMeasuringSystemTableRequestReceiver(QTableView* tableView);
     static void ShowCharacteristicsTableRequestReceiver(QTableView* tableView);
     static void ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys = QMap<QString, int>());
@@ -41,7 +43,4 @@ public:
 
     static bool IsValueAllowed(QString tableName, QTableView* tableView, int selectedRow);
     static bool ContainsEqualRow(int selectedRow, QTableView* tableView);
-
-private:
-    static void DisableButtonActivity(FFSDatabaseInterface* view);
 };

@@ -6,8 +6,7 @@ bool EquipmentAddService::AddEquipmentRequestReceiver(EquipmentContext* equipmen
 {
 	QVariant tableContext;
 	tableContext.setValue<EquipmentContext*>(equipmentItem);
-	DbWriter* dbWriter = new DbWriter();
-	bool isRowAdded = dbWriter->AddRow(tableContext);
+	bool isRowAdded = DbWriter::GetDbWriterInstance().AddRow(tableContext);
 
 	if (isRowAdded)
 	{
@@ -20,13 +19,11 @@ bool EquipmentAddService::AddEquipmentRequestReceiver(EquipmentContext* equipmen
 
 void EquipmentAddService::AddExistingEquipmentRequestReceiver(QList<BindingContext*> bindings, int fk_measuring_system)
 {
-	DbEditor* dbEditor = new DbEditor();
-	dbEditor->DeleteBindingsWithMeasuringSystem(fk_measuring_system);
-	DbWriter* dbWriter = new DbWriter();
+	DbEditor::GetDbEditorInstance().DeleteBindingsWithMeasuringSystem(fk_measuring_system);
 
 	if (!bindings.isEmpty())
 	{
-		dbWriter->AddBindings(bindings);
+		DbWriter::GetDbWriterInstance().AddBindings(bindings);
 	}
 }
 

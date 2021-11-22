@@ -3,7 +3,7 @@
 #include <QString>
 #include <QVariant>
 
-class ParameterAddService
+static class ParameterAddService
 {
 public:
 	static bool AddParameterRequestReceiver(QVariant parameter);

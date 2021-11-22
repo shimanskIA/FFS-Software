@@ -8,11 +8,13 @@ class DbImporter
 {
 
 public:
-    DbImporter(DbContext* dbContext, RawDataParser* rawDataParser);
-    ~DbImporter();
-    OperationStatusMessage* ImportToDatabase();
+    static DbImporter& GetDbImporterInstance();
+    
+    OperationStatusMessage* ImportToDatabase(QString fileLink);
+    OperationStatusMessage* LinkParser(DbContext* dbContext, QString fileLink);
+    QString ReadHeader(QString fileLink);
 
 private:
-    DbContext* dbContext;
-    RawDataParser* rawDataParser;
+    DbImporter() {};
+    DbImporter(const DbImporter&) {};
 };

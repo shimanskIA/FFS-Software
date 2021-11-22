@@ -10,7 +10,7 @@
 class DbReader
 {
 public:
-	DbReader();
+	static DbReader& GetDbReaderInstance();
 
 	QSqlQuery ReadFromDatabase(QString sqlRequest);
 
@@ -33,4 +33,8 @@ public:
 	QList<ParameterTableContext*> ReadParametersFromDatabase(QString majorTableName, QString minorTableName, int fk);
 
 	void TransformQueryToEquipments(QSqlQuery query, QList<EquipmentContext*>& equipments);
+
+private:
+	DbReader() {};
+	DbReader(const DbReader&) {}
 };

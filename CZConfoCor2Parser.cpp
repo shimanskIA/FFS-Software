@@ -1,72 +1,58 @@
-#include "RawDataParser.h"
+#include "CZConfoCor2Parser.h"
 #include "NamesHelper.h"
-#include "MeasuringSystemInputForm.h"
 
-#include <QTextStream>
 #include <QFile>
+#include <QTextStream>
 
-RawDataParser::RawDataParser(QString fileLink)
-{
-	this->fileLink = fileLink;
-	this->measuringSystem = new MeasuringSystemContext(measuringSystemStatePath);
-	this->measuringSystem->SetDescription("Write your description here.");
-}
-
-RawDataParser::RawDataParser()
+CZConfoCor2Parser::CZConfoCor2Parser() : ConfoCorParser()
 {
 
 }
 
-RawDataParser::~RawDataParser()
+CZConfoCor2Parser& CZConfoCor2Parser::GetCZConfoCor2ParserInstance()
 {
+	static CZConfoCor2Parser* czConfoCor2ParserInstance = 0;
 
-}
-
-void RawDataParser::SetFileLink(QString fileLink)
-{
-	this->fileLink = fileLink;
-}
-
-OperationStatusMessage* RawDataParser::ParseRawDataFile(DbContext* dbContext)
-{
-	QString header = ReadHeader();
-
-	if (header.contains("Carl Zeiss ConfoCor1"))
+	if (czConfoCor2ParserInstance == 0)
 	{
-		return CZConfoCor1Parser(dbContext);
-	}
-	else if (header.contains("Carl Zeiss ConfoCor2"))
-	{
-		return CZConfoCor2Parser(dbContext);
-	}
-	else if (header.contains("Some other device"))
-	{
-		return SomeOtherDeviceParser(dbContext);
+		czConfoCor2ParserInstance = new CZConfoCor2Parser();
 	}
 
-	OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
-	errorStatusMessage->SetOperationMessage("There's no parser found for chosen file.");
-	return errorStatusMessage;
+	return *czConfoCor2ParserInstance;
 }
 
-OperationStatusMessage* RawDataParser::CZConfoCor1Parser(DbContext* dbContext)
-{
-	return new OperationStatusMessage(true);
-}
-
-OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
+OperationStatusMessage* CZConfoCor2Parser::ParseRawDataFile(DbContext* dbContext, QString fileLink)
 {
 	QFile file(fileLink);
 
-	if (!file.open(QIODevice::ReadOnly)) 
+	if (!file.open(QIODevice::ReadOnly))
 	{
-		qWarning("Cannot open file for reading"); 
+		qWarning("Cannot open file for reading");
 		OperationStatusMessage* errorStatusMessage = new OperationStatusMessage(false);
 		errorStatusMessage->SetOperationMessage("It was unable to open this file for reading.");
 		return errorStatusMessage;
 	}
 
 	QTextStream in(&file);
+
+	int dataSetNumber = 0;
+	int channelNumber = 0;
+	int correlationNumber = 0;
+
+	bool measurementReadFlag = false;
+	bool measureParametersReadFlag = false;
+	bool laserParametersReadFlag = false;
+	bool pinholeParametersReadFlag = false;
+	bool attenuatorPowerParametersReadFlag = false;
+	bool attenuatorParametersReadFlag = false;
+	bool beamSplitterParametersReadFlag = false;
+	bool collimatorParametersReadFlag = false;
+	bool characteristicReadFlag = false;
+	bool numberOfPointsReadFlag = false;
+	bool firstDataSetReadFlag = true;
+
+	MeasuringSystemContext* measuringSystem = new MeasuringSystemContext(measuringSystemStatePath);
+	measuringSystem->SetDescription("Write your description here.");
 
 	MeasurementContext* measurement = nullptr;
 	SampleContext* sample = nullptr;
@@ -84,9 +70,9 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	int numberOfIterations;
 	int actualIteration = 1;
 
-	while (!in.atEnd()) 
-	{ 
-		QString line = in.readLine(); 
+	while (!in.atEnd())
+	{
+		QString line = in.readLine();
 
 		if (line.contains("BEGIN FcsDataSet" + QString::number(dataSetNumber)))
 		{
@@ -98,7 +84,7 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			}
 
 			sample = new SampleContext(sampleStatePath);
-			
+
 			if (measurement != nullptr)
 			{
 				measurement->SetFKMeasuringSystem(measuringSystem->GetId());
@@ -179,7 +165,7 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 		{
 			QString parameterName = line.split('=').first().trimmed();
 			QString parameterValue = line.split('=').last().trimmed();
-			
+
 			if (parameterName.contains("MethodName"))
 			{
 				measurement->SetName(parameterValue);
@@ -189,7 +175,7 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 				measurement->SetDateTime(parameterValue);
 			}
 			else if (
-				parameterName.contains("MethodDate") || 
+				parameterName.contains("MethodDate") ||
 				parameterName.contains("User") ||
 				parameterName.contains("MethodCategory") ||
 				parameterName.contains("Auto") ||
@@ -205,7 +191,7 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			}
 			else
 			{
-				MeasurementParameterContext *measureParameter = new MeasurementParameterContext(measurementParametersStatePath);
+				MeasurementParameterContext* measureParameter = new MeasurementParameterContext(measurementParametersStatePath);
 				measureParameter->SetName(parameterName);
 				measureParameter->SetValue(parameterValue);
 				measureParameter->SetFKMeasurement(measurement->GetId());
@@ -339,7 +325,7 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			{
 				characteristic = new CharacteristicsContext(characteristicStatePath);
 			}
-			
+
 			numberOfPointsReadFlag = true;
 			QString characteristicName = (measurement->GetName() + measurement->GetFileLink().split('/').last() + measurement->GetDateTime()).toUpper();
 			characteristic->SetChannel(actualChannelName);
@@ -348,7 +334,7 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 			characteristic->SetName(characteristicName);
 		}
 
-		else if(numberOfPointsReadFlag)
+		else if (numberOfPointsReadFlag)
 		{
 			QString numberOfRowsAndColumns = line.split('=').last().trimmed();
 
@@ -437,14 +423,11 @@ OperationStatusMessage* RawDataParser::CZConfoCor2Parser(DbContext* dbContext)
 	dbContext->SetMeasuringSystem(measuringSystem);
 
 	file.close();
-}
 
-OperationStatusMessage* RawDataParser::SomeOtherDeviceParser(DbContext* dbContext)
-{
 	return new OperationStatusMessage(true);
 }
 
-void RawDataParser::CascadeEquipmentParametersRead(QString line, bool& flag, QString endLine, EquipmentContext*& equipmentItem, DbContext* dbContext)
+void CZConfoCor2Parser::CascadeEquipmentParametersRead(QString line, bool& flag, QString endLine, EquipmentContext*& equipmentItem, DbContext* dbContext)
 {
 	QString parameterName = line.split('=').first().trimmed();
 	QString parameterValue = line.split('=').last().trimmed();
@@ -461,7 +444,7 @@ void RawDataParser::CascadeEquipmentParametersRead(QString line, bool& flag, QSt
 	}
 }
 
-void RawDataParser::CreateNewEquipmentItem(QString name, bool& flag, EquipmentContext*& equipmentItem)
+void CZConfoCor2Parser::CreateNewEquipmentItem(QString name, bool& flag, EquipmentContext*& equipmentItem)
 {
 	QString description = "Write your description here.";
 	equipmentItem = new EquipmentContext(equipmentStatePath);
@@ -470,7 +453,7 @@ void RawDataParser::CreateNewEquipmentItem(QString name, bool& flag, EquipmentCo
 	flag = true;
 }
 
-void RawDataParser::Bind(MeasuringSystemContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext)
+void CZConfoCor2Parser::Bind(MeasuringSystemContext* measuringSystem, EquipmentContext*& equipmentItem, DbContext* dbContext)
 {
 	BindingContext* binding = new BindingContext();
 	binding->SetFKMeasuringSystem(measuringSystem->GetId());
@@ -479,13 +462,13 @@ void RawDataParser::Bind(MeasuringSystemContext* measuringSystem, EquipmentConte
 	equipmentItem->SetBinding(binding);
 }
 
-QStringList RawDataParser::GetCoordinates(QString line)
+QStringList CZConfoCor2Parser::GetCoordinates(QString line)
 {
 	bool xFlag = true;
 	QString x = "";
 	QString y = "";
 	QStringList coordinate;
-	
+
 	for (int i = 0; i < line.length(); i++)
 	{
 		if (line.at(i) != ' ')
@@ -511,20 +494,4 @@ QStringList RawDataParser::GetCoordinates(QString line)
 	coordinate.append(x);
 	coordinate.append(y);
 	return coordinate;
-}
-
-QString RawDataParser::ReadHeader()
-{
-	QFile file(fileLink);
-
-	if (!file.open(QIODevice::ReadOnly)) 
-	{
-		qWarning("Cannot open file for reading"); 
-		return 1;
-	}
-
-	QTextStream in(&file);
-	QString header = in.readLine(); 
-	file.close();
-	return header;
 }

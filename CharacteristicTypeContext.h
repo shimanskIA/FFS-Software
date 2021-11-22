@@ -6,6 +6,7 @@
 
 class CharacteristicTypeContext : public TableContext
 {
+
 public:
 	CharacteristicTypeContext(QString stateFilePath);
 	CharacteristicTypeContext(int id);

@@ -4,7 +4,7 @@
 
 #include <QString>
 
-class SampleAddService
+static class SampleAddService
 {
 public:
 	static bool AddSampleRequestReceiver(SampleContext* sample);

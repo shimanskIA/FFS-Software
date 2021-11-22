@@ -7,14 +7,20 @@
 #include "CharacteristicAddForm.h"
 #include "ParameterAddForm.h"
 #include "CharacteristicPreviewForm.h"
-#include "DbWriter.h"
 #include "FFSDatabaseInterfaceService.h"
 #include "OperationStatusMessage.h"
 #include "ErrorForm.h"
 
-WindowManager::WindowManager()
+WindowManager& WindowManager::GetWindowManagerInstance()
 {
+	static WindowManager* windowManagerInstance = 0;
 
+	if (windowManagerInstance == 0)
+	{
+		windowManagerInstance = new WindowManager();
+	}
+
+	return *windowManagerInstance;
 }
 
 void WindowManager::ManageWindows(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys)

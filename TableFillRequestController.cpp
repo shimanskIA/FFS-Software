@@ -3,8 +3,7 @@
 
 void TableFillRequestController::ManageFillIndependentTableRequest(QString tableName, QTableView* tableView)
 {
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->RouteMajorRequest(tableName, tableView);
+	TableWriter::GetTableWriterInstance().RouteMajorRequest(tableName, tableView);
 }
 
 void TableFillRequestController::ManageSortRowsRequest(QTableView* tableView, int selectedColumn)

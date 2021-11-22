@@ -412,8 +412,7 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicPreviewRequest(
         if (readAbscissaRequestStatusMessage->GetIsSuccessfull() &&
             readOrdinateRequestStatusMessage->GetIsSuccessfull())
         {
-            WindowManager* windowManager = new WindowManager();
-            windowManager->ShowCharacteristicPreview(x, y, view, selectedId);
+            WindowManager::GetWindowManagerInstance().ShowCharacteristicPreview(x, y, view, selectedId);
         }
         else
         {
@@ -434,8 +433,7 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicPreviewRequest(
 
 void FFSDatabaseInterfaceFormController::ManageCreateMeasuringSystemInputFormRequest()
 {
-    WindowManager* windowManager = new WindowManager();
-    windowManager->BindMeasuringSystemToInputForm();
+    WindowManager::GetWindowManagerInstance().BindMeasuringSystemToInputForm();
 }
 
 void FFSDatabaseInterfaceFormController::DisableButtonActivity(FFSDatabaseInterface* view)
@@ -458,26 +456,22 @@ void FFSDatabaseInterfaceFormController::ResetTableModel(FFSTableModel* tableMod
 
 void FFSDatabaseInterfaceFormController::LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
 {
-    TableWriter* tableWriter = new TableWriter();
-    tableWriter->RouteRequest(ui, tableView, majorTableName, minorTableName, majorTableId);
+    TableWriter::GetTableWriterInstance().RouteRequest(ui, tableView, majorTableName, minorTableName, majorTableId);
 }
 
 void FFSDatabaseInterfaceFormController::ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys)
 {
-    WindowManager* windowMananger = new WindowManager();
-    windowMananger->ManageWindows(tableName, view, foreignKeys);
+    WindowManager::GetWindowManagerInstance().ManageWindows(tableName, view, foreignKeys);
 }
 
 void FFSDatabaseInterfaceFormController::ShowMeasuringSystemTableRequestReceiver(QTableView* tableView)
 {
-    TableWriter* tableWriter = new TableWriter();
-    tableWriter->FillMeasuringSystemsTable(tableView);
+    TableWriter::GetTableWriterInstance().FillMeasuringSystemsTable(tableView);
 }
 
 void FFSDatabaseInterfaceFormController::ShowCharacteristicsTableRequestReceiver(QTableView* tableView)
 {
-    TableWriter* tableWriter = new TableWriter();
-    tableWriter->FillCharacteristicsTable(tableView);
+    TableWriter::GetTableWriterInstance().FillCharacteristicsTable(tableView);
 }
 
 bool FFSDatabaseInterfaceFormController::IsValueAllowed(QString tableName, QTableView* tableView, int selectedRow)

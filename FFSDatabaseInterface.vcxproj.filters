@@ -104,9 +104,6 @@
     <ClCompile Include="DbImporter.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RawDataParser.cpp">
-      <Filter>Model\Entities\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MeasurementContext.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
@@ -260,6 +257,15 @@
     </ClCompile>
     <ClCompile Include="MeasuringSystemInputFormController.cpp">
       <Filter>Controller\Source FIles</Filter>
+    </ClCompile>
+    <ClCompile Include="CZConfoCor2Parser.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CZConfoCor1Parser.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SomeOtherDeviceParser.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -479,6 +485,18 @@
     </ClInclude>
     <ClInclude Include="MeasuringSystemInputFormController.h">
       <Filter>Controller\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CZConfoCor2Parser.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CZConfoCor1Parser.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfoCorParser.h">
+      <Filter>Model\Entities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SomeOtherDeviceParser.h">
+      <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

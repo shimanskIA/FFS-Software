@@ -93,6 +93,8 @@
     <ClCompile Include="CharacteristicTypeAddForm.cpp" />
     <ClCompile Include="CharacteristicTypeAddFormController.cpp" />
     <ClCompile Include="CharacteristicTypeAddService.cpp" />
+    <ClCompile Include="CZConfoCor1Parser.cpp" />
+    <ClCompile Include="CZConfoCor2Parser.cpp" />
     <ClCompile Include="DbReader.cpp" />
     <ClCompile Include="DbWriter.cpp" />
     <ClCompile Include="EquipmentAddFormController.cpp" />
@@ -130,11 +132,11 @@
     <ClCompile Include="ParameterAddService.cpp" />
     <ClCompile Include="ParameterTableContext.cpp" />
     <ClCompile Include="qcustomplot.cpp" />
-    <ClCompile Include="RawDataParser.cpp" />
     <ClCompile Include="SampleAddForm.cpp" />
     <ClCompile Include="SampleAddFormController.cpp" />
     <ClCompile Include="SampleAddService.cpp" />
     <ClCompile Include="SampleContext.cpp" />
+    <ClCompile Include="SomeOtherDeviceParser.cpp" />
     <ClCompile Include="TableContext.cpp" />
     <ClCompile Include="TableFillRequestController.cpp" />
     <ClCompile Include="TableItemDelegate.cpp" />
@@ -172,6 +174,9 @@
     <QtMoc Include="CharacteristicPreviewForm.h" />
     <ClInclude Include="CharacteristicTypeAddFormController.h" />
     <ClInclude Include="CharacteristicTypeAddService.h" />
+    <ClInclude Include="ConfoCorParser.h" />
+    <ClInclude Include="CZConfoCor1Parser.h" />
+    <ClInclude Include="CZConfoCor2Parser.h" />
     <ClInclude Include="DbReader.h" />
     <ClInclude Include="DbWriter.h" />
     <ClInclude Include="EquipmentAddFormController.h" />
@@ -192,6 +197,7 @@
     <QtMoc Include="qcustomplot.h" />
     <ClInclude Include="SampleAddFormController.h" />
     <ClInclude Include="SampleAddService.h" />
+    <ClInclude Include="SomeOtherDeviceParser.h" />
     <ClInclude Include="TableFillRequestController.h" />
     <QtMoc Include="TableItemDelegate.h" />
     <ClInclude Include="WindowManager.h" />

@@ -3,11 +3,6 @@
 #include "TextFileInteractionHelper.h"
 #include "DbReader.h"
 
-IdFileManager::IdFileManager()
-{
-
-}
-
 void IdFileManager::RemoveUnusedIds()
 {
 	TextFileInteractionHelper::ClearTextFile(sampleStatePath);
@@ -36,8 +31,7 @@ void IdFileManager::AddIdsInUse()
 void IdFileManager::AddIdsToSingleFile(QString tableName, QString stateFilePath)
 {
 	QString sqlReadRequest = "SELECT id FROM %1";
-	DbReader* dbReader = new DbReader();
-	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(tableName));
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(tableName));
 
 	while (query.next())
 	{

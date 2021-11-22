@@ -4,7 +4,7 @@
 
 #include <QString>
 
-class CharacteristicTypeAddService
+static class CharacteristicTypeAddService
 {
 public:
 	static bool AddCharacteristicTypeRequestReceiver(CharacteristicTypeContext* characteristicType);

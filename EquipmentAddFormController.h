@@ -14,6 +14,5 @@ public:
 	static void ManageChooseUpperElementRequest(EquipmentAddForm* view);
 	static void ManageCancelChooseRequest(EquipmentAddForm* view);
 	static void ManageChooseExistingEquipmentRequest(EquipmentAddForm* view, int checkboxState);
-	static void ManageShowExistingEquipmentRequest(EquipmentAddForm* view);
 	static void ManageAddExistingEquipmentRequest(EquipmentAddForm* view, int fk_measuring_system);
 };

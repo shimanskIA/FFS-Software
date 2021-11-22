@@ -3,7 +3,7 @@
 class BindingContext
 {
 public:
-	BindingContext();
+	BindingContext() {};
 	void SetFKEquipment(int fk_equipment);
 	void SetFKMeasuringSystem(int fk_measuring_system);
 

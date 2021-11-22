@@ -86,7 +86,7 @@ void EquipmentAddFormController::ManageChooseExistingEquipmentRequest(EquipmentA
 		ui.allEquipmentTable->setDisabled(false);
 		ui.chosenEquipmentTable->setDisabled(false);
 		view->SetIsExistingEquipmentChosen(true);
-		ManageShowExistingEquipmentRequest(view);
+		TableWriter::GetTableWriterInstance().FillExistingEquipmentTable(view, view->GetFKMeasuringSystem());
 
 		if (view->GetUI().chosenEquipmentTable->model()->rowCount() == 0)
 		{
@@ -114,10 +114,4 @@ void EquipmentAddFormController::ManageChooseExistingEquipmentRequest(EquipmentA
 		ui.chosenEquipmentTable->setDisabled(true);
 		view->SetIsExistingEquipmentChosen(false);
 	}
-}
-
-void EquipmentAddFormController::ManageShowExistingEquipmentRequest(EquipmentAddForm* view)
-{
-	TableWriter* tableWriter = new TableWriter();
-	tableWriter->FillExistingEquipmentTable(view, view->GetFKMeasuringSystem());
 }

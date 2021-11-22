@@ -5,8 +5,7 @@ bool SampleAddService::AddSampleRequestReceiver(SampleContext* sample)
 {
 	QVariant tableContext;
 	tableContext.setValue<SampleContext*>(sample);
-	DbWriter* dbWriter = new DbWriter();
-	bool isRowAdded = dbWriter->AddRow(tableContext);
+	bool isRowAdded = DbWriter::GetDbWriterInstance().AddRow(tableContext);
 
 	if (isRowAdded)
 	{

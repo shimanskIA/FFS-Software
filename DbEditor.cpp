@@ -2,9 +2,18 @@
 #include "TextFileInteractionHelper.h"
 #include "EquipmentContext.h"
 
-DbEditor::DbEditor()
+#include <QtSql>
+
+DbEditor& DbEditor::GetDbEditorInstance()
 {
-    dbWriter = new DbWriter();
+    static DbEditor* dbEditorInstance = 0;
+
+    if (dbEditorInstance == 0)
+    {
+        dbEditorInstance = new DbEditor();
+    }
+
+    return *dbEditorInstance;
 }
 
 OperationStatusMessage* DbEditor::DeleteFromDatabase(QString tableName, int id)

@@ -5,7 +5,7 @@
 class IdFileManager
 {
 public:
-	IdFileManager();
+	IdFileManager() {};
 
 	void RemoveUnusedIds();
 	void AddIdsInUse();

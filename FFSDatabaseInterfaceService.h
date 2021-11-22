@@ -7,7 +7,7 @@
 #include <QString>
 #include <QStandardItemModel>
 
-class FFSDatabaseInterfaceService
+static class FFSDatabaseInterfaceService
 {
 public:
 	static OperationStatusMessage* ImportRequestReceiver(QString fileLink);

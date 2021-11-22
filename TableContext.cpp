@@ -12,11 +12,6 @@ TableContext::TableContext(int id)
 	this->id = id;
 }
 
-TableContext::TableContext()
-{
-
-}
-
 void TableContext::SetId(int id)
 {
 	TextFileInteractionHelper::DeleteIdFromTextFile(this->GetId(), stateFilePath);

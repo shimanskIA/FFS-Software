@@ -1,6 +1,5 @@
 #pragma once
 
-#include "DbWriter.h"
 #include "OperationStatusMessage.h"
 
 #include <QTableView>
@@ -9,7 +8,7 @@
 class DbEditor
 {
 public:
-	DbEditor();
+	static DbEditor& GetDbEditorInstance();
 
 	OperationStatusMessage* DeleteFromDatabase(QString tableName, int id);
 	OperationStatusMessage* DeleteBindingsWithMeasuringSystem(int fk_measuring_system);
@@ -18,5 +17,6 @@ public:
 	OperationStatusMessage* UpdateRow(QString tableName, QString columnName, QVariant cellValue, int selectedId);
 
 private:
-	DbWriter* dbWriter;
+	DbEditor() {};
+	DbEditor(const DbEditor&) {}
 };

@@ -15,7 +15,7 @@
 class TableWriter 
 {
 public:
-	TableWriter();
+	static TableWriter& GetTableWriterInstance();
 
 	void FillMeasuringSystemsTable(QTableView* tableView);
 	void FillMeasuringSystemsTable(QTableView* tableView, QString majorTableName, int majorTableId);
@@ -24,7 +24,7 @@ public:
 	void FillMeasurementsTable(QTableView* tableView, QString majorTableName, int majorTableId);
 
 	void FillEquipmentsTable(QTableView* tableView, QString majorTableName, int majorTableId);
-	void FillEquipmentsTable(QTableView* tableView, QList<EquipmentContext*> equipments = (new DbReader())->ReadEquipmentsFromDatabase());
+	void FillEquipmentsTable(QTableView* tableView, QList<EquipmentContext*> equipments = DbReader::GetDbReaderInstance().ReadEquipmentsFromDatabase());
 
 	void FillSamplesTable(QTableView* tableView);
 
@@ -45,7 +45,8 @@ public:
 	void RouteRequest(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
 
 private:
-	DbReader* dbReader;
+	TableWriter() {};
+	TableWriter(const TableWriter&) {}
 
 	const QStringList measurementColumnNames = {
 		"Id",

@@ -4,7 +4,7 @@
 #include "EquipmentContext.h"
 #include "BindingContext.h"
 
-class EquipmentAddService
+static class EquipmentAddService
 {
 public:
 	static bool AddEquipmentRequestReceiver(EquipmentContext* equipment);

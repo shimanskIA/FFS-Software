@@ -7,7 +7,7 @@
 class DbWriter
 {
 public:
-	DbWriter();
+	static DbWriter& GetDbWriterInstance();
 
 	bool WriteToDatabase(QString sqlWriteRequest, QString tableName);
 	bool AddToDatabase(DbContext* dbContext);
@@ -37,10 +37,13 @@ public:
 
 	bool AddRow(QVariant tableContext);
 
-	static QMap<QString, QString> inputMeasuringSystemCredentials;
+	void SetInputMeasuringSystemCredentials(QMap<QString, QString> credentials);
 
 private:
-	DbReader* dbReader;
+	DbWriter() {};
+	DbWriter(const DbWriter&) {}
+
+	QMap<QString, QString> inputMeasuringSystemCredentials;
 
 	bool wasEquipmentAdded = false;
 };

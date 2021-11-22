@@ -3,14 +3,21 @@
 
 #include <QStandardItemModel>
 
-TableWriter::TableWriter()
+TableWriter& TableWriter::GetTableWriterInstance()
 {
-	dbReader = new DbReader();
+	static TableWriter* tableWriterInstance = 0;
+
+	if (tableWriterInstance == 0)
+	{
+		tableWriterInstance = new TableWriter();
+	}
+
+	return *tableWriterInstance;
 }
 
 void TableWriter::FillMeasuringSystemsTable(QTableView* tableView)
 {
-	QList<MeasuringSystemContext*> measuringSystems = dbReader->ReadMeasuringSystemsFromDatabase();
+	QList<MeasuringSystemContext*> measuringSystems = DbReader::GetDbReaderInstance().ReadMeasuringSystemsFromDatabase();
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(measuringSystems.length());
 	tableModel->setColumnCount(4);
@@ -37,14 +44,13 @@ void TableWriter::FillMeasuringSystemsTable(QTableView* tableView)
 
 void TableWriter::FillMeasuringSystemsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
-	DbReader* dbReader = new DbReader();
-	QList<BindingContext*> bindings = dbReader->ReadBindingsFromDatabase(majorTableName, majorTableId);
+	QList<BindingContext*> bindings = DbReader::GetDbReaderInstance().ReadBindingsFromDatabase(majorTableName, majorTableId);
 	QList<MeasuringSystemContext*> measuringSystems;
 
 	foreach(BindingContext * binding, bindings)
 	{
 		QString sqlReadRequest = "SELECT * FROM measuring_systems WHERE id = %1";
-		QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(binding->GetFKMeasuringSystem()));
+		QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(binding->GetFKMeasuringSystem()));
 
 		if (query.next())
 		{
@@ -82,7 +88,7 @@ void TableWriter::FillMeasuringSystemsTable(QTableView* tableView, QString major
 
 void TableWriter::FillMeasurementsTable(QTableView* tableView)
 {
-	QList<MeasurementContext*> measurements = dbReader->ReadMeasurementsFromDatabase();
+	QList<MeasurementContext*> measurements = DbReader::GetDbReaderInstance().ReadMeasurementsFromDatabase();
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(measurements.length());
 	tableModel->setColumnCount(9);
@@ -104,7 +110,7 @@ void TableWriter::FillMeasurementsTable(QTableView* tableView)
 
 void TableWriter::FillMeasurementsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
-	QList<MeasurementContext*> measurements = dbReader->ReadMeasurementsFromDatabase(majorTableName, majorTableId);
+	QList<MeasurementContext*> measurements = DbReader::GetDbReaderInstance().ReadMeasurementsFromDatabase(majorTableName, majorTableId);
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(measurements.length());
 	tableModel->setColumnCount(8);
@@ -124,7 +130,7 @@ void TableWriter::FillMeasurementsTable(QTableView* tableView, QString majorTabl
 
 void TableWriter::FillSamplesTable(QTableView* tableView)
 {
-	QList<SampleContext*> samples = dbReader->ReadSamplesFromDatabase();
+	QList<SampleContext*> samples = DbReader::GetDbReaderInstance().ReadSamplesFromDatabase();
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(samples.length());
 	tableModel->setColumnCount(3);
@@ -148,13 +154,13 @@ void TableWriter::FillSamplesTable(QTableView* tableView)
 
 void TableWriter::FillEquipmentsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
-	QList<BindingContext*> bindings = dbReader->ReadBindingsFromDatabase(majorTableName, majorTableId);
+	QList<BindingContext*> bindings = DbReader::GetDbReaderInstance().ReadBindingsFromDatabase(majorTableName, majorTableId);
 	QList<EquipmentContext*> equipments;
 
 	foreach(BindingContext * binding, bindings)
 	{
 		QString sqlReadRequest = "SELECT * FROM equipments WHERE id = %1";
-		QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(binding->GetFKEquipment()));
+		QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(binding->GetFKEquipment()));
 
 		if (query.next())
 		{
@@ -204,8 +210,8 @@ void TableWriter::FillExistingEquipmentTable(EquipmentAddForm* view, int fk_meas
 {
 	FFSTableModel* allEquipmentTableModel = view->GetAllEquipmentTableModel();
 	FFSTableModel* chosenEquipmentTableModel = view->GetChosenEquipmentTableModel();
-	QList<EquipmentContext*> existingEquipment = dbReader->ReadExistingEquipmentFromDatabase(fk_measuring_system);
-	QList<EquipmentContext*> bindedEquipment = dbReader->ReadBindedEquipmentFromDatabase(fk_measuring_system);
+	QList<EquipmentContext*> existingEquipment = DbReader::GetDbReaderInstance().ReadExistingEquipmentFromDatabase(fk_measuring_system);
+	QList<EquipmentContext*> bindedEquipment = DbReader::GetDbReaderInstance().ReadBindedEquipmentFromDatabase(fk_measuring_system);
 	allEquipmentTableModel->setRowCount(existingEquipment.length());
 	allEquipmentTableModel->setColumnCount(3);
 	chosenEquipmentTableModel->setRowCount(bindedEquipment.length());
@@ -260,7 +266,7 @@ void TableWriter::FillExistingEquipmentTable(EquipmentAddForm* view, int fk_meas
 
 void TableWriter::FillParametersTable(QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId)
 {
-	QList<ParameterTableContext*> parameters = dbReader->ReadParametersFromDatabase(majorTableName, minorTableName, majorTableId);
+	QList<ParameterTableContext*> parameters = DbReader::GetDbReaderInstance().ReadParametersFromDatabase(majorTableName, minorTableName, majorTableId);
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(parameters.length());
 	tableModel->setColumnCount(3);
@@ -288,20 +294,28 @@ void TableWriter::FillParametersTable(QTableView* tableView, QString majorTableN
 
 void TableWriter::FillCharacteristicsTable(QTableView* tableView)
 {
-	QList<CharacteristicsContext*> characteristics = dbReader->ReadCharacteristicsFromDatabase();
+	QList<CharacteristicsContext*> characteristics = DbReader::GetDbReaderInstance().ReadCharacteristicsFromDatabase();
 	FillBaseCharacteristicsTable(tableView, characteristics);
 }
 
 void TableWriter::FillCharacteristicsTable(QTableView* tableView, QString majorTableName, int majorTableId)
 {
-	QList<CharacteristicsContext*> characteristics = dbReader->ReadCharacteristicsFromDatabase(majorTableName, majorTableId);
+	QList<CharacteristicsContext*> characteristics = DbReader::GetDbReaderInstance().ReadCharacteristicsFromDatabase(majorTableName, majorTableId);
 	FillBaseCharacteristicsTable(tableView, characteristics);
-	tableView->setColumnHidden(1, true);
+
+	if (majorTableName == "characteristic_type")
+	{
+		tableView->setColumnHidden(6, true);
+	}
+	else
+	{
+		tableView->setColumnHidden(1, true);
+	}
 }
 
 void TableWriter::FillCharacteristicTypesTable(QTableView* tableView)
 {
-	QList<CharacteristicTypeContext*> characteristicTypes = dbReader->ReadCharacteristicTypesFromDatabase();
+	QList<CharacteristicTypeContext*> characteristicTypes = DbReader::GetDbReaderInstance().ReadCharacteristicTypesFromDatabase();
 	FFSTableModel* tableModel = (FFSTableModel*)tableView->model();
 	tableModel->setRowCount(characteristicTypes.length());
 	tableModel->setColumnCount(3);

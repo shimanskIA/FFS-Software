@@ -12,7 +12,7 @@ public:
 protected:
 	TableContext(QString stateFilePath);
 	TableContext(int id);
-	TableContext();
+	TableContext() {};
 	int id = 0;
 	QString stateFilePath = "";
 };

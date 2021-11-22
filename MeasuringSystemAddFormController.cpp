@@ -3,18 +3,20 @@
 #include "TableWriter.h"
 #include "NamesHelper.h"
 #include "MeasuringSystemContext.h"
+#include "ErrorForm.h"
 
 void MeasuringSystemAddFormController::ManageAddMeasuringSystemRequest(MeasuringSystemAddForm* view)
 {
-	QString name = view->GetUI().NameInput->toPlainText();
-	QString description = view->GetUI().DescriptionInput->toPlainText();
-	QString mainContributorName = view->GetUI().MainContributorNameInput->toPlainText();
+	auto ui = view->GetUI();
+	QString name = ui.NameInput->toPlainText();
+	QString description = ui.DescriptionInput->toPlainText();
+	QString mainContributorName = ui.MainContributorNameInput->toPlainText();
 	bool isRowAdded = false;
 	MeasuringSystemContext* measuringSystem = new MeasuringSystemContext(measuringSystemStatePath);
 	measuringSystem->SetName(name);
 	measuringSystem->SetDescription(description);
 	measuringSystem->SetMainContributorName(mainContributorName);
-	FFSTableModel* chosenElementsTableModel = (FFSTableModel*)view->GetUI().chosenElementsTable->model();
+	FFSTableModel* chosenElementsTableModel = (FFSTableModel*)ui.chosenElementsTable->model();
 
 	for (int i = 0; i < chosenElementsTableModel->rowCount(); i++)
 	{
@@ -26,7 +28,19 @@ void MeasuringSystemAddFormController::ManageAddMeasuringSystemRequest(Measuring
 	}
 
 	isRowAdded = MeasuringSystemAddService::AddMeasuringSystemRequestReceiver(measuringSystem);
-	view->SetIsRowAdded(isRowAdded);
+
+	if (isRowAdded)
+	{
+		view->SetIsRowAdded(isRowAdded);
+		view->close();
+	}
+	else
+	{
+		ErrorForm* errorForm = new ErrorForm("Measuring system with these credentials already exists.");
+		errorForm->show();
+		ui.NameInput->setText("");
+		ui.MainContributorNameInput->setText("");
+	}
 }
 
 void MeasuringSystemAddFormController::ManageShowAllElementsTableRequest(QTableView* tableView)
@@ -64,4 +78,18 @@ void MeasuringSystemAddFormController::ManageCancelChooseRequest(MeasuringSystem
 	FFSTableModel* allElementsTableModel = (FFSTableModel*)view->GetUI().allElementsTable->model();
 	allElementsTableModel->appendRow(chosenElementsTableModel->takeRow(selectedRow));
 	allElementsTableModel->sort(0, Qt::AscendingOrder);
+}
+
+void MeasuringSystemAddFormController::ManageAddButtonActivity(MeasuringSystemAddForm* view)
+{
+	auto ui = view->GetUI();
+	if (ui.NameInput->toPlainText() != "" &&
+		ui.MainContributorNameInput->toPlainText() != "")
+	{
+		ui.addMeasuringSystemButton->setDisabled(false);
+	}
+	else
+	{
+		ui.addMeasuringSystemButton->setDisabled(true);
+	}
 }

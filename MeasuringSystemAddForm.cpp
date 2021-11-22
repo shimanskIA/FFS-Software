@@ -7,11 +7,12 @@ MeasuringSystemAddForm::MeasuringSystemAddForm(QWidget* parent) : BaseDependentA
 	this->setFixedSize(791, 755);
 	ui.downButton->setDisabled(true);
 	ui.upButton->setDisabled(true);
+	ui.addMeasuringSystemButton->setDisabled(true);
 	ui.allElementsTable->setModel(new FFSTableModel(0, 0));
 	ui.chosenElementsTable->setModel(new FFSTableModel(0, 0));
 	ui.tableSelector->addItem("Equipment");
 	MeasuringSystemAddFormController::ManageShowAllElementsTableRequest(ui.allElementsTable);
-	connect(ui.AddMeasuringSystemButton, SIGNAL(clicked()), this, SLOT(addMeasuringSystem()));
+	connect(ui.addMeasuringSystemButton, SIGNAL(clicked()), this, SLOT(addMeasuringSystem()));
 	connect(ui.tableSelector, SIGNAL(activated(QString)), this, SLOT(showAllElementsTable()));
 	connect(ui.chosenElementsTable, SIGNAL(clicked(QModelIndex)), this, SLOT(selectChosenElement()));
 	connect(ui.allElementsTable, SIGNAL(clicked(QModelIndex)), this, SLOT(selectElement()));
@@ -19,6 +20,8 @@ MeasuringSystemAddForm::MeasuringSystemAddForm(QWidget* parent) : BaseDependentA
 	connect(ui.upButton, SIGNAL(clicked()), this, SLOT(cancelChoose()));
 	connect(ui.allElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortAllElementsTableRows(int)));
 	connect(ui.chosenElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortChosenElementsTableRows(int)));
+	connect(ui.NameInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
+	connect(ui.MainContributorNameInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
 	SetTableSettings(ui.allElementsTable);
 }
 
@@ -35,12 +38,16 @@ void MeasuringSystemAddForm::sortChosenElementsTableRows(int selectedColumn)
 void MeasuringSystemAddForm::addMeasuringSystem()
 {
 	MeasuringSystemAddFormController::ManageAddMeasuringSystemRequest(this);
-	this->close();
 }
 
 void MeasuringSystemAddForm::showAllElementsTable()
 {
 	MeasuringSystemAddFormController::ManageShowAllElementsTableRequest(ui.allElementsTable);
+}
+
+void MeasuringSystemAddForm::manageAddButtonActivity()
+{
+	MeasuringSystemAddFormController::ManageAddButtonActivity(this);
 }
 
 void MeasuringSystemAddForm::chooseElement()

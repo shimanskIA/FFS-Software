@@ -3,7 +3,6 @@
 
 bool ParameterAddService::AddParameterRequestReceiver(QVariant parameter)
 {
-	DbWriter* dbWriter = new DbWriter();
-	bool isRowAdded = dbWriter->AddRow(parameter);
+	bool isRowAdded = DbWriter::GetDbWriterInstance().AddRow(parameter);
 	return isRowAdded;
 }

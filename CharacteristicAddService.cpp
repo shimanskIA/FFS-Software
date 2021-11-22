@@ -6,8 +6,7 @@ bool CharacteristicAddService::AddCharacteristicRequestReceiver(CharacteristicsC
 {
 	QVariant tableContext;
 	tableContext.setValue<CharacteristicsContext*>(characteristic);
-	DbWriter* dbWriter = new DbWriter();
-	bool isRowAdded = dbWriter->AddRow(tableContext);
+	bool isRowAdded = DbWriter::GetDbWriterInstance().AddRow(tableContext);
 
 	if (isRowAdded)
 	{

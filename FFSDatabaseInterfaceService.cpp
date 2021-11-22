@@ -1,46 +1,39 @@
 #include "FFSDatabaseInterfaceService.h"
 #include "DbImporter.h"
 #include "DbEditor.h"
+#include "DbWriter.h"
 #include "IdFileManager.h"
 #include "DbConnection.h"
 
 OperationStatusMessage* FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 {
-	DbContext* dbContext = new DbContext();
-	RawDataParser* rawDataParser = new RawDataParser(fileLink);
-	DbImporter *dbImporter = new DbImporter(dbContext, rawDataParser);
-	return dbImporter->ImportToDatabase();
+	return DbImporter::GetDbImporterInstance().ImportToDatabase(fileLink);
 }
 
 OperationStatusMessage* FFSDatabaseInterfaceService::DeleteRowRequestReceiver(QString tableName, int selectedId)
 {
-	DbEditor* dbEditor = new DbEditor();
-	return dbEditor->DeleteFromDatabase(tableName, selectedId);
+	return DbEditor::GetDbEditorInstance().DeleteFromDatabase(tableName, selectedId);
 }
 
 OperationStatusMessage* FFSDatabaseInterfaceService::UpdateTableRequestReceiver(QString tableName, QString columnName, QVariant cellValue, int selectedId)
 {
-	DbEditor* dbEditor = new DbEditor();
-	return dbEditor->UpdateRow(tableName, columnName, cellValue, selectedId);
+	return DbEditor::GetDbEditorInstance().UpdateRow(tableName, columnName, cellValue, selectedId);
 }
 
 OperationStatusMessage* FFSDatabaseInterfaceService::ReadAbscissaRequestReceiver(int selectedId, QVector<double>& x)
 {
-	DbReader* dbReader = new DbReader();
-	return dbReader->ReadAbscissaFromDatabase(selectedId, x);
+	return DbReader::GetDbReaderInstance().ReadAbscissaFromDatabase(selectedId, x);
 }
 
 OperationStatusMessage* FFSDatabaseInterfaceService::ReadOrdinateRequestReceiver(int selectedId, QVector<double>& y)
 {
-	DbReader* dbReader = new DbReader();
-	return dbReader->ReadOrdinateFromDatabase(selectedId, y);
+	return DbReader::GetDbReaderInstance().ReadOrdinateFromDatabase(selectedId, y);
 }
 
 OperationStatusMessage* FFSDatabaseInterfaceService::InitializeMeasuringSystemRequestReceiver(QMap<QString, QString> credentials)
 {
-	DbReader* dbReader = new DbReader();
 	QString sqlReadRequest = "SELECT * FROM measuring_systems WHERE name = '%1' AND main_contributor_name = '%2'";
-	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(credentials["name"]).arg(credentials["contributor"]));
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(credentials["name"]).arg(credentials["contributor"]));
 
 	if (query.next())
 	{
@@ -50,7 +43,7 @@ OperationStatusMessage* FFSDatabaseInterfaceService::InitializeMeasuringSystemRe
 	}
 	else
 	{
-		DbWriter::inputMeasuringSystemCredentials = credentials;
+		DbWriter::GetDbWriterInstance().SetInputMeasuringSystemCredentials(credentials);
 		return new OperationStatusMessage(true);
 	}
 }

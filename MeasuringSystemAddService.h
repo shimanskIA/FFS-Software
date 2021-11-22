@@ -4,7 +4,7 @@
 
 #include <QString>
 
-class MeasuringSystemAddService
+static class MeasuringSystemAddService
 {
 public:
 	static bool AddMeasuringSystemRequestReceiver(MeasuringSystemContext* measuringSystem);

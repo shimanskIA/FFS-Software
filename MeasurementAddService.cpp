@@ -5,8 +5,7 @@ bool MeasurementAddService::AddMeasurementRequestReceiver(MeasurementContext* me
 {
 	QVariant tableContext;
 	tableContext.setValue<MeasurementContext*>(measurement);
-	DbWriter* dbWriter = new DbWriter();
-	bool isRowAdded = dbWriter->AddRow(tableContext);
+	bool isRowAdded = DbWriter::GetDbWriterInstance().AddRow(tableContext);
 
 	if (isRowAdded)
 	{

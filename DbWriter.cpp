@@ -1,9 +1,16 @@
 #include "DbWriter.h"
 #include "FFSDatabaseInterfaceFormController.h"
 
-DbWriter::DbWriter()
+DbWriter& DbWriter::GetDbWriterInstance()
 {
-	dbReader = new DbReader();
+	static DbWriter* dbWriterInstance = 0;
+
+	if (dbWriterInstance == 0)
+	{
+		dbWriterInstance = new DbWriter();
+	}
+
+	return *dbWriterInstance;
 }
 
 bool DbWriter::WriteToDatabase(QString sqlRequest, QString tableName)
@@ -70,7 +77,7 @@ bool DbWriter::AddMeasurements(QList<MeasurementContext*> measurements)
 		uint number_positions = measurement->GetNumberPositions();
 		int fk_sample = measurement->GetFKSample();
 		int fk_measuring_system = measurement->GetFKMeasuringSystem();
-		QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest
+		QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest
 			.arg(name)
 			.arg(date)
 			.arg(file_link)
@@ -92,8 +99,8 @@ bool DbWriter::AddMeasurements(QList<MeasurementContext*> measurements)
 				int id = query.value(0).toInt();
 				QString sqlParametersReadRequest = "SELECT * FROM measurement_parameters WHERE fk_measurement = %1";
 				QString sqlCharacteristicsReadRequest = "SELECT * FROM characteristics WHERE fk_measurement = %1";
-				QSqlQuery parametersQuery = dbReader->ReadFromDatabase(sqlParametersReadRequest.arg(id));
-				QSqlQuery characteristicsQuery = dbReader->ReadFromDatabase(sqlCharacteristicsReadRequest.arg(id));
+				QSqlQuery parametersQuery = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlParametersReadRequest.arg(id));
+				QSqlQuery characteristicsQuery = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlCharacteristicsReadRequest.arg(id));
 
 				QList<int> equalParametersIds;
 				QList<int> equalCharacteristicsIds;
@@ -193,7 +200,7 @@ bool DbWriter::AddMeasuringSystem(MeasuringSystemContext* measuringSystem)
 	bool equalMeasuringSystemExists = false;
 	
 	QString sqlReadRequest = "SELECT id FROM measuring_systems";
-	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest);
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest);
 
 	if (!wasEquipmentAdded)
 	{
@@ -201,7 +208,7 @@ bool DbWriter::AddMeasuringSystem(MeasuringSystemContext* measuringSystem)
 		{
 			QString sqlBindingsReadQuery = "SELECT fk_equipment FROM bindings WHERE fk_measuring_system = %1";
 			int id = query.value(0).toInt();
-			QSqlQuery bindingsQuery = dbReader->ReadFromDatabase(sqlBindingsReadQuery.arg(id));
+			QSqlQuery bindingsQuery = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlBindingsReadQuery.arg(id));
 			QList<int> equipmentIds;
 			bool areEqual = true;
 
@@ -264,18 +271,32 @@ bool DbWriter::AddMeasuringSystem(MeasuringSystemContext* measuringSystem)
 
 bool DbWriter::AddForwardMeasuringSystem(MeasuringSystemContext* measuringSystem)
 {
-	QString sqlWriteRequest = "INSERT INTO measuring_systems(id, name, description, main_contributor_name) VALUES (%1, '%2', '%3', '%4')";
-	int id = measuringSystem->GetId();
-	QString name = measuringSystem->GetName();
-	QString description = measuringSystem->GetDescription();
-	QString mainContributorName = measuringSystem->GetMainContributorName();
-	bool isRowAdded;
-	isRowAdded = WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description).arg(mainContributorName), "measuring_systems");
+	QString sqlReadRequest = "SELECT * FROM measuring_systems WHERE name = '%1' AND main_contributor_name = '%2'";
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest
+		.arg(measuringSystem->GetName())
+		.arg(measuringSystem->GetMainContributorName()));
 
-	if (isRowAdded)
+	if (!query.next())
 	{
-		AddBindings(measuringSystem->GetBindings());
-		return true;
+		QString sqlWriteRequest = "INSERT INTO measuring_systems(id, name, description, main_contributor_name) VALUES (%1, '%2', '%3', '%4')";
+		int id = measuringSystem->GetId();
+		QString name = measuringSystem->GetName();
+		QString description = measuringSystem->GetDescription();
+
+		if (description == "")
+		{
+			description = "Write your description here.";
+		}
+
+		QString mainContributorName = measuringSystem->GetMainContributorName();
+		bool isRowAdded;
+		isRowAdded = WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description).arg(mainContributorName), "measuring_systems");
+
+		if (isRowAdded)
+		{
+			AddBindings(measuringSystem->GetBindings());
+			return true;
+		}
 	}
 
 	return false;
@@ -290,7 +311,7 @@ bool DbWriter::AddEquipment(QList<EquipmentContext*> equipments)
 		QString sqlReadRequest = "SELECT * FROM equipments WHERE name = '%1' AND description = '%2'";
 		QString name = equipment->GetName();
 		QString description = equipment->GetDescription();
-		QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
+		QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
 
 		if (query.next())
 		{
@@ -302,7 +323,7 @@ bool DbWriter::AddEquipment(QList<EquipmentContext*> equipments)
 			{
 				int id = query.value(0).toInt();
 				QString sqlParametersReadRequest = "SELECT * FROM equipment_parameters WHERE fk_equipment = %1";
-				QSqlQuery parametersQuery = dbReader->ReadFromDatabase(sqlParametersReadRequest.arg(id));
+				QSqlQuery parametersQuery = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlParametersReadRequest.arg(id));
 
 				QList<int> equalParametersIds;
 
@@ -403,7 +424,7 @@ bool DbWriter::AddBindings(QList<BindingContext*> bindings)
 		QString sqlReadRequest = "SELECT * FROM bindings WHERE fk_measuring_system = %1 AND fk_equipment = %2";
 		int fk_equipment = binding->GetFKEquipment();
 		int fk_measurement = binding->GetFKMeasuringSystem();
-		QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(fk_measurement).arg(fk_equipment));
+		QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(fk_measurement).arg(fk_equipment));
 
 		if (!query.next())
 		{
@@ -454,7 +475,7 @@ bool DbWriter::AddSample(SampleContext* sample, bool isComplex)
 	int id = sample->GetId();
 	QString name = sample->GetName();
 	QString description = sample->GetDescription();
-	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
 
 	if (!query.next())
 	{
@@ -478,7 +499,7 @@ bool DbWriter::AddCharacteristicType(CharacteristicTypeContext* characteristicTy
 	int id = characteristicType->GetId();
 	QString name = characteristicType->GetName();
 	QString description = characteristicType->GetDescription();
-	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
 
 	if (!query.next())
 	{
@@ -509,7 +530,7 @@ bool DbWriter::AddCharacteristic(CharacteristicsContext* characteristic)
 	double weight = characteristic->GetWeight();
 	int fk_measurement = characteristic->GetFKMeasurement();
 	int fk_characteristic_type = characteristic->GetFKCharacteristicType();
-	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest
 		.arg(channel)
 		.arg(number_of_points)
 		.arg(bin_time)
@@ -573,7 +594,7 @@ bool DbWriter::AddEquipmentParameter(EquipmentParameterContext* equipmentParamet
 	QString name = equipmentParameter->GetName();
 	QString value = equipmentParameter->GetValue();
 	int fk_equipment = equipmentParameter->GetFKEquipment();
-	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(name).arg(value).arg(fk_equipment));
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name).arg(value).arg(fk_equipment));
 
 	if (!query.next())
 	{
@@ -593,7 +614,7 @@ bool DbWriter::AddMeasurementParameter(MeasurementParameterContext* measurementP
 	QString name = measurementParameter->GetName();
 	QString value = measurementParameter->GetValue();
 	int fk_measurement = measurementParameter->GetFKMeasurement();
-	QSqlQuery query = dbReader->ReadFromDatabase(sqlReadRequest.arg(name).arg(value).arg(fk_measurement));
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name).arg(value).arg(fk_measurement));
 
 	if (!query.next())
 	{
@@ -644,6 +665,11 @@ bool DbWriter::AddRow(QVariant tableContext)
 	return false;
 }
 
+void DbWriter::SetInputMeasuringSystemCredentials(QMap<QString, QString> credentials)
+{
+	this->inputMeasuringSystemCredentials = credentials;
+}
+
 Q_DECLARE_METATYPE(EquipmentContext*);
 Q_DECLARE_METATYPE(SampleContext*);
 Q_DECLARE_METATYPE(CharacteristicTypeContext*);
@@ -652,5 +678,3 @@ Q_DECLARE_METATYPE(CharacteristicsContext*);
 Q_DECLARE_METATYPE(EquipmentParameterContext*);
 Q_DECLARE_METATYPE(MeasurementParameterContext*);
 Q_DECLARE_METATYPE(MeasuringSystemContext*);
-
-QMap<QString, QString> DbWriter::inputMeasuringSystemCredentials;

@@ -9,7 +9,7 @@
 class WindowManager : public QObject
 {
 public:
-	WindowManager();
+	static WindowManager& GetWindowManagerInstance();
 
 	void ManageWindows(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys = QMap<QString, int>());
 	void ShowCharacteristicPreview(QVector<double> x, QVector<double> y, FFSDatabaseInterface* view, int fk_characteristic);
@@ -17,4 +17,8 @@ public:
 
 private slots:
 	void redirectInitializeMeasuringSystemRequest(QMap<QString, QString> credentials);
+
+private:
+	WindowManager() {};
+	WindowManager(const WindowManager&) {}
 };

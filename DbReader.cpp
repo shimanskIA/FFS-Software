@@ -1,8 +1,15 @@
 #include "DbReader.h"
 
-DbReader::DbReader()
+DbReader& DbReader::GetDbReaderInstance()
 {
+	static DbReader* dbReaderInstance = 0;
 
+	if (dbReaderInstance == 0)
+	{
+		dbReaderInstance = new DbReader();
+	}
+
+	return *dbReaderInstance;
 }
 
 QSqlQuery DbReader::ReadFromDatabase(QString sqlRequest)
