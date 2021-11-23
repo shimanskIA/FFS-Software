@@ -6,6 +6,7 @@
 #include "ErrorForm.h"
 
 #include <QVariant>
+#include <QGroupBox>
 
 void FFSDatabaseInterfaceFormController::ManageFileImportRequest(QString fileName)
 {
@@ -25,7 +26,9 @@ void FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(F
         ShowMeasuringSystemTableRequestReceiver(view->GetUI().majorTableView);
         view->GetUI().tableSelector->addItem("Measurements");
         view->GetUI().tableSelector->addItem("Equipments");
-        view->GetUI().tableName->setText((view->GetActualTable() + "s:").toUpper());
+        QString title = view->GetActualTable() + "s:";
+        title[0] = title[0].toUpper();
+        view->GetUI().groupBox->setTitle(title);
         view->GetUI().minorSubtableView->setDisabled(true);
         view->GetUI().minorTableSelector->setDisabled(true);
         DisableButtonActivity(view);
@@ -45,7 +48,9 @@ void FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(F
             view->SetSelectedId(0);
             view->SetMinorSelectedId(0);
             view->SetActualSubtable("measurements");
-            view->GetUI().tableName->setText((tableName + "s:").toUpper());
+            QString title = tableName + "s:";
+            title[0] = title[0].toUpper();
+            view->GetUI().groupBox->setTitle(title);
             view->GetUI().minorTableSelector->clear();
             view->GetUI().tableSelector->clear();
             view->GetUI().tableSelector->addItem("Measurements");
@@ -69,7 +74,9 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicsTableRequest(F
         ResetTableModel((FFSTableModel*)view->GetUI().minorSubtableView->model());
         view->SetSelectedId(0);
         view->SetMinorSelectedId(0);
-        view->GetUI().tableName->setText((tableName + "s:").toUpper());
+        QString title = tableName + "s:";
+        title[0] = title[0].toUpper();
+        view->GetUI().groupBox->setTitle(title);
         view->GetUI().minorTableSelector->clear();
         view->GetUI().tableSelector->clear();
         view->GetUI().minorSubtableView->setDisabled(true);
@@ -237,7 +244,9 @@ void FFSDatabaseInterfaceFormController::ManageShowMajorTableRequest(QString tab
         view->SetSelectedId(0);
         view->SetMinorSelectedId(0);
         view->SetActualSubtable(subtableName);
-        view->GetUI().tableName->setText((tableName + "s:").toUpper());
+        QString title = tableName + "s:";
+        title[0] = title[0].toUpper();
+        view->GetUI().groupBox->setTitle(title);
         view->GetUI().minorTableSelector->clear();
         view->GetUI().tableSelector->clear();
 

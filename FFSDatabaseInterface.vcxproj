@@ -237,6 +237,10 @@
     <Text Include="measuringsystemstate.txt" />
     <Text Include="samplestate.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="icons8-микроскоп-48.png" />
+    <Image Include="Без названия.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

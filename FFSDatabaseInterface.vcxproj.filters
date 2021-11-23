@@ -79,6 +79,9 @@
     <Filter Include="Helpers\Source Files">
       <UniqueIdentifier>{70e32624-22c5-4e15-a49c-d1f4614ba6f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Icons">
+      <UniqueIdentifier>{0d4ece5d-289e-4260-94ee-0c06fe775de4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FFSDatabaseInterface.qrc">
@@ -524,5 +527,13 @@
     <Text Include="measuringsystemstate.txt">
       <Filter>Model\Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Без названия.png">
+      <Filter>Resource Files\Icons</Filter>
+    </Image>
+    <Image Include="icons8-микроскоп-48.png">
+      <Filter>Resource Files\Icons</Filter>
+    </Image>
   </ItemGroup>
 </Project>

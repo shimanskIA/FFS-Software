@@ -14,14 +14,15 @@
 FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
-    this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
-    this->setFixedSize(1091, 881);
     FFSTableModel* majorTableModel = new FFSTableModel(0, 0);
     FFSTableModel* minorTableModel = new FFSTableModel(0, 0);
     FFSTableModel* minorSubtableModel = new FFSTableModel(0, 0);
     ui.majorTableView->setModel(majorTableModel);
     ui.minorTableView->setModel(minorTableModel);
     ui.minorSubtableView->setModel(minorSubtableModel);
+    ui.majorButtonsBox->setStyleSheet("QGroupBox { border:none; }");
+    ui.minorButtonsBox->setStyleSheet("QGroupBox { border:none; }");
+    ui.minorButtonsSubbox->setStyleSheet("QGroupBox { border:none; }");
     foreignKeys.insert("measuring system", 0);
     foreignKeys.insert("equipment", 0);
     foreignKeys.insert("sample", 0);
