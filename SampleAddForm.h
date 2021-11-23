@@ -16,6 +16,7 @@ public:
 
 private slots:
     void addSample();
+    void manageAddButtonActivity();
 
 private:
     Ui::SampleAddFormClass ui;

@@ -9,4 +9,5 @@ static class SampleAddFormController
 {
 public:
 	static void ManageAddSampleRequest(SampleAddForm* view);
+	static void ManageAddButtonActivity(SampleAddForm* view);
 };
