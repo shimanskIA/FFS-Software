@@ -4,12 +4,12 @@
 EquipmentAddForm::EquipmentAddForm(QWidget* parent, int fk_measuring_system) : BaseDependentAddForm(parent)
 {
 	ui.setupUi(this);
-	this->setFixedSize(791, 654);
 	this->fk_measuring_system = fk_measuring_system;
 	ui.allEquipmentTable->setDisabled(true);
 	ui.chosenEquipmentTable->setDisabled(true);
 	ui.downButton->setDisabled(true);
 	ui.upButton->setDisabled(true);
+	ui.AddEquipmentButton->setDisabled(true);
 
 	if (fk_measuring_system == 0)
 	{
@@ -31,6 +31,7 @@ EquipmentAddForm::EquipmentAddForm(QWidget* parent, int fk_measuring_system) : B
 	}
 
 	connect(ui.AddEquipmentButton, SIGNAL(clicked()), this, SLOT(addEquipment()));
+	connect(ui.NameInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
 }
 
 EquipmentAddForm::~EquipmentAddForm()
@@ -61,6 +62,11 @@ void EquipmentAddForm::addEquipment()
 	}
 
 	this->close();
+}
+
+void EquipmentAddForm::manageAddButtonActivity()
+{
+	EquipmentAddFormController::ManageAddButtonActivity(this);
 }
 
 void EquipmentAddForm::chooseExistingEquipment(int checkboxState)

@@ -3,6 +3,7 @@
 AboutForm::AboutForm(QWidget* parent) : QWidget(parent)
 {
 	ui.setupUi(this);
+	this->setFixedSize(574, 424);
 }
 
 AboutForm& AboutForm::GetAboutFormInstance()

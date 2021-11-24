@@ -10,4 +10,5 @@ static class ParameterAddFormController
 {
 public:
 	static void ManageAddParameterRequest(ParameterAddForm* view);
+	static void ManageAddButtonActivity(ParameterAddForm* view);
 };

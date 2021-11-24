@@ -25,6 +25,7 @@ public:
 
 private slots:
     void addParameter();
+    void manageAddButtonActivity();
 
 private:
     Ui::ParameterAddFormClass ui;

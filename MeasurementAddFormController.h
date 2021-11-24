@@ -13,4 +13,5 @@ public:
 	static void ManageShowAllElementsTableRequest(QString tableName, QTableView* tableView, MeasurementAddForm* view, bool load = false);
 	static void ManageChooseUpperElementRequest(MeasurementAddForm* view);
 	static void ManageCancelChooseRequest(MeasurementAddForm* view);
+	static void ManageAddButtonActivity(MeasurementAddForm* view);
 };

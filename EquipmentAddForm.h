@@ -29,6 +29,7 @@ public:
 
 private slots:
     void addEquipment();
+    void manageAddButtonActivity();
     void chooseExistingEquipment(int);
     void sortAllElementsTableRows(int selectedColumn) override;
     void sortChosenElementsTableRows(int selectedColumn) override;

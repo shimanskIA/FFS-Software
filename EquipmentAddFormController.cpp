@@ -86,7 +86,6 @@ void EquipmentAddFormController::ManageChooseExistingEquipmentRequest(EquipmentA
 		ui.allEquipmentTable->setDisabled(false);
 		ui.chosenEquipmentTable->setDisabled(false);
 		view->SetIsExistingEquipmentChosen(true);
-		TableWriter::GetTableWriterInstance().FillExistingEquipmentTable(view, view->GetFKMeasuringSystem());
 
 		if (view->GetUI().chosenEquipmentTable->model()->rowCount() == 0)
 		{
@@ -101,6 +100,7 @@ void EquipmentAddFormController::ManageChooseExistingEquipmentRequest(EquipmentA
 		{
 			view->SetTableSettings(ui.allEquipmentTable);
 			view->SetTableSettings(ui.chosenEquipmentTable);
+			TableWriter::GetTableWriterInstance().FillExistingEquipmentTable(view, view->GetFKMeasuringSystem());
 			view->SetIsFirstTime(false);
 		}
 	}
@@ -109,9 +109,31 @@ void EquipmentAddFormController::ManageChooseExistingEquipmentRequest(EquipmentA
 		auto ui = view->GetUI();
 		ui.NameInput->setDisabled(false);
 		ui.DescriptionInput->setDisabled(false);
-		ui.AddEquipmentButton->setDisabled(false);
+
+		if (ui.NameInput->toPlainText() != "")
+		{
+			ui.AddEquipmentButton->setDisabled(false);
+		}
+		else
+		{
+			ui.AddEquipmentButton->setDisabled(true);
+		}
+
 		ui.allEquipmentTable->setDisabled(true);
 		ui.chosenEquipmentTable->setDisabled(true);
 		view->SetIsExistingEquipmentChosen(false);
+	}
+}
+
+void EquipmentAddFormController::ManageAddButtonActivity(EquipmentAddForm* view)
+{
+	auto ui = view->GetUI();
+	if (ui.NameInput->toPlainText() != "")
+	{
+		ui.AddEquipmentButton->setDisabled(false);
+	}
+	else
+	{
+		ui.AddEquipmentButton->setDisabled(true);
 	}
 }

@@ -2,18 +2,12 @@
 #include "MeasurementAddService.h"
 #include "TableWriter.h"
 #include "NamesHelper.h"
+#include "ErrorForm.h"
 
 void MeasurementAddFormController::ManageAddMeasurementRequest(MeasurementAddForm* view)
 {
 	bool isRowAdded = false;
 	QString file = view->GetUI().FileInput->toPlainText();
-
-	if (file.isEmpty())
-	{
-		view->SetIsRowAdded(isRowAdded);
-		return;
-	}
-
 	QString name = view->GetUI().NameInput->toPlainText();
 	QString date = view->GetUI().DateInput->text();
 	int repeatCount = view->GetUI().RepeatCountInput->value();
@@ -90,7 +84,9 @@ void MeasurementAddFormController::ManageChooseUpperElementRequest(MeasurementAd
 	view->GetUI().chosenElementsTable->setColumnHidden(0, true);
 
 	if ((view->GetChosenMeasuringSystemsTableModel()->rowCount() > 0 || view->GetFKMeasuringSystem() > 0) && 
-		(view->GetChosenSamplesTableModel()->rowCount() > 0 || view->GetFKSample() > 0))
+		(view->GetChosenSamplesTableModel()->rowCount() > 0 || view->GetFKSample() > 0) &&
+		view->GetUI().NameInput->toPlainText() != "" &&
+		view->GetUI().FileInput->toPlainText() != "")
 	{
 		view->GetUI().AddMeasurementButton->setDisabled(false);
 	}
@@ -104,4 +100,20 @@ void MeasurementAddFormController::ManageCancelChooseRequest(MeasurementAddForm*
 	allElementsTableModel->appendRow(chosenElementsTableModel->takeRow(selectedRow));
 	allElementsTableModel->sort(0, Qt::AscendingOrder);
 	view->GetUI().AddMeasurementButton->setDisabled(true);
+}
+
+void MeasurementAddFormController::ManageAddButtonActivity(MeasurementAddForm* view)
+{
+	auto ui = view->GetUI();
+	if ((view->GetChosenMeasuringSystemsTableModel()->rowCount() > 0 || view->GetFKMeasuringSystem() > 0) &&
+		(view->GetChosenSamplesTableModel()->rowCount() > 0 || view->GetFKSample() > 0) &&
+		view->GetUI().NameInput->toPlainText() != "" &&
+		view->GetUI().FileInput->toPlainText() != "")
+	{
+		ui.AddMeasurementButton->setDisabled(false);
+	}
+	else
+	{
+		ui.AddMeasurementButton->setDisabled(true);
+	}
 }

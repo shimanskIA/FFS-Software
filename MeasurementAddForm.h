@@ -33,6 +33,7 @@ public:
 
 private slots:
     void addMeasurement();
+    void manageAddButtonActivity();
     void sortAllElementsTableRows(int selectedColumn) override;
     void sortChosenElementsTableRows(int selectedColumn) override;
     void showAllElementsTable() override;

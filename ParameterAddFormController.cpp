@@ -46,5 +46,19 @@ void ParameterAddFormController::ManageAddParameterRequest(ParameterAddForm* vie
 	view->SetIsRowAdded(isRowAdded);
 }
 
+void ParameterAddFormController::ManageAddButtonActivity(ParameterAddForm* view)
+{
+	auto ui = view->GetUI();
+	if (ui.NameInput->toPlainText() != "" &&
+		ui.ValueInput->toPlainText() != "")
+	{
+		ui.AddParameterButton->setDisabled(false);
+	}
+	else
+	{
+		ui.AddParameterButton->setDisabled(true);
+	}
+}
+
 Q_DECLARE_METATYPE(MeasurementParameterContext*);
 Q_DECLARE_METATYPE(EquipmentParameterContext*);
