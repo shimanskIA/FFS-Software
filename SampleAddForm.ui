@@ -6,25 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>601</width>
-    <height>188</height>
+    <width>401</width>
+    <height>140</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Add sample</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons8-тонкая-пробирка-48.png</normaloff>icons8-тонкая-пробирка-48.png</iconset>
+  </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>30</y>
-     <width>61</width>
+     <x>94</x>
+     <y>3</y>
+     <width>41</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="text">
@@ -34,15 +38,15 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>70</y>
-     <width>121</width>
+     <x>63</x>
+     <y>35</y>
+     <width>71</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="text">
@@ -52,39 +56,45 @@
   <widget class="QTextEdit" name="NameInput">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>30</y>
-     <width>221</width>
-     <height>31</height>
+     <x>140</x>
+     <y>10</y>
+     <width>151</width>
+     <height>22</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
    </property>
   </widget>
   <widget class="QTextEdit" name="DescriptionInput">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>70</y>
-     <width>221</width>
-     <height>31</height>
+     <x>140</x>
+     <y>40</y>
+     <width>151</width>
+     <height>22</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
    </property>
   </widget>
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>170</y>
-     <width>611</width>
+     <x>10</x>
+     <y>120</y>
+     <width>381</width>
      <height>20</height>
     </rect>
    </property>
@@ -95,8 +105,8 @@
   <widget class="QPushButton" name="AddSampleButton">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>120</y>
+     <x>150</x>
+     <y>70</y>
      <width>131</width>
      <height>41</height>
     </rect>

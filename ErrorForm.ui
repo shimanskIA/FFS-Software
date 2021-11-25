@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>612</width>
-    <height>367</height>
+    <width>592</width>
+    <height>215</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QLabel" name="errorMessage">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>220</y>
+     <x>10</x>
+     <y>90</y>
      <width>561</width>
      <height>51</height>
     </rect>
@@ -33,29 +33,13 @@
     <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QLabel" name="errorImage">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>10</y>
-     <width>221</width>
-     <height>191</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap>Без названия.png</pixmap>
-   </property>
-  </widget>
   <widget class="QPushButton" name="okButton">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>290</y>
-     <width>131</width>
-     <height>51</height>
+     <x>220</x>
+     <y>150</y>
+     <width>121</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -65,6 +49,44 @@
    </property>
    <property name="text">
     <string>OK</string>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
+   </property>
+   <property name="default">
+    <bool>false</bool>
+   </property>
+   <property name="flat">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>0</y>
+     <width>101</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>icons8-warning-100.png</pixmap>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>200</y>
+     <width>571</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
  </widget>

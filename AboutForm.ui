@@ -7,29 +7,29 @@
     <x>0</x>
     <y>0</y>
     <width>574</width>
-    <height>424</height>
+    <height>294</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Info Window</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons8-информация-48.png</normaloff>icons8-информация-48.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Minimum</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QTextBrowser" name="textBrowser">
      <property name="maximumSize">
@@ -46,22 +46,6 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Georgia','Palatino','serif'; font-size:11pt; color:#333333; background-color:#fcfcfc;&quot;&gt;Fluorescence fluctuation spectroscopy (FFS) technique is capable of monitoring changes in concentration, mass, size and structure of fluorescent-labeled bio-molecules in microscopic volume and is suitable for measuring biological interactions in living cells. FFS data may be affected by many experimental factors in complicated biological systems. Using a Monte Carlo approach, we generate fluorescence fluctuation data for different experimental systems. This approach helps to separate the contributions by different experimental factors in a complicated fluorescence fluctuation spectrum. It also helps to validate new theoretical models and new fitting formulations. We describe the algorithm of the simulation program and tests on its statistical performance. The program is then used successfully to study the effects of several experimental factors on FFS detection.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Minimum</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

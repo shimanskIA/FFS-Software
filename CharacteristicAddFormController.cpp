@@ -6,7 +6,7 @@
 void CharacteristicAddFormController::ManageAddCharacteristicRequest(CharacteristicAddForm* view)
 {
 	bool finalResult = true;
-	QString channel = view->GetUI().ChannelInput->toPlainText();
+	QString channel = view->GetUI().ChannelInput->text();
 	QString x = view->GetUI().XInput->toPlainText();
 	QString y = view->GetUI().YInput->toPlainText();
 	int numberOfPoints = view->GetUI().NumberOfPointsInput->value();

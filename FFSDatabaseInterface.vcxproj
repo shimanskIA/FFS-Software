@@ -238,8 +238,12 @@
     <Text Include="samplestate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="icons8-warning-64.png" />
+    <Image Include="icons8-абсцисса-48.png" />
+    <Image Include="icons8-информация-48.png" />
     <Image Include="icons8-микроскоп-48.png" />
-    <Image Include="Без названия.png" />
+    <Image Include="icons8-табель-успеваемости-48.png" />
+    <Image Include="icons8-тонкая-пробирка-48.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

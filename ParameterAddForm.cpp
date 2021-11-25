@@ -5,7 +5,7 @@ ParameterAddForm::ParameterAddForm(QWidget* parent, int fk, QString majorTable) 
 {
 	ui.setupUi(this);
 	ui.AddParameterButton->setDisabled(true);
-	this->setFixedSize(462, 207);
+	this->setFixedSize(391, 148);
 	FFSTableModel* allMajorElementsTableModel = new FFSTableModel(0, 0);
 	FFSTableModel* chosenMajorElementsTableModel = new FFSTableModel(0, 0);
 	this->majorTable = majorTable;
