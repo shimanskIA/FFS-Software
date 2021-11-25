@@ -8,9 +8,9 @@
 void MeasuringSystemAddFormController::ManageAddMeasuringSystemRequest(MeasuringSystemAddForm* view)
 {
 	auto ui = view->GetUI();
-	QString name = ui.NameInput->toPlainText();
-	QString description = ui.DescriptionInput->toPlainText();
-	QString mainContributorName = ui.MainContributorNameInput->toPlainText();
+	QString name = ui.NameInput->text();
+	QString description = ui.DescriptionInput->text();
+	QString mainContributorName = ui.MainContributorNameInput->text();
 	bool isRowAdded = false;
 	MeasuringSystemContext* measuringSystem = new MeasuringSystemContext(measuringSystemStatePath);
 	measuringSystem->SetName(name);
@@ -83,8 +83,8 @@ void MeasuringSystemAddFormController::ManageCancelChooseRequest(MeasuringSystem
 void MeasuringSystemAddFormController::ManageAddButtonActivity(MeasuringSystemAddForm* view)
 {
 	auto ui = view->GetUI();
-	if (ui.NameInput->toPlainText() != "" &&
-		ui.MainContributorNameInput->toPlainText() != "")
+	if (ui.NameInput->text() != "" &&
+		ui.MainContributorNameInput->text() != "")
 	{
 		ui.AddMeasuringSystemButton->setDisabled(false);
 	}

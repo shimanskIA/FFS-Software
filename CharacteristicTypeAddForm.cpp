@@ -7,7 +7,7 @@ CharacteristicTypeAddForm::CharacteristicTypeAddForm(QWidget* parent) : BaseAddF
 	ui.AddCharacteristicTypeButton->setDisabled(true);
 	this->setFixedSize(491, 150);
 	connect(ui.AddCharacteristicTypeButton, SIGNAL(clicked()), this, SLOT(addCharacteristicType()));
-	connect(ui.NameInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
+	connect(ui.NameInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
 }
 
 void CharacteristicTypeAddForm::manageAddButtonActivity()

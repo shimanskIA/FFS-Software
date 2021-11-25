@@ -52,45 +52,6 @@
     <string>Main contributor name:</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="NameInput">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>10</y>
-     <width>151</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="DescriptionInput">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>40</y>
-     <width>151</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="MainContributorInput">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>70</y>
-     <width>151</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-  </widget>
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
@@ -117,14 +78,36 @@
     <string>Continue</string>
    </property>
   </widget>
-  <zorder>label</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>DescriptionInput</zorder>
-  <zorder>MainContributorInput</zorder>
-  <zorder>line</zorder>
-  <zorder>continueButton</zorder>
-  <zorder>NameInput</zorder>
+  <widget class="QLineEdit" name="NameInput">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>10</y>
+     <width>151</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="DescriptionInput">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>40</y>
+     <width>151</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="MainContributorInput">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>70</y>
+     <width>151</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

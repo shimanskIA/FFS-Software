@@ -7,8 +7,8 @@ void CharacteristicAddFormController::ManageAddCharacteristicRequest(Characteris
 {
 	bool finalResult = true;
 	QString channel = view->GetUI().ChannelInput->text();
-	QString x = view->GetUI().XInput->toPlainText();
-	QString y = view->GetUI().YInput->toPlainText();
+	QString x = view->GetUI().XInput->text();
+	QString y = view->GetUI().YInput->text();
 	int numberOfPoints = view->GetUI().NumberOfPointsInput->value();
 	double binTime = view->GetUI().BinTimeInput->value();
 	double weight = view->GetUI().WeightInput->value();
@@ -66,9 +66,10 @@ void CharacteristicAddFormController::ManageShowAllElementsTableRequest(QString 
 
 void CharacteristicAddFormController::ManageChooseUpperElementRequest(CharacteristicAddForm* view)
 {
-	int selectedRow = view->GetUI().allElementsTable->currentIndex().row();
-	FFSTableModel* chosenElementsTableModel = (FFSTableModel*)view->GetUI().chosenElementsTable->model();
-	FFSTableModel* allElementsTableModel = (FFSTableModel*)view->GetUI().allElementsTable->model();
+	auto ui = view->GetUI();
+	int selectedRow = ui.allElementsTable->currentIndex().row();
+	FFSTableModel* chosenElementsTableModel = (FFSTableModel*)ui.chosenElementsTable->model();
+	FFSTableModel* allElementsTableModel = (FFSTableModel*)ui.allElementsTable->model();
 	chosenElementsTableModel->appendRow(allElementsTableModel->takeRow(selectedRow));
 
 	for (int j = 0; j < allElementsTableModel->columnCount(); j++)
@@ -78,15 +79,18 @@ void CharacteristicAddFormController::ManageChooseUpperElementRequest(Characteri
 
 	if (view->GetIsFirstTime())
 	{
-		view->SetTableSettings(view->GetUI().chosenElementsTable);
+		view->SetTableSettings(ui.chosenElementsTable);
 		view->SetIsFirstTime(false);
 	}
-	view->GetUI().chosenElementsTable->setColumnHidden(0, true);
+	ui.chosenElementsTable->setColumnHidden(0, true);
 
 	if ((view->GetChosenMeasurementsTableModel()->rowCount() > 0 || view->GetFKMeasurement() > 0) &&
-		(view->GetChosenCharacteristicTypesTableModel()->rowCount() > 0 || view->GetFKCharacteristicType() > 0))
+		(view->GetChosenCharacteristicTypesTableModel()->rowCount() > 0 || view->GetFKCharacteristicType() > 0) &&
+		ui.ChannelInput->text() != "" &&
+		ui.XInput->text() != "" &&
+		ui.YInput->text() != "")
 	{
-		view->GetUI().AddCharacteristicButton->setDisabled(false);
+		ui.AddCharacteristicButton->setDisabled(false);
 	}
 }
 
@@ -98,4 +102,21 @@ void CharacteristicAddFormController::ManageCancelChooseRequest(CharacteristicAd
 	allElementsTableModel->appendRow(chosenElementsTableModel->takeRow(selectedRow));
 	allElementsTableModel->sort(0, Qt::AscendingOrder);
 	view->GetUI().AddCharacteristicButton->setDisabled(true);
+}
+
+void CharacteristicAddFormController::ManageAddButtonActivity(CharacteristicAddForm* view)
+{
+	auto ui = view->GetUI();
+	if ((view->GetChosenMeasurementsTableModel()->rowCount() > 0 || view->GetFKMeasurement() > 0) &&
+		(view->GetChosenCharacteristicTypesTableModel()->rowCount() > 0 || view->GetFKCharacteristicType() > 0) &&
+		ui.ChannelInput->text() != "" &&
+		ui.XInput->text() != "" &&
+		ui.YInput->text() != "")
+	{
+		ui.AddCharacteristicButton->setDisabled(false);
+	}
+	else
+	{
+		ui.AddCharacteristicButton->setDisabled(true);
+	}
 }

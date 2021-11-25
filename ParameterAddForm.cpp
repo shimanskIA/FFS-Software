@@ -5,14 +5,14 @@ ParameterAddForm::ParameterAddForm(QWidget* parent, int fk, QString majorTable) 
 {
 	ui.setupUi(this);
 	ui.AddParameterButton->setDisabled(true);
-	this->setFixedSize(391, 148);
+	this->setFixedSize(391, 139);
 	FFSTableModel* allMajorElementsTableModel = new FFSTableModel(0, 0);
 	FFSTableModel* chosenMajorElementsTableModel = new FFSTableModel(0, 0);
 	this->majorTable = majorTable;
 	this->fk = fk;
 	connect(ui.AddParameterButton, SIGNAL(clicked()), this, SLOT(addParameter()));
-	connect(ui.NameInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
-	connect(ui.ValueInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
+	connect(ui.NameInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
+	connect(ui.ValueInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
 }
 
 void ParameterAddForm::addParameter()

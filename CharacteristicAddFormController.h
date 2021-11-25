@@ -13,4 +13,5 @@ public:
 	static void ManageShowAllElementsTableRequest(QString tableName, QTableView* tableView, CharacteristicAddForm* view, bool load = false);
 	static void ManageChooseUpperElementRequest(CharacteristicAddForm* view);
 	static void ManageCancelChooseRequest(CharacteristicAddForm* view);
+	static void ManageAddButtonActivity(CharacteristicAddForm* view);
 };

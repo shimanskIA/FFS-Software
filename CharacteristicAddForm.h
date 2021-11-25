@@ -35,6 +35,7 @@ public:
 
 private slots:
     void addCharacteristic();
+    void manageAddButtonActivity();
     void sortAllElementsTableRows(int selectedColumn) override;
     void sortChosenElementsTableRows(int selectedColumn) override;
     void showAllElementsTable() override;

@@ -6,8 +6,8 @@
 
 void EquipmentAddFormController::ManageAddEquipmentRequest(EquipmentAddForm* view)
 {
-	QString name = view->GetUI().NameInput->toPlainText();
-	QString description = view->GetUI().DescriptionInput->toPlainText();
+	QString name = view->GetUI().NameInput->text();
+	QString description = view->GetUI().DescriptionInput->text();
 	EquipmentContext* equipmentItem = new EquipmentContext(equipmentStatePath);
 	equipmentItem->SetName(name);
 	equipmentItem->SetDescription(description);
@@ -110,7 +110,7 @@ void EquipmentAddFormController::ManageChooseExistingEquipmentRequest(EquipmentA
 		ui.NameInput->setDisabled(false);
 		ui.DescriptionInput->setDisabled(false);
 
-		if (ui.NameInput->toPlainText() != "")
+		if (ui.NameInput->text() != "")
 		{
 			ui.AddEquipmentButton->setDisabled(false);
 		}
@@ -128,7 +128,7 @@ void EquipmentAddFormController::ManageChooseExistingEquipmentRequest(EquipmentA
 void EquipmentAddFormController::ManageAddButtonActivity(EquipmentAddForm* view)
 {
 	auto ui = view->GetUI();
-	if (ui.NameInput->toPlainText() != "")
+	if (ui.NameInput->text() != "")
 	{
 		ui.AddEquipmentButton->setDisabled(false);
 	}

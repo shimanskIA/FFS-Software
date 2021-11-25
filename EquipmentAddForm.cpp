@@ -31,7 +31,7 @@ EquipmentAddForm::EquipmentAddForm(QWidget* parent, int fk_measuring_system) : B
 	}
 
 	connect(ui.AddEquipmentButton, SIGNAL(clicked()), this, SLOT(addEquipment()));
-	connect(ui.NameInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
+	connect(ui.NameInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
 }
 
 EquipmentAddForm::~EquipmentAddForm()

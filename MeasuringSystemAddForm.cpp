@@ -20,8 +20,8 @@ MeasuringSystemAddForm::MeasuringSystemAddForm(QWidget* parent) : BaseDependentA
 	connect(ui.upButton, SIGNAL(clicked()), this, SLOT(cancelChoose()));
 	connect(ui.allElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortAllElementsTableRows(int)));
 	connect(ui.chosenElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortChosenElementsTableRows(int)));
-	connect(ui.NameInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
-	connect(ui.MainContributorNameInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
+	connect(ui.NameInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
+	connect(ui.MainContributorNameInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
 	SetTableSettings(ui.allElementsTable);
 }
 

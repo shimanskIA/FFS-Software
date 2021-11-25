@@ -9,8 +9,8 @@ MeasuringSystemInputForm::MeasuringSystemInputForm(QWidget* parent) : QDialog(pa
     this->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
     ui.continueButton->setDisabled(true);
     connect(ui.continueButton, SIGNAL(clicked()), this, SLOT(proceedNext()));
-    connect(ui.NameInput, SIGNAL(textChanged()), this, SLOT(manageContinueButtonActivity()));
-    connect(ui.MainContributorInput, SIGNAL(textChanged()), this, SLOT(manageContinueButtonActivity()));
+    connect(ui.NameInput, SIGNAL(textChanged(QString)), this, SLOT(manageContinueButtonActivity()));
+    connect(ui.MainContributorInput, SIGNAL(textChanged(QString)), this, SLOT(manageContinueButtonActivity()));
 }
 
 Ui::MeasuringSystemInputFormClass MeasuringSystemInputForm::GetUI()
@@ -21,9 +21,9 @@ Ui::MeasuringSystemInputFormClass MeasuringSystemInputForm::GetUI()
 void MeasuringSystemInputForm::proceedNext()
 {
     QMap<QString, QString> credentials;
-    credentials.insert("name", ui.NameInput->toPlainText());
-    credentials.insert("description", ui.DescriptionInput->toPlainText());
-    credentials.insert("contributor", ui.MainContributorInput->toPlainText());
+    credentials.insert("name", ui.NameInput->text());
+    credentials.insert("description", ui.DescriptionInput->text());
+    credentials.insert("contributor", ui.MainContributorInput->text());
     emit measuringSystemSet(credentials);
     this->close();
 }

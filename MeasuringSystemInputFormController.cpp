@@ -3,8 +3,8 @@
 void MeasuringSystemInputFormController::ManageContinueButtonActivity(MeasuringSystemInputForm* view)
 {
 	auto ui = view->GetUI();
-	if (ui.NameInput->toPlainText() != "" &&
-		ui.MainContributorInput->toPlainText() != "")
+	if (ui.NameInput->text() != "" &&
+		ui.MainContributorInput->text() != "")
 	{
 		ui.continueButton->setDisabled(false);
 	}

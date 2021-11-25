@@ -5,8 +5,8 @@
 
 void CharacteristicTypeAddFormController::ManageAddCharacteristicTypeRequest(CharacteristicTypeAddForm* view)
 {
-	QString name = view->GetUI().NameInput->toPlainText();
-	QString description = view->GetUI().DescriptionInput->toPlainText();
+	QString name = view->GetUI().NameInput->text();
+	QString description = view->GetUI().DescriptionInput->text();
 	CharacteristicTypeContext* characteristicType = new CharacteristicTypeContext(characteristicTypeStatePath);
 	characteristicType->SetName(name);
 	characteristicType->SetDescription(description);
@@ -28,7 +28,7 @@ void CharacteristicTypeAddFormController::ManageAddCharacteristicTypeRequest(Cha
 void CharacteristicTypeAddFormController::ManageAddButtonActivity(CharacteristicTypeAddForm* view)
 {
 	auto ui = view->GetUI();
-	if (ui.NameInput->toPlainText() != "")
+	if (ui.NameInput->text() != "")
 	{
 		ui.AddCharacteristicTypeButton->setDisabled(false);
 	}

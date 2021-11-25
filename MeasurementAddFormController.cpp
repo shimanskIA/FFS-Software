@@ -7,8 +7,8 @@
 void MeasurementAddFormController::ManageAddMeasurementRequest(MeasurementAddForm* view)
 {
 	bool isRowAdded = false;
-	QString file = view->GetUI().FileInput->toPlainText();
-	QString name = view->GetUI().NameInput->toPlainText();
+	QString file = view->GetUI().FileInput->text();
+	QString name = view->GetUI().NameInput->text();
 	QString date = view->GetUI().DateInput->text();
 	int repeatCount = view->GetUI().RepeatCountInput->value();
 	int kineticsCount = view->GetUI().KineticsCountInput->value();
@@ -85,8 +85,8 @@ void MeasurementAddFormController::ManageChooseUpperElementRequest(MeasurementAd
 
 	if ((view->GetChosenMeasuringSystemsTableModel()->rowCount() > 0 || view->GetFKMeasuringSystem() > 0) && 
 		(view->GetChosenSamplesTableModel()->rowCount() > 0 || view->GetFKSample() > 0) &&
-		view->GetUI().NameInput->toPlainText() != "" &&
-		view->GetUI().FileInput->toPlainText() != "")
+		view->GetUI().NameInput->text() != "" &&
+		view->GetUI().FileInput->text() != "")
 	{
 		view->GetUI().AddMeasurementButton->setDisabled(false);
 	}
@@ -107,8 +107,8 @@ void MeasurementAddFormController::ManageAddButtonActivity(MeasurementAddForm* v
 	auto ui = view->GetUI();
 	if ((view->GetChosenMeasuringSystemsTableModel()->rowCount() > 0 || view->GetFKMeasuringSystem() > 0) &&
 		(view->GetChosenSamplesTableModel()->rowCount() > 0 || view->GetFKSample() > 0) &&
-		view->GetUI().NameInput->toPlainText() != "" &&
-		view->GetUI().FileInput->toPlainText() != "")
+		view->GetUI().NameInput->text() != "" &&
+		view->GetUI().FileInput->text() != "")
 	{
 		ui.AddMeasurementButton->setDisabled(false);
 	}

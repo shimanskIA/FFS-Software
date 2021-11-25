@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>391</width>
-    <height>148</height>
+    <height>139</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -53,47 +53,11 @@
     <string>Name:</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="NameInput">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>10</y>
-     <width>161</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>8</pointsize>
-    </font>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="ValueInput">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>40</y>
-     <width>161</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>8</pointsize>
-    </font>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-  </widget>
   <widget class="QPushButton" name="AddParameterButton">
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>80</y>
+     <y>70</y>
      <width>131</width>
      <height>41</height>
     </rect>
@@ -106,13 +70,33 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>130</y>
+     <y>120</y>
      <width>371</width>
      <height>20</height>
     </rect>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="NameInput">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>10</y>
+     <width>161</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="ValueInput">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>40</y>
+     <width>161</width>
+     <height>22</height>
+    </rect>
    </property>
   </widget>
  </widget>

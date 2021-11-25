@@ -52,8 +52,8 @@ MeasurementAddForm::MeasurementAddForm(QWidget* parent, int fk_measuring_system,
 	connect(ui.allElementsTable, SIGNAL(clicked(QModelIndex)), this, SLOT(selectElement()));
 	connect(ui.downButton, SIGNAL(clicked()), this, SLOT(chooseElement()));
 	connect(ui.upButton, SIGNAL(clicked()), this, SLOT(cancelChoose()));
-	connect(ui.NameInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
-	connect(ui.FileInput, SIGNAL(textChanged()), this, SLOT(manageAddButtonActivity()));
+	connect(ui.NameInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
+	connect(ui.FileInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
 	connect(ui.allElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortAllElementsTableRows(int)));
 	connect(ui.chosenElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortChosenElementsTableRows(int)));
 	SetTableSettings(ui.allElementsTable);

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>953</width>
-    <height>644</height>
+    <height>629</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>140</height>
+         <height>125</height>
         </size>
        </property>
        <property name="title">
@@ -57,7 +57,7 @@
          <number>65</number>
         </property>
         <property name="bottomMargin">
-         <number>0</number>
+         <number>15</number>
         </property>
         <item>
          <spacer name="horizontalSpacer_5">
@@ -92,32 +92,14 @@
           <property name="tabletTracking">
            <bool>false</bool>
           </property>
-          <widget class="QTextEdit" name="XInput">
-           <property name="geometry">
-            <rect>
-             <x>80</x>
-             <y>50</y>
-             <width>161</width>
-             <height>22</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>8</pointsize>
-            </font>
-           </property>
-           <property name="verticalScrollBarPolicy">
-            <enum>Qt::ScrollBarAlwaysOff</enum>
-           </property>
-          </widget>
           <widget class="QLabel" name="label_4">
            <property name="enabled">
             <bool>true</bool>
            </property>
            <property name="geometry">
             <rect>
-             <x>58</x>
-             <y>50</y>
+             <x>60</x>
+             <y>40</y>
              <width>21</width>
              <height>21</height>
             </rect>
@@ -134,8 +116,8 @@
           <widget class="QLabel" name="label_5">
            <property name="geometry">
             <rect>
-             <x>59</x>
-             <y>80</y>
+             <x>60</x>
+             <y>70</y>
              <width>21</width>
              <height>21</height>
             </rect>
@@ -149,29 +131,11 @@
             <string>Y:</string>
            </property>
           </widget>
-          <widget class="QTextEdit" name="YInput">
-           <property name="geometry">
-            <rect>
-             <x>80</x>
-             <y>80</y>
-             <width>161</width>
-             <height>22</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>8</pointsize>
-            </font>
-           </property>
-           <property name="verticalScrollBarPolicy">
-            <enum>Qt::ScrollBarAlwaysOff</enum>
-           </property>
-          </widget>
           <widget class="QLabel" name="label_2">
            <property name="geometry">
             <rect>
              <x>20</x>
-             <y>20</y>
+             <y>10</y>
              <width>51</width>
              <height>21</height>
             </rect>
@@ -189,7 +153,27 @@
            <property name="geometry">
             <rect>
              <x>80</x>
-             <y>20</y>
+             <y>10</y>
+             <width>161</width>
+             <height>22</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="XInput">
+           <property name="geometry">
+            <rect>
+             <x>80</x>
+             <y>40</y>
+             <width>161</width>
+             <height>22</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="YInput">
+           <property name="geometry">
+            <rect>
+             <x>80</x>
+             <y>70</y>
              <width>161</width>
              <height>22</height>
             </rect>
@@ -220,8 +204,8 @@
           <widget class="QLabel" name="label">
            <property name="geometry">
             <rect>
-             <x>52</x>
-             <y>20</y>
+             <x>50</x>
+             <y>10</y>
              <width>111</width>
              <height>21</height>
             </rect>
@@ -238,8 +222,8 @@
           <widget class="QDoubleSpinBox" name="BinTimeInput">
            <property name="geometry">
             <rect>
-             <x>164</x>
-             <y>50</y>
+             <x>160</x>
+             <y>40</y>
              <width>71</width>
              <height>22</height>
             </rect>
@@ -251,8 +235,8 @@
           <widget class="QLabel" name="label_3">
            <property name="geometry">
             <rect>
-             <x>104</x>
-             <y>50</y>
+             <x>100</x>
+             <y>40</y>
              <width>51</width>
              <height>21</height>
             </rect>
@@ -269,8 +253,8 @@
           <widget class="QSpinBox" name="NumberOfPointsInput">
            <property name="geometry">
             <rect>
-             <x>164</x>
-             <y>20</y>
+             <x>160</x>
+             <y>10</y>
              <width>71</width>
              <height>22</height>
             </rect>
@@ -279,8 +263,8 @@
           <widget class="QDoubleSpinBox" name="WeightInput">
            <property name="geometry">
             <rect>
-             <x>164</x>
-             <y>80</y>
+             <x>160</x>
+             <y>70</y>
              <width>71</width>
              <height>22</height>
             </rect>
@@ -293,7 +277,7 @@
            <property name="geometry">
             <rect>
              <x>110</x>
-             <y>80</y>
+             <y>70</y>
              <width>51</width>
              <height>21</height>
             </rect>

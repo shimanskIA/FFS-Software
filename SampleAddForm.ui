@@ -53,42 +53,6 @@
     <string>Description:</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="NameInput">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>10</y>
-     <width>151</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>8</pointsize>
-    </font>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="DescriptionInput">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>40</y>
-     <width>151</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>8</pointsize>
-    </font>
-   </property>
-   <property name="verticalScrollBarPolicy">
-    <enum>Qt::ScrollBarAlwaysOff</enum>
-   </property>
-  </widget>
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
@@ -113,6 +77,26 @@
    </property>
    <property name="text">
     <string>Add sample</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="NameInput">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>10</y>
+     <width>151</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="DescriptionInput">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>40</y>
+     <width>151</width>
+     <height>22</height>
+    </rect>
    </property>
   </widget>
  </widget>

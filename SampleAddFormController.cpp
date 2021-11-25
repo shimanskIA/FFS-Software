@@ -5,8 +5,8 @@
 
 void SampleAddFormController::ManageAddSampleRequest(SampleAddForm* view)
 {
-	QString name = view->GetUI().NameInput->toPlainText();
-	QString description = view->GetUI().DescriptionInput->toPlainText();
+	QString name = view->GetUI().NameInput->text();
+	QString description = view->GetUI().DescriptionInput->text();
 	SampleContext* sample = new SampleContext(sampleStatePath);
 	sample->SetName(name);
 	sample->SetDescription(description);
@@ -29,7 +29,7 @@ void SampleAddFormController::ManageAddSampleRequest(SampleAddForm* view)
 void SampleAddFormController::ManageAddButtonActivity(SampleAddForm* view)
 {
 	auto ui = view->GetUI();
-	if (ui.NameInput->toPlainText() != "")
+	if (ui.NameInput->text() != "")
 	{
 		ui.AddSampleButton->setDisabled(false);
 	}

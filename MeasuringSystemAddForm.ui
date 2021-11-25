@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>783</width>
-    <height>684</height>
+    <height>664</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,15 +37,21 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>140</height>
+         <height>120</height>
         </size>
        </property>
        <property name="title">
         <string>Data Input</string>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="topMargin">
+         <number>0</number>
+        </property>
         <property name="rightMargin">
          <number>120</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
         </property>
         <item>
          <spacer name="horizontalSpacer">
@@ -68,24 +74,6 @@
             <height>0</height>
            </size>
           </property>
-          <widget class="QTextEdit" name="MainContributorNameInput">
-           <property name="geometry">
-            <rect>
-             <x>150</x>
-             <y>70</y>
-             <width>171</width>
-             <height>22</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>8</pointsize>
-            </font>
-           </property>
-           <property name="verticalScrollBarPolicy">
-            <enum>Qt::ScrollBarAlwaysOff</enum>
-           </property>
-          </widget>
           <widget class="QLabel" name="label_2">
            <property name="geometry">
             <rect>
@@ -102,42 +90,6 @@
            </property>
            <property name="text">
             <string>Name:</string>
-           </property>
-          </widget>
-          <widget class="QTextEdit" name="DescriptionInput">
-           <property name="geometry">
-            <rect>
-             <x>150</x>
-             <y>40</y>
-             <width>171</width>
-             <height>22</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>8</pointsize>
-            </font>
-           </property>
-           <property name="verticalScrollBarPolicy">
-            <enum>Qt::ScrollBarAlwaysOff</enum>
-           </property>
-          </widget>
-          <widget class="QTextEdit" name="NameInput">
-           <property name="geometry">
-            <rect>
-             <x>150</x>
-             <y>10</y>
-             <width>171</width>
-             <height>22</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>8</pointsize>
-            </font>
-           </property>
-           <property name="verticalScrollBarPolicy">
-            <enum>Qt::ScrollBarAlwaysOff</enum>
            </property>
           </widget>
           <widget class="QLabel" name="label_3">
@@ -174,6 +126,36 @@
            </property>
            <property name="text">
             <string>Description:</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="NameInput">
+           <property name="geometry">
+            <rect>
+             <x>150</x>
+             <y>10</y>
+             <width>161</width>
+             <height>22</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="DescriptionInput">
+           <property name="geometry">
+            <rect>
+             <x>150</x>
+             <y>40</y>
+             <width>161</width>
+             <height>22</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="MainContributorNameInput">
+           <property name="geometry">
+            <rect>
+             <x>150</x>
+             <y>70</y>
+             <width>161</width>
+             <height>22</height>
+            </rect>
            </property>
           </widget>
          </widget>

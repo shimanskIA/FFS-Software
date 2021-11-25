@@ -52,6 +52,9 @@ CharacteristicAddForm::CharacteristicAddForm(QWidget* parent, int fk_measurement
 	connect(ui.allElementsTable, SIGNAL(clicked(QModelIndex)), this, SLOT(selectElement()));
 	connect(ui.downButton, SIGNAL(clicked()), this, SLOT(chooseElement()));
 	connect(ui.upButton, SIGNAL(clicked()), this, SLOT(cancelChoose()));
+	connect(ui.ChannelInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
+	connect(ui.XInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
+	connect(ui.YInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));
 	connect(ui.allElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortAllElementsTableRows(int)));
 	connect(ui.chosenElementsTable->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortChosenElementsTableRows(int)));
 	SetTableSettings(ui.allElementsTable);
@@ -79,6 +82,11 @@ void CharacteristicAddForm::addCharacteristic()
 {
 	CharacteristicAddFormController::ManageAddCharacteristicRequest(this);
 	this->close();
+}
+
+void CharacteristicAddForm::manageAddButtonActivity()
+{
+	CharacteristicAddFormController::ManageAddButtonActivity(this);
 }
 
 void CharacteristicAddForm::showAllElementsTable()

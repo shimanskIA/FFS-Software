@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>795</width>
-    <height>703</height>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>175</height>
+         <height>150</height>
         </size>
        </property>
        <property name="title">
@@ -136,24 +136,6 @@
             <string>H:m:s M/d/yyyy</string>
            </property>
           </widget>
-          <widget class="QTextEdit" name="FileInput">
-           <property name="geometry">
-            <rect>
-             <x>50</x>
-             <y>70</y>
-             <width>161</width>
-             <height>22</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>8</pointsize>
-            </font>
-           </property>
-           <property name="verticalScrollBarPolicy">
-            <enum>Qt::ScrollBarAlwaysOff</enum>
-           </property>
-          </widget>
           <widget class="QLabel" name="label">
            <property name="geometry">
             <rect>
@@ -172,7 +154,7 @@
             <string>Date:</string>
            </property>
           </widget>
-          <widget class="QTextEdit" name="NameInput">
+          <widget class="QLineEdit" name="NameInput">
            <property name="geometry">
             <rect>
              <x>50</x>
@@ -181,13 +163,15 @@
              <height>22</height>
             </rect>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>8</pointsize>
-            </font>
-           </property>
-           <property name="verticalScrollBarPolicy">
-            <enum>Qt::ScrollBarAlwaysOff</enum>
+          </widget>
+          <widget class="QLineEdit" name="FileInput">
+           <property name="geometry">
+            <rect>
+             <x>50</x>
+             <y>70</y>
+             <width>161</width>
+             <height>22</height>
+            </rect>
            </property>
           </widget>
          </widget>

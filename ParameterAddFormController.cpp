@@ -6,8 +6,8 @@
 
 void ParameterAddFormController::ManageAddParameterRequest(ParameterAddForm* view)
 {
-	QString name = view->GetUI().NameInput->toPlainText();
-	QString value = view->GetUI().ValueInput->toPlainText();
+	QString name = view->GetUI().NameInput->text();
+	QString value = view->GetUI().ValueInput->text();
 	ParameterTableContext* parameter;
 	QVariant tableContext;
 	int fk = view->GetFK();
@@ -49,8 +49,8 @@ void ParameterAddFormController::ManageAddParameterRequest(ParameterAddForm* vie
 void ParameterAddFormController::ManageAddButtonActivity(ParameterAddForm* view)
 {
 	auto ui = view->GetUI();
-	if (ui.NameInput->toPlainText() != "" &&
-		ui.ValueInput->toPlainText() != "")
+	if (ui.NameInput->text() != "" &&
+		ui.ValueInput->text() != "")
 	{
 		ui.AddParameterButton->setDisabled(false);
 	}
