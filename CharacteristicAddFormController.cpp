@@ -6,6 +6,7 @@
 void CharacteristicAddFormController::ManageAddCharacteristicRequest(CharacteristicAddForm* view)
 {
 	bool finalResult = true;
+	QString name;
 	QString channel = view->GetUI().ChannelInput->text();
 	QString x = view->GetUI().XInput->text();
 	QString y = view->GetUI().YInput->text();
@@ -29,6 +30,14 @@ void CharacteristicAddFormController::ManageAddCharacteristicRequest(Characteris
 		int id = view->GetChosenMeasurementsTableModel()->data(view->GetChosenMeasurementsTableModel()->index(0, 0)).toInt();
 		view->SetFKMeasurement(id);
 	}
+
+	QString sqlReadRequest = "SELECT name, file_link, date FROM measurements WHERE id = %1";
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(view->GetFKMeasurement()));
+	query.next();
+	name = (query.value(0).toString().trimmed() + 
+		query.value(1).toString().trimmed().split('/').last() + 
+		query.value(2).toString().trimmed()).toUpper();
+	characteristic->SetName(name);
 
 	if (view->GetFKCharacteristicType() == 0)
 	{

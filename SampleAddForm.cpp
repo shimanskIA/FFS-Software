@@ -4,6 +4,7 @@
 SampleAddForm::SampleAddForm(QWidget* parent) : BaseAddForm(parent)
 {
 	ui.setupUi(this);
+	ui.NameInput->setMaxLength(100);
 	ui.AddSampleButton->setDisabled(true);
 	this->setFixedSize(401, 140);
 	connect(ui.AddSampleButton, SIGNAL(clicked()), this, SLOT(addSample()));

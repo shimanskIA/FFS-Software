@@ -238,7 +238,8 @@
     <Text Include="samplestate.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icons8-warning-64.png" />
+    <Image Include="icons8-warning-100.png" />
+    <Image Include="icons8-warning-48.png" />
     <Image Include="icons8-абсцисса-48.png" />
     <Image Include="icons8-информация-48.png" />
     <Image Include="icons8-микроскоп-48.png" />

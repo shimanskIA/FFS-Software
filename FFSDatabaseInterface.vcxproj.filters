@@ -544,7 +544,10 @@
     <Image Include="icons8-информация-48.png">
       <Filter>Resource Files\Icons</Filter>
     </Image>
-    <Image Include="icons8-warning-64.png">
+    <Image Include="icons8-warning-48.png">
+      <Filter>Resource Files\Icons</Filter>
+    </Image>
+    <Image Include="icons8-warning-100.png">
       <Filter>Resource Files\Icons</Filter>
     </Image>
   </ItemGroup>
