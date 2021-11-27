@@ -275,17 +275,17 @@ void FFSDatabaseInterface::sortMinorSubtableRows(int selectedColumn)
 
 void FFSDatabaseInterface::showMajorFilteredRows(QString keyword)
 {
-    FFSDatabaseInterfaceFormController::ManageShowFilteredRowsRequest(ui.majorTableView, keyword, (FFSTableModel*)ui.minorTableView->model());
+    FFSDatabaseInterfaceFormController::ManageShowMajorFilteredRowsRequest(this, keyword);
 }
 
 void FFSDatabaseInterface::showFilteredRows(QString keyword)
 {
-    FFSDatabaseInterfaceFormController::ManageShowFilteredRowsRequest(ui.minorTableView, keyword, (FFSTableModel*)ui.minorSubtableView->model());
+    FFSDatabaseInterfaceFormController::ManageShowFilteredRowsRequest(this, keyword);
 }
 
 void FFSDatabaseInterface::showMinorFilteredRows(QString keyword)
 {
-    FFSDatabaseInterfaceFormController::ManageShowFilteredRowsRequest(ui.minorSubtableView, keyword);
+    FFSDatabaseInterfaceFormController::ManageShowMinorFilteredRowsRequest(this, keyword);
 }
 
 void FFSDatabaseInterface::setUpMajorAdvancedSearch(int checkboxState)
@@ -338,12 +338,21 @@ void FFSDatabaseInterface::setUpMinorAdvancedSearch(int checkboxState)
 
 void FFSDatabaseInterface::showMajorAdvancedFilteredRows()
 {
-    FFSDatabaseInterfaceFormController::ManageShowAdvancedFilteredRowsRequest(ui.majorTableView, ui.majorSearchInput->text(), (FFSTableModel*)ui.minorTableView->model());
+    FFSDatabaseInterfaceFormController::ManageShowAdvancedFilteredRowsRequest(ui.majorTableView, ui.majorSearchInput->text());
+    FFSDatabaseInterfaceFormController::ResetTableModel((FFSTableModel*)ui.minorTableView->model());
+    FFSDatabaseInterfaceFormController::ResetTableModel((FFSTableModel*)ui.minorSubtableView->model());
+    DisableMinorLayer();
+    DisableMinorSublayer();
+    isSubtableChanged = true;
+    isMinorSubtableChanged = true;
 }
 
 void FFSDatabaseInterface::showAdvancedFilteredRows()
 {
-    FFSDatabaseInterfaceFormController::ManageShowAdvancedFilteredRowsRequest(ui.minorTableView, ui.searchInput->text(), (FFSTableModel*)ui.minorSubtableView);
+    FFSDatabaseInterfaceFormController::ManageShowAdvancedFilteredRowsRequest(ui.minorTableView, ui.searchInput->text());
+    FFSDatabaseInterfaceFormController::ResetTableModel((FFSTableModel*)ui.minorSubtableView->model());
+    DisableMinorSublayer();
+    isMinorSubtableChanged = true;
 }
 
 void FFSDatabaseInterface::showMinorAdvancedFilteredRows()
@@ -364,6 +373,20 @@ void FFSDatabaseInterface::SetTableSettings(QTableView* table)
     table->setStyleSheet(
         "QHeaderView::section { background-color: rgb(217, 217, 217)}"
         "QTableView {selection-background-color: steelblue}");
+}
+
+void FFSDatabaseInterface::DisableMinorLayer()
+{
+    ui.searchInput->setDisabled(true);
+    ui.searchImage->setDisabled(true);
+    ui.advancedSearchCheckbox->setDisabled(true);
+}
+
+void FFSDatabaseInterface::DisableMinorSublayer()
+{
+    ui.minorSearchInput->setDisabled(true);
+    ui.minorSearchImage->setDisabled(true);
+    ui.minorAdvancedSearchCheckbox->setDisabled(true);
 }
 
 void FFSDatabaseInterface::closeEvent(QCloseEvent* event)

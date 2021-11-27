@@ -63,6 +63,9 @@ public:
 
     void AddOpenedCharacteristicPreviewWindow(int, CharacteristicPreviewForm* characteristicPreview);
 
+    void DisableMinorLayer();
+    void DisableMinorSublayer();
+
     void closeEvent(QCloseEvent* event) override;
 
 private slots:

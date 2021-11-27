@@ -30,10 +30,13 @@ public:
     static void ManageShowMinorAddViewRequest(QString tableName, FFSDatabaseInterface* view);
     static void ManageShowMinorAddViewSubRequest(QString tableName, FFSDatabaseInterface* view);
     static void ManageShowCharacteristicPreviewRequest(QTableView* tableView, FFSDatabaseInterface* view);
-    static void ManageShowFilteredRowsRequest(QTableView* tableView, QString keyword, FFSTableModel* childTableModel = nullptr);
-    static void ManageShowAdvancedFilteredRowsRequest(QTableView* tableView, QString request, FFSTableModel* childTableModel = nullptr);
+    static void ManageShowMajorFilteredRowsRequest(FFSDatabaseInterface* view, QString keyword);
+    static void ManageShowFilteredRowsRequest(FFSDatabaseInterface* view, QString keyword);
+    static void ManageShowMinorFilteredRowsRequest(FFSDatabaseInterface* view, QString keyword);
+    static void ManageShowAdvancedFilteredRowsRequest(QTableView* tableView, QString keyword);
 
     static void ManageCreateMeasuringSystemInputFormRequest();
+    static void ResetTableModel(FFSTableModel* tableModel);
 
 private:
     static void DisableButtonActivity(FFSDatabaseInterface* view);
@@ -42,7 +45,6 @@ private:
     static void ShowAddViewRequestReceiver(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys = QMap<QString, int>());
     static void LoadDataToSubtableRequestReceiver(Ui::FFSDatabaseInterfaceClass ui, QTableView* tableView, QString majorTableName, QString minorTableName, int majorTableId);
     static void DeactivateChildSearchInputs(Ui::FFSDatabaseInterfaceClass ui);
-    static void ResetTableModel(FFSTableModel* tableModel);
 
     static bool IsValueAllowed(QString tableName, QTableView* tableView, int selectedRow);
     static bool ContainsEqualRow(int selectedRow, QTableView* tableView);
