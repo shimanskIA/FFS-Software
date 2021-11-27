@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icons8-табель-успеваемости-48.png</normaloff>icons8-табель-успеваемости-48.png</iconset>
+    <normaloff>icons8-база-данных-48.png</normaloff>icons8-база-данных-48.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">

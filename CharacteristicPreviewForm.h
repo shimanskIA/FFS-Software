@@ -13,7 +13,7 @@ class CharacteristicPreviewForm : public QWidget
     Q_OBJECT
 
 public:
-    CharacteristicPreviewForm(QVector<double> x, QVector<double> y, int windowId, QWidget* parent = Q_NULLPTR);
+    CharacteristicPreviewForm(QString title, QVector<double> x, QVector<double> y, int windowId, QWidget* parent = Q_NULLPTR);
     virtual ~CharacteristicPreviewForm();
 
     void setZoomMode(bool mode);

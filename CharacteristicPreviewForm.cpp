@@ -1,14 +1,13 @@
 #include "CharacteristicPreviewForm.h"
 
-CharacteristicPreviewForm::CharacteristicPreviewForm(QVector<double> x, QVector<double> y, int windowId, QWidget* parent) 
+CharacteristicPreviewForm::CharacteristicPreviewForm(QString title, QVector<double> x, QVector<double> y, int windowId, QWidget* parent) 
     : QWidget(parent), 
     zoomMode(true), 
     rubberBand(new QRubberBand(QRubberBand::Rectangle, this))
 {
 	ui.setupUi(this);
-    this->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
-    this->setFixedSize(1002, 687);
     this->windowId = windowId;
+    ui.plotTitle->setText(title);
     ui.plotPreview->clearGraphs();
     ui.plotPreview->addGraph();
     ui.plotPreview->graph(0)->setData(x, y);

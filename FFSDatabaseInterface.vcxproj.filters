@@ -544,9 +544,6 @@
     <Image Include="icons8-тонкая-пробирка-48.png">
       <Filter>Resource Files\Icons</Filter>
     </Image>
-    <Image Include="icons8-табель-успеваемости-48.png">
-      <Filter>Resource Files\Icons</Filter>
-    </Image>
     <Image Include="icons8-информация-48.png">
       <Filter>Resource Files\Icons</Filter>
     </Image>
@@ -557,6 +554,9 @@
       <Filter>Resource Files\Icons</Filter>
     </Image>
     <Image Include="icons8-поиск-24.png">
+      <Filter>Resource Files\Icons</Filter>
+    </Image>
+    <Image Include="icons8-база-данных-48.png">
       <Filter>Resource Files\Icons</Filter>
     </Image>
   </ItemGroup>
