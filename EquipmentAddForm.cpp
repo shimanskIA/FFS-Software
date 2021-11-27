@@ -10,6 +10,8 @@ EquipmentAddForm::EquipmentAddForm(QWidget* parent, int fk_measuring_system) : B
 	ui.downButton->setDisabled(true);
 	ui.upButton->setDisabled(true);
 	ui.AddEquipmentButton->setDisabled(true);
+	ui.NameInput->setMaxLength(100);
+	ui.DescriptionInput->setMaxLength(300);
 
 	if (fk_measuring_system == 0)
 	{

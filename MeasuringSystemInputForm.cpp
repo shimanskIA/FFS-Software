@@ -8,6 +8,9 @@ MeasuringSystemInputForm::MeasuringSystemInputForm(QWidget* parent) : QDialog(pa
 	ui.setupUi(this);
     this->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
     ui.continueButton->setDisabled(true);
+    ui.NameInput->setMaxLength(100);
+    ui.DescriptionInput->setMaxLength(300);
+    ui.MainContributorInput->setMaxLength(100);
     connect(ui.continueButton, SIGNAL(clicked()), this, SLOT(proceedNext()));
     connect(ui.NameInput, SIGNAL(textChanged(QString)), this, SLOT(manageContinueButtonActivity()));
     connect(ui.MainContributorInput, SIGNAL(textChanged(QString)), this, SLOT(manageContinueButtonActivity()));

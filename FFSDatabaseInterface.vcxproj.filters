@@ -270,6 +270,9 @@
     <ClCompile Include="SomeOtherDeviceParser.cpp">
       <Filter>Model\Entities\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RowManager.cpp">
+      <Filter>Controller\Entities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -501,6 +504,9 @@
     <ClInclude Include="SomeOtherDeviceParser.h">
       <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RowManager.h">
+      <Filter>Controller\Entities\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="measurementstate.txt">
@@ -548,6 +554,9 @@
       <Filter>Resource Files\Icons</Filter>
     </Image>
     <Image Include="icons8-warning-100.png">
+      <Filter>Resource Files\Icons</Filter>
+    </Image>
+    <Image Include="icons8-поиск-24.png">
       <Filter>Resource Files\Icons</Filter>
     </Image>
   </ItemGroup>

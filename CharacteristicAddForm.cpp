@@ -7,6 +7,9 @@ CharacteristicAddForm::CharacteristicAddForm(QWidget* parent, int fk_measurement
 	ui.downButton->setDisabled(true);
 	ui.upButton->setDisabled(true);
 	ui.AddCharacteristicButton->setDisabled(true);
+	ui.ChannelInput->setMaxLength(100);
+	ui.XInput->setMaxLength(8000);
+	ui.YInput->setMaxLength(8000);
 	FFSTableModel* allMeasurementsTableModel = new FFSTableModel(0, 0);
 	FFSTableModel* allCharacteristicTypesTableModel = new FFSTableModel(0, 0);
 	FFSTableModel* chosenMeasurementsTableModel = new FFSTableModel(0, 0);

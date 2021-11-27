@@ -8,6 +8,9 @@ MeasuringSystemAddForm::MeasuringSystemAddForm(QWidget* parent) : BaseDependentA
 	ui.downButton->setDisabled(true);
 	ui.upButton->setDisabled(true);
 	ui.AddMeasuringSystemButton->setDisabled(true);
+	ui.NameInput->setMaxLength(100);
+	ui.DescriptionInput->setMaxLength(300);
+	ui.MainContributorNameInput->setMaxLength(100);
 	ui.allElementsTable->setModel(new FFSTableModel(0, 0));
 	ui.chosenElementsTable->setModel(new FFSTableModel(0, 0));
 	ui.tableSelector->addItem("Equipment");

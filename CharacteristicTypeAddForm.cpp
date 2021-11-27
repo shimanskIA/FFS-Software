@@ -5,6 +5,8 @@ CharacteristicTypeAddForm::CharacteristicTypeAddForm(QWidget* parent) : BaseAddF
 {
 	ui.setupUi(this);
 	ui.AddCharacteristicTypeButton->setDisabled(true);
+	ui.NameInput->setMaxLength(100);
+	ui.DescriptionInput->setMaxLength(300);
 	this->setFixedSize(491, 150);
 	connect(ui.AddCharacteristicTypeButton, SIGNAL(clicked()), this, SLOT(addCharacteristicType()));
 	connect(ui.NameInput, SIGNAL(textChanged(QString)), this, SLOT(manageAddButtonActivity()));

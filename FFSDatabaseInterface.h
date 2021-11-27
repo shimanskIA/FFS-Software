@@ -100,6 +100,15 @@ private slots:
     void sortMajorTableRows(int selectedColumn);
     void sortMinorTableRows(int selectedColumn);
     void sortMinorSubtableRows(int selectedColumn);
+    void showMajorFilteredRows(QString keyword);
+    void showFilteredRows(QString keyword);
+    void showMinorFilteredRows(QString keyword);
+    void setUpMajorAdvancedSearch(int checkboxState);
+    void setUpAdvancedSearch(int checkboxState);
+    void setUpMinorAdvancedSearch(int checkboxState);
+    void showMajorAdvancedFilteredRows();
+    void showAdvancedFilteredRows();
+    void showMinorAdvancedFilteredRows();
 
 private:
     Ui::FFSDatabaseInterfaceClass ui;
@@ -125,6 +134,9 @@ private:
     bool addTryMajorTable = false;
     bool addTryMinorTable = false;
     bool addTryMinorSubtable = false;
+    bool isMajorAdvancedSearchEnabled = false;
+    bool isAdvancedSearchEnabled = false;
+    bool isMinorAdvancedSearchEnabled = false;
 
     const QStringList endMinorNodes = {
         "measurement_parameters",

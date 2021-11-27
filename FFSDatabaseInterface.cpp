@@ -56,6 +56,12 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.majorPreviewButton, SIGNAL(clicked()), this, SLOT(showMajorCharacteristicPreview()));
     connect(ui.minorPreviewButton, SIGNAL(clicked()), this, SLOT(showMinorCharacteristicPreview()));
     connect(ui.minorPreviewSubbutton, SIGNAL(clicked()), this, SLOT(showMinorCharacteristicSubPreview()));
+    connect(ui.majorSearchInput, SIGNAL(textChanged(QString)), this, SLOT(showMajorFilteredRows(QString)));
+    connect(ui.searchInput, SIGNAL(textChanged(QString)), this, SLOT(showFilteredRows(QString)));
+    connect(ui.minorSearchInput, SIGNAL(textChanged(QString)), this, SLOT(showMinorFilteredRows(QString)));
+    connect(ui.majorAdvancedSearchCheckbox, SIGNAL(stateChanged(int)), this, SLOT(setUpMajorAdvancedSearch(int)));
+    connect(ui.advancedSearchCheckbox, SIGNAL(stateChanged(int)), this, SLOT(setUpAdvancedSearch(int)));
+    connect(ui.minorAdvancedSearchCheckbox, SIGNAL(stateChanged(int)), this, SLOT(setUpMinorAdvancedSearch(int)));
     connect(ui.majorTableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortMajorTableRows(int)));
     connect(ui.minorTableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortMinorTableRows(int)));
     connect(ui.minorSubtableView->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(sortMinorSubtableRows(int)));
@@ -265,6 +271,84 @@ void FFSDatabaseInterface::sortMinorTableRows(int selectedColumn)
 void FFSDatabaseInterface::sortMinorSubtableRows(int selectedColumn)
 {
     FFSDatabaseInterfaceFormController::ManageSortRowsRequest(ui.minorSubtableView, selectedColumn);
+}
+
+void FFSDatabaseInterface::showMajorFilteredRows(QString keyword)
+{
+    FFSDatabaseInterfaceFormController::ManageShowFilteredRowsRequest(ui.majorTableView, keyword, (FFSTableModel*)ui.minorTableView->model());
+}
+
+void FFSDatabaseInterface::showFilteredRows(QString keyword)
+{
+    FFSDatabaseInterfaceFormController::ManageShowFilteredRowsRequest(ui.minorTableView, keyword, (FFSTableModel*)ui.minorSubtableView->model());
+}
+
+void FFSDatabaseInterface::showMinorFilteredRows(QString keyword)
+{
+    FFSDatabaseInterfaceFormController::ManageShowFilteredRowsRequest(ui.minorSubtableView, keyword);
+}
+
+void FFSDatabaseInterface::setUpMajorAdvancedSearch(int checkboxState)
+{   
+    if (checkboxState == Qt::Checked)
+    {
+        ui.majorSearchInput->setText("");
+        ui.majorSearchInput->disconnect();
+        connect(ui.majorSearchInput, SIGNAL(editingFinished()), this, SLOT(showMajorAdvancedFilteredRows()));
+    }
+    else
+    {
+        ui.majorSearchInput->disconnect();
+        connect(ui.majorSearchInput, SIGNAL(textChanged(QString)), this, SLOT(showMajorFilteredRows(QString)));
+        ui.majorSearchInput->setText("");
+    }
+}
+
+void FFSDatabaseInterface::setUpAdvancedSearch(int checkboxState)
+{
+    if (checkboxState == Qt::Checked)
+    {
+        ui.searchInput->setText("");
+        ui.searchInput->disconnect();
+        connect(ui.searchInput, SIGNAL(editingFinished()), this, SLOT(showAdvancedFilteredRows()));
+    }
+    else
+    {
+        ui.searchInput->disconnect();
+        connect(ui.searchInput, SIGNAL(textChanged(QString)), this, SLOT(showFilteredRows(QString)));
+        ui.searchInput->setText("");
+    }
+}
+
+void FFSDatabaseInterface::setUpMinorAdvancedSearch(int checkboxState)
+{
+    if (checkboxState == Qt::Checked)
+    {
+        ui.minorSearchInput->setText("");
+        ui.minorSearchInput->disconnect();
+        connect(ui.minorSearchInput, SIGNAL(editingFinished()), this, SLOT(showMinorAdvancedFilteredRows()));
+    }
+    else
+    {
+        ui.minorSearchInput->disconnect();
+        connect(ui.minorSearchInput, SIGNAL(textChanged(QString)), this, SLOT(showMinorFilteredRows(QString)));
+        ui.minorSearchInput->setText("");
+    }
+}
+
+void FFSDatabaseInterface::showMajorAdvancedFilteredRows()
+{
+    FFSDatabaseInterfaceFormController::ManageShowAdvancedFilteredRowsRequest(ui.majorTableView, ui.majorSearchInput->text(), (FFSTableModel*)ui.minorTableView->model());
+}
+
+void FFSDatabaseInterface::showAdvancedFilteredRows()
+{
+    FFSDatabaseInterfaceFormController::ManageShowAdvancedFilteredRowsRequest(ui.minorTableView, ui.searchInput->text(), (FFSTableModel*)ui.minorSubtableView);
+}
+
+void FFSDatabaseInterface::showMinorAdvancedFilteredRows()
+{
+    FFSDatabaseInterfaceFormController::ManageShowAdvancedFilteredRowsRequest(ui.minorSubtableView, ui.minorSearchInput->text());
 }
 
 void FFSDatabaseInterface::SetTableSettings(QTableView* table)

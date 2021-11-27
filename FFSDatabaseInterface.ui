@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1140</width>
-    <height>865</height>
+    <height>1036</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -84,6 +84,64 @@
          <property name="bottomMargin">
           <number>5</number>
          </property>
+         <item>
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="title">
+            <string>Search:</string>
+           </property>
+           <widget class="QLineEdit" name="majorSearchInput">
+            <property name="geometry">
+             <rect>
+              <x>40</x>
+              <y>20</y>
+              <width>241</width>
+              <height>22</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="majorSearchImage">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>20</y>
+              <width>31</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>icons8-поиск-24.png</pixmap>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="majorAdvancedSearchCheckbox">
+            <property name="geometry">
+             <rect>
+              <x>320</x>
+              <y>20</y>
+              <width>161</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Enable advanced search</string>
+            </property>
+           </widget>
+          </widget>
+         </item>
          <item>
           <widget class="QTableView" name="majorTableView">
            <property name="minimumSize">
@@ -237,6 +295,58 @@
          <property name="bottomMargin">
           <number>5</number>
          </property>
+         <item>
+          <widget class="QGroupBox" name="groupBox_4">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="title">
+            <string>Search:</string>
+           </property>
+           <widget class="QLineEdit" name="searchInput">
+            <property name="geometry">
+             <rect>
+              <x>40</x>
+              <y>20</y>
+              <width>241</width>
+              <height>22</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="searchImage">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>20</y>
+              <width>31</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>icons8-поиск-24.png</pixmap>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="advancedSearchCheckbox">
+            <property name="geometry">
+             <rect>
+              <x>320</x>
+              <y>20</y>
+              <width>161</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Enable advanced search</string>
+            </property>
+           </widget>
+          </widget>
+         </item>
          <item>
           <widget class="QComboBox" name="tableSelector">
            <property name="minimumSize">
@@ -394,6 +504,58 @@
          <property name="bottomMargin">
           <number>5</number>
          </property>
+         <item>
+          <widget class="QGroupBox" name="groupBox_6">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="title">
+            <string>Search:</string>
+           </property>
+           <widget class="QLineEdit" name="minorSearchInput">
+            <property name="geometry">
+             <rect>
+              <x>40</x>
+              <y>20</y>
+              <width>241</width>
+              <height>22</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="minorSearchImage">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>20</y>
+              <width>31</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap>icons8-поиск-24.png</pixmap>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="minorAdvancedSearchCheckbox">
+            <property name="geometry">
+             <rect>
+              <x>320</x>
+              <y>20</y>
+              <width>161</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Enable advanced search</string>
+            </property>
+           </widget>
+          </widget>
+         </item>
          <item>
           <widget class="QComboBox" name="minorTableSelector">
            <property name="maximumSize">

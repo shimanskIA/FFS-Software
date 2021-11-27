@@ -7,6 +7,8 @@ MeasurementAddForm::MeasurementAddForm(QWidget* parent, int fk_measuring_system,
 	ui.downButton->setDisabled(true);
 	ui.upButton->setDisabled(true);
 	ui.AddMeasurementButton->setDisabled(true);
+	ui.NameInput->setMaxLength(100);
+	ui.FileInput->setMaxLength(300);
 	FFSTableModel* allSamplesTableModel = new FFSTableModel(0, 0);
 	FFSTableModel* allMeasuringSystemsTableModel = new FFSTableModel(0, 0);
 	FFSTableModel* chosenSamplesTableModel = new FFSTableModel(0, 0);
