@@ -25,7 +25,7 @@ void RowManager::FilterRowsByKeyword(QTableView* tableView, QString keyword)
 
 		for (int j = 0; j < model->columnCount(); j++)
 		{
-			if (model->index(i, j).data().toString().toLower().contains(keyword.toLower()))
+			if (!tableView->isColumnHidden(j) && model->index(i, j).data().toString().toLower().contains(keyword.toLower()))
 			{
 				containsEqual = true;
 				break;
@@ -73,7 +73,7 @@ void RowManager::AdvancedFilterRowsByRequest(QTableView* tableView, QString requ
 
 		for (int j = 0; j < model->columnCount(); j++)
 		{
-			if (columnName.toLower() == model->headerData(j, Qt::Horizontal).toString().toLower())
+			if (!tableView->isColumnHidden(j) && columnName.toLower() == model->headerData(j, Qt::Horizontal).toString().toLower())
 			{
 				searchedColumn = j;
 				break;

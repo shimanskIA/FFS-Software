@@ -12,7 +12,7 @@ public:
 	static WindowManager& GetWindowManagerInstance();
 
 	void ManageWindows(QString tableName, FFSDatabaseInterface* view, QMap<QString, int> foreignKeys = QMap<QString, int>());
-	void ShowCharacteristicPreview(QVector<double> x, QVector<double> y, FFSDatabaseInterface* view, int fk_characteristic);
+	void ShowCharacteristicPreview(QString title , QVector<double> x, QVector<double> y, FFSDatabaseInterface* view, int fk_characteristic);
 	void BindMeasuringSystemToInputForm();
 
 private slots:

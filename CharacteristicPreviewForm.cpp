@@ -8,6 +8,7 @@ CharacteristicPreviewForm::CharacteristicPreviewForm(QString title, QVector<doub
 	ui.setupUi(this);
     this->windowId = windowId;
     ui.plotTitle->setText(title);
+    ui.plotTitle->setAlignment(Qt::AlignHCenter);
     ui.plotPreview->clearGraphs();
     ui.plotPreview->addGraph();
     ui.plotPreview->graph(0)->setData(x, y);

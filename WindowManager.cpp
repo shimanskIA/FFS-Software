@@ -84,13 +84,10 @@ void WindowManager::ManageWindows(QString tableName, FFSDatabaseInterface* view,
 	}
 }
 
-void WindowManager::ShowCharacteristicPreview(QVector<double> x, QVector<double> y, FFSDatabaseInterface* view, int fk_characteristic)
+void WindowManager::ShowCharacteristicPreview(QString title, QVector<double> x, QVector<double> y, FFSDatabaseInterface* view, int fk_characteristic)
 {
-	QString sqlReadRequest = "SELECT * FROM characteristics WHERE id = %1";
-	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(fk_characteristic));
-	query.next();
-	QString name = query.value(1).toString().trimmed();
-	CharacteristicPreviewForm* previewForm = new CharacteristicPreviewForm(name, x, y, fk_characteristic);
+	
+	CharacteristicPreviewForm* previewForm = new CharacteristicPreviewForm(title, x, y, fk_characteristic);
 	previewForm->show();
 	view->AddOpenedCharacteristicPreviewWindow(fk_characteristic, previewForm);
 }

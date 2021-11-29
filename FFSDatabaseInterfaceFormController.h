@@ -48,4 +48,6 @@ private:
 
     static bool IsValueAllowed(QString tableName, QTableView* tableView, int selectedRow);
     static bool ContainsEqualRow(int selectedRow, QTableView* tableView);
+
+    static QString BuildTitle(QTableView* tableView, int selectedRow);
 };

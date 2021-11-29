@@ -443,7 +443,8 @@ void FFSDatabaseInterfaceFormController::ManageShowCharacteristicPreviewRequest(
         if (readAbscissaRequestStatusMessage->GetIsSuccessfull() &&
             readOrdinateRequestStatusMessage->GetIsSuccessfull())
         {
-            WindowManager::GetWindowManagerInstance().ShowCharacteristicPreview(x, y, view, selectedId);
+            QString title = BuildTitle(tableView, selectedRow);
+            WindowManager::GetWindowManagerInstance().ShowCharacteristicPreview(title, x, y, view, selectedId);
         }
         else
         {
@@ -653,4 +654,13 @@ void FFSDatabaseInterfaceFormController::DeactivateChildSearchInputs(Ui::FFSData
     ui.majorSearchInput->setText("");
     ui.advancedSearchCheckbox->setDisabled(true);
     ui.minorAdvancedSearchCheckbox->setDisabled(true);
+}
+
+QString FFSDatabaseInterfaceFormController::BuildTitle(QTableView* tableView, int selectedRow)
+{
+    QString channel = tableView->model()->index(selectedRow, 2).data().toString().trimmed();
+    QString numberOfPoints = tableView->model()->index(selectedRow, 3).data().toString().trimmed();
+    QString binTime = tableView->model()->index(selectedRow, 4).data().toString().trimmed();
+    QString type = tableView->model()->index(selectedRow, 6).data().toString().trimmed();
+    return channel + ", Number of points: " + numberOfPoints + ", Bin time: " + binTime + ", " + type;
 }
