@@ -553,6 +553,11 @@ void FFSDatabaseInterfaceFormController::ManageShowAdvancedFilteredRowsRequest(Q
     {
         RowManager::GetRowManagerInstance().AdvancedFilterRowsByRequest(tableView, request);
     }
+    else
+    {
+        tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+        tableView->horizontalHeader()->setStretchLastSection(true);
+    }
     
     tableView->clearSelection();
 }
