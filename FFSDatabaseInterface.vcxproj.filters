@@ -507,7 +507,9 @@
     <ClInclude Include="RowManager.h">
       <Filter>Controller\Entities\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icons8-микроскоп-48.png">
