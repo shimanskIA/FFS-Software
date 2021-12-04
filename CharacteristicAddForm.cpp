@@ -84,7 +84,6 @@ void CharacteristicAddForm::sortChosenElementsTableRows(int selectedColumn)
 void CharacteristicAddForm::addCharacteristic()
 {
 	CharacteristicAddFormController::ManageAddCharacteristicRequest(this);
-	this->close();
 }
 
 void CharacteristicAddForm::manageAddButtonActivity()

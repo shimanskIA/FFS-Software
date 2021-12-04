@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Measuring system input</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons8-микроскоп-48.png</normaloff>icons8-микроскоп-48.png</iconset>
+  </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>

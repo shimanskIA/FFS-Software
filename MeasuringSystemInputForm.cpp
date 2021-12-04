@@ -6,7 +6,8 @@
 MeasuringSystemInputForm::MeasuringSystemInputForm(QWidget* parent) : QDialog(parent)
 {
 	ui.setupUi(this);
-    this->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+    this->setFixedSize(481, 165);
+    this->setWindowFlags(Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowTitleHint);
     ui.continueButton->setDisabled(true);
     ui.NameInput->setMaxLength(100);
     ui.DescriptionInput->setMaxLength(300);
@@ -27,8 +28,8 @@ void MeasuringSystemInputForm::proceedNext()
     credentials.insert("name", ui.NameInput->text());
     credentials.insert("description", ui.DescriptionInput->text());
     credentials.insert("contributor", ui.MainContributorInput->text());
-    emit measuringSystemSet(credentials);
     this->close();
+    emit measuringSystemSet(credentials);
 }
 
 void MeasuringSystemInputForm::manageContinueButtonActivity()

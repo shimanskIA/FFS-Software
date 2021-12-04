@@ -469,7 +469,48 @@ void FFSDatabaseInterfaceFormController::ManageShowMajorFilteredRowsRequest(FFSD
     RowManager::GetRowManagerInstance().ShowAllRows(ui.majorTableView);
     RowManager::GetRowManagerInstance().FilterRowsByKeyword(ui.majorTableView, keyword);
 
-    if (ui.majorTableView->isRowHidden(ui.majorTableView->currentIndex().row()))
+    if (!view->GetEndMajorNodes().contains(view->GetActualTable()))
+    {
+        if (ui.majorTableView->isRowHidden(ui.majorTableView->currentIndex().row()))
+        {
+            if (ui.searchInput->isEnabled())
+            {
+                RowManager::GetRowManagerInstance().HideAllRows(ui.minorTableView);
+                ui.searchInput->setDisabled(true);
+                ui.searchImage->setDisabled(true);
+                ui.advancedSearchCheckbox->setDisabled(true);
+            }
+
+            if (ui.minorSearchInput->isEnabled())
+            {
+                RowManager::GetRowManagerInstance().HideAllRows(ui.minorSubtableView);
+                ui.minorSearchInput->setDisabled(true);
+                ui.minorSearchImage->setDisabled(true);
+                ui.minorAdvancedSearchCheckbox->setDisabled(true);
+            }
+        }
+        else
+        {
+            if (ui.majorTableView->currentIndex().row() != -1)
+            {
+                RowManager::GetRowManagerInstance().ShowAllRows(ui.minorTableView);
+                RowManager::GetRowManagerInstance().FilterRowsByKeyword(ui.minorTableView, ui.searchInput->text());
+                ui.searchInput->setDisabled(false);
+                ui.searchImage->setDisabled(false);
+                ui.advancedSearchCheckbox->setDisabled(false);
+            }
+
+            if (ui.minorTableView->currentIndex().row() != -1)
+            {
+                RowManager::GetRowManagerInstance().ShowAllRows(ui.minorSubtableView);
+                RowManager::GetRowManagerInstance().FilterRowsByKeyword(ui.minorSubtableView, ui.minorSearchInput->text());
+                ui.minorSearchInput->setDisabled(false);
+                ui.minorSearchImage->setDisabled(false);
+                ui.minorAdvancedSearchCheckbox->setDisabled(false);
+            }
+        }
+    }
+    else
     {
         if (ui.searchInput->isEnabled())
         {
@@ -477,34 +518,6 @@ void FFSDatabaseInterfaceFormController::ManageShowMajorFilteredRowsRequest(FFSD
             ui.searchInput->setDisabled(true);
             ui.searchImage->setDisabled(true);
             ui.advancedSearchCheckbox->setDisabled(true);
-        }
-
-        if (ui.minorSearchInput->isEnabled())
-        {
-            RowManager::GetRowManagerInstance().HideAllRows(ui.minorSubtableView);
-            ui.minorSearchInput->setDisabled(true);
-            ui.minorSearchImage->setDisabled(true);
-            ui.minorAdvancedSearchCheckbox->setDisabled(true);
-        }
-    }
-    else
-    {
-        if (ui.majorTableView->currentIndex().row() != -1)
-        {
-            RowManager::GetRowManagerInstance().ShowAllRows(ui.minorTableView);
-            RowManager::GetRowManagerInstance().FilterRowsByKeyword(ui.minorTableView, ui.searchInput->text());
-            ui.searchInput->setDisabled(false);
-            ui.searchImage->setDisabled(false);
-            ui.advancedSearchCheckbox->setDisabled(false);
-        }
-
-        if (ui.minorTableView->currentIndex().row() != -1)
-        {
-            RowManager::GetRowManagerInstance().ShowAllRows(ui.minorSubtableView);
-            RowManager::GetRowManagerInstance().FilterRowsByKeyword(ui.minorSubtableView, ui.minorSearchInput->text());
-            ui.minorSearchInput->setDisabled(false);
-            ui.minorSearchImage->setDisabled(false);
-            ui.minorAdvancedSearchCheckbox->setDisabled(false);
         }
     }
 }
@@ -515,7 +528,31 @@ void FFSDatabaseInterfaceFormController::ManageShowFilteredRowsRequest(FFSDataba
     RowManager::GetRowManagerInstance().ShowAllRows(ui.minorTableView);
     RowManager::GetRowManagerInstance().FilterRowsByKeyword(ui.minorTableView, keyword);
 
-    if (ui.minorTableView->isRowHidden(ui.minorTableView->currentIndex().row()))
+    if (!view->GetEndMinorNodes().contains(view->GetActualSubtable()))
+    {
+        if (ui.minorTableView->isRowHidden(ui.minorTableView->currentIndex().row()))
+        {
+            if (ui.minorSearchInput->isEnabled())
+            {
+                RowManager::GetRowManagerInstance().HideAllRows(ui.minorSubtableView);
+                ui.minorSearchInput->setDisabled(true);
+                ui.minorSearchImage->setDisabled(true);
+                ui.minorAdvancedSearchCheckbox->setDisabled(true);
+            }
+        }
+        else
+        {
+            if (ui.minorTableView->currentIndex().row() != -1)
+            {
+                RowManager::GetRowManagerInstance().ShowAllRows(ui.minorSubtableView);
+                RowManager::GetRowManagerInstance().FilterRowsByKeyword(ui.minorSubtableView, ui.minorSearchInput->text());
+                ui.minorSearchInput->setDisabled(false);
+                ui.minorSearchImage->setDisabled(false);
+                ui.minorAdvancedSearchCheckbox->setDisabled(false);
+            }
+        }
+    }
+    else
     {
         if (ui.minorSearchInput->isEnabled())
         {
@@ -523,17 +560,6 @@ void FFSDatabaseInterfaceFormController::ManageShowFilteredRowsRequest(FFSDataba
             ui.minorSearchInput->setDisabled(true);
             ui.minorSearchImage->setDisabled(true);
             ui.minorAdvancedSearchCheckbox->setDisabled(true);
-        }
-    }
-    else
-    {
-        if (ui.minorTableView->currentIndex().row() != -1)
-        {
-            RowManager::GetRowManagerInstance().ShowAllRows(ui.minorSubtableView);
-            RowManager::GetRowManagerInstance().FilterRowsByKeyword(ui.minorSubtableView, ui.minorSearchInput->text());
-            ui.minorSearchInput->setDisabled(false);
-            ui.minorSearchImage->setDisabled(false);
-            ui.minorAdvancedSearchCheckbox->setDisabled(false);
         }
     }
 }

@@ -2,15 +2,26 @@
 #include "CharacteristicAddService.h"
 #include "TableWriter.h"
 #include "NamesHelper.h"
+#include "ErrorForm.h"
 
 void CharacteristicAddFormController::ManageAddCharacteristicRequest(CharacteristicAddForm* view)
 {
 	bool finalResult = true;
 	QString name;
 	QString channel = view->GetUI().ChannelInput->text();
-	QString x = view->GetUI().XInput->text();
-	QString y = view->GetUI().YInput->text();
-	int numberOfPoints = view->GetUI().NumberOfPointsInput->value();
+	QString x = view->GetUI().XInput->text().trimmed();
+	QString y = view->GetUI().YInput->text().trimmed();
+	int amountOfXValues = x.split(' ').length();
+	int amountOfYValues = y.split(' ').length();
+
+	if (amountOfXValues != amountOfYValues)
+	{
+		ErrorForm* errorForm = new ErrorForm("Amount of X and Y values are not equal, it's impossible to build plot with them.");
+		errorForm->exec();
+		return;
+	}
+
+	int numberOfPoints = amountOfXValues;
 	double binTime = view->GetUI().BinTimeInput->value();
 	double weight = view->GetUI().WeightInput->value();
 
@@ -50,6 +61,7 @@ void CharacteristicAddFormController::ManageAddCharacteristicRequest(Characteris
 	isRowAdded = CharacteristicAddService::AddCharacteristicRequestReceiver(characteristic);
 
 	view->SetIsRowAdded(isRowAdded);
+	view->close();
 }
 
 void CharacteristicAddFormController::ManageShowAllElementsTableRequest(QString tableName, QTableView* tableView, CharacteristicAddForm* view, bool firstLoad)
