@@ -510,32 +510,6 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="measurementstate.txt">
-      <Filter>Model\Resource Files</Filter>
-    </Text>
-    <Text Include="measurementparameterstate.txt">
-      <Filter>Model\Resource Files</Filter>
-    </Text>
-    <Text Include="equipmentstate.txt">
-      <Filter>Model\Resource Files</Filter>
-    </Text>
-    <Text Include="equipmentparameterstate.txt">
-      <Filter>Model\Resource Files</Filter>
-    </Text>
-    <Text Include="samplestate.txt">
-      <Filter>Model\Resource Files</Filter>
-    </Text>
-    <Text Include="characteristicstate.txt">
-      <Filter>Model\Resource Files</Filter>
-    </Text>
-    <Text Include="characteristictypestate.txt">
-      <Filter>Model\Resource Files</Filter>
-    </Text>
-    <Text Include="measuringsystemstate.txt">
-      <Filter>Model\Resource Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="icons8-микроскоп-48.png">
       <Filter>Resource Files\Icons</Filter>
     </Image>
@@ -568,5 +542,31 @@
     <ResourceCompile Include="FFSDatabaseInterface.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\FFSProcessorApplication\management\equipmentparameterstate.txt">
+      <Filter>Model\Resource Files</Filter>
+    </Text>
+    <Text Include="..\..\..\FFSProcessorApplication\management\equipmentstate.txt">
+      <Filter>Model\Resource Files</Filter>
+    </Text>
+    <Text Include="..\..\..\FFSProcessorApplication\management\measurementparameterstate.txt">
+      <Filter>Model\Resource Files</Filter>
+    </Text>
+    <Text Include="..\..\..\FFSProcessorApplication\management\measurementstate.txt">
+      <Filter>Model\Resource Files</Filter>
+    </Text>
+    <Text Include="..\..\..\FFSProcessorApplication\management\measuringsystemstate.txt">
+      <Filter>Model\Resource Files</Filter>
+    </Text>
+    <Text Include="..\..\..\FFSProcessorApplication\management\samplestate.txt">
+      <Filter>Model\Resource Files</Filter>
+    </Text>
+    <Text Include="..\..\..\FFSProcessorApplication\management\characteristicstate.txt">
+      <Filter>Model\Resource Files</Filter>
+    </Text>
+    <Text Include="..\..\..\FFSProcessorApplication\management\characteristictypestate.txt">
+      <Filter>Model\Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

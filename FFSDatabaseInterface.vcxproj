@@ -231,16 +231,6 @@
     <ClInclude Include="TextFileInteractionHelper.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="characteristicstate.txt" />
-    <Text Include="characteristictypestate.txt" />
-    <Text Include="equipmentstate.txt" />
-    <Text Include="equipmentparameterstate.txt" />
-    <Text Include="measurementstate.txt" />
-    <Text Include="measurementparameterstate.txt" />
-    <Text Include="measuringsystemstate.txt" />
-    <Text Include="samplestate.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="..\..\..\icons8-база-данных-48.ico" />
     <Image Include="icons8-warning-100.png" />
     <Image Include="icons8-warning-48.png" />
@@ -253,6 +243,16 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FFSDatabaseInterface.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\FFSProcessorApplication\management\characteristicstate.txt" />
+    <Text Include="..\..\..\FFSProcessorApplication\management\characteristictypestate.txt" />
+    <Text Include="..\..\..\FFSProcessorApplication\management\equipmentparameterstate.txt" />
+    <Text Include="..\..\..\FFSProcessorApplication\management\equipmentstate.txt" />
+    <Text Include="..\..\..\FFSProcessorApplication\management\measurementparameterstate.txt" />
+    <Text Include="..\..\..\FFSProcessorApplication\management\measurementstate.txt" />
+    <Text Include="..\..\..\FFSProcessorApplication\management\measuringsystemstate.txt" />
+    <Text Include="..\..\..\FFSProcessorApplication\management\samplestate.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
