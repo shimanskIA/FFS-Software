@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icons8-база-данных-48.png</normaloff>icons8-база-данных-48.png</iconset>
+    <normaloff>icons/icons8-база-данных-48.png</normaloff>icons/icons8-база-данных-48.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -124,7 +124,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>icons8-поиск-24.png</pixmap>
+             <pixmap>icons/icons8-поиск-24.png</pixmap>
             </property>
            </widget>
            <widget class="QCheckBox" name="majorAdvancedSearchCheckbox">
@@ -329,7 +329,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>icons8-поиск-24.png</pixmap>
+             <pixmap>icons/icons8-поиск-24.png</pixmap>
             </property>
            </widget>
            <widget class="QCheckBox" name="advancedSearchCheckbox">
@@ -538,7 +538,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap>icons8-поиск-24.png</pixmap>
+             <pixmap>icons/icons8-поиск-24.png</pixmap>
             </property>
            </widget>
            <widget class="QCheckBox" name="minorAdvancedSearchCheckbox">

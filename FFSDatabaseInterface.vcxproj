@@ -196,6 +196,7 @@
     <ClInclude Include="ParameterAddFormController.h" />
     <ClInclude Include="ParameterAddService.h" />
     <QtMoc Include="qcustomplot.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="RowManager.h" />
     <ClInclude Include="SampleAddFormController.h" />
     <ClInclude Include="SampleAddService.h" />
@@ -240,6 +241,7 @@
     <Text Include="samplestate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\icons8-база-данных-48.ico" />
     <Image Include="icons8-warning-100.png" />
     <Image Include="icons8-warning-48.png" />
     <Image Include="icons8-абсцисса-48.png" />
@@ -248,6 +250,9 @@
     <Image Include="icons8-микроскоп-48.png" />
     <Image Include="icons8-поиск-24.png" />
     <Image Include="icons8-тонкая-пробирка-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FFSDatabaseInterface.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

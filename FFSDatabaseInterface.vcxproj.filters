@@ -507,6 +507,7 @@
     <ClInclude Include="RowManager.h">
       <Filter>Controller\Entities\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="measurementstate.txt">
@@ -559,5 +560,13 @@
     <Image Include="icons8-база-данных-48.png">
       <Filter>Resource Files\Icons</Filter>
     </Image>
+    <Image Include="..\..\..\icons8-база-данных-48.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FFSDatabaseInterface.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

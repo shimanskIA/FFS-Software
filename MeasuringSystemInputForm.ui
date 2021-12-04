@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icons8-микроскоп-48.png</normaloff>icons8-микроскоп-48.png</iconset>
+    <normaloff>icons/icons8-микроскоп-48.png</normaloff>icons/icons8-микроскоп-48.png</iconset>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">

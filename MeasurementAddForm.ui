@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icons8-тонкая-пробирка-48.png</normaloff>icons8-тонкая-пробирка-48.png</iconset>
+    <normaloff>icons/icons8-тонкая-пробирка-48.png</normaloff>icons/icons8-тонкая-пробирка-48.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="leftMargin">
