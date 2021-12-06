@@ -495,11 +495,11 @@ bool DbWriter::AddSample(SampleContext* sample, bool isComplex)
 
 bool DbWriter::AddCharacteristicType(CharacteristicTypeContext* characteristicType, bool isComplex)
 {
-	QString sqlReadRequest = "SELECT * FROM characteristic_types WHERE name = '%1' AND description = '%2'";
+	QString sqlReadRequest = "SELECT * FROM characteristic_types WHERE name = '%1'";
 	int id = characteristicType->GetId();
 	QString name = characteristicType->GetName();
 	QString description = characteristicType->GetDescription();
-	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name).arg(description));
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name));
 
 	if (!query.next())
 	{
@@ -589,12 +589,12 @@ bool DbWriter::AddMeasurement(MeasurementContext* measurement)
 
 bool DbWriter::AddEquipmentParameter(EquipmentParameterContext* equipmentParameter)
 {
-	QString sqlReadRequest = "SELECT * FROM equipment_parameters WHERE name = '%1' AND value = '%2' AND fk_equipment = %3";
+	QString sqlReadRequest = "SELECT * FROM equipment_parameters WHERE name = '%1' AND fk_equipment = %2";
 	int id = equipmentParameter->GetId();
 	QString name = equipmentParameter->GetName();
 	QString value = equipmentParameter->GetValue();
 	int fk_equipment = equipmentParameter->GetFKEquipment();
-	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name).arg(value).arg(fk_equipment));
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name).arg(fk_equipment));
 
 	if (!query.next())
 	{
@@ -609,12 +609,12 @@ bool DbWriter::AddEquipmentParameter(EquipmentParameterContext* equipmentParamet
 
 bool DbWriter::AddMeasurementParameter(MeasurementParameterContext* measurementParameter)
 {
-	QString sqlReadRequest = "SELECT * FROM measurement_parameters WHERE name = '%1' AND value = '%2' AND fk_measurement = %3";
+	QString sqlReadRequest = "SELECT * FROM measurement_parameters WHERE name = '%1' AND fk_measurement = %2";
 	int id = measurementParameter->GetId();
 	QString name = measurementParameter->GetName();
 	QString value = measurementParameter->GetValue();
 	int fk_measurement = measurementParameter->GetFKMeasurement();
-	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name).arg(value).arg(fk_measurement));
+	QSqlQuery query = DbReader::GetDbReaderInstance().ReadFromDatabase(sqlReadRequest.arg(name).arg(fk_measurement));
 
 	if (!query.next())
 	{

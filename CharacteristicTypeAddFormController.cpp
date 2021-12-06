@@ -19,7 +19,7 @@ void CharacteristicTypeAddFormController::ManageAddCharacteristicTypeRequest(Cha
 	}
 	else
 	{
-		ErrorForm* errorForm = new ErrorForm("Characteristic type with these name and description already exists.");
+		ErrorForm* errorForm = new ErrorForm("Characteristic type you're trying to add already exists in database.");
 		errorForm->show();
 		view->GetUI().NameInput->setText("");
 	}

@@ -2,14 +2,14 @@
 
 #include <QString>
 
-const QString sampleStatePath = "Management/samplestate.txt";
-const QString measurementStatePath = "Management/measurementstate.txt";
-const QString equipmentStatePath = "Management/equipmentstate.txt";
-const QString measurementParametersStatePath = "Management/measurementparameterstate.txt";
-const QString equipmentParameterStatePath = "Management/equipmentparameterstate.txt";
-const QString characteristicStatePath = "Management/characteristicstate.txt";
-const QString characteristicTypeStatePath = "Management/characteristictypestate.txt";
-const QString measuringSystemStatePath = "Management/measuringsystemstate.txt";
+const QString sampleStatePath = "management/samplestate.txt";
+const QString measurementStatePath = "management/measurementstate.txt";
+const QString equipmentStatePath = "management/equipmentstate.txt";
+const QString measurementParametersStatePath = "management/measurementparameterstate.txt";
+const QString equipmentParameterStatePath = "management/equipmentparameterstate.txt";
+const QString characteristicStatePath = "management/characteristicstate.txt";
+const QString characteristicTypeStatePath = "management/characteristictypestate.txt";
+const QString measuringSystemStatePath = "management/measuringsystemstate.txt";
 
 const QString dbCharacteristics = "characteristics";
 const QString dbMeasurements = "measurements";
