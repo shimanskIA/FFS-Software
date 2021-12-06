@@ -259,14 +259,17 @@ void DbReader::TransformQueryToEquipments(QSqlQuery query, QList<EquipmentContex
 
 QList<CharacteristicsContext*> DbReader::ReadCharacteristicsFromDatabase()
 {
-	QString sqlReadRequest = "SELECT * FROM characteristics";
+	QString sqlReadRequest = "SELECT characteristics.*, characteristic_types.name "
+		"FROM characteristics LEFT JOIN characteristic_types ON characteristics.fk_characteristic_type = characteristic_types.id";
 	QSqlQuery query = ReadFromDatabase(sqlReadRequest);
 	return ReadCharacteristicsFromDatabase(query);
 }
 
 QList<CharacteristicsContext*> DbReader::ReadCharacteristicsFromDatabase(QString majorTableName, int majorTableId)
 {
-	QString sqlReadRequest = "SELECT * FROM characteristics WHERE fk_%1 = %2";
+	QString sqlReadRequest = "SELECT characteristics.*, characteristic_types.name "
+		"FROM characteristics LEFT JOIN characteristic_types ON characteristics.fk_characteristic_type = characteristic_types.id "
+		"WHERE fk_%1 = %2";
 	QSqlQuery query = ReadFromDatabase(sqlReadRequest.arg(majorTableName).arg(majorTableId));
 	return ReadCharacteristicsFromDatabase(query);
 }
@@ -286,15 +289,11 @@ QList<CharacteristicsContext*> DbReader::ReadCharacteristicsFromDatabase(QSqlQue
 		characteristic->SetWeight(query.value(7).toDouble());
 
 		int fk_characteristic_type = query.value(9).toInt();
+		QString characteristicTypeName = query.value(10).toString().trimmed();
 		CharacteristicTypeContext* characteristicType = new CharacteristicTypeContext(fk_characteristic_type);
-		QString sqlSampleReadRequest = "SELECT * FROM characteristic_types WHERE id = %1";
-		QSqlQuery characteristicTypeQuery = ReadFromDatabase(sqlSampleReadRequest.arg(fk_characteristic_type));
-		if (characteristicTypeQuery.next())
-		{
-			characteristicType->SetName(characteristicTypeQuery.value(1).toString().trimmed());
-			characteristic->SetFKCharacteristicType(characteristicType);
-		}
+		characteristicType->SetName(characteristicTypeName);
 
+		characteristic->SetFKCharacteristicType(characteristicType);
 		characteristics.append(characteristic);
 	}
 

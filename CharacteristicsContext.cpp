@@ -122,5 +122,3 @@ QString CharacteristicsContext::GetCharacteristicTypeName()
 {
 	return this->fk_characteristic_type->GetName();
 }
-
-

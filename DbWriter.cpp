@@ -462,11 +462,9 @@ bool DbWriter::AddEquipmentItem(EquipmentContext* equipmentItem)
 		{
 			AddBinding(binding);
 		}
-
-		return true;
 	}
 
-	return false;
+	return isRowAdded;
 }
 
 bool DbWriter::AddSample(SampleContext* sample, bool isComplex)
