@@ -97,7 +97,9 @@ QList<MeasuringSystemContext*> DbReader::ReadMeasuringSystemsFromDatabase()
 
 QList<MeasurementContext*> DbReader::ReadMeasurementsFromDatabase()
 {
-	QString sqlReadRequest = "SELECT * FROM measurements";
+	QString sqlReadRequest = "SELECT measurements.*, samples.name FROM measurements "
+		"JOIN samples "
+		"ON measurements.fk_sample = samples.id";
 	QSqlQuery query = ReadFromDatabase(sqlReadRequest);
 	QList<MeasurementContext*> measurements;
 
@@ -115,13 +117,8 @@ QList<MeasurementContext*> DbReader::ReadMeasurementsFromDatabase()
 
 		int fk_sample = query.value(8).toInt();
 		SampleContext* sample = new SampleContext(fk_sample);
-		QString sqlSampleReadRequest = "SELECT * FROM samples WHERE id = %1";
-		QSqlQuery sampleQuery = ReadFromDatabase(sqlSampleReadRequest.arg(fk_sample));
-		if (sampleQuery.next())
-		{
-			sample->SetName(sampleQuery.value(1).toString().trimmed());
-			measurement->SetFKSample(sample);
-		}
+		sample->SetName(query.value(10).toString().trimmed());
+		measurement->SetFKSample(sample);
 
 		measurements.append(measurement);
 	}
