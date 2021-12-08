@@ -132,6 +132,7 @@
     <ClCompile Include="ParameterAddService.cpp" />
     <ClCompile Include="ParameterTableContext.cpp" />
     <ClCompile Include="qcustomplot.cpp" />
+    <ClCompile Include="Reporter.cpp" />
     <ClCompile Include="RowManager.cpp" />
     <ClCompile Include="SampleAddForm.cpp" />
     <ClCompile Include="SampleAddFormController.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="ParameterAddFormController.h" />
     <ClInclude Include="ParameterAddService.h" />
     <QtMoc Include="qcustomplot.h" />
+    <ClInclude Include="Reporter.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RowManager.h" />
     <ClInclude Include="SampleAddFormController.h" />

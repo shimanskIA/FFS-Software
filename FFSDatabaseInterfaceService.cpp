@@ -4,10 +4,16 @@
 #include "DbWriter.h"
 #include "IdFileManager.h"
 #include "DbConnection.h"
+#include "Reporter.h"
 
 OperationStatusMessage* FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)
 {
 	return DbImporter::GetDbImporterInstance().ImportToDatabase(fileLink);
+}
+
+void FFSDatabaseInterfaceService::ExportRequestReceiver(QString fileLink)
+{
+	Reporter::GetReporterInstance().Report(fileLink);
 }
 
 OperationStatusMessage* FFSDatabaseInterfaceService::DeleteRowRequestReceiver(QString tableName, int selectedId)

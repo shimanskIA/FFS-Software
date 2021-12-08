@@ -35,7 +35,8 @@ FFSDatabaseInterface::FFSDatabaseInterface(QWidget* parent) : QMainWindow(parent
     connect(ui.actionMeasurement, SIGNAL(triggered()), this, SLOT(chooseMeasurementTable()));
     connect(ui.actionCharacteristicType, SIGNAL(triggered()), this, SLOT(chooseCharacteristicTypeTable()));
     connect(ui.actionCharacteristic, SIGNAL(triggered()), this, SLOT(chooseCharacteristicTable()));
-    connect(ui.actionImport, SIGNAL(triggered()), this, SLOT(openFileDialog()));
+    connect(ui.actionImport, SIGNAL(triggered()), this, SLOT(importFromFile()));
+    connect(ui.actionExport, SIGNAL(triggered()), this, SLOT(exportToFile()));
     connect(ui.majorTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(loadDataToSubtable()));
     connect(ui.majorTableView->model(), &QAbstractItemModel::dataChanged, this, &FFSDatabaseInterface::updateMajorTableRow);
     connect(ui.majorTableView, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(switchMajorTableToEditMode()));
@@ -110,13 +111,24 @@ void FFSDatabaseInterface::chooseCharacteristicTable()
     FFSDatabaseInterfaceFormController::ManageShowCharacteristicsTableRequest(this);
 }
 
-void FFSDatabaseInterface::openFileDialog()
+void FFSDatabaseInterface::importFromFile()
 {
     QString filePath = QFileDialog::getOpenFileName();
+
     if (filePath != nullptr)
     {
         FFSDatabaseInterfaceFormController::ManageFileImportRequest(filePath);
         FFSDatabaseInterfaceFormController::ManageRefreshMajorTableRequest(this);
+    }
+}
+
+void FFSDatabaseInterface::exportToFile()
+{
+    QString filePath = QFileDialog::getSaveFileName(NULL, "Save to PDF", "report " + QDateTime::currentDateTime().toString().replace(':', '-'), "PDF(*.pdf)");
+
+    if (filePath != nullptr)
+    {
+        FFSDatabaseInterfaceFormController::ManageFileExportRequest(filePath);
     }
 }
 

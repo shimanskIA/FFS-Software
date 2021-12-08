@@ -273,6 +273,9 @@
     <ClCompile Include="RowManager.cpp">
       <Filter>Controller\Entities\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Reporter.cpp">
+      <Filter>Model\Entities\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FFSDatabaseInterface.ui">
@@ -509,6 +512,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reporter.h">
+      <Filter>Model\Entities\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

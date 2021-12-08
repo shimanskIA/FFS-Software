@@ -76,7 +76,8 @@ private slots:
     void chooseMeasuringSystemTable();
     void chooseCharacteristicTypeTable();
     void chooseCharacteristicTable();
-    void openFileDialog();
+    void importFromFile();
+    void exportToFile();
     void loadDataToSubtable();
     void loadDataToMinorSubtable();
     void switchButtons();

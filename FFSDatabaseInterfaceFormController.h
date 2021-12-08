@@ -12,6 +12,7 @@ static class FFSDatabaseInterfaceFormController : public TableFillRequestControl
 {
 public:
     static void ManageFileImportRequest(QString fileName);
+    static void ManageFileExportRequest(QString fileName);
     static void ManageShowMeasuringSystemTableRequest(FFSDatabaseInterface* view, bool isFirstLoad = false);
     static void ManageShowCharacteristicsTableRequest(FFSDatabaseInterface* view);
     static void ManageLoadDataToSubtableRequest(FFSDatabaseInterface* view);

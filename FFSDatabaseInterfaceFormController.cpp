@@ -20,6 +20,11 @@ void FFSDatabaseInterfaceFormController::ManageFileImportRequest(QString fileNam
     }
 }
 
+void FFSDatabaseInterfaceFormController::ManageFileExportRequest(QString fileName)
+{
+    FFSDatabaseInterfaceService::ExportRequestReceiver(fileName);
+}
+
 void FFSDatabaseInterfaceFormController::ManageShowMeasuringSystemTableRequest(FFSDatabaseInterface* view, bool isFirstLoad)
 {
     auto ui = view->GetUI();

@@ -1,9 +1,8 @@
 #pragma once
 
-#include <QObject>
 #include <QTableView>
 
-class RowManager : public QObject
+class RowManager
 {
 public:
 	static RowManager& GetRowManagerInstance();
