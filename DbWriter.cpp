@@ -480,15 +480,13 @@ bool DbWriter::AddSample(SampleContext* sample, bool isComplex)
 		QString sqlWriteRequest = "INSERT INTO samples(id, name, description) VALUES (%1, '%2', '%3')";
 		return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "samples");
 	}
-	else
+		
+	if (isComplex)
 	{
-		if (isComplex)
-		{
-			sample->SetId(query.value(0).toInt());
-		}
-
-		return false;
+		sample->SetId(query.value(0).toInt());
 	}
+
+	return false;
 }
 
 bool DbWriter::AddCharacteristicType(CharacteristicTypeContext* characteristicType, bool isComplex)
@@ -504,15 +502,13 @@ bool DbWriter::AddCharacteristicType(CharacteristicTypeContext* characteristicTy
 		QString sqlWriteRequest = "INSERT INTO characteristic_types(id, name, description) VALUES (%1, '%2', '%3')";
 		return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(description), "characteristic_types");
 	}
-	else
-	{
-		if (isComplex)
-		{
-			characteristicType->SetId(query.value(0).toInt());
-		}
 
-		return false;
+	if (isComplex)
+	{
+		characteristicType->SetId(query.value(0).toInt());
 	}
+
+	return false;
 }
 
 bool DbWriter::AddCharacteristic(CharacteristicsContext* characteristic)
@@ -553,10 +549,8 @@ bool DbWriter::AddCharacteristic(CharacteristicsContext* characteristic)
 			.arg(fk_measurement)
 			.arg(fk_characteristic_type), "characteristics");
 	}
-	else
-	{
-		return false;
-	}
+
+	return false;
 }
 
 bool DbWriter::AddMeasurement(MeasurementContext* measurement)
@@ -599,10 +593,8 @@ bool DbWriter::AddEquipmentParameter(EquipmentParameterContext* equipmentParamet
 		QString sqlWriteRequest = "INSERT INTO equipment_parameters(id, name, value, fk_equipment) VALUES (%1, '%2', '%3', %4)";
 		return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(value).arg(fk_equipment), "equipment_parameters");
 	}
-	else
-	{
-		return false;
-	}
+
+	return false;
 }
 
 bool DbWriter::AddMeasurementParameter(MeasurementParameterContext* measurementParameter)
@@ -619,10 +611,8 @@ bool DbWriter::AddMeasurementParameter(MeasurementParameterContext* measurementP
 		QString sqlWriteRequest = "INSERT INTO measurement_parameters(id, name, value, fk_measurement) VALUES (%1, '%2', '%3', %4)";
 		return WriteToDatabase(sqlWriteRequest.arg(id).arg(name).arg(value).arg(fk_measurement), "measurement_parameters");
 	}
-	else
-	{
-		return false;
-	}
+
+	return false;
 }
 
 bool DbWriter::AddRow(QVariant tableContext)
