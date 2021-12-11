@@ -1,6 +1,4 @@
 #include "DbEditor.h"
-#include "TextFileInteractionHelper.h"
-#include "EquipmentContext.h"
 
 #include <QtSql>
 

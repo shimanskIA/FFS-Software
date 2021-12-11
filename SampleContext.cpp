@@ -1,5 +1,4 @@
 #include "SampleContext.h"
-#include "TextFileInteractionHelper.h"
 
 SampleContext::SampleContext(QString stateFilePath) : TableContext(stateFilePath)
 {

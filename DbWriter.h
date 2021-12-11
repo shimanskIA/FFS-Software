@@ -1,7 +1,6 @@
 #pragma once
 
 #include "DbContext.h"
-#include "DbConnection.h"
 #include "DbReader.h"
 
 class DbWriter

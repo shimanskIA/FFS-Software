@@ -1,5 +1,4 @@
 #include "EquipmentParameterContext.h"
-#include "TextFileInteractionHelper.h"
 
 EquipmentParameterContext::EquipmentParameterContext(QString stateFilePath) : ParameterTableContext(stateFilePath)
 {

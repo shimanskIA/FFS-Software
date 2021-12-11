@@ -2,7 +2,6 @@
 
 #include "ui_FFSDatabaseInterface.h"
 #include "ui_EquipmentAddForm.h"
-#include "FFSDatabaseInterface.h"
 #include "EquipmentAddForm.h"
 #include "MeasurementContext.h"
 #include "FFSTableModel.h"

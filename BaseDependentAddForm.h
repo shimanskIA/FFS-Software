@@ -10,8 +10,6 @@ class BaseDependentAddForm : public BaseAddForm
 	Q_OBJECT
 
 public:
-	BaseDependentAddForm(QWidget* parent = Q_NULLPTR);
-
 	void SetTableSettings(QTableView* tableView);
 
 protected slots:
@@ -22,4 +20,7 @@ protected slots:
 	virtual void selectChosenElement() = 0;
 	virtual void selectElement() = 0;
 	virtual void cancelChoose() = 0;
+
+protected:
+	BaseDependentAddForm(QWidget* parent = Q_NULLPTR);
 };

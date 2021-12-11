@@ -1,7 +1,6 @@
 #pragma once
 
 #include "DbContext.h"
-#include "DbConnection.h"
 #include "OperationStatusMessage.h"
 
 #include <QString>

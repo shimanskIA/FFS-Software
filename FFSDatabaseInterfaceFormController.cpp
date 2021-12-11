@@ -3,7 +3,6 @@
 #include "TableWriter.h"
 #include "RowManager.h"
 #include "WindowManager.h"
-#include "DbConnection.h"
 #include "ErrorForm.h"
 
 #include <QVariant>

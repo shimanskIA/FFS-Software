@@ -3,7 +3,6 @@
 #include "DbEditor.h"
 #include "DbWriter.h"
 #include "IdFileManager.h"
-#include "DbConnection.h"
 #include "Reporter.h"
 
 OperationStatusMessage* FFSDatabaseInterfaceService::ImportRequestReceiver(QString fileLink)

@@ -1,5 +1,4 @@
 #include "MeasurementContext.h"
-#include "TextFileInteractionHelper.h"
 #include "qmath.h"
 
 MeasurementContext::MeasurementContext(QString stateFilePath) : TableContext(stateFilePath)

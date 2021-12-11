@@ -1,5 +1,4 @@
 #include "EquipmentContext.h"
-#include "TextFileInteractionHelper.h"
 
 EquipmentContext::EquipmentContext(QString stateFilePath) : TableContext(stateFilePath)
 {

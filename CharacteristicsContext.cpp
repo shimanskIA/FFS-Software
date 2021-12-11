@@ -1,5 +1,4 @@
 #include "CharacteristicsContext.h"
-#include "TextFileInteractionHelper.h"
 
 CharacteristicsContext::CharacteristicsContext(QString stateFilePath) : TableContext(stateFilePath)
 {

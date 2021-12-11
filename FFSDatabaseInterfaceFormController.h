@@ -4,7 +4,6 @@
 #include "FFSDatabaseInterface.h"
 #include "FFSTableModel.h"
 #include "TableFillRequestController.h"
-#include "DbWriter.h"
 
 #include <QString>
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "FFSDatabaseInterface.h"
-#include "MeasuringSystemInputForm.h"
 
 #include <QString>
 #include <QObject>

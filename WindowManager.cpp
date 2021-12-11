@@ -8,6 +8,7 @@
 #include "ParameterAddForm.h"
 #include "CharacteristicPreviewForm.h"
 #include "FFSDatabaseInterfaceService.h"
+#include "MeasuringSystemInputForm.h"
 #include "OperationStatusMessage.h"
 #include "ErrorForm.h"
 #include "DbReader.h"

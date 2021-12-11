@@ -1,7 +1,6 @@
 #pragma once
 
 #include "DbContext.h"
-#include "RawDataParser.h"
 #include "OperationStatusMessage.h"
 
 class DbImporter
